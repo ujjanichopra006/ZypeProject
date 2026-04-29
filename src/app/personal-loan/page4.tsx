@@ -13,7 +13,7 @@ export default function page4(){
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
         
-        {/* Amount */}
+       
         <div className="bg-white p-6 rounded-xl shadow text-center">
              <div className="w-16 h-16 mx-auto mb-4 flex  text-black items-center justify-center rounded-full border border-gray-300">
     <Wallet size={28} className="text-black" />
@@ -27,7 +27,7 @@ export default function page4(){
           </Link>
         </div>
 
-        {/* Salary */}
+      
         <div className="bg-white p-6 rounded-xl shadow text-center">
             <div className="w-16 h-16 mx-auto mb-4 text-black flex items-center justify-center rounded-full border">
             <IndianRupee size={28} />
@@ -40,7 +40,6 @@ export default function page4(){
           </Link>
         </div>
 
-        {/* Location */}
         <div className="bg-white p-6 rounded-xl shadow text-center">
             <div className="w-16 h-16 mx-auto mb-4 text-black flex items-center justify-center rounded-full border">
             <MapPin size={28} />
