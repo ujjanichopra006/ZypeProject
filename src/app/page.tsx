@@ -1,9 +1,12 @@
 import Image from "next/image";
-import Navbar from "../app/navbar/nav";
+
+import Homee from "../app/home/page"
+
 export default function Home() {
   return (
     <>
-     <Navbar/>
+     <Homee/>
+     
     </>
   );
 }
