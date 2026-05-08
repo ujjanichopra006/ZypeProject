@@ -19,11 +19,11 @@ export default function Footer() {
           </div>
           <p className="mb-2">Follow Us:</p>
           <div className="flex gap-4 text-xl mb-6">
-            <span>X</span>
-            <span>▶</span>
-            <span>f</span>
-            <span>📷</span>
-            <span>in</span>
+             <a href="/"><span>X</span></a>
+          <a href="/"> <span>▶</span></a>
+            <a href="/"><span>f</span></a>
+            <a href="/"><span>📷</span></a>
+            <a href="/"><span>in</span></a>
           </div>
           <p>https://keshvacredit.com/</p>
           <p>080654 20207</p>
@@ -33,32 +33,32 @@ export default function Footer() {
         <div>
           <h2 className="text-white font-semibold mb-4">Home</h2>
           <ul className="space-y-2">
-            <li>About Us</li>
-            <li>Personal Loan</li>
-            <li>Spend Analyser</li>
-            <li>Bill Payments</li>
-            <li>Blogs</li>
-            <li>Sitemap</li>
-            <li>Careers</li>
-            <li>Contact Us</li>
+           <a href="/"> <li>About Us</li> </a>
+            <a href="/"><li>Personal Loan</li></a>
+            <a href="/"><li>Spend Analyser</li></a>
+            <a href="/"><li>Bill Payments</li></a>
+           <a href="/"><li>Blogs</li></a>
+            <a href="/"><li>Sitemap</li></a>
+           <a href="/"> <li>Careers</li></a>
+            <a href="/"><li>Contact Us</li></a>
           </ul>
         </div>
         <div>
           <h2 className="text-white font-semibold mb-4">Company</h2>
           <ul className="space-y-2">
-            <li>Media Partners</li>
-            <li>Sourcing Partners</li>
+           <a href="/"> <li>Media Partners</li></a>
+            <a href="/"><li>Sourcing Partners</li></a>
           </ul>
         </div>
         <div>
           <h2 className="text-white font-semibold mb-4">Legal</h2>
           <ul className="space-y-2">
-            <li>Product Terms</li>
-            <li>Privacy Policy</li>
-            <li>Terms and Conditions</li>
-            <li>Grievance Redressal</li>
-            <li>Customer Data Policy</li>
-            <li>Other Policies</li>
+           <a href="/"> <li>Product Terms</li></a>
+           <a href="/"> <li>Privacy Policy</li></a>
+           <a href="/"> <li>Terms and Conditions</li></a>
+            <a href="/"><li>Grievance Redressal</li></a>
+            <a href="/"><li>Customer Data Policy</li></a>
+            <a href="/"><li>Other Policies</li></a>
           </ul>
         </div>
 

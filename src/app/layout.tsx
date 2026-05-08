@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+// import Popup from "../app/popup/popup"
 
 import Navbar from "./navbar/nav";
 import Footer from "./footer/fot";
@@ -32,15 +33,13 @@ export default function RootLayout({
     >
       <body className="min-h-screen flex flex-col">
 
-        {/* Navbar */}
+      
         <Navbar />
-
-        {/* Main Content */}
+ {/* <Popup /> */}
         <main className="flex-grow">
           {children}
         </main>
-
-        {/* Footer */}
+        
         <Footer />
 
       </body>

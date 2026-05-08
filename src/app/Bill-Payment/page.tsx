@@ -43,6 +43,29 @@ export default function BillPaymentForm() {
                                     className="w-full p-3 bg-gray-100 rounded-lg border border-gray-300 outline-none focus:ring-1 focus:ring-blue-400" />
                             </div>
                         </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                            <div>
+                                <label className="block mb-1">Aadhar PDF</label>
+                                <input
+                                    type="file"
+                                    accept=".pdf"
+                                    className="w-full p-2 bg-gray-100 rounded-lg border border-gray-300 outline-none focus:ring-1 focus:ring-blue-400"
+                                />
+                            </div>
+   
+                            <div>
+                                <label className="block mb-1">Pan PDF</label>
+                                <input
+                                    type="file"
+                                    accept=".pdf"
+                                    className="w-full p-2 bg-gray-100 rounded-lg border border-gray-300 outline-none focus:ring-1 focus:ring-blue-400"
+                                />
+                            </div>
+
+                        </div>
+
                         <div>
                             <label className="block mb-1">Amount</label>
                             <input placeholder="Enter amount"
@@ -64,6 +87,7 @@ export default function BillPaymentForm() {
                                 <option>Without Interest</option>
                             </select>
                         </div>
+
 
 
                         <div>

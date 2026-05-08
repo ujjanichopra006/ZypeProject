@@ -48,7 +48,7 @@ export default function SendAnalyser() {
 
                     <p data-aos="fade-down" className="text-gray-700 text-lg mb-8">
                         Managing your personal finance has never been easier!
-                        Effortlessly track budget goals on Zype app.
+                        Effortlessly track budget goals on KC app.
                     </p>
 
                     <motion.button
