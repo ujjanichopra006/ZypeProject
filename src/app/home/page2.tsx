@@ -8,8 +8,6 @@ export default function Second() {
 
       <div className="flex flex-col items-center justify-center overflow-hidden bg-gray-100 text-black py-10">
 
-        
-
         <div className="max-w-3xl text-center">
 
           <h1 className="text-2xl md:text-4xl font-black py-5">
@@ -31,8 +29,7 @@ export default function Second() {
 
        
         <div className="overflow-hidden w-full py-7">
-
-          <style>
+     <style>
             {`
               .slider-track {
                 display: flex;

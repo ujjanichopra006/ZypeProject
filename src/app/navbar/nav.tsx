@@ -1,20 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-// import OtpPopup from "../popup/popup";
-import { Search } from "lucide-react";
+import OtpPopup from "../popup/popup";
+import { Search, User } from "lucide-react";
 
 export default function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const [projectDropdown, setProjectDropdown] = useState(false);
+  const [isloggedIn, setIsloggedIn] = useState(false);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const [projectDropdown, setProjectDropdown] = useState(false);
+
+
+  useEffect(() => {
+    const syncAuth = () => {
+      const phone = localStorage.getItem("phone");
+
+      if (phone) {
+        setIsloggedIn(true);
+      } else {
+        setIsloggedIn(false);
+      }
+    };
+
+    syncAuth();
+
+    window.addEventListener("authChange", syncAuth);
+
+    return () => {
+      window.removeEventListener("authChange", syncAuth);
+    };
+  }, []);
+
+  const handleLogout = () => {
+
+    localStorage.removeItem("phone");
+
+    setIsloggedIn(false);
+
+  };
+
+
   return (
+
     <>
+
       <nav className="bg-gradient-to-r from-purple-900 to-black text-white">
 
         <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
@@ -22,116 +56,141 @@ export default function Navbar() {
 
           <img
             src="/logo.webp"
-            alt="keshvacradit"
-            className="h-10 md:h-10 object-contain"
+            alt="logo"
+            className="h-10 object-contain"
           />
 
-          <div className="hidden md:flex gap-3 items-center">
+
+          <div className="hidden md:flex gap-3 items-center relative">
 
 
             <Link
               href="/"
-              className="hover:text-blue-400 duration-300 px-4 py-2 rounded-2xl hover:bg-blue-400 hover:text-white">
+              className="hover:text-blue-400 px-4 py-2"
+            >
               Home
             </Link>
 
 
             <div className="relative">
 
-              <span
-                className=" cursor-pointer hover:text-blue-400 duration-300 px-4 py-2 rounded-2xl hover:bg-blue-400 hover:text-white"
-                onClick={() => setProjectDropdown(!projectDropdown)}
+              <button
+                onClick={() =>
+                  setProjectDropdown(!projectDropdown)
+                }
+                className="cursor-pointer px-4 py-2 hover:text-blue-400"
               >
                 Our Project ▾
-              </span>
+              </button>
+
 
               {projectDropdown && (
 
-                <div className="absolute left-0 mt-2 w-52 bg-white text-black rounded shadow-lg z-50">
+                <div className="absolute top-12 left-0 bg-white text-black rounded-lg shadow-lg w-52 overflow-hidden z-50">
+
 
                   <Link
-                    href="/"
-                    className=" hover:text-blue-400 duration-300 block px-4 py-2 hover:bg-gray-200"
+                    href="/personal-loan"
+                    className="block px-4 py-3 hover:bg-gray-100"
                   >
-                    Personal Loan
+                    Personal-Loan
                   </Link>
 
-                  <Link
-                    href="/"
-                    className=" hover:text-blue-400 duration-300 block px-4 py-2 hover:bg-gray-200"
-                  >
-                    Business Loan
-                  </Link>
+
 
                   <Link
-                    href="/"
-                    className=" hover:text-blue-400 duration-300 block px-4 py-2 hover:bg-gray-200"
+                    href="/business-loan"
+                    className="block px-4 py-3 hover:bg-gray-100"
                   >
-                    Home Loan
+                    Business-Loan
                   </Link>
 
+
+
                   <Link
-                    href="/"
-                    className="hover:text-blue-400 duration-300 block px-4 py-2 hover:bg-gray-200"
+                    href="/home-loan"
+                    className="block px-4 py-3 hover:bg-gray-100"
                   >
-                    Gold Loan
+                    Home-Loan
+                  </Link>
+
+
+
+                  <Link
+                    href="/gold-loan"
+                    className="block px-4 py-3 hover:bg-gray-100"
+                  >
+                    Gold-Loan
                   </Link>
 
                 </div>
+
               )}
 
             </div>
 
+
             <Link
               href="/About"
-              className="hover:text-blue-400 duration-300  px-4 py-2 rounded-2xl hover:bg-blue-400 hover:text-white"
+              className="px-4 py-2 hover:text-blue-400"
             >
               About
             </Link>
-            <Link
-              href="/Ouick links"
-              className="hover:text-blue-400 duration-300  px-4 py-2 rounded-2xl hover:bg-blue-400 hover:text-white"
-            >
-              Ouick Links
-            </Link>
+
 
             <Link
               href="/Contact"
-              className="hover:text-blue-400 duration-300 px-4 py-2 rounded-2xl hover:bg-blue-400 hover:text-white"
+              className="px-4 py-2 hover:text-blue-400"
             >
               Contact
             </Link>
+
+
+             <Link
+              href="/quickLinks"
+              className="px-4 py-2 hover:text-blue-400"
+            >
+              Quick link
+            </Link>
+
+
           </div>
 
 
-
           <div className="flex items-center gap-4">
-            <button className="bg-white p-2 rounded-full hover:bg-white/20 duration-300">
-              <img
-                src="user.png"
-                alt="profile"
-                className=" h-5 w-5 bg-white rounded-full object-contain"></img>
-            </button>
 
 
-
-            <button className="bg-white  text-black p-2 rounded-full hover:bg-white/20 duration-300">
-
-              <Search size={22} />
-
-            </button>
-
-
-
-            <button
-              onClick={() => setIsOpen(true)}
-              className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold"
+            <Link
+              href="/profile"
+              className="p-2 rounded-full hover:bg-white/10 transition"
             >
-              Sign In
+              <User size={20} />
+            </Link>
+
+
+            <button className="p-2 rounded-full hover:bg-white/10 transition">
+
+              <Search size={20} />
+
             </button>
 
-
-
+            {
+              isloggedIn ? (
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                >
+                  Sign Out
+                </button>
+              ) : (
+                <button
+                  onClick={() => setIsOpen(true)}
+                  className="bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600 transition"
+                >
+                  Sign In
+                </button>
+              )
+            }
             <button
               className="md:hidden text-2xl"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -143,49 +202,83 @@ export default function Navbar() {
 
         </div>
 
+      </nav>
 
 
-        {menuOpen && (
 
-          <div className="md:hidden px-4 pb-4 space-y-3 flex flex-col">
+      {menuOpen && (
 
-            <Link href="/">Home</Link>
+        <div className="md:hidden p-4 space-y-2 bg-black text-white">
 
-            <Link href="/personal-loan">
+
+          <Link href="/" className="block">
+            Home
+          </Link>
+
+
+
+          <div className="space-y-2 pl-2">
+
+            <p className="text-gray-300 font-semibold">
+              Our Project
+            </p>
+
+
+
+            <Link href="/personal-loan" className="block">
               Personal Loan
             </Link>
 
-            <Link href="/business-loan">
+
+
+            <Link href="/business-loan" className="block">
               Business Loan
             </Link>
 
-            <Link href="/home-loan">
+
+
+            <Link href="/home-loan" className="block">
               Home Loan
             </Link>
 
-            <Link href="/gold-loan">
+
+
+            <Link href="/gold-loan" className="block">
               Gold Loan
-            </Link>
-
-            <Link href="/emicalculator">
-              Calculators
-            </Link>
-
-            <Link href="/helpCenter">
-              Help Center
             </Link>
 
           </div>
 
-        )}
-
-      </nav >
 
 
-      {/* {isOpen && (
-        <OtpPopup onClose={() => setIsOpen(false)} />
-      )
-      } */}
+          <Link href="/About" className="block">
+            About
+          </Link>
+
+
+
+          <Link href="/Contact" className="block">
+            Contact
+          </Link>
+
+        </div>
+
+      )}
+
+      {
+
+        isOpen && (
+
+          <OtpPopup
+            onClose={() => setIsOpen(false)}
+          />
+
+        )
+
+      }
+
     </>
+
   );
+
 }
