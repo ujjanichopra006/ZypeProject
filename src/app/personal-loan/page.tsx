@@ -40,7 +40,7 @@ export default function PersonalLoan() {
   useEffect(() => {
     const phone = localStorage.getItem("phone");
     if (phone) {
-      setIsVerified(true);
+      setIsVerified(true); 
       setFormData((prev) => ({
         ...prev,
         person_phone: phone,
@@ -95,7 +95,7 @@ export default function PersonalLoan() {
       );
 
       const data = await response.json();
-
+      
       if (response.ok) {
         alert("Personal Loan Application Submitted Successfully");
 

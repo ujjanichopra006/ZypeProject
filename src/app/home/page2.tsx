@@ -6,7 +6,7 @@ export default function Second() {
 
     <>
 
-      <div className="flex flex-col items-center justify-center overflow-hidden bg-gray-100 text-black py-10">
+      <div className="flex flex-col items-center justify-center overflow-hidden bg-gray-100 text-black ">
 
         <div className="max-w-3xl text-center">
 

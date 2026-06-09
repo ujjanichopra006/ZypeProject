@@ -80,7 +80,7 @@ export default function Navbar() {
                 }
                 className="cursor-pointer px-4 py-2 hover:text-blue-400"
               >
-                Our Project ▾
+                Our Products ▾
               </button>
 
 
@@ -91,6 +91,7 @@ export default function Navbar() {
 
                   <Link
                     href="/personal-loan"
+                    onClick={() => setProjectDropdown(false)}
                     className="block px-4 py-3 hover:bg-gray-100"
                   >
                     Personal-Loan
@@ -100,6 +101,7 @@ export default function Navbar() {
 
                   <Link
                     href="/business-loan"
+                    onClick={() => setProjectDropdown(false)}
                     className="block px-4 py-3 hover:bg-gray-100"
                   >
                     Business-Loan
@@ -109,6 +111,7 @@ export default function Navbar() {
 
                   <Link
                     href="/home-loan"
+                    onClick={() => setProjectDropdown(false)}
                     className="block px-4 py-3 hover:bg-gray-100"
                   >
                     Home-Loan
@@ -118,6 +121,7 @@ export default function Navbar() {
 
                   <Link
                     href="/gold-loan"
+                     onClick={() => setProjectDropdown(false)}
                     className="block px-4 py-3 hover:bg-gray-100"
                   >
                     Gold-Loan

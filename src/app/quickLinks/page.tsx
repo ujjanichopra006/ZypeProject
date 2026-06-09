@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+
 
 const tabs = [
   "Personal Loan",
@@ -166,19 +167,18 @@ const loans = [
   },
 ];
 
-export default function QuickLinks() {
-  
+function QuickLinksContent() {
   const searchParams = useSearchParams();
 
- const tabFromUrl = searchParams.get("tab");
+  const tabFromUrl = searchParams.get("tab");
 
-const [activeTab, setActiveTab] = useState("Personal Loan");
+  const [activeTab, setActiveTab] = useState("Personal Loan");
 
-useEffect(() => {
-  if (tabFromUrl) {
-    setActiveTab(decodeURIComponent(tabFromUrl));
-  }
-}, [tabFromUrl]);
+  useEffect(() => {
+    if (tabFromUrl) {
+      setActiveTab(decodeURIComponent(tabFromUrl));
+    }
+  }, [tabFromUrl]);
 
   const filteredLoans = loans.filter(
     (loan) => loan.category === activeTab
@@ -268,5 +268,14 @@ useEffect(() => {
 
       </div>
     </div>
+  );
+  
+}
+
+export default function QuickLinks() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <QuickLinksContent />
+    </Suspense>
   );
 }

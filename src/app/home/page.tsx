@@ -11,7 +11,9 @@ import Second from "../../app/home/page2";
 import Third from "../../app/home/page3";
 import Forth from "../../app/home/page4";
 import Fifth from "../../app/home/page5";
-
+import EMICalculator from "./EMIcalculator";
+import Sixth from "../../app/home/page6";
+import Seventh from "../../app/home/page7";
 export default function Home() {
 
     useEffect(() => {
@@ -22,10 +24,8 @@ export default function Home() {
 
     return (
         <>
-            {/* HERO SECTION */}
             <div className="relative flex flex-col md:flex-row items-center justify-between overflow-hidden bg-gray-100 text-black px-6 md:px-15">
 
-                {/* TEXT SECTION */}
                 <div className="max-w-3xl" data-aos="fade-right">
                     <h1 className="text-4xl md:text-5xl font-bold leading-tight">
                         Empowering Every Indian with <br />
@@ -41,7 +41,6 @@ export default function Home() {
                         our hassle-free loan solutions are designed to fit your needs.
                     </p>
 
-                    {/* BUTTON GRID */}
                     <div className="mt-10 grid grid-cols-2 gap-4 max-w-md">
 
                         <Link href="/personal-loan">
@@ -71,14 +70,12 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* ANIMATION */}
                 <div className="w-64 md:w-80 mt-10 md:mt-0" data-aos="zoom-in">
                     <Lottie animationData={loans} loop={true} />
                 </div>
             </div>
 
-            {/* FEATURES */}
-            <div className="bg-gray-100 shadow-2xl py-15 flex flex-wrap justify-center gap-4 p-6">
+            <div className="bg-gray-100 shadow-2xl  flex flex-wrap justify-center gap-4 p-6">
 
                 <div className="w-64 h-60 bg-green-300 border rounded-xl shadow-lg p-4 flex flex-col justify-center hover:scale-105 duration-300" data-aos="fade-up">
                     <h1 className="text-black text-xl font-bold mb-3">
@@ -117,35 +114,43 @@ export default function Home() {
 
             </div>
 
-            {/* INFO SECTION */}
-            <div className="relative flex flex-col md:flex-row items-center justify-between bg-gray-100 px-6 md:px-10 py-10">
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center px-2">
 
-                <div className="max-w-3xl" data-aos="fade-right">
-                    <h1 className="text-xl text-black md:text-2xl font-semibold">
-                        Avail Instant Loans from ₹2,000 to ₹20 Lakhs <br />
-                        <span className="text-blue-600">
-                            Quick, Hassle-Free, and Secure 🚀
-                        </span>
-                    </h1>
+  <div className="flex flex-col md:flex-row items-center justify-center gap-18 max-w-6xl w-full">
 
-                    <p className="mt-6 text-black">
-                        Financial freedom for every Indian.
-                    </p>
-                </div>
+    <div className="flex justify-center">
+      <img
+        src="/sell car.jpg"
+        alt="sell car"
+        className="w-80 h-80 object-cover rounded-3xl shadow-xl"
+      />
+    </div>
 
-                <div className="mt-10 md:mt-0" data-aos="flip-up">
-                    <img
-                        src="/sell car.jpg"
-                        alt="sell car"
-                        className="w-60 h-60 rounded-full object-cover border-4 border-white shadow-lg"
-                    />
-                </div>
-            </div>
+    <div className="text-center md:text-left max-w-xl">
+      <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">
+        Avail Instant Loans from ₹2,000 to ₹20 Lakhs
+      </h1>
+
+      <p className="mt-4 text-2xl font-semibold text-blue-600">
+        Quick, Hassle-Free, and Secure 🚀
+      </p>
+
+      <p className="mt-6 text-lg text-gray-700">
+        Financial freedom for every Indian.
+      </p>
+    </div>
+
+  </div>
+
+</div>
 
             <Second />
             <Third />
             <Forth />
             <Fifth />
+            <EMICalculator />
+            <Sixth/>  
+            <Seventh/>         
         </>
     );
 }

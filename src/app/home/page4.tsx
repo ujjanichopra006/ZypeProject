@@ -79,7 +79,7 @@ export default function Forth() {
         <div className="bg-gray-100 py-10">
 
 
-            <div className="flex items-center justify-between bg-gray-200 rounded-[40px] shadow-2xl px-20 py-10 mx-10 mb-10">
+            <div className="flex items-center justify-between bg-green-300 rounded-[40px] shadow-2xl px-20 py-10 mx-10 mb-10">
 
 
                 <div className="flex flex-col text-black">
@@ -179,7 +179,7 @@ export default function Forth() {
 
             <div className="grid md:grid-cols-2 gap-8 px-20 py-10 max-w-6xl mx-auto">
 
-                <div className="bg-gray-200 rounded-3xl shadow-xl p-7">
+                <div className="bg-green-300 rounded-3xl shadow-xl p-7">
 
                     <h1 className=" text-black text-3xl font-bold mb-8">
                         ✅ Eligibility Criteria
@@ -195,7 +195,7 @@ export default function Forth() {
                         )}
                     </div>
                 </div>
-                <div className="bg-gray-200 rounded-3xl shadow-xl p-7">
+                <div className="bg-green-300 rounded-3xl shadow-xl p-7">
 
                     <h1 className=" text-black text-3xl font-bold mb-8">
                         📃 Documents Required
