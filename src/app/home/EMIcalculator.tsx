@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   PieChart,
   Pie,
@@ -8,11 +8,22 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function EMICalculator() {
   const [loanAmount, setLoanAmount] = useState(100000);
   const [interestRate, setInterestRate] = useState(10);
   const [tenure, setTenure] = useState(12);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+      mirror: true,
+      easing: "ease-in-out",
+    });
+  }, []);
 
   const emiData = useMemo(() => {
     const P = loanAmount;
@@ -29,7 +40,9 @@ export default function EMICalculator() {
     return {
       emi: isNaN(emi) ? 0 : emi,
       totalPayment: isNaN(totalPayment) ? 0 : totalPayment,
-      totalInterest: isNaN(totalInterest) ? 0 : totalInterest,
+      totalInterest: isNaN(totalInterest)
+        ? 0
+        : totalInterest,
     };
   }, [loanAmount, interestRate, tenure]);
 
@@ -45,9 +58,14 @@ export default function EMICalculator() {
   ];
 
   return (
-    <div className="bg-[#061533] py-6">
-      {/* Heading */}
-      <h1 className="text-center text-2xl md:text-3xl font-bold text-white mb-5">
+    <div
+      className="bg-slate-900 py-6"
+      data-aos="fade-up"
+    >
+      <h1
+        className="text-center text-2xl md:text-3xl font-bold text-white mb-5"
+        data-aos="zoom-in"
+      >
         Periodic{" "}
         <span className="text-blue-500">
           Loan EMI
@@ -56,15 +74,17 @@ export default function EMICalculator() {
       </h1>
 
       <div className="grid lg:grid-cols-2 gap-4 px-4 md:px-8 max-w-6xl mx-auto">
-        {/* Left Section */}
-        <div className="bg-[#1a2a67] rounded-xl p-4">
-          <h2 className="text-white text-2xl font-bold mb-4">
+        <div
+          className="bg-[#1a2a67] rounded-xl p-4"
+          data-aos="fade-right"
+        >
+          <h2 className="text-black text-2xl font-bold mb-4">
             EMI Calculator
           </h2>
 
           <div className="space-y-3">
-            <div>
-              <label className="block text-white font-medium text-sm mb-1">
+            <div data-aos="fade-up" data-aos-delay="100">
+              <label className="block text-black font-medium text-sm mb-1">
                 Loan Amount (₹)
               </label>
 
@@ -72,13 +92,15 @@ export default function EMICalculator() {
                 type="number"
                 value={loanAmount}
                 onChange={(e) =>
-                  setLoanAmount(Number(e.target.value))
+                  setLoanAmount(
+                    Number(e.target.value)
+                  )
                 }
                 className="w-full h-9 bg-transparent border border-white rounded-md px-3 text-white text-sm outline-none"
               />
             </div>
 
-            <div>
+            <div data-aos="fade-up" data-aos-delay="200">
               <label className="block text-white font-medium text-sm mb-1">
                 Interest Rate (%)
               </label>
@@ -87,13 +109,15 @@ export default function EMICalculator() {
                 type="number"
                 value={interestRate}
                 onChange={(e) =>
-                  setInterestRate(Number(e.target.value))
+                  setInterestRate(
+                    Number(e.target.value)
+                  )
                 }
                 className="w-full h-9 bg-transparent border border-white rounded-md px-3 text-white text-sm outline-none"
               />
             </div>
 
-            <div>
+            <div data-aos="fade-up" data-aos-delay="300">
               <label className="block text-white font-medium text-sm mb-1">
                 Loan Tenure (Months)
               </label>
@@ -102,7 +126,9 @@ export default function EMICalculator() {
                 type="number"
                 value={tenure}
                 onChange={(e) =>
-                  setTenure(Number(e.target.value))
+                  setTenure(
+                    Number(e.target.value)
+                  )
                 }
                 className="w-full h-9 bg-transparent border border-white rounded-md px-3 text-white text-sm outline-none"
               />
@@ -112,7 +138,11 @@ export default function EMICalculator() {
           <div className="border-t border-gray-400 my-4"></div>
 
           <div className="flex flex-wrap gap-3">
-            <div className="bg-slate-200 rounded-md p-3 flex-1 min-w-[160px]">
+            <div
+              className="bg-slate-200 rounded-md p-3 flex-1 min-w-[160px]"
+              data-aos="flip-left"
+              data-aos-delay="100"
+            >
               <p className="text-gray-600 text-xs">
                 Total Payment
               </p>
@@ -128,7 +158,11 @@ export default function EMICalculator() {
               </h3>
             </div>
 
-            <div className="bg-slate-200 rounded-md p-3 flex-1 min-w-[160px]">
+            <div
+              className="bg-slate-200 rounded-md p-3 flex-1 min-w-[160px]"
+              data-aos="flip-right"
+              data-aos-delay="200"
+            >
               <p className="text-gray-600 text-xs">
                 Total Interest
               </p>
@@ -147,7 +181,10 @@ export default function EMICalculator() {
         </div>
 
         {/* Right Section */}
-        <div className="bg-[#efefef] rounded-xl p-4">
+        <div
+          className="bg-[#efefef] rounded-xl p-4"
+          data-aos="fade-left"
+        >
           <h2 className="text-2xl font-bold text-black">
             EMI Result
           </h2>
@@ -155,7 +192,11 @@ export default function EMICalculator() {
           <div className="h-[2px] bg-blue-500 mt-3 mb-4"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="bg-slate-200 p-3 rounded-md">
+            <div
+              className="bg-slate-200 p-3 rounded-md"
+              data-aos="zoom-in"
+              data-aos-delay="100"
+            >
               <p className="text-gray-600 text-xs">
                 Monthly EMI
               </p>
@@ -171,7 +212,11 @@ export default function EMICalculator() {
               </h3>
             </div>
 
-            <div className="bg-slate-200 p-3 rounded-md">
+            <div
+              className="bg-slate-200 p-3 rounded-md"
+              data-aos="zoom-in"
+              data-aos-delay="200"
+            >
               <p className="text-gray-600 text-xs">
                 Total Payment
               </p>
@@ -187,7 +232,11 @@ export default function EMICalculator() {
               </h3>
             </div>
 
-            <div className="bg-slate-200 p-3 rounded-md">
+            <div
+              className="bg-slate-200 p-3 rounded-md"
+              data-aos="zoom-in"
+              data-aos-delay="300"
+            >
               <p className="text-gray-600 text-xs">
                 Total Interest
               </p>
@@ -204,12 +253,21 @@ export default function EMICalculator() {
             </div>
           </div>
 
-          <h3 className="text-center text-lg font-bold mt-4 mb-2">
+          <h3
+            className="text-center text-lg font-bold mt-4 mb-2"
+            data-aos="fade-up"
+          >
             EMI Breakdown
           </h3>
 
-          <div className="h-[220px]">
-            <ResponsiveContainer width="100%" height="100%">
+          <div
+            className="h-[220px]"
+            data-aos="zoom-in-up"
+          >
+            <ResponsiveContainer
+              width="100%"
+              height="100%"
+            >
               <PieChart>
                 <Pie
                   data={chartData}
@@ -218,8 +276,13 @@ export default function EMICalculator() {
                   outerRadius={70}
                   dataKey="value"
                   labelLine={true}
-                  label={({ name, value }) =>
-                    `${name}: ₹${Number(value).toLocaleString("en-IN")}`
+                  label={({
+                    name,
+                    value,
+                  }) =>
+                    `${name}: ₹${Number(
+                      value
+                    ).toLocaleString("en-IN")}`
                   }
                 >
                   <Cell fill="#4CAF50" />
@@ -228,7 +291,9 @@ export default function EMICalculator() {
 
                 <Tooltip
                   formatter={(value) =>
-                    `₹${Number(value).toLocaleString("en-IN")}`
+                    `₹${Number(
+                      value
+                    ).toLocaleString("en-IN")}`
                   }
                 />
               </PieChart>
@@ -236,11 +301,18 @@ export default function EMICalculator() {
           </div>
 
           {/* Legend */}
-          <div className="flex flex-col md:flex-row justify-center items-center gap-4 mt-2 text-sm font-medium">
+          <div
+            className="flex flex-col md:flex-row justify-center items-center gap-4 mt-2 text-sm font-medium"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
               <span>
-                Principal: ₹{loanAmount.toLocaleString("en-IN")}
+                Principal: ₹
+                {loanAmount.toLocaleString(
+                  "en-IN"
+                )}
               </span>
             </div>
 
@@ -248,9 +320,12 @@ export default function EMICalculator() {
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
               <span>
                 Interest: ₹
-                {emiData.totalInterest.toLocaleString("en-IN", {
-                  maximumFractionDigits: 0,
-                })}
+                {emiData.totalInterest.toLocaleString(
+                  "en-IN",
+                  {
+                    maximumFractionDigits: 0,
+                  }
+                )}
               </span>
             </div>
           </div>

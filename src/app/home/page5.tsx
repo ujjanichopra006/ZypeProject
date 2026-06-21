@@ -1,83 +1,106 @@
 "use client";
+
+import { useEffect } from "react";
+import AOS from "aos";
+
 export default function Fifth() {
-    return (
+  useEffect(() => {
+    AOS.refresh(); // Component render hone ke baad AOS refresh
+  }, []);
 
-        <>
-            <div className="relative flex flex-col md:flex-row items-center justify-between overflow-hidden bg-gray-100 text-black py-6 md:px-10">
-                <div className=" p-6 rounded-2xl shadow-lg flex gap-6">
+  const loanCards = [
+    {
+      image: "/personal loan",
+      alt: "Personal Loan",
+      title: "Personal Loan",
+      description:
+        "Get instant personal loans with KeshvaCredit at competitive rates. Minimal docs, quick approval & RBI-regulated partners.",
+    },
+    {
+      image: "/home loan",
+      alt: "Home Loan",
+      title: "Home Loan",
+      description:
+        "Affordable home loans at competitive interest rates with quick approval and flexible options.",
+    },
+    {
+      image: "/credit loan",
+      alt: "Credit Card",
+      title: "Credit Card",
+      description:
+        "Borrow up to your limit for purchases or bills with flexible repayment options.",
+    },
+    {
+      image: "/business loan",
+      alt: "Business Loan",
+      title: "Business Loan",
+      description:
+        "Grow your business with easy financing, low interest rates, and quick approvals.",
+    },
+  ];
 
-                    <div className="w-1/3 bg-teal-600  p-11 rounded-xl">
-                        <h2 className="text-xl text-black font-bold">Instant Funds, Endless Possibilities</h2>
-                        <p>Get quick access to funds whenever you need them! <br />Fast approvals, hassle-free processing, <br />and secure transactions make fulfilling your financial needs easier than ever.</p>
-                    </div>
-                    <div className="w-2/3 bg-gray-100 p-4 rounded-xl">
+  return (
+    <section className="bg-slate-900 py-12 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
+        <div className="flex flex-col lg:flex-row gap-8 items-center">
+          {/* Left Content */}
+          <div
+            className="w-full lg:w-1/3"
+            data-aos="fade-right"
+            data-aos-duration="1000"
+          >
+            <div className="bg-teal-600 p-8 rounded-3xl shadow-xl hover:-translate-y-2 transition-all duration-300">
+              <h2 className="text-3xl font-bold text-black mb-5">
+                Instant Funds,
+                <br />
+                Endless Possibilities
+              </h2>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-teal-600  text-black p-4 rounded-lg shadow flex items-center gap-4">
-                                <img
-                                    src="/personal loan"
-                                    alt="Personal Loan"
-                                    className="w-20 h-20 object-cover rounded-lg"
-                                />
-
-                                <div>
-                                    Get instant personal loans with KeshvaCredit at competitive rates. minimal docs, quick approval & RBI-regulated
-                                    <br />
-                                    <strong>personal Loan</strong>
-                                </div>
-                            </div>
-
-                            <div className="bg-teal-600  text-black p-4 rounded-lg shadow flex items-center gap-4">
-                                <img
-                                    src="/home loan"
-                                    alt="Home Loan"
-                                    className="w-20 h-20 object-cover rounded-lg"
-                                />
-
-                                <div>
-                                    Affordable home loans at competitive interest rates. Quick approval,
-                                    minimal paperwork, flexible options, and RBI-backed partners.
-                                    <br />
-                                    <strong>Home Loan</strong>
-                                </div>
-                            </div>
-
-                            <div className="bg-teal-600 text-black p-4 rounded-lg shadow flex items-center gap-4">
-                                <img
-                                    src="/credit loan"
-                                    alt="Credit Card"
-                                    className="w-20 h-20 object-cover rounded-lg"
-                                />
-
-                                <div>
-                                    Borrow up to your limit for purchases or bills. Repay monthly.
-                                    Flexible and secure credit tool for all needs.
-                                    <br />
-                                    <strong>Credit Card</strong>
-                                </div>
-                            </div>
-
-                            <div className="bg-teal-600 text-black p-4 rounded-lg shadow flex items-center gap-4">
-                                <img
-                                    src="/business loan"
-                                    alt="Business Loan"
-                                    className="w-20 h-20 object-cover rounded-lg"
-                                />
-
-                                <div>
-                                    Enjoy smooth transactions, premium perks, cashback, and secure
-                                    RBI-backed loan services. Low interest, high rewards.
-                                    <br />
-                                    <strong>Business Loan</strong>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
+              <p className="text-black leading-7">
+                Get quick access to funds whenever you need them! Fast
+                approvals, hassle-free processing, and secure transactions make
+                fulfilling your financial needs easier than ever.
+              </p>
             </div>
+          </div>
 
-        </>
-    );
+          {/* Right Cards */}
+          <div
+            className="w-full lg:w-2/3"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {loanCards.map((card, index) => (
+                <div
+                  key={index}
+                  data-aos="zoom-in-up"
+                  data-aos-delay={index * 100}
+                  data-aos-duration="1000"
+                  className="bg-teal-600 rounded-2xl p-5 shadow-lg flex items-center gap-4 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+                >
+                  {/* Image bilkul same rakhi hai */}
+                  <img
+                    src={card.image}
+                    alt={card.alt}
+                    className="w-20 h-20 object-cover rounded-xl shrink-0 hover:scale-105 transition-transform duration-300"
+                  />
+
+                  <div>
+                    <h3 className="text-lg font-bold text-black mb-2">
+                      {card.title}
+                    </h3>
+
+                    <p className="text-sm text-black leading-6">
+                      {card.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

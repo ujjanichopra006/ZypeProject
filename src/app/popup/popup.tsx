@@ -84,6 +84,7 @@ export default function OtpPopup({ onClose, onVerified }: OtpPopupProps) {
 
         setTimeout(() => {
           onVerified?.();
+          onClose();
         }, 800);
       } else {
         setToast(data.message || "Invalid OTP");

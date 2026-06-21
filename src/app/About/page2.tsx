@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link"; 
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -16,18 +17,18 @@ export default function About() {
   return (
     <>
 
-      <section className="w-full bg-white py-16">
+      <section className="w-full bg-slate-900 py-6">
         <div className="max-w-7xl mx-auto px-4">
 
           <h2
-            className="text-4xl font-bold text-center text-black mb-4"
+            className="text-4xl font-bold text-center text-white mb-4"
             data-aos="fade-up"
           >
             Our Loan Partners
           </h2>
 
           <p
-            className="text-lg text-center text-gray-600 mb-12"
+            className="text-lg text-center text-gray-200 mb-12"
             data-aos="fade-up"
             data-aos-delay="200"
           >
@@ -101,7 +102,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="w-full py-16 bg-white">
+      <section className="w-full py-7 bg-white">
 
         <div className="text-center max-w-3xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-black">
@@ -113,7 +114,7 @@ export default function About() {
         </div>
 
         <div
-          className="max-w-6xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+          className="max-w-6xl mx-auto mt-7 grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
 
           {/* CARD 1 */}
           <div
@@ -123,7 +124,7 @@ export default function About() {
             <img
               src="/select loan.png"
               alt="Select Loan"
-              className="w-60 h-40 object-cover rounded-lg mx-auto"
+              className="w-60 h-30 object-cover rounded-lg mx-auto"
               data-aos="zoom-in"
             />
             <h3 className="mt-4 text-xl text-black font-semibold">Select Loan</h3>
@@ -173,43 +174,45 @@ export default function About() {
         </div>
       </section>
 
-    <section className="relative w-full h-[70vh] flex items-center justify-center text-center overflow-hidden">
+    <section className="relative w-full min-h-[600px] flex items-center justify-center overflow-hidden">
 
-      <div className="absolute inset-0 bg-emerald-500">
+  {/* Background Image */}
+  <div
+    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style={{
+      backgroundImage: "url('/fintech.avif')",
+    }}
+  ></div>
 
-        <div className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              "/whole image.avif",
-            backgroundSize: "60px 60px",
-          }}
-        ></div>
-      </div>
+  {/* Light Overlay */}
+  <div className="absolute inset-0"></div>
 
-      <div className="relative z-10 max-w-3xl px-4">
+  {/* Content */}
+  <div className="relative z-10 max-w-3xl px-4 text-center">
+    {/* Top Badge */}
+    <div className="inline-flex items-center gap-2 bg-white/90 px-4 py-2 rounded-full text-sm mb-6 shadow-md">
+        <Link href="/Contact">
+      <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
+        New
+      </span>
+      </Link>
+      <span className="text-black">
+        Any Query? Contact us. We’re here 24/7 →
+      </span>
+    </div>
+    {/* Heading */}
+    <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight">
+      Empowering Dreams, Financing the Future
+    </h1>
 
-        <div className="inline-flex items-center gap-2 bg-white/90 px-4 py-2 rounded-full text-sm mb-6 shadow-md">
-          <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-xs">
-            New
-          </span>
-          <span className="text-black">
-            Any Query? Contact us. We’re here 24/7 →
-          </span>
-        </div>
+    {/* Paragraph */}
+    <p className="mt-4 text-white text-base md:text-lg">
+      At KeshvaCredit, we connect borrowers with the right lenders, using
+      technology and innovation to unlock financial opportunities and growth.
+    </p>
+  </div>
 
-        {/* Heading */}
-        <h1 className="text-3xl md:text-5xl font-bold text-black">
-          Empowering Dreams, Financing the Future
-        </h1>
-
-        {/* Paragraph */}
-        <p className="mt-4 text-black/80 text-base md:text-lg">
-          At KeshvaCredit, we connect borrowers with the right lenders, using
-          technology and innovation to unlock financial opportunities and growth.
-        </p>
-
-      </div>
-    </section>
+</section>
     </>
   );
 }                                  

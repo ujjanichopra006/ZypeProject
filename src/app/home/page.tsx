@@ -3,9 +3,9 @@
 import { useEffect } from "react";
 import Lottie from "lottie-react";
 import loans from "../../animations/loans.json";
+import { useRouter } from "next/navigation";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Link from "next/link";
 
 import Second from "../../app/home/page2";
 import Third from "../../app/home/page3";
@@ -14,143 +14,203 @@ import Fifth from "../../app/home/page5";
 import EMICalculator from "./EMIcalculator";
 import Sixth from "../../app/home/page6";
 import Seventh from "../../app/home/page7";
+import Eighth from "../../app/home/page8";
+
 export default function Home() {
+  const router = useRouter();
 
-    useEffect(() => {
-        AOS.init({
-            duration: 1500,
-        });
-    }, []);
+  // ✅ Personal Loan Handler
+  const handlePersonalLoanClick = () => {
+    const isSubmitted = localStorage.getItem("personalLoanSubmitted") === "true";
+    if (isSubmitted) {
+      router.push("/personalloanlender");
+    } else {
+      router.push("/personal-loan");
+    }
+  };
 
-    return (
-        <>
-            <div className="relative flex flex-col md:flex-row items-center justify-between overflow-hidden bg-gray-100 text-black px-6 md:px-15">
+  // ✅ NEW: Business Loan Handler
+  const handleBusinessLoanClick = () => {
+    const isSubmitted = localStorage.getItem("businessLoanSubmitted") === "true";
+    if (isSubmitted) {
+      router.push("/businessloanlender");
+    } else {
+      router.push("/business-loan");
+    }
+  };
 
-                <div className="max-w-3xl" data-aos="fade-right">
-                    <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-                        Empowering Every Indian with <br />
-                        Instant Loans
-                    </h1>
+  // ✅ NEW: Home Loan Handler
+  const handleHomeLoanClick = () => {
+    const isSubmitted = localStorage.getItem("homeLoanSubmitted") === "true";
+    if (isSubmitted) {
+      router.push("/homeloanlender");
+    } else {
+      router.push("/home-loan");
+    }
+  };
 
-                    <p className="text-lg md:text-xl mt-8 leading-relaxed text-black">
-                        Get the funds you need with quick approvals,
-                        <span className="text-red-600 font-semibold">
-                            {" "}minimal paperwork, and fast disbursals.
-                        </span>{" "}
-                        Whether it’s a small expense or a big dream,
-                        our hassle-free loan solutions are designed to fit your needs.
-                    </p>
+  // ✅ NEW: Gold Loan Handler
+  const handleGoldLoanClick = () => {
+    const isSubmitted = localStorage.getItem("goldLoanSubmitted") === "true";
+    if (isSubmitted) {
+      router.push("/goldloanlender");
+    } else {
+      router.push("/gold-loan");
+    }
+  };
 
-                    <div className="mt-10 grid grid-cols-2 gap-4 max-w-md">
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+      easing: "ease-in-out",
+      once: false,
+      mirror: true,
+      offset: 80,
+    });
 
-                        <Link href="/personal-loan">
-                            <button className="bg-green-400 border rounded-xl py-3 font-semibold w-full hover:scale-105 duration-300">
-                                <span className="blink-text">Personal Loan</span>
-                            </button>
-                        </Link>
+    const refreshAOS = () => {
+      AOS.refreshHard();
+    };
 
-                        <Link href="/business-loan">
-                            <button className="bg-red-400 border rounded-xl py-3 font-semibold w-full hover:scale-105 duration-300">
-                               <span className="blink-text">Business Loan</span>
-                            </button>
-                        </Link>
+    window.addEventListener("load", refreshAOS);
 
-                        <Link href="/home-loan">
-                            <button className="bg-yellow-400 border rounded-xl py-3 font-semibold w-full hover:scale-105 duration-300">
-                              <span className="blink-text">Home Loan</span>
-                            </button>
-                        </Link>
+    const timer = setTimeout(() => {
+      AOS.refreshHard();
+    }, 500);
 
-                        <Link href="/gold-loan">
-                            <button className="bg-blue-400 border rounded-xl py-3 font-semibold w-full hover:scale-105 duration-300">
-                               <span className="blink-text">Gold loan</span>
-                            </button>
-                        </Link>
+    return () => {
+      window.removeEventListener("load", refreshAOS);
+      clearTimeout(timer);
+    };
+  }, []);
 
-                    </div>
-                </div>
+  return (
+    <div className="w-full overflow-x-hidden bg-slate-900">
+      
+      {/* HERO SECTION */}
+      <section className="min-h-[80vh] flex items-center justify-center bg-slate-900 text-white px-4 sm:px-10 md:px-16 lg:px-24 py-10">
+        <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-between gap-10">
+          
+          {/* LEFT TEXT */}
+          <div className="flex-1 text-center md:text-left" data-aos="fade-right">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
+              Empowering Every Indian with <br />
+              Instant Loans
+            </h1>
 
-                <div className="w-64 md:w-80 mt-10 md:mt-0" data-aos="zoom-in">
-                    <Lottie animationData={loans} loop={true} />
-                </div>
+            <p className="text-sm sm:text-base md:text-lg mt-5 leading-relaxed text-gray-200">
+              Get the funds you need with quick approvals,
+              <span className="text-red-400 font-semibold">
+                {" "}minimal paperwork, and fast disbursals.
+              </span>
+            </p>
+
+            {/* BUTTONS */}
+            <div className="mt-8 grid grid-cols-2 gap-4 max-w-md mx-auto md:mx-0">
+              
+              <button
+                onClick={handlePersonalLoanClick}
+                className="bg-green-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
+              >
+                Personal Loan
+              </button>
+
+              {/* ✅ Updated Business Loan Button */}
+              <button
+                onClick={handleBusinessLoanClick}
+                className="bg-red-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
+              >
+                Business Loan
+              </button>
+
+              {/* ✅ Updated Home Loan Button */}
+              <button
+                onClick={handleHomeLoanClick}
+                className="bg-yellow-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
+              >
+                Home Loan
+              </button>
+
+              {/* ✅ Updated Gold Loan Button */}
+              <button
+                onClick={handleGoldLoanClick}
+                className="bg-blue-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
+              >
+                Gold Loan
+              </button>
+
             </div>
+          </div>
 
-            <div className="bg-gray-100 shadow-2xl  flex flex-wrap justify-center gap-4 p-6">
-
-                <div className="w-64 h-60 bg-green-300 border rounded-xl shadow-lg p-4 flex flex-col justify-center hover:scale-105 duration-300" data-aos="fade-up">
-                    <h1 className="text-black text-xl font-bold mb-3">
-                        Your Trust Is Our Greatest Strength
-                    </h1>
-                    <p className="text-black text-sm">
-                        We believe in you — no collateral,no security deposits,just simple and accessible credit.
-                    </p>
-                </div>
-
-                <div className="w-64 h-60 bg-green-300 border rounded-xl shadow-lg p-4 flex flex-col justify-center hover:scale-105 duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <h1 className="text-black text-xl font-bold mb-3">
-                        Fast Support, Anytime
-                    </h1>
-                    <p className="text-black text-sm">
-                         stuck with something? Contact us at keshvacreit@gmail.com.quick responses reliable solutions!
-                    </p>
-                </div>
-
-                <div className="w-64 h-60 bg-green-300 border rounded-xl shadow-lg p-4 flex flex-col justify-center hover:scale-105 duration-300" data-aos="fade-up" data-aos-delay="400">
-                    <h1 className="text-black text-xl font-bold mb-3">
-                        Unlimited Credit Access
-                    </h1>
-                    <p className="text-black text-sm">
-                       Apply once with keshvcredit and enjoy instant cresit.withdrow nd use funds anytime,24/7, all year round.          </p>
-                </div>
-
-                <div className="w-64 h-60 bg-green-300 border rounded-xl shadow-lg p-4 flex flex-col justify-center hover:scale-105 duration-300" data-aos="fade-up" data-aos-delay="600">
-                    <h1 className="text-black text-xl font-bold mb-3">
-                        Safe & Secure
-                    </h1>
-                    <p className="text-black text-sm">
-                        We uphold the highest data security standard, ensuring privacy with RBI-approved financial insitutions.
-                    </p>
-                </div>
-
+          {/* RIGHT ANIMATION */}
+          <div className="flex-1 flex justify-center" data-aos="zoom-in">
+            <div className="w-64 sm:w-72 md:w-96">
+              <Lottie animationData={loans} loop />
             </div>
+          </div>
 
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center px-2">
+        </div>
+      </section>
 
-  <div className="flex flex-col md:flex-row items-center justify-center gap-18 max-w-6xl w-full">
+      {/* FEATURE CARDS */}
+      <section className="bg-slate-900 px-4 py-12 md:py-16 flex flex-wrap justify-center gap-6">
+        
+        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
+          <h2 className="text-black text-lg font-bold mb-2">Your Trust Is Our Strength</h2>
+          <p className="text-black text-sm">No collateral required, simple and accessible credit.</p>
+        </div>
 
-    <div className="flex justify-center">
-      <img
-        src="/sell car.jpg"
-        alt="sell car"
-        className="w-80 h-80 object-cover rounded-3xl shadow-xl"
-      />
+        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
+          <h2 className="text-black text-lg font-bold mb-2">Fast Support</h2>
+          <p className="text-black text-sm">Contact us at keshvacredit@gmail.com anytime.</p>
+        </div>
+
+        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
+          <h2 className="text-black text-lg font-bold mb-2">Unlimited Access</h2>
+          <p className="text-black text-sm">Apply once and access funds anytime.</p>
+        </div>
+
+        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
+          <h2 className="text-black text-lg font-bold mb-2">Safe & Secure</h2>
+          <p className="text-black text-sm">Data protection with high security standards.</p>
+        </div>
+
+      </section>
+
+      {/* BANNER */}
+      <section className="bg-slate-900 flex items-center justify-center px-4 py-12">
+        <div className="flex flex-col md:flex-row items-center gap-10 max-w-5xl w-full">
+
+          <img
+            src="/sell car.jpg"
+            alt="sell car"
+            className="w-64 h-64 md:w-72 md:h-72 object-cover rounded-3xl shadow-xl"
+            data-aos="fade-right"
+          />
+
+          <div data-aos="fade-left" className="text-center md:text-left">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">
+              Avail Loans from ₹2,000 to ₹20 Lakhs
+            </h2>
+
+            <p className="mt-3 text-blue-400 font-semibold">
+              Quick, Hassle-Free, Secure 🚀
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* OTHER SECTIONS WITH SAFE SPACING */}
+      <section className="w-full py-12"><Second /></section>
+      <section className="w-full py-12"><Third /></section>
+      <section className="w-full py-12"><Forth /></section>
+      <section className="w-full py-12"><Fifth /></section>
+      <section className="w-full py-12"><EMICalculator /></section>
+      <section className="w-full py-12"><Sixth /></section>
+      <section className="w-full py-12"><Seventh /></section>
+      <section className="w-full py-12"><Eighth /></section>
+
     </div>
-
-    <div className="text-center md:text-left max-w-xl">
-      <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">
-        Avail Instant Loans from ₹2,000 to ₹20 Lakhs
-      </h1>
-
-      <p className="mt-4 text-2xl font-semibold text-blue-600">
-        Quick, Hassle-Free, and Secure 🚀
-      </p>
-
-      <p className="mt-6 text-lg text-gray-700">
-        Financial freedom for every Indian.
-      </p>
-    </div>
-
-  </div>
-
-</div>
-
-            <Second />
-            <Third />
-            <Forth />
-            <Fifth />
-            <EMICalculator />
-            <Sixth/>  
-            <Seventh/>         
-        </>
-    );
+  );
 }
