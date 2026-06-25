@@ -20,7 +20,8 @@ export default function PersonalLoan() {
   const router = useRouter();
   const [showOtp, setShowOtp] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  
+  const [checkingAccess, setCheckingAccess] = useState(true);
+
   // ✅ NEW: Boolean state to track if the form is completely filled
   const [isFormComplete, setIsFormComplete] = useState(false);
 
@@ -46,19 +47,24 @@ export default function PersonalLoan() {
     setIsFormComplete(allFilled);
   }, [formData]);
 
-  useEffect(() => {
-    if (!localStorage.getItem("personalLoanSubmitted")) {
-      localStorage.setItem("personalLoanSubmitted", "false");
-    }
+useEffect(() => {
+  const phone = localStorage.getItem("phone");
 
-    const phone = localStorage.getItem("phone");
-    if (phone) {
-      setIsVerified(true);
-      getUserData(phone);
-    } else {
-      setShowOtp(true);
-    }
-  }, []);
+  if (!phone) {
+    setShowOtp(true);
+    setCheckingAccess(false);
+    return;
+  }
+
+  setFormData((prev) => ({
+    ...prev,
+    person_phone: phone, // 🔥 THIS WAS MISSING
+  }));
+
+  setIsVerified(true);
+  getUserData(phone);
+  setCheckingAccess(false);
+}, []);
 
   const getUserData = async (phone: string) => {
     try {
@@ -122,7 +128,7 @@ export default function PersonalLoan() {
 
       if (response.ok) {
         alert("Personal Loan Application Submitted Successfully");
-        
+
         // ✅ Set the localStorage boolean variable to true upon success
         localStorage.setItem("personalLoanSubmitted", "true");
 
@@ -151,21 +157,37 @@ export default function PersonalLoan() {
       alert("Something went wrong");
     }
   };
-
+  
+    if (checkingAccess) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="h-12 w-12 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
+}
   return (
     <div className="min-h-screen bg-gradient-to-r from-sky-200 via-white to-sky-200 flex justify-center items-center px-4 py-10">
-      {showOtp && (
-        <OtpPopup
-          onClose={() => router.push("/")}
-          onVerified={() => {
-            const savedPhone = localStorage.getItem("phone");
-            if (savedPhone) getUserData(savedPhone);
-            setShowOtp(false);
-            setIsVerified(true);
-          }}
-        />
-      )}
-      
+     {showOtp && (
+  <OtpPopup
+    onClose={() => router.push("/")}
+   onVerified={() => {
+  const savedPhone = localStorage.getItem("phone");
+
+  if (savedPhone) {
+    setShowOtp(false);
+    setIsVerified(true);
+
+    setFormData((prev) => ({
+      ...prev,
+      person_phone: savedPhone,
+    }));
+
+    getUserData(savedPhone);
+  }
+}}
+  />
+)}
+
       <div className="w-full max-w-5xl">
         {isVerified && (
           <form
@@ -246,11 +268,10 @@ export default function PersonalLoan() {
             <button
               type="submit"
               disabled={!isFormComplete}
-              className={`w-full py-4 rounded-xl text-xl font-bold transition-all duration-300 mt-4 ${
-                isFormComplete 
-                  ? "bg-black text-white hover:bg-gray-800 cursor-pointer" 
+              className={`w-full py-4 rounded-xl text-xl font-bold transition-all duration-300 mt-4 ${isFormComplete
+                  ? "bg-black text-white hover:bg-gray-800 cursor-pointer"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
-              }`}
+                }`}
             >
               {isFormComplete ? "Submit Application" : "Fill All Fields to Submit"}
             </button>

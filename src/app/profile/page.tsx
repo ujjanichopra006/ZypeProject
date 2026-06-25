@@ -5,479 +5,303 @@ import {
   User,
   Phone,
   Mail,
-  CalendarDays,
   MapPin,
   Wallet,
-  BadgeIndianRupee,
   CreditCard,
-  Building,
+  LogOut,
+  Pencil,
 } from "lucide-react";
 
-export default function Home() {
+/**
+ * UI MODEL
+ */
+interface UserProfile {
+  name?: string;
+  phone?: string;
+  email?: string;
+  dob?: string;
+  pan?: string;
+  city?: string;
+  income?: number;
+  loan_amount?: number;
+  employment_type?: string;
+}
+
+export default function ProfilePage() {
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     dob: "",
     pan: "",
-    pincode: "",
+    city: "",
     income: "",
     loan_amount: "",
-    state: "",
-    city: "",
     employment_type: "",
   });
 
-  const [profile, setProfile] = useState<any>(null);
-  const [showForm, setShowForm] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [userExists, setUserExists] = useState(false);
-  const [loading, setLoading] = useState(false);
-
+  /**
+   * LOAD FROM LOCALSTORAGE (NO GET API)
+   */
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const phone = localStorage.getItem("phone") || "";
+    const stored = localStorage.getItem("profileData");
 
-    const fetchUser = async () => {
-      if (!token) {
-        setFormData((prev) => ({
-          ...prev,
-          phone,
-        }));
+    if (stored) {
+      setProfile(JSON.parse(stored));
+      setShowForm(false);
+    } else {
+      setShowForm(true);
+    }
 
-        setShowForm(true);
-        return;
-      }
-
-      try {
-        const res = await fetch(
-          "https://keshvacredit.onrender.com/api/getuser",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!res.ok) {
-          setFormData((prev) => ({
-            ...prev,
-            phone,
-          }));
-
-          setShowForm(true);
-          return;
-        }
-
-        const data = await res.json();
-
-        if (data && data.name) {
-          setProfile(data);
-
-          setFormData({
-            name: data.name || "",
-            phone: data.phone || phone,
-            email: data.email || "",
-            dob: data.dob || "",
-            pan: data.pan || "",
-            pincode: data.pincode || "",
-            income: String(data.income || ""),
-            loan_amount: String(data.loan_amount || ""),
-            state: data.state || "",
-            city: data.city || "",
-            employment_type: data.employment_type || "",
-          });
-
-          setUserExists(true);
-          setShowForm(false);
-        } else {
-          setFormData((prev) => ({
-            ...prev,
-            phone,
-          }));
-
-          setShowForm(true);
-        }
-      } catch (error) {
-        console.log(error);
-
-        setFormData((prev) => ({
-          ...prev,
-          phone,
-        }));
-
-        setShowForm(true);
-      }
-    };
-
-    fetchUser();
+    setLoading(false);
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  /**
+   * CREATE USER
+   */
+  const createUser = async () => {
+    const token = localStorage.getItem("token");
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+    const payload = {
+      ...formData,
+      income: Number(formData.income),
+      loan_amount: Number(formData.loan_amount),
+    };
 
- const handleEdit = () => {
-  if (!profile) return;
-
-  setFormData({
-    name: profile.name || "",
-    phone: profile.phone || "",
-    email: profile.email || "",
-    dob: profile.dob || "",
-    pan: profile.pan || "",
-    pincode: profile.pincode || "",
-    income: String(profile.income || ""),
-    loan_amount: String(profile.loan_amount || ""),
-    state: profile.state || "",
-    city: profile.city || "",
-    employment_type: profile.employment_type || "",
-  });
-
-  setIsEditing(true);
-
-  // IMPORTANT
-  setShowForm(false);
-};
-  const handleSubmit = async (e?: any) => {
-  e?.preventDefault();
-
-    setLoading(true);
-
-    try {
-      const token = localStorage.getItem("token");
-
-      const payload = {
-        name: formData.name.trim(),
-        phone: formData.phone.trim(),
-        email: formData.email.trim(),
-        dob: formData.dob,
-        pan: formData.pan.trim(),
-        pincode: formData.pincode.trim(),
-        income: Number(formData.income),
-        loan_amount: Number(formData.loan_amount),
-        state: formData.state.trim(),
-        city: formData.city.trim(),
-        employment_type: formData.employment_type.trim(),
-      };
-
-      let url = "";
-      let method = "";
-
-      if (isEditing) {
-        url =
-          "https://keshvacredit.onrender.com/api/updateuser";
-        method = "PUT";
-      } else {
-        url =
-          "https://keshvacredit.onrender.com/api/createuser";
-        method = "POST";
-      }
-
-      const res = await fetch(url, {
-        method,
+    const res = await fetch(
+      "https://keshvacredit.onrender.com/api/createuser",
+      {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...(token && {
-            Authorization: `Bearer ${token}`,
-          }),
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      if (data.token) {
-        localStorage.setItem("token", data.token);
       }
+    );
 
-      if (res.ok) {
-        setProfile(payload);
+    return await res.json();
+  };
 
-        localStorage.setItem(
-          "profileData",
-          JSON.stringify(payload)
-        );
+  /**
+   * UPDATE USER
+   */
+  const updateUser = async () => {
+    const token = localStorage.getItem("token");
 
-        setShowForm(false);
-        setIsEditing(false);
-        setUserExists(true);
+    const payload = {
+      ...formData,
+      income: Number(formData.income),
+      loan_amount: Number(formData.loan_amount),
+    };
 
-        alert(
-          isEditing
-            ? "Profile Updated Successfully ✅"
-            : "Profile Created Successfully ✅"
-        );
-      } else {
-        alert(data.message || "Something went wrong");
+    const res = await fetch(
+      "https://keshvacredit.onrender.com/api/updateuser",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
       }
-    } catch (error) {
-      console.log(error);
-      alert("Server Error");
+    );
+
+    return await res.json();
+  };
+
+  /**
+   * SUBMIT (CREATE / UPDATE)
+   */
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+
+      const result = isEditing
+        ? await updateUser()
+        : await createUser();
+
+      const apiData = result?.data || result;
+
+      // normalize UI data
+      const uiData: UserProfile = {
+        name: apiData.name || formData.name,
+        phone: apiData.phone || formData.phone,
+        email: apiData.email || formData.email,
+        dob: apiData.dob || formData.dob,
+        pan: apiData.pan || formData.pan,
+        city: apiData.city || formData.city,
+        income: apiData.income || Number(formData.income),
+        loan_amount: apiData.loan_amount || Number(formData.loan_amount),
+        employment_type: apiData.employment_type || formData.employment_type,
+      };
+
+      setProfile(uiData);
+      localStorage.setItem("profileData", JSON.stringify(uiData));
+
+      setShowForm(false);
+      setIsEditing(false);
+
+      alert(
+        isEditing
+          ? "Profile Updated Successfully"
+          : "Profile Created Successfully"
+      );
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <div className="min-h-screen bg-[#0b1220] flex items-center justify-center px-4 text-white">
-      <div className="w-full max-w-5xl">
-        <h1 className="text-4xl font-bold text-center mb-8">
-          Basic Information
-        </h1>
+  /**
+   * EDIT
+   */
+  const handleEdit = () => {
+    if (!profile) return;
 
-        {showForm && (
-          <form
-            onSubmit={handleSubmit}
-            className="bg-[#0f172a] border border-gray-700 rounded-2xl p-8"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputBox icon={<User />} name="name" placeholder="Name" value={formData.name} onChange={handleChange} />
-              <InputBox icon={<Phone />} name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} />
-              <InputBox icon={<Mail />} name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-              <InputBox icon={<CalendarDays />} name="dob" type="date" value={formData.dob} onChange={handleChange} />
-              <InputBox icon={<CreditCard />} name="pan" placeholder="PAN Number" value={formData.pan} onChange={handleChange} />
-              <InputBox icon={<MapPin />} name="pincode" placeholder="Pincode" value={formData.pincode} onChange={handleChange} />
-              <InputBox icon={<BadgeIndianRupee />} name="income" placeholder="Income" value={formData.income} onChange={handleChange} />
-              <InputBox icon={<Wallet />} name="loan_amount" placeholder="Loan Amount" value={formData.loan_amount} onChange={handleChange} />
-              <InputBox icon={<MapPin />} name="state" placeholder="State" value={formData.state} onChange={handleChange} />
-              <InputBox icon={<Building />} name="city" placeholder="City" value={formData.city} onChange={handleChange} />
-              <InputBox icon={<Building />} name="employment_type" placeholder="Employment Type" value={formData.employment_type} onChange={handleChange} />
-            </div>
+    setFormData({
+      name: profile.name || "",
+      phone: profile.phone || "",
+      email: profile.email || "",
+      dob: profile.dob || "",
+      pan: profile.pan || "",
+      city: profile.city || "",
+      income: String(profile.income || ""),
+      loan_amount: String(profile.loan_amount || ""),
+      employment_type: profile.employment_type || "",
+    });
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full mt-8 bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-semibold"
-            >
-              {loading
-                ? "Please Wait..."
-                : isEditing
-                  ? "Update Profile"
-                  : "Submit"}
+    setShowForm(true);
+    setIsEditing(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-white bg-[#0b1220]">
+        Loading...
+      </div>
+    );
+  }
+
+  /**
+   * FORM UI
+   */
+  if (showForm) {
+    return (
+      <div className="min-h-screen p-6 bg-[#0b1220]">
+        <div className="max-w-2xl mx-auto bg-[#111827] p-6 rounded-2xl">
+          <h2 className="text-white text-xl mb-4">
+            {isEditing ? "Update Profile" : "Create Profile"}
+          </h2>
+
+          <form onSubmit={handleSubmit} className="grid gap-4">
+            {Object.keys(formData).map((key) => (
+              <input
+                key={key}
+                className="p-3 bg-gray-800 text-white rounded"
+                placeholder={key}
+                value={formData[key as keyof typeof formData]}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    [key]: e.target.value,
+                  })
+                }
+              />
+            ))}
+
+            <button className="bg-blue-600 text-white py-2 rounded">
+              Submit
             </button>
           </form>
-        )}
+        </div>
+      </div>
+    );
+  }
 
-        {profile && !showForm && (
-          <div className="mt-10 bg-white text-black p-8 rounded-xl shadow-lg">
-            <div className="flex justify-between items-center mb-6 border-b pb-3">
-              <h2 className="text-3xl font-bold">
-                My Profile
-              </h2>
+  /**
+   * PROFILE UI
+   */
+  return (
+    <div className="min-h-screen bg-[#0b1220] text-white p-6">
+      <div className="max-w-5xl mx-auto">
 
-              {!isEditing ? (
-                <button
-                  onClick={handleEdit}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg"
-                >
-                  Edit Profile
-                </button>
-              ) : (
-                <button
-                  onClick={(e) => handleSubmit(e)}
-                  className="bg-green-600 text-white px-4 py-2 rounded-lg"
-                >
-                  Save Changes
-                </button>
-              )}
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <p>
-                <strong>Name:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.name
-                )}
-              </p>
-              <p>
-                <strong>Phone:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="text"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.phone
-                )}
-              </p>
-              <p>
-                <strong>Email:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.email
-                )}
-              </p>
-              <p>
-                <strong>DOB:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="date"
-                    name="dob"
-                    value={formData.dob}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.dob
-                )}
-              </p>
-
-              <p>
-                <strong>PAN:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="text"
-                    name="pan"
-                    value={formData.pan}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.pan
-                )}
-              </p>
-
-              <p>
-                <strong>Pincode:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="text"
-                    name="pincode"
-                    value={formData.pincode}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.pincode
-                )}
-              </p>
-
-              <p>
-                <strong>Income:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="number"
-                    name="income"
-                    value={formData.income}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.income
-                )}
-              </p>
-
-              <p>
-                <strong>Loan Amount:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="number"
-                    name="loan_amount"
-                    value={formData.loan_amount}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.loan_amount
-                )}
-              </p>
-
-              <p>
-                <strong>State:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="text"
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.state
-                )}
-              </p>
-
-              <p>
-                <strong>City:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.city
-                )}
-              </p>
-
-              <p>
-                <strong>Employment:</strong>{" "}
-                {isEditing ? (
-                  <input
-                    type="text"
-                    name="employment_type"
-                    value={formData.employment_type}
-                    onChange={handleChange}
-                    className="border px-2 py-1 rounded"
-                  />
-                ) : (
-                  profile.employment_type
-                )}
-              </p>
-            </div>
+        {/* HEADER */}
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 rounded-2xl flex justify-between">
+          <div>
+            <h1 className="text-2xl">{profile?.name}</h1>
+            <p>{profile?.email}</p>
+            <p>{profile?.phone}</p>
           </div>
-        )}
+
+          <div className="flex gap-3">
+            <button
+              onClick={handleEdit}
+              className="bg-white text-black px-4 py-2 rounded flex items-center gap-2"
+            >
+              <Pencil size={16} />
+              Edit
+            </button>
+
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 px-4 py-2 rounded flex items-center gap-2"
+            >
+              <LogOut size={16} />
+              Logout
+            </button>
+          </div>
+        </div>
+
+        {/* CARDS */}
+        <div className="grid md:grid-cols-2 gap-4 mt-6">
+
+          <Card icon={<User />} title="Name" value={profile?.name} />
+          <Card icon={<Phone />} title="Phone" value={profile?.phone} />
+          <Card icon={<Mail />} title="Email" value={profile?.email} />
+          <Card icon={<MapPin />} title="City" value={profile?.city} />
+          <Card icon={<Wallet />} title="Income" value={profile?.income} />
+          <Card icon={<CreditCard />} title="Loan" value={profile?.loan_amount} />
+
+        </div>
       </div>
     </div>
   );
 }
 
-function InputBox({
+/**
+ * CARD COMPONENT
+ */
+function Card({
   icon,
-  name,
-  placeholder,
+  title,
   value,
-  onChange,
-  type = "text",
-}: any) {
+}: {
+  icon: React.ReactNode;
+  title: string;
+  value?: string | number;
+}) {
   return (
-    <div className="flex items-center gap-3 border-b border-gray-600 pb-2">
-      <span>{icon}</span>
-
-      <input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        className="w-full bg-transparent outline-none text-white"
-      />
+    <div className="bg-[#111827] p-4 rounded-xl border border-gray-700">
+      <div className="flex gap-2 items-center text-blue-400">
+        {icon}
+        <span>{title}</span>
+      </div>
+      <p className="text-white mt-2">{value || "-"}</p>
     </div>
   );
 }

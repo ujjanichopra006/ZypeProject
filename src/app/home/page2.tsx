@@ -20,14 +20,14 @@ export default function Second() {
   }, []);
 
   return (
-  <section className="flex flex-col items-center justify-center overflow-hidden bg-slate-900 text-white pt-6 md:pt-8 pb-4 md:pb-6 px-4">
+  <section className="flex flex-col items-center justify-center overflow-hidden bg-slate-900 text-white pt-2 md:pt-4 pb-4 md:pb-3 px-4">
   {/* Heading */}
   <div
     className="max-w-3xl text-center"
     data-aos="fade-up"
     data-aos-duration="1200"
   >
-   <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+   <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">
       🚀 Our Trusted Partners
     </h1>
 
@@ -41,7 +41,7 @@ export default function Second() {
   </div>
       {/* Logo Slider */}
       <div
-       className="overflow-hidden w-full py-4 md:py-7"
+       className="overflow-hidden w-full py-4 md:py-4"
         data-aos="fade-left"
         data-aos-delay="300"
         data-aos-duration="1200"

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function PartnerPage() {
+export default function Partner() {
   const pathname = usePathname();
 
   const [view, setView] = useState("register");

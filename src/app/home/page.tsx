@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
-import loans from "../../animations/loans.json";
+import loans1 from "../../animations/loans.json";
+import loans2 from "../../animations/Credit tracker Animation (1).json";
+import loans3 from "../../animations/content writing.json";
 import { useRouter } from "next/navigation";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -19,46 +21,63 @@ import Eighth from "../../app/home/page8";
 export default function Home() {
   const router = useRouter();
 
+  // ✅ Animation setup
+  const animations = [loans1, loans2, loans3];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % animations.length);
+    }, 3000); // 3 sec change
+
+    return () => clearInterval(interval);
+  }, []);
+
   // ✅ Personal Loan Handler
   const handlePersonalLoanClick = () => {
-    const isSubmitted = localStorage.getItem("personalLoanSubmitted") === "true";
-    if (isSubmitted) {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+    if (isLoggedIn) {
       router.push("/personalloanlender");
     } else {
       router.push("/personal-loan");
     }
   };
 
-  // ✅ NEW: Business Loan Handler
+  // ✅ Business Loan Handler
   const handleBusinessLoanClick = () => {
-    const isSubmitted = localStorage.getItem("businessLoanSubmitted") === "true";
-    if (isSubmitted) {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+    if (isLoggedIn) {
       router.push("/businessloanlender");
     } else {
       router.push("/business-loan");
     }
   };
 
-  // ✅ NEW: Home Loan Handler
+  // ✅ Home Loan Handler
   const handleHomeLoanClick = () => {
-    const isSubmitted = localStorage.getItem("homeLoanSubmitted") === "true";
-    if (isSubmitted) {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+    if (isLoggedIn) {
       router.push("/homeloanlender");
     } else {
       router.push("/home-loan");
     }
   };
 
-  // ✅ NEW: Gold Loan Handler
+  // ✅ Gold Loan Handler
   const handleGoldLoanClick = () => {
-    const isSubmitted = localStorage.getItem("goldLoanSubmitted") === "true";
-    if (isSubmitted) {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+    if (isLoggedIn) {
       router.push("/goldloanlender");
     } else {
       router.push("/gold-loan");
     }
   };
 
+  // ✅ AOS Animation
   useEffect(() => {
     AOS.init({
       duration: 1200,
@@ -86,11 +105,11 @@ export default function Home() {
 
   return (
     <div className="w-full overflow-x-hidden bg-slate-900">
-      
+
       {/* HERO SECTION */}
       <section className="min-h-[80vh] flex items-center justify-center bg-slate-900 text-white px-4 sm:px-10 md:px-16 lg:px-24 py-10">
         <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-between gap-10">
-          
+
           {/* LEFT TEXT */}
           <div className="flex-1 text-center md:text-left" data-aos="fade-right">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
@@ -107,7 +126,7 @@ export default function Home() {
 
             {/* BUTTONS */}
             <div className="mt-8 grid grid-cols-2 gap-4 max-w-md mx-auto md:mx-0">
-              
+
               <button
                 onClick={handlePersonalLoanClick}
                 className="bg-green-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
@@ -115,7 +134,6 @@ export default function Home() {
                 Personal Loan
               </button>
 
-              {/* ✅ Updated Business Loan Button */}
               <button
                 onClick={handleBusinessLoanClick}
                 className="bg-red-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
@@ -123,7 +141,6 @@ export default function Home() {
                 Business Loan
               </button>
 
-              {/* ✅ Updated Home Loan Button */}
               <button
                 onClick={handleHomeLoanClick}
                 className="bg-yellow-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
@@ -131,7 +148,6 @@ export default function Home() {
                 Home Loan
               </button>
 
-              {/* ✅ Updated Gold Loan Button */}
               <button
                 onClick={handleGoldLoanClick}
                 className="bg-blue-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
@@ -142,41 +158,65 @@ export default function Home() {
             </div>
           </div>
 
-          {/* RIGHT ANIMATION */}
-          <div className="flex-1 flex justify-center" data-aos="zoom-in">
-            <div className="w-64 sm:w-72 md:w-96">
-              <Lottie animationData={loans} loop />
-            </div>
-          </div>
+         {/* RIGHT ANIMATION (AUTO SWITCHING) */}
+<div className="flex-1 flex justify-center" data-aos="zoom-in">
+  <div className="w-64 sm:w-72 md:w-96 flex items-center justify-center">
+    
+    <Lottie
+      animationData={animations[index]}
+      loop
+      style={{
+        height: index === 0 ? 250 : 350, // 👈 1st animation smaller
+        width: "100%",
+        transition: "all 0.6s ease-in-out",
+      }}
+    />
 
-        </div>
-      </section>
+  </div>
+</div>    
+</div> 
+ </section>
 
       {/* FEATURE CARDS */}
-      <section className="bg-slate-900 px-4 py-12 md:py-16 flex flex-wrap justify-center gap-6">
-        
-        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
-          <h2 className="text-black text-lg font-bold mb-2">Your Trust Is Our Strength</h2>
-          <p className="text-black text-sm">No collateral required, simple and accessible credit.</p>
-        </div>
+     <section className="bg-slate-900 px-3 py-8 flex flex-wrap justify-center gap-4">
 
-        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
-          <h2 className="text-black text-lg font-bold mb-2">Fast Support</h2>
-          <p className="text-black text-sm">Contact us at keshvacredit@gmail.com anytime.</p>
-        </div>
+  <div className="w-full sm:w-60 min-h-[160px] bg-green-300 rounded-lg shadow-md p-4 flex flex-col justify-center hover:scale-105 transition">
+    <h2 className="text-black text-base font-bold mb-1">
+      Your Trust Is Our Strength
+    </h2>
+    <p className="text-black text-xs leading-snug">
+      Get instant access to hassle-free credit with no collateral required. Simple and transparent financial support made easy for you.
+    </p>
+  </div>
 
-        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
-          <h2 className="text-black text-lg font-bold mb-2">Unlimited Access</h2>
-          <p className="text-black text-sm">Apply once and access funds anytime.</p>
-        </div>
+  <div className="w-full sm:w-60 min-h-[160px] bg-green-300 rounded-lg shadow-md p-4 flex flex-col justify-center hover:scale-105 transition">
+    <h2 className="text-black text-base font-bold mb-1">
+      Fast Support
+    </h2>
+    <p className="text-black text-xs leading-snug">
+      Need help? Contact us anytime at keshvacredit@gmail.com. We’re available 24/7 for quick assistance.
+    </p>
+  </div>
 
-        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
-          <h2 className="text-black text-lg font-bold mb-2">Safe & Secure</h2>
-          <p className="text-black text-sm">Data protection with high security standards.</p>
-        </div>
+  <div className="w-full sm:w-60 min-h-[160px] bg-green-300 rounded-lg shadow-md p-4 flex flex-col justify-center hover:scale-105 transition">
+    <h2 className="text-black text-base font-bold mb-1">
+      Unlimited Access
+    </h2>
+    <p className="text-black text-xs leading-snug">
+      Apply once and enjoy continuous access to funds anytime with complete flexibility and convenience.
+    </p>
+  </div>
 
-      </section>
+  <div className="w-full sm:w-60 min-h-[160px] bg-green-300 rounded-lg shadow-md p-4 flex flex-col justify-center hover:scale-105 transition">
+    <h2 className="text-black text-base font-bold mb-1">
+      Safe & Secure
+    </h2>
+    <p className="text-black text-xs leading-snug">
+      Your data is protected with high-level security standards to ensure complete privacy and safety.
+    </p>
+  </div>
 
+</section>
       {/* BANNER */}
       <section className="bg-slate-900 flex items-center justify-center px-4 py-12">
         <div className="flex flex-col md:flex-row items-center gap-10 max-w-5xl w-full">
@@ -201,7 +241,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OTHER SECTIONS WITH SAFE SPACING */}
+      {/* OTHER SECTIONS */}
       <section className="w-full py-12"><Second /></section>
       <section className="w-full py-12"><Third /></section>
       <section className="w-full py-12"><Forth /></section>

@@ -40,8 +40,8 @@ export default function Fifth() {
   ];
 
   return (
-    <section className="bg-slate-900 py-12 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 lg:px-10">
+    <section className="bg-slate-900 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-3 md:px-4 lg:px-5">
         <div className="flex flex-col lg:flex-row gap-8 items-center">
           {/* Left Content */}
           <div
@@ -49,7 +49,7 @@ export default function Fifth() {
             data-aos="fade-right"
             data-aos-duration="1000"
           >
-            <div className="bg-teal-600 p-8 rounded-3xl shadow-xl hover:-translate-y-2 transition-all duration-300">
+            <div className="bg-teal-600 p-6 rounded-3xl shadow-xl hover:-translate-y-2 transition-all duration-300">
               <h2 className="text-3xl font-bold text-black mb-5">
                 Instant Funds,
                 <br />
@@ -77,13 +77,13 @@ export default function Fifth() {
                   data-aos="zoom-in-up"
                   data-aos-delay={index * 100}
                   data-aos-duration="1000"
-                  className="bg-teal-600 rounded-2xl p-5 shadow-lg flex items-center gap-4 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+                  className="bg-teal-600 rounded-2xl p-3 shadow-lg flex items-center gap-4 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
                 >
                   {/* Image bilkul same rakhi hai */}
                   <img
                     src={card.image}
                     alt={card.alt}
-                    className="w-20 h-20 object-cover rounded-xl shrink-0 hover:scale-105 transition-transform duration-300"
+                    className="w-15 h-15 object-cover rounded-xl shrink-0 hover:scale-105 transition-transform duration-300"
                   />
 
                   <div>

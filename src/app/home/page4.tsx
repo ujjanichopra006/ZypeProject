@@ -102,10 +102,10 @@ export default function Forth() {
   };
 
   return (
-    <div className="bg-slate-900 py-10 px-5 md:px-10 lg:px-20 overflow-hidden">
+    <div className="bg-slate-900 py-7 px-5 md:px-7 lg:px-10 overflow-hidden">
       {/* App Download Section */}
       <div
-        className="flex flex-col lg:flex-row items-center justify-between gap-10 bg-green-300 rounded-[40px] shadow-2xl px-8 md:px-12 lg:px-20 py-10 mx-auto mb-16 max-w-7xl"
+        className="flex flex-col lg:flex-row items-center justify-between gap-10 bg-green-300 rounded-[40px] shadow-2xl px-6 md:px-10 lg:px-10 py-7 mx-auto mb-10 max-w-7xl"
         data-aos="zoom-in-up"
         data-aos-duration="1200"
         data-aos-anchor-placement="top-bottom"

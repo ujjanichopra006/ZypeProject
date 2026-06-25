@@ -39,11 +39,18 @@ export default function Navbar() {
     };
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("phone");
-    setIsloggedIn(false);
-  };
+const handleLogout = () => {
+  localStorage.removeItem("phone");
 
+  localStorage.removeItem("personalLoanSubmitted");
+  localStorage.removeItem("businessLoanSubmitted");
+  localStorage.removeItem("homeLoanSubmitted");
+  localStorage.removeItem("goldLoanSubmitted");
+
+  setIsloggedIn(false);
+
+  window.dispatchEvent(new Event("authChange"));
+};
   const toggleTheme = () => {
     if (darkMode) {
       document.documentElement.classList.remove("dark");

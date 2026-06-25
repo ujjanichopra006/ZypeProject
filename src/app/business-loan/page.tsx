@@ -1,156 +1,410 @@
 "use client";
 
-import { useEffect } from "react";
-import Lottie from "lottie-react";
-import loans from "../../animations/loans.json";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import Link from "next/link";
+import OtpPopup from "../popup/popup";
 
-import Second from "../../app/home/page2";
-import Third from "../../app/home/page3";
-import Forth from "../../app/home/page4";
-import Fifth from "../../app/home/page5";
-import EMICalculator from "../home/EMIcalculator";
-import Sixth from "../../app/home/page6";
-import Seventh from "../../app/home/page7";
-import Eighth from "../../app/home/page8";
-
-export default function Home() {
+export default function BusinessLoan() {
   const router = useRouter();
 
-  const handlePersonalLoanClick = () => {
-    const isSubmitted = localStorage.getItem("personalLoanSubmitted") === "true";
-    if (isSubmitted) {
-      router.push("/personalloanlender");
-    } else {
-      router.push("/personal-loan");
-    }
-  };
+  const [showOtp, setShowOtp] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [checkingAccess, setCheckingAccess] = useState(true);
+  const [formData, setFormData] = useState({
+    business_owner_name: "",
+    business_owner_phone: "",
+    business_owner_email: "",
+    business_owner_pan: "",
+    business_ower_dob: "",
 
-  // ✅ NEW: Same logic for Business Loan
-  const handleBusinessLoanClick = () => {
-    const isSubmitted = localStorage.getItem("businessLoanSubmitted") === "true";
-    if (isSubmitted) {
-      router.push("/businessloanlender");
-    } else {
-      router.push("/business-loan");
-    }
-  };
+    business_name: "",
+    business_type: "",
+    business_age: "",
+
+    annual_revenue: "",
+    business_location: "",
+    business_loan_amount: "",
+
+    gst_number: "",
+    Udyam_Registration_Number: "",
+    msme_registration_number: "",
+
+    business_pan: "",
+    business_loan_purpose: "Business Expansion",
+  });
 
   useEffect(() => {
-    AOS.init({
-      duration: 1200,
-      easing: "ease-in-out",
-      once: false,
-      mirror: true,
-      offset: 80,
-    });
+  const submitted = localStorage.getItem("businessLoanSubmitted");
+  const phone = localStorage.getItem("phone");
 
-    const refreshAOS = () => AOS.refreshHard();
-    window.addEventListener("load", refreshAOS);
-    const timer = setTimeout(() => AOS.refreshHard(), 500);
+  if (phone && submitted === "true") {
+    router.replace("/businessloanlender");
+    return;
+  }
 
-    return () => {
-      window.removeEventListener("load", refreshAOS);
-      clearTimeout(timer);
-    };
-  }, []);
+  if (!submitted) {
+    localStorage.setItem("businessLoanSubmitted", "false");
+  }
+
+  if (phone) {
+    setIsVerified(true);
+
+    setFormData((prev) => ({
+      ...prev,
+      business_owner_phone: phone,
+    }));
+  } else {
+    setShowOtp(true);
+  }
+
+  setCheckingAccess(false);
+}, [router]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        "https://keshvacredit.onrender.com/api/business/createbusinessman",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            business_owner_name:
+              formData.business_owner_name,
+
+            business_owner_email:
+              formData.business_owner_email,
+
+            business_owner_phone: Number(
+              formData.business_owner_phone
+            ),
+
+            business_owner_pan:
+              formData.business_owner_pan,
+
+            business_ower_dob:
+              formData.business_ower_dob,
+
+            business_pan:
+              formData.business_pan ||
+              formData.business_owner_pan,
+
+            business_name:
+              formData.business_name,
+
+            business_type:
+              formData.business_type,
+
+            business_age: Number(
+              formData.business_age
+            ),
+
+            business_loan_purpose:
+              formData.business_loan_purpose,
+
+            annual_revenue: Number(
+              formData.annual_revenue
+            ),
+
+            business_location:
+              formData.business_location,
+
+            business_loan_amount: Number(
+              formData.business_loan_amount
+            ),
+
+            Udyam_Registration_Number:
+              formData.Udyam_Registration_Number,
+
+            gst_number:
+              formData.gst_number,
+
+            msme_registration_number:
+              formData.msme_registration_number,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(
+          "Business Loan Application Submitted Successfully"
+        );
+
+        localStorage.setItem(
+          "businessLoanSubmitted",
+          "true"
+        );
+
+        router.push("/businessloanlender");
+      } else {
+        alert(data.message || "Submission Failed");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+   
+  if (checkingAccess) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="h-12 w-12 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
+}
 
   return (
-    <div className="w-full overflow-x-hidden bg-slate-900">
-      {/* HERO SECTION */}
-      <section className="min-h-[80vh] flex items-center justify-center bg-slate-900 text-white px-4 sm:px-10 md:px-16 lg:px-24 py-10">
-        <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-between gap-10">
-          <div className="flex-1 text-center md:text-left" data-aos="fade-right">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
-              Empowering Every Indian with <br />
-              Instant Loans
+    <div className="min-h-screen bg-gradient-to-r from-sky-200 via-white to-sky-200 flex justify-center items-center px-4 py-10">
+
+      {showOtp && (
+        <OtpPopup
+          onClose={() => router.push("/")}
+          onVerified={() => {
+            const phone =
+              localStorage.getItem("phone");
+
+            setFormData((prev) => ({
+              ...prev,
+              business_owner_phone:
+                phone || "",
+            }));
+
+            setShowOtp(false);
+            setIsVerified(true);
+          }}
+        />
+      )}
+
+      <div className="w-full max-w-4xl">
+        {isVerified && (
+          <form
+            onSubmit={handleSubmit}
+            className="bg-white rounded-3xl shadow-xl p-8"
+          >
+            <h1 className="text-4xl font-bold text-center mb-8">
+              Business Loan Form
             </h1>
-            <p className="text-sm sm:text-base md:text-lg mt-5 leading-relaxed text-gray-200">
-              Get the funds you need with quick approvals,
-              <span className="text-red-400 font-semibold"> minimal paperwork, and fast disbursals.</span>
-            </p>
 
-            <div className="mt-8 grid grid-cols-2 gap-4 max-w-md mx-auto md:mx-0">
-              <button
-                onClick={handlePersonalLoanClick}
-                className="bg-green-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
-              >
-                Personal Loan
-              </button>
+            <h2 className="text-2xl font-semibold mb-5">
+              Basic Details
+            </h2>
 
-              {/* ✅ Updated Business Loan Button */}
-              <button
-                onClick={handleBusinessLoanClick}
-                className="bg-red-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
-              >
-                Business Loan
-              </button>
+            <div className="grid md:grid-cols-2 gap-4 mb-8">
+              <input
+                type="text"
+                name="business_owner_name"
+                placeholder="Full Name"
+                value={
+                  formData.business_owner_name
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
 
-              <Link href="/home-loan">
-                <button className="bg-yellow-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition">
-                  Home Loan
-                </button>
-              </Link>
+              <input
+                type="tel"
+                name="business_owner_phone"
+                placeholder="Mobile Number"
+                value={
+                  formData.business_owner_phone
+                }
+                readOnly
+                onChange={handleChange}
+                className="border p-3 rounded-lg bg-gray-100"
+                required
+              />
 
-              <Link href="/gold-loan">
-                <button className="bg-blue-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition">
-                  Gold Loan
-                </button>
-              </Link>
+              <input
+                type="email"
+                name="business_owner_email"
+                placeholder="Email Address"
+                value={
+                  formData.business_owner_email
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
+
+              <input
+                type="text"
+                name="business_owner_pan"
+                placeholder="PAN Number"
+                value={
+                  formData.business_owner_pan
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
+
+              <input
+                type="text"
+                name="business_name"
+                placeholder="Business name"
+                value={
+                  formData.business_name
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
             </div>
-          </div>
 
-          <div className="flex-1 flex justify-center" data-aos="zoom-in">
-            <div className="w-64 sm:w-72 md:w-96">
-              <Lottie animationData={loans} loop />
+            <h2 className="text-2xl font-semibold mb-5">
+              Additional Details
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-4">
+
+              <input
+                type="text"
+                name="business_pan"
+                placeholder=" BUSINESS PAN Number"
+                value={
+                  formData.business_pan
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
+              <input
+                type="date"
+                name="business_ower_dob"
+                value={
+                  formData.business_ower_dob
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
+
+              <input
+                type="text"
+                name="business_type"
+                placeholder="Business type"
+                value={
+                  formData.business_type
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
+
+              <input
+                type="number"
+                name="business_age"
+                placeholder="Business Age (Years)"
+                value={
+                  formData.business_age
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
+  <input
+                type="number"
+                name="business_loan_amount"
+                placeholder="Loan Amount"
+                value={
+                  formData.business_loan_amount
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
+              <input
+                type="number"
+                name="annual_revenue"
+                placeholder="Annual Revenue"
+                value={
+                  formData.annual_revenue
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
+
+              <input
+                type="text"
+                name="business_location"
+                placeholder="Business Location"
+                value={
+                  formData.business_location
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+                required
+              />
+
+              <input
+                type="text"
+                name="gst_number"
+                placeholder="GST Number"
+                value={formData.gst_number}
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+              />
+
+              <input
+                type="text"
+                name="Udyam_Registration_Number"
+                placeholder="Udyam Registration Number"
+                value={
+                  formData.Udyam_Registration_Number
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg"
+              />
+
+              <input
+                type="text"
+                name="msme_registration_number"
+                placeholder="MSME Registration Number"
+                value={
+                  formData.msme_registration_number
+                }
+                onChange={handleChange}
+                className="border p-3 rounded-lg md:col-span-2"
+              />
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* FEATURE CARDS */}
-      <section className="bg-slate-900 px-4 py-12 md:py-16 flex flex-wrap justify-center gap-6">
-        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
-          <h2 className="text-black text-lg font-bold mb-2">Your Trust Is Our Strength</h2>
-          <p className="text-black text-sm">No collateral required, simple and accessible credit.</p>
-        </div>
-        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
-          <h2 className="text-black text-lg font-bold mb-2">Fast Support</h2>
-          <p className="text-black text-sm">Contact us at keshvacredit@gmail.com anytime.</p>
-        </div>
-        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
-          <h2 className="text-black text-lg font-bold mb-2">Unlimited Access</h2>
-          <p className="text-black text-sm">Apply once and access funds anytime.</p>
-        </div>
-        <div className="w-full sm:w-72 min-h-[200px] bg-green-300 rounded-xl shadow-lg p-6 flex flex-col justify-center hover:scale-105 transition">
-          <h2 className="text-black text-lg font-bold mb-2">Safe & Secure</h2>
-          <p className="text-black text-sm">Data protection with high security standards.</p>
-        </div>
-      </section>
-
-      {/* BANNER */}
-      <section className="bg-slate-900 flex items-center justify-center px-4 py-12">
-        <div className="flex flex-col md:flex-row items-center gap-10 max-w-5xl w-full">
-          <img src="/sell car.jpg" alt="sell car" className="w-64 h-64 md:w-72 md:h-72 object-cover rounded-3xl shadow-xl" data-aos="fade-right" />
-          <div data-aos="fade-left" className="text-center md:text-left">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">Avail Loans from ₹2,000 to ₹20 Lakhs</h2>
-            <p className="mt-3 text-blue-400 font-semibold">Quick, Hassle-Free, Secure 🚀</p>
-          </div>
-        </div>
-      </section>
-
-      {/* OTHER SECTIONS */}
-      <section className="w-full py-12"><Second /></section>
-      <section className="w-full py-12"><Third /></section>
-      <section className="w-full py-12"><Forth /></section>
-      <section className="w-full py-12"><Fifth /></section>
-      <section className="w-full py-12"><EMICalculator /></section>
-      <section className="w-full py-12"><Sixth /></section>
-      <section className="w-full py-12"><Seventh /></section>
-      <section className="w-full py-12"><Eighth /></section>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full mt-8 bg-black text-white py-4 rounded-xl font-bold"
+            >
+              {loading
+                ? "Submitting..."
+                : "Submit Application"}
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }

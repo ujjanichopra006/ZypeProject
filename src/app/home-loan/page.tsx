@@ -20,8 +20,7 @@ export default function HomeLoan() {
 
   const [showOtp, setShowOtp] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  
-  // ✅ NEW: Boolean to track if form is completely filled
+  const [checkingAccess, setCheckingAccess] = useState(true);
   const [isFormComplete, setIsFormComplete] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -55,25 +54,32 @@ export default function HomeLoan() {
     setIsFormComplete(allFilled);
   }, [formData]);
 
-  useEffect(() => {
-    // ✅ NEW: Check if already submitted and redirect
-    const isSubmitted = localStorage.getItem("homeLoanSubmitted") === "true";
-    if (isSubmitted) {
-      router.push("/homeloanlender");
-      return;
-    }
+useEffect(() => {
+  const submitted = localStorage.getItem("homeLoanSubmitted");
+  const phone = localStorage.getItem("phone");
 
-    const phone = localStorage.getItem("phone");
-    if (phone) {
-      setIsVerified(true);
-      setFormData((prev) => ({
-        ...prev,
-        applicant_phone: phone,
-      }));
-    } else {
-      setShowOtp(true);
-    }
-  }, [router]);
+  if (phone && submitted === "true") {
+    router.replace("/homeloanlender");
+    return;
+  }
+
+  if (!submitted) {
+    localStorage.setItem("homeLoanSubmitted", "false");
+  }
+
+  if (phone) {
+    setIsVerified(true);
+
+    setFormData((prev) => ({
+      ...prev,
+      applicant_phone: phone,
+    }));
+  } else {
+    setShowOtp(true);
+  }
+
+  setCheckingAccess(false);
+}, [router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -165,6 +171,14 @@ export default function HomeLoan() {
       alert("Something went wrong");
     }
   };
+
+  if (checkingAccess) {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="h-12 w-12 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
+}
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-sky-200 via-white to-sky-200 py-10 px-4 flex justify-center items-center">

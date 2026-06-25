@@ -5,7 +5,7 @@ export default function Third() {
     <>
       {/* Heading Section */}
       <div
-        className="flex flex-col items-center justify-center overflow-hidden bg-slate-900 text-white py-10"
+        className="flex flex-col items-center justify-center overflow-hidden bg-slate-900 text-white"
         data-aos="fade-up"
         data-aos-anchor-placement="top-bottom"
       >
