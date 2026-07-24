@@ -163,69 +163,68 @@ export default function Partner() {
       <Container maxW="6xl">
         {/* Navigation Tabs - FIXED */}
         <HStack
-          gap={3}
-          justifyContent="center"
-          mb={10}
-          flexWrap="wrap"
-        >
-          <Link href="/Contact" passHref legacyBehavior>
-            <Box
-              as="a"
-              px={6}
-              py={2.5}
-              borderRadius="full"
-              fontSize="sm"
-              fontWeight="medium"
-              textAlign="center"
-              transition="all 0.3s"
-              bg={pathname === "/Contact" ? "blue.600" : "transparent"}
-              color={pathname === "/Contact" ? "white" : "white"}
-              border={
-                pathname === "/Contact"
-                  ? "2px solid blue.600"
-                  : "2px solid blue.500"
-              }
-              _hover={{
-                bg: pathname === "/Contact" ? "blue.700" : "blue.600",
-                borderColor: pathname === "/Contact" ? "blue.700" : "blue.600",
-                color: "white",
-                transform: "translateY(-2px)",
-              }}
-              cursor="pointer"
-            >
-              Contact
-            </Box>
-          </Link>
+  mt={10}
+  gap={3}
+  justifyContent="center"
+  mb={10}
+  flexWrap="wrap"
+>
+  {/* Contact Button */}
+  <Link href="/Contact" passHref legacyBehavior>
+    <Box
+      as="a"
+      px={6}
+      py={2.5}
+      borderRadius="full"
+      fontSize="sm"
+      fontWeight="medium"
+      textAlign="center"
+      transition="all 0.3s"
+      bg={pathname === "/Contact" ? "blue.600" : "transparent"}
+      color="white"
+      border={
+        pathname === "/Contact"
+          ? "2px solid blue.600"
+          : "2px solid blue.500"
+      }
+      _hover={{
+        bg: pathname === "/Contact" ? "blue.700" : "blue.600",
+        borderColor: pathname === "/Contact" ? "blue.700" : "blue.600",
+        color: "white",
+        transform: "translateY(-2px)",
+      }}
+      cursor="pointer"
+    >
+      Contact
+    </Box>
+  </Link>
 
-          <Link href="/partner" passHref legacyBehavior>
-            <Box
-              as="a"
-              px={6}
-              py={2.5}
-              borderRadius="full"
-              fontSize="sm"
-              fontWeight="medium"
-              textAlign="center"
-              transition="all 0.3s"
-              bg={pathname === "/partner" ? "yellow.500" : "transparent"}
-              color={pathname === "/partner" ? "black" : "yellow.400"}
-              border={
-                pathname === "/partner"
-                  ? "2px solid yellow.500"
-                  : "2px solid yellow.500"
-              }
-              _hover={{
-                bg: "yellow.500",
-                color: "black",
-                borderColor: "yellow.500",
-                transform: "translateY(-2px)",
-              }}
-              cursor="pointer"
-            >
-              Register as Partner
-            </Box>
-          </Link>
-        </HStack>
+  {/* Partner Button */}
+  <Link href="/partner" passHref legacyBehavior>
+    <Box
+      as="a"
+      px={6}
+      py={2.5}
+      borderRadius="full"
+      fontSize="sm"
+      fontWeight="medium"
+      textAlign="center"
+      transition="all 0.3s"
+      bg={pathname === "/partner" ? "yellow.500" : "transparent"}
+      color={pathname === "/partner" ? "black" : "yellow.400"}
+      border="2px solid yellow.500"
+      _hover={{
+        bg: "yellow.500",
+        color: "black",
+        borderColor: "yellow.500",
+        transform: "translateY(-2px)",
+      }}
+      cursor="pointer"
+    >
+      Register as Partner
+    </Box>
+  </Link>
+</HStack>
 
         {/* Hero Section */}
         <Box

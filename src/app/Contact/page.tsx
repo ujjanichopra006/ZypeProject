@@ -203,7 +203,7 @@ export default function ContactPage() {
       boxShadow="lg"
     >
       <HStack
-        spacing={4}
+        gap={4}
         justifyContent="center"
         flexWrap="wrap"
       >
@@ -274,6 +274,7 @@ export default function ContactPage() {
             fontWeight="extrabold"
             bgGradient="linear(to-r, blue.400, purple.500)"
             bgClip="text"
+            color="white"
           >
             Get in Touch
           </Heading>
