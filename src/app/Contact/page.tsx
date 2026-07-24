@@ -184,74 +184,87 @@ export default function ContactPage() {
     <Box minH="100vh" bg="gray.900" color="white">
       <Container maxW="6xl" px={{ base: 4, md: 6 }} py={8}>
         {/* Navigation Tabs - FIXED WITH VISIBLE BUTTONS */}
-        <Box 
-          mb={10} 
-          data-aos="fade-down"
-          borderWidth="1px"
-          borderColor="gray.700"
-          borderRadius="full"
-          p={2}
-          bg="gray.800"
-        >
-          <HStack
-            gap={4}
-            justifyContent="center"
-            flexWrap="wrap"
+        <Box
+  as="section"
+  pt={{ base: "100px", md: "120px" }} // Navbar se niche lane ke liye
+  pb={10}
+>
+  <Container maxW="7xl">
+    <Box
+      mb={10}
+      data-aos="fade-down"
+      borderWidth="1px"
+      borderColor="gray.700"
+      borderRadius="full"
+      p={2}
+      bg="gray.800"
+      maxW="700px"
+      mx="auto"
+      boxShadow="lg"
+    >
+      <HStack
+        spacing={4}
+        justifyContent="center"
+        flexWrap="wrap"
+      >
+        {/* Contact Button */}
+        <Link href="/contact" passHref legacyBehavior>
+          <Box
+            as="button"
+            px={8}
+            py={3}
+            borderRadius="full"
+            fontSize="sm"
+            fontWeight="bold"
+            textAlign="center"
+            minW="160px"
+            bg={pathname === "/contact" ? "blue.600" : "transparent"}
+            color="white"
+            border="2px solid"
+            borderColor="blue.500"
+            _hover={{
+              bg: "blue.600",
+              transform: "translateY(-2px)",
+              boxShadow: "0 4px 12px rgba(66,153,225,0.4)",
+            }}
+            transition="all .3s"
+            cursor="pointer"
           >
-            <Link href="/contact" passHref legacyBehavior>
-              <Box
-                as="button"
-                px={8}
-                py={3}
-                borderRadius="full"
-                fontSize="sm"
-                fontWeight="bold"
-                textAlign="center"
-                minW="150px"
-                bg={pathname === "/contact" ? "blue.600" : "transparent"}
-                color="white"
-                border="2px solid blue.500"
-                _hover={{
-                  bg: "blue.600",
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 4px 12px rgba(66, 153, 225, 0.4)",
-                }}
-                transition="all 0.3s"
-                cursor="pointer"
-                display="inline-block"
-              >
-                Contact
-              </Box>
-            </Link>
+            Contact
+          </Box>
+        </Link>
 
-            <Link href="/partner" passHref legacyBehavior>
-              <Box
-                as="button"
-                px={8}
-                py={3}
-                borderRadius="full"
-                fontSize="sm"
-                fontWeight="bold"
-                textAlign="center"
-                minW="200px"
-                bg={pathname === "/partner" ? "yellow.500" : "transparent"}
-                color={pathname === "/partner" ? "black" : "yellow.400"}
-                border="2px solid yellow.500"
-                _hover={{
-                  bg: "yellow.500",
-                  color: "black",
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 4px 12px rgba(237, 137, 54, 0.4)",
-                }}
-                transition="all 0.3s"
-                cursor="pointer"
-                display="inline-block"
-              >
-                Register as Partner
-              </Box>
-            </Link>
-          </HStack>
-        </Box>
+        {/* Partner Button */}
+        <Link href="/partner" passHref legacyBehavior>
+          <Box
+            as="button"
+            px={8}
+            py={3}
+            borderRadius="full"
+            fontSize="sm"
+            fontWeight="bold"
+            textAlign="center"
+            minW="220px"
+            bg={pathname === "/partner" ? "yellow.500" : "transparent"}
+            color={pathname === "/partner" ? "black" : "yellow.400"}
+            border="2px solid"
+            borderColor="yellow.500"
+            _hover={{
+              bg: "yellow.500",
+              color: "black",
+              transform: "translateY(-2px)",
+              boxShadow: "0 4px 12px rgba(237,137,54,0.4)",
+            }}
+            transition="all .3s"
+            cursor="pointer"
+          >
+            Register as Partner
+          </Box>
+        </Link>
+      </HStack>
+    </Box>
+  </Container>
+</Box>
 
         {/* Heading */}
         <VStack gap={3} mb={12} textAlign="center" data-aos="fade-up">
