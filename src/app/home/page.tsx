@@ -18,8 +18,22 @@ import Sixth from "../../app/home/page6";
 import Seventh from "../../app/home/page7";
 import Eighth from "../../app/home/page8";
 
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  Button,
+  SimpleGrid,
+  Image,
+  Flex,
+  VStack,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+
 export default function Home() {
   const router = useRouter();
+  const [imageError, setImageError] = useState(false);
 
   // ✅ Animation setup
   const animations = [loans1, loans2, loans3];
@@ -28,23 +42,23 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % animations.length);
-    }, 3000); // 3 sec change
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // ✅ Personal Loan Handler
+  // ✅ Handlers
   const handlePersonalLoanClick = () => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const isSubmitted =
+      localStorage.getItem("personalLoanSubmitted") === "true";
 
-    if (isLoggedIn) {
+    if (isSubmitted) {
       router.push("/personalloanlender");
     } else {
       router.push("/personal-loan");
     }
   };
 
-  // ✅ Business Loan Handler
   const handleBusinessLoanClick = () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
@@ -55,7 +69,6 @@ export default function Home() {
     }
   };
 
-  // ✅ Home Loan Handler
   const handleHomeLoanClick = () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
@@ -66,12 +79,11 @@ export default function Home() {
     }
   };
 
-  // ✅ Gold Loan Handler
   const handleGoldLoanClick = () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
     if (isLoggedIn) {
-      router.push("/goldloanlender");
+      router.push("/gold-loan");
     } else {
       router.push("/gold-loan");
     }
@@ -103,154 +115,399 @@ export default function Home() {
     };
   }, []);
 
+  // ✅ Responsive values
+  const headingSize = useBreakpointValue({ base: "2xl", sm: "3xl", md: "4xl" });
+  const textSize = useBreakpointValue({ base: "sm", md: "lg" });
+  const animationHeight = index === 0 
+    ? useBreakpointValue({ base: "200px", sm: "220px", md: "280px" })
+    : useBreakpointValue({ base: "250px", sm: "280px", md: "350px" });
+
+  // Feature cards data
+  const features = [
+    {
+      title: "Your Trust Is Our Strength",
+      description: "Get instant access to hassle-free credit with no collateral required. Simple and transparent financial support made easy for you.",
+      icon: "🛡️",
+    },
+    {
+      title: "Fast Support",
+      description: "Need help? Contact us anytime at keshvacredit@gmail.com. We're available 24/7 for quick assistance.",
+      icon: "⚡",
+    },
+    {
+      title: "Unlimited Access",
+      description: "Apply once and enjoy continuous access to funds anytime with complete flexibility and convenience.",
+      icon: "♾️",
+    },
+    {
+      title: "Safe & Secure",
+      description: "Your data is protected with high-level security standards to ensure complete privacy and safety.",
+      icon: "🔒",
+    },
+  ];
+
   return (
-    <div className="w-full overflow-x-hidden bg-slate-900">
+    <Box width="100%" overflowX="hidden" bg="#111525">
 
+      {/* ============================================ */}
       {/* HERO SECTION */}
-      <section className="min-h-[80vh] flex items-center justify-center bg-slate-900 text-white px-4 sm:px-10 md:px-16 lg:px-24 py-10">
-        <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-between gap-10">
-
-          {/* LEFT TEXT */}
-          <div className="flex-1 text-center md:text-left" data-aos="fade-right">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
-              Empowering Every Indian with <br />
-              Instant Loans
-            </h1>
-
-            <p className="text-sm sm:text-base md:text-lg mt-5 leading-relaxed text-gray-200">
-              Get the funds you need with quick approvals,
-              <span className="text-red-400 font-semibold">
-                {" "}minimal paperwork, and fast disbursals.
-              </span>
-            </p>
-
-            {/* BUTTONS */}
-            <div className="mt-8 grid grid-cols-2 gap-4 max-w-md mx-auto md:mx-0">
-
-              <button
-                onClick={handlePersonalLoanClick}
-                className="bg-green-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
+      {/* ============================================ */}
+      <Box
+        minHeight={{ base: "auto", md: "90vh" }}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        bg="#111525"
+        color="white"
+        px={{ base: 4, md: 10, lg: 8 }}
+        py={{ base: 6, md: 8, lg: 20 }}
+      >
+        <Container maxWidth="1280px" px={{ base: 2, md: 4 }}>
+          <Flex
+            direction={{ base: "column", lg: "row" }}
+            align="center"
+            justify="space-between"
+            gap={{ base: 6, md: 8, lg: 10 }}
+          >
+            {/* LEFT TEXT */}
+            <Box 
+              flex="1" 
+              textAlign={{ base: "center", lg: "left" }} 
+              data-aos="fade-right"
+              width="100%"
+            >
+              <Heading
+                as="h1"
+                fontSize={headingSize}
+                fontWeight="extrabold"
+                lineHeight={{ base: "1.3", md: "1.4" }}
+                letterSpacing="tight"
               >
-                Personal Loan
-              </button>
+                Empowering Every Indian with
+                <Text as="span" color="yellow.400" fontWeight="bold" display="block">
+                  Instant Loans
+                </Text>
+              </Heading>
 
-              <button
-                onClick={handleBusinessLoanClick}
-                className="bg-red-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
+              <Text
+                fontSize={textSize}
+                mt={{ base: 4, md: 6 }}
+                lineHeight={{ base: "1.7", md: "1.8" }}
+                color="gray.300"
+                maxWidth={{ base: "100%", lg: "90%" }}
               >
-                Business Loan
-              </button>
+                Get the funds you need with quick approvals,
+                minimal paperwork, and fast disbursals. Whether
+                it's a small expense or a big dream, our hassle-free loan solutions are
+                <Text as="span" color="red.400" fontWeight="semibold">
+                  {" "}designed to fit your needs.
+                </Text>
+                We are innovators, problem solvers, and trusted partners
+                making borrowing simple.
+              </Text>
 
-              <button
-                onClick={handleHomeLoanClick}
-                className="bg-yellow-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
+              {/* LOAN BUTTONS */}
+              <SimpleGrid
+                columns={{ base: 2, sm: 2 }}
+                gap={{ base: 3, md: 4 }}
+                maxWidth={{ base: "100%", lg: "500px" }}
+                mt={5}
+                mx={{ base: "auto", lg: 0 }}
               >
-                Home Loan
-              </button>
+                <Button
+                  onClick={handlePersonalLoanClick}
+                  bg="green.400"
+                  color="black"
+                  borderRadius="xl"
+                  py={{ base: 4, md: 6 }}
+                  height={{ base: "48px", md: "56px" }}
+                  fontSize={{ base: "sm", md: "md" }}
+                  fontWeight="bold"
+                  _hover={{
+                    bg: "green.500",
+                    transform: "scale(1.05)",
+                    boxShadow: "lg",
+                  }}
+                  _active={{ transform: "scale(0.95)" }}
+                  transition="all 0.2s ease"
+                  boxShadow="md"
+                >
+                  Personal Loan
+                </Button>
 
-              <button
-                onClick={handleGoldLoanClick}
-                className="bg-blue-400 text-black rounded-xl py-3 text-sm font-semibold w-full hover:scale-105 transition"
+                <Button
+                  onClick={handleBusinessLoanClick}
+                  bg="red.400"
+                  color="black"
+                  borderRadius="xl"
+                  py={{ base: 4, md: 6 }}
+                  height={{ base: "48px", md: "56px" }}
+                  fontSize={{ base: "sm", md: "md" }}
+                  fontWeight="bold"
+                  _hover={{
+                    bg: "red.500",
+                    transform: "scale(1.05)",
+                    boxShadow: "lg",
+                  }}
+                  _active={{ transform: "scale(0.95)" }}
+                  transition="all 0.2s ease"
+                  boxShadow="md"
+                >
+                  Business Loan
+                </Button>
+
+                <Button
+                  onClick={handleHomeLoanClick}
+                  bg="yellow.400"
+                  color="black"
+                  borderRadius="xl"
+                  py={{ base: 4, md: 6 }}
+                  height={{ base: "48px", md: "56px" }}
+                  fontSize={{ base: "sm", md: "md" }}
+                  fontWeight="bold"
+                  _hover={{
+                    bg: "yellow.500",
+                    transform: "scale(1.05)",
+                    boxShadow: "lg",
+                  }}
+                  _active={{ transform: "scale(0.95)" }}
+                  transition="all 0.2s ease"
+                  boxShadow="md"
+                >
+                  Home Loan
+                </Button>
+
+                <Button
+                  onClick={handleGoldLoanClick}
+                  bg="blue.400"
+                  color="black"
+                  borderRadius="xl"
+                  py={{ base: 4, md: 6 }}
+                  height={{ base: "48px", md: "56px" }}
+                  fontSize={{ base: "sm", md: "md" }}
+                  fontWeight="bold"
+                  _hover={{
+                    bg: "blue.500",
+                    transform: "scale(1.05)",
+                    boxShadow: "lg",
+                  }}
+                  _active={{ transform: "scale(0.95)" }}
+                  transition="all 0.2s ease"
+                  boxShadow="md"
+                >
+                  Gold Loan
+                </Button>
+              </SimpleGrid>
+            </Box>
+
+            {/* RIGHT ANIMATION */}
+            <Box 
+              flex="1" 
+              display="flex" 
+              justifyContent="center" 
+              alignItems="center"
+              data-aos="zoom-in"
+              width="100%"
+            >
+              <Box
+                width={{ base: "100%", sm: "350px", md: "400px", lg: "450px" }}
+                maxWidth="450px"
+                height={animationHeight}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
               >
-                Gold Loan
-              </button>
+                <Lottie
+                  animationData={animations[index]}
+                  loop
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    transition: "all 0.6s ease-in-out",
+                  }}
+                />
+              </Box>
+            </Box>
+          </Flex>
+        </Container>
+      </Box>
 
-            </div>
-          </div>
-
-         {/* RIGHT ANIMATION (AUTO SWITCHING) */}
-<div className="flex-1 flex justify-center" data-aos="zoom-in">
-  <div className="w-64 sm:w-72 md:w-96 flex items-center justify-center">
-    
-    <Lottie
-      animationData={animations[index]}
-      loop
-      style={{
-        height: index === 0 ? 250 : 350, // 👈 1st animation smaller
-        width: "100%",
-        transition: "all 0.6s ease-in-out",
-      }}
-    />
-
-  </div>
-</div>    
-</div> 
- </section>
-
+      {/* ============================================ */}
       {/* FEATURE CARDS */}
-     <section className="bg-slate-900 px-3 py-8 flex flex-wrap justify-center gap-4">
+      {/* ============================================ */}
+      <Box bg="#111525" px={{ base: 4, md: 6, lg: 8 }} py={{ base: 5, md: 7, lg: 8 }}>
+        <Container maxW="1280px">
+          <SimpleGrid
+            columns={{ base: 1, sm: 2, lg: 4 }}
+            gap={{ base: 4, md: 6, lg: 8 }}
+          >
+            {features.map((feature, idx) => (
+              <Box
+                key={idx}
+                bg="green.300"
+                borderRadius="xl"
+                boxShadow="lg"
+                p={4}
+                minHeight={{ base: "140px", md: "160px" }}
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                transition="all 0.3s ease"
+                _hover={{
+                  transform: "translateY(-8px) scale(1.02)",
+                  boxShadow: "2xl",
+                }}
+              >
+                <Text fontSize={{ base: "2xl", md: "3xl" }} mb={2}>
+                  {feature.icon}
+                </Text>
+                <Heading
+                  as="h3"
+                  fontSize={{ base: "sm", md: "md" }}
+                  fontWeight="bold"
+                  color="black"
+                  mb={1}
+                >
+                  {feature.title}
+                </Heading>
+                <Text
+                  fontSize={{ base: "xs", md: "sm" }}
+                  color="black"
+                  opacity={0.8}
+                  lineHeight="tall"
+                >
+                  {feature.description}
+                </Text>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Container>
+      </Box>
 
-  <div className="w-full sm:w-60 min-h-[160px] bg-green-300 rounded-lg shadow-md p-4 flex flex-col justify-center hover:scale-105 transition">
-    <h2 className="text-black text-base font-bold mb-1">
-      Your Trust Is Our Strength
-    </h2>
-    <p className="text-black text-xs leading-snug">
-      Get instant access to hassle-free credit with no collateral required. Simple and transparent financial support made easy for you.
-    </p>
-  </div>
+      {/* ============================================ */}
+      {/* BANNER SECTION - FIXED IMAGE */}
+      {/* ============================================ */}
+      <Box 
+        bg="#111525" 
+        px={{ base: 0, md: 0, lg: 0 }} 
+        py={{ base: 0, md: 0, lg: 0 }}
+      >
+        <Container maxW="1280px">
+          <Flex
+            direction={{ base: "column", lg: "row" }}
+            align="center"
+            gap={{ base: 5, md: 6, lg: 8 }}
+          >
+            {/* Image with Error Handling */}
+            <Box 
+              flex="1" 
+              display="flex" 
+              justifyContent="center"
+              data-aos="fade-right"
+              width="100%"
+            >
+              {imageError ? (
+                // ✅ Fallback when image fails to load
+                <Box
+                  width={{ base: "280px", sm: "320px", md: "350px", lg: "400px" }}
+                  height={{ base: "280px", sm: "320px", md: "350px", lg: "400px" }}
+                  bg="gray.700"
+                  borderRadius="3xl"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  boxShadow="2xl"
+                  flexDirection="column"
+                >
+                  <Text fontSize="5xl" mb={2}>🏠</Text>
+                  <Text color="gray.400" fontSize="sm" fontWeight="medium">
+                    Image Not Found
+                  </Text>
+                </Box>
+              ) : (
+                <Image
+                  src="/sell car.jpg"
+                  alt="KeshvaCredit - Sell Car"
+                  width={{ base: "280px", sm: "320px", md: "350px", lg: "400px" }}
+                  height={{ base: "280px", sm: "320px", md: "350px", lg: "400px" }}
+                  objectFit="cover"
+                  borderRadius="3xl"
+                  boxShadow="2xl"
+                  transition="all 0.3s ease"
+                  _hover={{
+                    transform: "scale(1.03)",
+                    boxShadow: "dark-lg",
+                  }}
+                  onError={() => setImageError(true)}
+                />
+              )}
+            </Box>
 
-  <div className="w-full sm:w-60 min-h-[160px] bg-green-300 rounded-lg shadow-md p-4 flex flex-col justify-center hover:scale-105 transition">
-    <h2 className="text-black text-base font-bold mb-1">
-      Fast Support
-    </h2>
-    <p className="text-black text-xs leading-snug">
-      Need help? Contact us anytime at keshvacredit@gmail.com. We’re available 24/7 for quick assistance.
-    </p>
-  </div>
+            {/* Content */}
+            <Box 
+              flex="1" 
+              textAlign={{ base: "center", lg: "left" }} 
+              data-aos="fade-left"
+              width="100%"
+            >
+              <Heading
+                as="h2"
+                fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
+                fontWeight="bold"
+                color="white"
+                lineHeight={{ base: "1.3", md: "1.4" }}
+              >
+                Avail Loans from ₹2,000 to ₹20 Lakhs
+                <Text as="span" color="yellow.400" display="block" mt={1}>
+                  Quick, Hassle-Free, Secure 🚀
+                </Text>
+              </Heading>
 
-  <div className="w-full sm:w-60 min-h-[160px] bg-green-300 rounded-lg shadow-md p-4 flex flex-col justify-center hover:scale-105 transition">
-    <h2 className="text-black text-base font-bold mb-1">
-      Unlimited Access
-    </h2>
-    <p className="text-black text-xs leading-snug">
-      Apply once and enjoy continuous access to funds anytime with complete flexibility and convenience.
-    </p>
-  </div>
+              <Text
+                mt={{ base: 4, md: 6 }}
+                color="blue.300"
+                fontWeight="medium"
+                fontSize={{ base: "sm", md: "md", lg: "lg" }}
+                lineHeight={{ base: "1.7", md: "1.8" }}
+              >
+                With KeshvaCredit, achieve your financial goals effortlessly.
+                We're on a mission to make financial inclusion a reality for
+                every Indian by providing fast, secure, and hassle-free loan
+                solutions. Whether you need funds for personal needs, business
+                growth, education, or emergencies, we've got you covered.
+              </Text>
+            </Box>
+          </Flex>
+        </Container>
+      </Box>
 
-  <div className="w-full sm:w-60 min-h-[160px] bg-green-300 rounded-lg shadow-md p-4 flex flex-col justify-center hover:scale-105 transition">
-    <h2 className="text-black text-base font-bold mb-1">
-      Safe & Secure
-    </h2>
-    <p className="text-black text-xs leading-snug">
-      Your data is protected with high-level security standards to ensure complete privacy and safety.
-    </p>
-  </div>
-
-</section>
-      {/* BANNER */}
-      <section className="bg-slate-900 flex items-center justify-center px-4 py-12">
-        <div className="flex flex-col md:flex-row items-center gap-10 max-w-5xl w-full">
-
-          <img
-            src="/sell car.jpg"
-            alt="sell car"
-            className="w-64 h-64 md:w-72 md:h-72 object-cover rounded-3xl shadow-xl"
-            data-aos="fade-right"
-          />
-
-          <div data-aos="fade-left" className="text-center md:text-left">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">
-              Avail Loans from ₹2,000 to ₹20 Lakhs
-            </h2>
-
-            <p className="mt-3 text-blue-400 font-semibold">
-              Quick, Hassle-Free, Secure 🚀
-            </p>
-          </div>
-
-        </div>
-      </section>
-
+      {/* ============================================ */}
       {/* OTHER SECTIONS */}
-      <section className="w-full py-12"><Second /></section>
-      <section className="w-full py-12"><Third /></section>
-      <section className="w-full py-12"><Forth /></section>
-      <section className="w-full py-12"><Fifth /></section>
-      <section className="w-full py-12"><EMICalculator /></section>
-      <section className="w-full py-12"><Sixth /></section>
-      <section className="w-full py-12"><Seventh /></section>
-      <section className="w-full py-12"><Eighth /></section>
-
-    </div>
+      {/* ============================================ */}
+      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+        <Second />
+      </Box>
+      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+        <Third />
+      </Box>
+      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+        <Forth />
+      </Box>
+      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+        <Fifth />
+      </Box>
+      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+        <EMICalculator />
+      </Box>
+      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+        <Sixth />
+      </Box>
+      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+        <Seventh />
+      </Box>
+      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+        <Eighth />
+        </Box>
+    </Box>
   );
 }

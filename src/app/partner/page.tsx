@@ -3,12 +3,32 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import toast from "react-hot-toast";
+
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Input,
+  Button,
+  SimpleGrid,
+  Grid,
+  GridItem,
+  Icon,
+  Badge,
+} from "@chakra-ui/react";
+
+import { FaHandshake, FaRocket, FaUsers, FaBuilding, FaChartLine } from "react-icons/fa";
 
 export default function Partner() {
   const pathname = usePathname();
 
   const [view, setView] = useState("register");
   const [selectedType, setSelectedType] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -25,271 +45,737 @@ export default function Partner() {
     location: "",
   });
 
-  const handleChange = (e: any) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [errors, setErrors] = useState({
+    fullName: "",
+    contact: "",
+    email: "",
+    partnerType: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (errors[name as keyof typeof errors]) {
+      setErrors({ ...errors, [name]: "" });
+    }
   };
 
-  const inputClass =
-    "w-full border rounded-xl px-4 py-3 text-black bg-white outline-none focus:ring-2 focus:ring-blue-500";
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { fullName: "", contact: "", email: "", partnerType: "" };
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = "Full Name is required";
+      isValid = false;
+    }
+
+    if (!formData.contact.trim()) {
+      newErrors.contact = "Contact number is required";
+      isValid = false;
+    } else if (!/^[0-9]{10}$/.test(formData.contact.replace(/\D/g, ""))) {
+      newErrors.contact = "Contact must be 10 digits";
+      isValid = false;
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
+      isValid = false;
+    }
+
+    if (!formData.partnerType) {
+      newErrors.partnerType = "Partner Type is required";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      toast.error("Please fix all errors");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      toast.success("Partnership request submitted successfully!");
+      setFormData({
+        fullName: "",
+        contact: "",
+        email: "",
+        designation: "",
+        partnerType: "",
+        businessType: "",
+        companyProfile: "",
+        website: "",
+        products: "",
+        volume: "",
+        pincode: "",
+        location: "",
+      });
+      setSelectedType("");
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const partnerTypes = [
+    {
+      id: "DSA",
+      title: "DSA Partners",
+      subtitle: "Direct Selling Agents",
+      icon: FaHandshake,
+      color: "blue",
+      benefits: ["✔ High commission earnings", "✔ Easy onboarding"],
+    },
+    {
+      id: "Aggregator",
+      title: "Aggregators",
+      subtitle: "Platform Partnerships",
+      icon: FaUsers,
+      color: "purple",
+      benefits: ["✔ API support", "✔ Bulk leads"],
+    },
+    {
+      id: "Corporate",
+      title: "Corporate Partners",
+      subtitle: "Business Collaborations",
+      icon: FaBuilding,
+      color: "pink",
+      benefits: ["✔ Enterprise solutions", "✔ Priority support"],
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-[#0f172a] py-16 px-4">
-      <div className="max-w-6xl mx-auto">
-
-        {/* Top Navigation Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-3 mb-8">
-          <Link
-            href="/Contact"
-            className={`px-5 py-2 rounded-full text-sm text-center border transition-all duration-300 ${
-              pathname === "/Contact"
-                ? "bg-blue-600 border-blue-600 text-white"
-                : "border border-blue-500 text-white hover:bg-blue-600 hover:border-blue-600"
-            }`}
-          >
-            Contact
+    <Box minH="100vh" bg="#0f172a" py={{ base: 8, md: 16 }} px={{ base: 4, md: 6 }}>
+      <Container maxW="6xl">
+        {/* Navigation Tabs - FIXED */}
+        <HStack
+          gap={3}
+          justifyContent="center"
+          mb={10}
+          flexWrap="wrap"
+        >
+          <Link href="/Contact" passHref legacyBehavior>
+            <Box
+              as="a"
+              px={6}
+              py={2.5}
+              borderRadius="full"
+              fontSize="sm"
+              fontWeight="medium"
+              textAlign="center"
+              transition="all 0.3s"
+              bg={pathname === "/Contact" ? "blue.600" : "transparent"}
+              color={pathname === "/Contact" ? "white" : "white"}
+              border={
+                pathname === "/Contact"
+                  ? "2px solid blue.600"
+                  : "2px solid blue.500"
+              }
+              _hover={{
+                bg: pathname === "/Contact" ? "blue.700" : "blue.600",
+                borderColor: pathname === "/Contact" ? "blue.700" : "blue.600",
+                color: "white",
+                transform: "translateY(-2px)",
+              }}
+              cursor="pointer"
+            >
+              Contact
+            </Box>
           </Link>
 
-          <Link
-            href="/partner"
-            className={`px-5 py-2 rounded-full text-sm text-center transition-all duration-300 ${
-              pathname === "/partner"
-                ? "bg-yellow-500 text-black"
-                : "border border-yellow-500 text-yellow-400 hover:bg-yellow-500 hover:text-black"
-            }`}
-          >
-            Register as Partner
+          <Link href="/partner" passHref legacyBehavior>
+            <Box
+              as="a"
+              px={6}
+              py={2.5}
+              borderRadius="full"
+              fontSize="sm"
+              fontWeight="medium"
+              textAlign="center"
+              transition="all 0.3s"
+              bg={pathname === "/partner" ? "yellow.500" : "transparent"}
+              color={pathname === "/partner" ? "black" : "yellow.400"}
+              border={
+                pathname === "/partner"
+                  ? "2px solid yellow.500"
+                  : "2px solid yellow.500"
+              }
+              _hover={{
+                bg: "yellow.500",
+                color: "black",
+                borderColor: "yellow.500",
+                transform: "translateY(-2px)",
+              }}
+              cursor="pointer"
+            >
+              Register as Partner
+            </Box>
           </Link>
-        </div>
+        </HStack>
 
         {/* Hero Section */}
-        <div className="bg-gray-200 rounded-[30px] py-20 px-6 text-center mb-12">
-          <h1 className="text-5xl font-bold text-black">
-            Partner with <span className="text-blue-600">KeshvaCredit</span>
-          </h1>
+        <Box
+          bg="gray.200"
+          borderRadius="3xl"
+          py={{ base: 16, md: 20 }}
+          px={{ base: 6, md: 10 }}
+          textAlign="center"
+          mb={12}
+          position="relative"
+          overflow="hidden"
+        >
+          <Box
+            position="absolute"
+            top="-50%"
+            right="-10%"
+            w="300px"
+            h="300px"
+            bg="blue.100"
+            borderRadius="full"
+            opacity={0.3}
+          />
+          <Box
+            position="absolute"
+            bottom="-30%"
+            left="-5%"
+            w="200px"
+            h="200px"
+            bg="purple.100"
+            borderRadius="full"
+            opacity={0.3}
+          />
 
-          <div className="flex justify-center gap-4 mt-10">
-            <button
-              onClick={() => setView("register")}
-              className={`px-10 py-4 rounded-xl font-semibold ${
-                view === "register"
-                  ? "bg-blue-600 text-black"
-                  : "border border-blue-600 text-blue-600"
-              }`}
+          <VStack gap={6} position="relative" zIndex={1}>
+            <Icon as={FaHandshake} boxSize={16} color="blue.600" />
+            <Heading
+              as="h1"
+              fontSize={{ base: "3xl", md: "5xl" }}
+              fontWeight="extrabold"
+              color="black"
             >
-              Register Now
-            </button>
+              Partner with{" "}
+              <Text as="span" color="blue.600">
+                KeshvaCredit
+              </Text>
+            </Heading>
+            <Text fontSize={{ base: "md", md: "lg" }} color="gray.600" maxW="2xl">
+              Join our growing network of partners and unlock new opportunities
+              in the financial services industry.
+            </Text>
 
-            <button
-              onClick={() => setView("learn")}
-              className={`px-10 py-4 rounded-xl font-semibold ${
-                view === "learn"
-                  ? "bg-blue-600 text-black"
-                  : "border border-blue-600 text-black"
-              }`}
-            >
-              Learn More
-            </button>
-          </div>
-        </div>
+            <HStack gap={4} flexWrap="wrap" justifyContent="center">
+              <Button
+                onClick={() => setView("register")}
+                size="lg"
+                px={10}
+                py={6}
+                borderRadius="xl"
+                bg={view === "register" ? "blue.600" : "transparent"}
+                color={view === "register" ? "white" : "blue.600"}
+                border={view === "register" ? "none" : "2px solid blue.600"}
+                _hover={{
+                  bg: view === "register" ? "blue.700" : "blue.50",
+                  transform: "translateY(-2px)",
+                }}
+                transition="all 0.3s"
+                fontWeight="bold"
+              >
+                <Icon as={FaRocket} mr={2} />
+                Register Now
+              </Button>
+
+              <Button
+                onClick={() => setView("learn")}
+                size="lg"
+                px={10}
+                py={6}
+                borderRadius="xl"
+                bg={view === "learn" ? "blue.600" : "transparent"}
+                color={view === "learn" ? "white" : "black"}
+                border={view === "learn" ? "none" : "2px solid black"}
+                _hover={{
+                  bg: view === "learn" ? "blue.700" : "gray.100",
+                  transform: "translateY(-2px)",
+                }}
+                transition="all 0.3s"
+                fontWeight="bold"
+              >
+                <Icon as={FaChartLine} mr={2} />
+                Learn More
+              </Button>
+            </HStack>
+          </VStack>
+        </Box>
 
         {/* Register Form */}
         {view === "register" && (
-          <div className="max-w-4xl mx-auto bg-white p-10 rounded-2xl shadow">
-
+          <Box
+            maxW="4xl"
+            mx="auto"
+            bg="white"
+            p={{ base: 6, md: 10 }}
+            borderRadius="2xl"
+            boxShadow="xl"
+            border="1px"
+            borderColor="gray.200"
+          >
             {selectedType && (
-              <div className="mb-5">
-                <span className="inline-block bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold">
-                  Selected Partner Type: {selectedType}
-                </span>
-              </div>
+              <Badge
+                colorScheme="blue"
+                fontSize="md"
+                px={4}
+                py={2}
+                borderRadius="full"
+                mb={6}
+              >
+                Selected Partner Type: {selectedType}
+              </Badge>
             )}
 
-            <div className="grid md:grid-cols-2 gap-5">
-              <input
-                name="fullName"
-                onChange={handleChange}
-                placeholder="Full Name"
-                className={inputClass}
-              />
+            <form onSubmit={handleSubmit}>
+              <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={5}>
+                <GridItem>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Full Name *
+                    </Text>
+                    <Input
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      placeholder="Enter your full name"
+                      bg="white"
+                      border="2px"
+                      borderColor={errors.fullName ? "red.400" : "gray.300"}
+                      borderRadius="xl"
+                      height="50px"
+                      px={4}
+                      _hover={{ borderColor: errors.fullName ? "red.400" : "blue.400" }}
+                      _focus={{
+                        borderColor: errors.fullName ? "red.400" : "blue.500",
+                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                      }}
+                    />
+                    {errors.fullName && (
+                      <Text fontSize="xs" color="red.400" mt={1}>
+                        {errors.fullName}
+                      </Text>
+                    )}
+                  </Box>
+                </GridItem>
 
-              <input
-                name="contact"
-                onChange={handleChange}
-                placeholder="Contact Number"
-                className={inputClass}
-              />
+                <GridItem>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Contact Number *
+                    </Text>
+                    <Input
+                      name="contact"
+                      value={formData.contact}
+                      onChange={handleChange}
+                      placeholder="Enter contact number"
+                      bg="white"
+                      border="2px"
+                      borderColor={errors.contact ? "red.400" : "gray.300"}
+                      borderRadius="xl"
+                      height="50px"
+                      px={4}
+                      _hover={{ borderColor: errors.contact ? "red.400" : "blue.400" }}
+                      _focus={{
+                        borderColor: errors.contact ? "red.400" : "blue.500",
+                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                      }}
+                    />
+                    {errors.contact && (
+                      <Text fontSize="xs" color="red.400" mt={1}>
+                        {errors.contact}
+                      </Text>
+                    )}
+                  </Box>
+                </GridItem>
 
-              <input
-                name="email"
-                onChange={handleChange}
-                placeholder="Email"
-                className={inputClass}
-              />
+                <GridItem>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Email *
+                    </Text>
+                    <Input
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Enter your email"
+                      bg="white"
+                      border="2px"
+                      borderColor={errors.email ? "red.400" : "gray.300"}
+                      borderRadius="xl"
+                      height="50px"
+                      px={4}
+                      _hover={{ borderColor: errors.email ? "red.400" : "blue.400" }}
+                      _focus={{
+                        borderColor: errors.email ? "red.400" : "blue.500",
+                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                      }}
+                    />
+                    {errors.email && (
+                      <Text fontSize="xs" color="red.400" mt={1}>
+                        {errors.email}
+                      </Text>
+                    )}
+                  </Box>
+                </GridItem>
 
-              <input
-                name="designation"
-                onChange={handleChange}
-                placeholder="Designation"
-                className={inputClass}
-              />
+                <GridItem>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Designation
+                    </Text>
+                    <Input
+                      name="designation"
+                      value={formData.designation}
+                      onChange={handleChange}
+                      placeholder="Your designation"
+                      bg="white"
+                      border="2px"
+                      borderColor="gray.300"
+                      borderRadius="xl"
+                      height="50px"
+                      px={4}
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                      }}
+                    />
+                  </Box>
+                </GridItem>
 
-              <select
-                name="partnerType"
-                value={selectedType}
-                onChange={(e) => {
-                  setSelectedType(e.target.value);
-                  handleChange(e);
+                <GridItem>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Partner Type *
+                    </Text>
+                    <select
+                      name="partnerType"
+                      value={selectedType}
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                        setSelectedType(e.target.value);
+                        handleChange(e);
+                      }}
+                      style={{
+                        background: "white",
+                        border: `2px solid ${errors.partnerType ? "#f56565" : "#e2e8f0"}`,
+                        borderRadius: 12,
+                        height: 50,
+                        padding: "0 16px",
+                        width: "100%",
+                      }}
+                    >
+                      <option value="">Select Partner Type</option>
+                      <option value="DSA">DSA</option>
+                      <option value="Aggregator">Aggregator</option>
+                      <option value="Corporate">Corporate</option>
+                    </select>
+                    {errors.partnerType && (
+                      <Text fontSize="xs" color="red.400" mt={1}>
+                        {errors.partnerType}
+                      </Text>
+                    )}
+                  </Box>
+                </GridItem>
+
+                <GridItem>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Business Type
+                    </Text>
+                    <select
+                      name="businessType"
+                      value={formData.businessType}
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChange(e)}
+                      style={{
+                        background: "white",
+                        border: "2px solid #e2e8f0",
+                        borderRadius: 12,
+                        height: 50,
+                        padding: "0 16px",
+                        width: "100%",
+                      }}
+                    >
+                      <option value="">Select Business Type</option>
+                      <option value="Loan">Loan</option>
+                      <option value="Credit Card">Credit Card</option>
+                      <option value="Insurance">Insurance</option>
+                    </select>
+                  </Box>
+                </GridItem>
+
+                <GridItem>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Company Profile
+                    </Text>
+                    <Input
+                      name="companyProfile"
+                      value={formData.companyProfile}
+                      onChange={handleChange}
+                      placeholder="Company profile"
+                      bg="white"
+                      border="2px"
+                      borderColor="gray.300"
+                      borderRadius="xl"
+                      height="50px"
+                      px={4}
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                      }}
+                    />
+                  </Box>
+                </GridItem>
+
+                <GridItem>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Website
+                    </Text>
+                    <Input
+                      name="website"
+                      value={formData.website}
+                      onChange={handleChange}
+                      placeholder="Website URL"
+                      bg="white"
+                      border="2px"
+                      borderColor="gray.300"
+                      borderRadius="xl"
+                      height="50px"
+                      px={4}
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                      }}
+                    />
+                  </Box>
+                </GridItem>
+
+                <GridItem colSpan={{ base: 1, md: 2 }}>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Products
+                    </Text>
+                    <select
+                      name="products"
+                      value={formData.products}
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChange(e)}
+                      style={{
+                        background: "white",
+                        border: "2px solid #e2e8f0",
+                        borderRadius: 12,
+                        height: 50,
+                        padding: "0 16px",
+                        width: "100%",
+                      }}
+                    >
+                      <option value="">Select Products</option>
+                      <option value="Personal Loan">Personal Loan</option>
+                      <option value="Business Loan">Business Loan</option>
+                      <option value="Credit Card">Credit Card</option>
+                      <option value="Home Loan">Home Loan</option>
+                      <option value="Gold Loan">Gold Loan</option>
+                    </select>
+                  </Box>
+                </GridItem>
+
+                <GridItem>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Expected Business Volume
+                    </Text>
+                    <Input
+                      name="volume"
+                      value={formData.volume}
+                      onChange={handleChange}
+                      placeholder="Monthly volume"
+                      bg="white"
+                      border="2px"
+                      borderColor="gray.300"
+                      borderRadius="xl"
+                      height="50px"
+                      px={4}
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                      }}
+                    />
+                  </Box>
+                </GridItem>
+
+                <GridItem>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Pincode
+                    </Text>
+                    <Input
+                      name="pincode"
+                      value={formData.pincode}
+                      onChange={handleChange}
+                      placeholder="Pincode"
+                      bg="white"
+                      border="2px"
+                      borderColor="gray.300"
+                      borderRadius="xl"
+                      height="50px"
+                      px={4}
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                      }}
+                    />
+                  </Box>
+                </GridItem>
+
+                <GridItem colSpan={{ base: 1, md: 2 }}>
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.600">
+                      Location
+                    </Text>
+                    <Input
+                      name="location"
+                      value={formData.location}
+                      onChange={handleChange}
+                      placeholder="City / State"
+                      bg="white"
+                      border="2px"
+                      borderColor="gray.300"
+                      borderRadius="xl"
+                      height="50px"
+                      px={4}
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                      }}
+                    />
+                  </Box>
+                </GridItem>
+              </Grid>
+
+              <Button
+                type="submit"
+                w="full"
+                mt={8}
+                height="56px"
+                bgGradient="linear(to-r, blue.500, purple.600)"
+                color="white"
+                fontSize="lg"
+                fontWeight="bold"
+                borderRadius="xl"
+                _hover={{
+                  bgGradient: "linear(to-r, blue.600, purple.700)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 8px 25px rgba(66, 153, 225, 0.4)",
                 }}
-                className={inputClass}
+                _active={{ transform: "translateY(0)" }}
+                transition="all 0.3s"
+                disabled={isSubmitting}
+                aria-busy={isSubmitting}
               >
-                <option value="">Select Partner Type</option>
-                <option value="DSA">DSA</option>
-                <option value="Aggregator">Aggregator</option>
-                <option value="Corporate">Corporate</option>
-              </select>
-
-              <select
-                name="businessType"
-                onChange={handleChange}
-                className={inputClass}
-              >
-                <option value="">Select Business Type</option>
-                <option>Loan</option>
-                <option>Credit Card</option>
-                <option>Insurance</option>
-              </select>
-
-              <input
-                name="companyProfile"
-                onChange={handleChange}
-                placeholder="Company Profile"
-                className={inputClass}
-              />
-
-              <input
-                name="website"
-                onChange={handleChange}
-                placeholder="Website"
-                className={inputClass}
-              />
-
-              <div className="md:col-span-2">
-                <select
-                  name="products"
-                  onChange={handleChange}
-                  className={inputClass}
-                >
-                  <option value="">Select Products</option>
-                  <option>Personal Loan</option>
-                  <option>Business Loan</option>
-                  <option>Credit Card</option>
-                </select>
-              </div>
-
-              <input
-                name="volume"
-                onChange={handleChange}
-                placeholder="Expected Business Volume"
-                className={inputClass}
-              />
-
-              <input
-                name="pincode"
-                onChange={handleChange}
-                placeholder="Pincode"
-                className={inputClass}
-              />
-
-              <div className="md:col-span-2">
-                <input
-                  name="location"
-                  onChange={handleChange}
-                  placeholder="Location"
-                  className={inputClass}
-                />
-              </div>
-            </div>
-
-            <button className="w-full mt-6 h-14 bg-blue-600 text-white rounded-xl font-semibold">
-              Submit Partnership Request
-            </button>
-          </div>
+                <Icon as={FaHandshake} mr={2} />
+                {isSubmitting ? "Submitting..." : "Submit Partnership Request"}
+              </Button>
+            </form>
+          </Box>
         )}
 
         {/* Learn More Section */}
         {view === "learn" && (
-          <div className="grid md:grid-cols-3 gap-6">
-
-            <div className="bg-white p-8 rounded-2xl shadow">
-              <h3 className="text-blue-600 font-bold text-xl mb-2">
-                DSA Partners
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Direct Selling Agents
-              </p>
-
-              <p className="text-green-600">✔ High commission earnings</p>
-              <p className="text-green-600">✔ Easy onboarding</p>
-
-              <button
-                onClick={() => {
-                  setView("register");
-                  setSelectedType("DSA");
+          <SimpleGrid columns={{ base: 1, md: 3 }} gap={6}>
+            {partnerTypes.map((type, index) => (
+              <Box
+                key={index}
+                bg="white"
+                p={8}
+                borderRadius="2xl"
+                boxShadow="xl"
+                border="1px"
+                borderColor="gray.200"
+                textAlign="center"
+                _hover={{
+                  transform: "translateY(-8px)",
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
+                  transition: "all 0.3s",
                 }}
-                className="mt-6 w-full bg-blue-600 text-white py-3 rounded-xl"
+                transition="all 0.3s"
               >
-                Apply Now
-              </button>
-            </div>
+                <Box
+                  display="inline-block"
+                  p={4}
+                  borderRadius="full"
+                  bg={`${type.color}.50`}
+                  mb={4}
+                >
+                  <Icon as={type.icon} boxSize={8} color={`${type.color}.600`} />
+                </Box>
 
-            <div className="bg-white p-8 rounded-2xl shadow">
-              <h3 className="text-purple-600 font-bold text-xl mb-2">
-                Aggregators
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Platform Partnerships
-              </p>
+                <Heading as="h3" fontSize="xl" fontWeight="bold" color={`${type.color}.600`} mb={2}>
+                  {type.title}
+                </Heading>
 
-              <p className="text-green-600">✔ API support</p>
-              <p className="text-green-600">✔ Bulk leads</p>
+                <Text color="gray.600" mb={4}>
+                  {type.subtitle}
+                </Text>
 
-              <button
-                onClick={() => {
-                  setView("register");
-                  setSelectedType("Aggregator");
-                }}
-                className="mt-6 w-full bg-purple-600 text-white py-3 rounded-xl"
-              >
-                Apply Now
-              </button>
-            </div>
+                <VStack gap={2} align="flex-start">
+                  {type.benefits.map((benefit, i) => (
+                    <Text key={i} color="green.600" fontSize="sm">
+                      {benefit}
+                    </Text>
+                  ))}
+                </VStack>
 
-            <div className="bg-white p-8 rounded-2xl shadow">
-              <h3 className="text-pink-600 font-bold text-xl mb-2">
-                Corporate Partners
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Business Collaborations
-              </p>
-
-              <p className="text-green-600">✔ Enterprise solutions</p>
-              <p className="text-green-600">✔ Priority support</p>
-
-              <button
-                onClick={() => {
-                  setView("register");
-                  setSelectedType("Corporate");
-                }}
-                className="mt-6 w-full bg-pink-600 text-white py-3 rounded-xl"
-              >
-                Apply Now
-              </button>
-            </div>
-
-          </div>
+                <Button
+                  onClick={() => {
+                    setView("register");
+                    setSelectedType(type.id);
+                    setFormData({ ...formData, partnerType: type.id });
+                  }}
+                  mt={6}
+                  w="full"
+                  bg={`${type.color}.600`}
+                  color="white"
+                  py={6}
+                  borderRadius="xl"
+                  fontWeight="bold"
+                  _hover={{
+                    bg: `${type.color}.700`,
+                    transform: "translateY(-2px)",
+                  }}
+                  transition="all 0.3s"
+                >
+                  Apply Now
+                </Button>
+              </Box>
+            ))}
+          </SimpleGrid>
         )}
-
-      </div>
-    </div>
+      </Container>
+    </Box>
   );
 }

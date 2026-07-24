@@ -1,10 +1,18 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Lottie from "lottie-react";
-import { Home, IndianRupee } from "lucide-react";
-
-import homeAnimation from "@/animations/home.json";
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Button,
+  Input,
+  Icon,
+} from "@chakra-ui/react";
+import { Home, IndianRupee, TrendingUp, Clock } from "lucide-react";
 
 export default function HomeLoanCalculator() {
   const [loanAmount, setLoanAmount] = useState(3000000);
@@ -16,10 +24,12 @@ export default function HomeLoanCalculator() {
     const totalMonths = tenure * 12;
 
     const emi =
-      (loanAmount *
-        monthlyRate *
-        Math.pow(1 + monthlyRate, totalMonths)) /
-      (Math.pow(1 + monthlyRate, totalMonths) - 1);
+      loanAmount > 0
+        ? (loanAmount *
+            monthlyRate *
+            Math.pow(1 + monthlyRate, totalMonths)) /
+          (Math.pow(1 + monthlyRate, totalMonths) - 1)
+        : 0;
 
     const totalPayment = emi * totalMonths;
     const totalInterest = totalPayment - loanAmount;
@@ -31,146 +41,332 @@ export default function HomeLoanCalculator() {
     };
   }, [loanAmount, interestRate, tenure]);
 
+  // Format currency
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
+
   return (
-    <section className="bg-gradient-to-br from-slate-100 via-blue-100 to-cyan-100 py-8 px-2">
-      <div className="max-w-7xl mx-auto">
+    <Box
+      minH="100vh"
+      py={{ base: 8, md: 16 }}
+      px={{ base: 4, md: 6 }}
+      bgGradient="linear(to-br, #071739, #0B1F4D, #102A63)"
+    >
+      <Container maxW="4xl" mx="auto" p={0}>
+        <Box
+          bg="white"
+          borderRadius="32px"
+          boxShadow="0 25px 80px rgba(0,0,0,0.35)"
+          overflow="hidden"
+          display="grid"
+          gridTemplateColumns={{ base: "1fr", lg: "45% 55%" }}
+        >
+          {/* LEFT SIDE */}
+          <Box p={{ base: 6, lg: 8 }}>
+            <HStack gap={3} mb={2}>
+              <Box
+                w={10}
+                h={10}
+                rounded="xl"
+                bg="#2563EB"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Icon as={Home} w={5} h={5} color="white" />
+              </Box>
+              <Heading
+                as="h2"
+                fontSize={{ base: "2xl", lg: "3xl" }}
+                fontWeight="extrabold"
+                color="#071739"
+                letterSpacing="tight"
+              >
+                Home Loan EMI Calculator
+              </Heading>
+            </HStack>
 
-        {/* Heading */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-3">
-            <Home className="w-7 h-7 text-blue-700" />
-          </div>
-
-          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900">
-            Home Loan EMI Calculator
-          </h2>
-
-          <p className="mt-2 text-slate-600 text-sm max-w-xl mx-auto">
-            Calculate EMI, interest & total repayment instantly.
-          </p>
-        </div>
-
-        {/* Main Layout */}
-        <div className="grid lg:grid-cols-3 gap-4 items-center">
-
-          {/* Left Card */}
-          <div className="bg-white rounded-2xl p-4 border border-blue-100 shadow-md">
-
-            <h3 className="text-lg font-bold mb-4 text-slate-800">
-              Loan Details
-            </h3>
+            <Text color="gray.600" fontSize="sm" mb={6}>
+              Calculate your monthly EMI instantly and plan your dream home
+              smartly.
+            </Text>
 
             {/* Loan Amount */}
-            <div className="mb-4">
-              <div className="flex justify-between mb-1">
-                <label className="text-sm font-semibold">
+            <Box mb={6}>
+              <HStack justify="space-between" mb={2}>
+                <Text fontWeight="semibold" color="#071739">
+                  <Icon as={IndianRupee} w={4} h={4} mr={1} />
                   Loan Amount
-                </label>
-                <span className="text-blue-700 font-bold text-sm">
-                  ₹ {loanAmount.toLocaleString("en-IN")}
-                </span>
-              </div>
+                </Text>
+                <Text fontWeight="bold" color="#2563EB" fontSize="lg">
+                  {formatCurrency(loanAmount)}
+                </Text>
+              </HStack>
 
-              <input
-                type="range"
-                min="100000"
-                max="10000000"
-                step="50000"
-                value={loanAmount}
-                onChange={(e) => setLoanAmount(Number(e.target.value))}
-                className="w-full accent-blue-700"
-              />
-            </div>
+              <HStack gap={4} justify="center">
+                <Button
+                  size="sm"
+                  onClick={() =>
+                    setLoanAmount((prev) => Math.max(100000, prev - 50000))
+                  }
+                  bg="#2563EB"
+                  color="white"
+                  _hover={{ bg: "#1D4ED8" }}
+                  borderRadius="full"
+                  px={6}
+                >
+                  −
+                </Button>
+                <Input
+                  type="number"
+                  value={loanAmount}
+                  onChange={(e) => setLoanAmount(Number(e.target.value))}
+                  textAlign="center"
+                  width="140px"
+                  borderColor="gray.300"
+                  _focus={{
+                    borderColor: "#2563EB",
+                    boxShadow: "0 0 0 3px rgba(37,99,235,0.2)",
+                  }}
+                  borderRadius="full"
+                  fontWeight="semibold"
+                />
+                <Button
+                  size="sm"
+                  onClick={() =>
+                    setLoanAmount((prev) => Math.min(10000000, prev + 50000))
+                  }
+                  bg="#2563EB"
+                  color="white"
+                  _hover={{ bg: "#1D4ED8" }}
+                  borderRadius="full"
+                  px={6}
+                >
+                  +
+                </Button>
+              </HStack>
+            </Box>
 
-            {/* Interest */}
-            <div className="mb-4">
-              <div className="flex justify-between mb-1">
-                <label className="text-sm font-semibold">
+            {/* Interest Rate */}
+            <Box mb={6}>
+              <HStack justify="space-between" mb={2}>
+                <Text fontWeight="semibold" color="#071739">
+                  <Icon as={TrendingUp} w={4} h={4} mr={1} />
                   Interest Rate
-                </label>
-                <span className="text-cyan-600 font-bold text-sm">
+                </Text>
+                <Text fontWeight="bold" color="#2563EB" fontSize="lg">
                   {interestRate}%
-                </span>
-              </div>
+                </Text>
+              </HStack>
 
-              <input
-                type="range"
-                min="5"
-                max="15"
-                step="0.1"
-                value={interestRate}
-                onChange={(e) => setInterestRate(Number(e.target.value))}
-                className="w-full accent-cyan-600"
-              />
-            </div>
+              <HStack gap={4} justify="center">
+                <Button
+                  size="sm"
+                  onClick={() =>
+                    setInterestRate((prev) => Math.max(5, prev - 0.5))
+                  }
+                  bg="#2563EB"
+                  color="white"
+                  _hover={{ bg: "#1D4ED8" }}
+                  borderRadius="full"
+                  px={6}
+                >
+                  −
+                </Button>
+                <Input
+                  type="number"
+                  value={interestRate}
+                  onChange={(e) => setInterestRate(Number(e.target.value))}
+                  textAlign="center"
+                  width="140px"
+                  borderColor="gray.300"
+                  _focus={{
+                    borderColor: "#2563EB",
+                    boxShadow: "0 0 0 3px rgba(37,99,235,0.2)",
+                  }}
+                  borderRadius="full"
+                  fontWeight="semibold"
+                />
+                <Button
+                  size="sm"
+                  onClick={() =>
+                    setInterestRate((prev) => Math.min(15, prev + 0.5))
+                  }
+                  bg="#2563EB"
+                  color="white"
+                  _hover={{ bg: "#1D4ED8" }}
+                  borderRadius="full"
+                  px={6}
+                >
+                  +
+                </Button>
+              </HStack>
+            </Box>
 
-            {/* Tenure */}
-            <div>
-              <div className="flex justify-between mb-1">
-                <label className="text-sm font-semibold">
-                  Tenure
-                </label>
-                <span className="text-blue-700 font-bold text-sm">
-                  {tenure}Y
-                </span>
-              </div>
+            {/* Loan Tenure */}
+            <Box>
+              <HStack justify="space-between" mb={2}>
+                <Text fontWeight="semibold" color="#071739">
+                  <Icon as={Clock} w={4} h={4} mr={1} />
+                  Loan Tenure
+                </Text>
+                <Text fontWeight="bold" color="#2563EB" fontSize="lg">
+                  {tenure} Years
+                </Text>
+              </HStack>
 
-              <input
-                type="range"
-                min="1"
-                max="30"
-                value={tenure}
-                onChange={(e) => setTenure(Number(e.target.value))}
-                className="w-full accent-blue-700"
-              />
-            </div>
-          </div>
+              <HStack gap={4} justify="center">
+                <Button
+                  size="sm"
+                  onClick={() => setTenure((prev) => Math.max(1, prev - 1))}
+                  bg="#2563EB"
+                  color="white"
+                  _hover={{ bg: "#1D4ED8" }}
+                  borderRadius="full"
+                  px={6}
+                >
+                  −
+                </Button>
+                <Input
+                  type="number"
+                  value={tenure}
+                  onChange={(e) => setTenure(Number(e.target.value))}
+                  textAlign="center"
+                  width="140px"
+                  borderColor="gray.300"
+                  _focus={{
+                    borderColor: "#2563EB",
+                    boxShadow: "0 0 0 3px rgba(37,99,235,0.2)",
+                  }}
+                  borderRadius="full"
+                  fontWeight="semibold"
+                />
+                <Button
+                  size="sm"
+                  onClick={() => setTenure((prev) => Math.min(30, prev + 1))}
+                  bg="#2563EB"
+                  color="white"
+                  _hover={{ bg: "#1D4ED8" }}
+                  borderRadius="full"
+                  px={6}
+                >
+                  +
+                </Button>
+              </HStack>
+            </Box>
+          </Box>
 
-          {/* Animation */}
-          <div className="flex justify-center">
-            <Lottie
-              animationData={homeAnimation}
-              loop
-              className="w-[220px] md:w-[320px]"
-            />
-          </div>
+          {/* RIGHT SIDE */}
+          <Box
+            bgGradient="linear(to-br, #071739, #0B1F4D, #1E3A8A)"
+            color="white"
+            p={{ base: 6, lg: 8 }}
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+          >
+            <Box>
+              <HStack gap={2} mb={6}>
+                <Box
+                  w={8}
+                  h={8}
+                  bg="yellow.400/20"
+                  rounded="lg"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Icon as={IndianRupee} w={4} h={4} color="yellow.400" />
+                </Box>
+                <Heading as="h3" color="yellow.400" fontSize="2xl" fontWeight="bold">
+                  Loan Summary
+                </Heading>
+              </HStack>
 
-          {/* Right Card */}
-          <div className="bg-gradient-to-br from-blue-900 via-blue-700 to-cyan-600 rounded-2xl p-4 text-white shadow-lg">
+              <VStack gap={4} align="stretch">
+                {/* EMI */}
+                <Box
+                  bg="rgba(255,255,255,0.12)"
+                  backdropFilter="blur(16px)"
+                  border="1px solid"
+                  borderColor="rgba(255,255,255,0.15)"
+                  borderRadius="2xl"
+                  p={5}
+                >
+                  <Text color="#93C5FD" fontSize="sm" fontWeight="medium">
+                    Monthly EMI
+                  </Text>
+                  <Heading
+                    as="h2"
+                    fontSize="4xl"
+                    fontWeight="bold"
+                    mt={2}
+                    color="#FBBF24"
+                  >
+                    <Icon as={IndianRupee} w={8} h={8} mr={1} />
+                    {emiData.emi.toLocaleString("en-IN")}
+                  </Heading>
+                </Box>
 
-            <h3 className="text-xl font-bold mb-4">
-              EMI Summary
-            </h3>
+                {/* Total Interest */}
+                <Box
+                  bg="rgba(255,255,255,0.12)"
+                  backdropFilter="blur(16px)"
+                  border="1px solid"
+                  borderColor="rgba(255,255,255,0.15)"
+                  borderRadius="2xl"
+                  p={4}
+                >
+                  <Text color="#93C5FD" fontSize="sm" fontWeight="medium">
+                    Total Interest
+                  </Text>
+                  <Heading as="h3" fontSize="2xl" fontWeight="semibold" mt={1} color="#67E8F9">
+                    {formatCurrency(emiData.totalInterest)}
+                  </Heading>
+                </Box>
 
-            <div className="bg-white/15 rounded-xl p-3 mb-3">
-              <p className="text-xs text-blue-100">Monthly EMI</p>
-              <h2 className="text-2xl font-bold flex items-center gap-1">
-                <IndianRupee className="w-5 h-5" />
-                {emiData.emi.toLocaleString("en-IN")}
-              </h2>
-            </div>
+                {/* Total Payment */}
+                <Box
+                  bg="rgba(255,255,255,0.12)"
+                  backdropFilter="blur(16px)"
+                  border="1px solid"
+                  borderColor="rgba(255,255,255,0.15)"
+                  borderRadius="2xl"
+                  p={4}
+                >
+                  <Text color="#93C5FD" fontSize="sm" fontWeight="medium">
+                    Total Payment
+                  </Text>
+                  <Heading as="h3" fontSize="2xl" fontWeight="semibold" mt={1} color="white">
+                    {formatCurrency(emiData.totalPayment)}
+                  </Heading>
+                </Box>
+              </VStack>
 
-            <div className="bg-white/15 rounded-xl p-3 mb-3">
-              <p className="text-xs text-blue-100">Interest</p>
-              <h3 className="text-lg font-bold">
-                ₹ {emiData.totalInterest.toLocaleString("en-IN")}
-              </h3>
-            </div>
-
-            <div className="bg-white/15 rounded-xl p-3">
-              <p className="text-xs text-blue-100">Total Payable</p>
-              <h3 className="text-lg font-bold">
-                ₹ {emiData.totalPayment.toLocaleString("en-IN")}
-              </h3>
-            </div>
-
-            <button className="w-full mt-5 py-2.5 rounded-xl bg-white text-blue-700 font-bold hover:scale-105 transition">
-              Apply Now
-            </button>
-          </div>
-
-        </div>
-      </div>
-    </section>
+              {/* Apply Now Button */}
+              <Button
+                width="100%"
+                mt={6}
+                bg="#FBBF24"
+                color="#071739"
+                fontWeight="bold"
+                py={7}
+                borderRadius="xl"
+                boxShadow="0 8px 25px rgba(251,191,36,0.3)"
+                _hover={{ bg: "#F59E0B" }}
+                fontSize="md"
+              >
+                Apply for Home Loan
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 }

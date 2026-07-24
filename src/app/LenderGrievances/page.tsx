@@ -1,6 +1,18 @@
 "use client";
 
-import Image from "next/image";
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  SimpleGrid,
+  Card,
+  Link,
+  VStack,
+  HStack,
+  Image,
+  Icon,
+} from "@chakra-ui/react";
 import { User, Mail, Phone, MapPin } from "lucide-react";
 
 const lenders = [
@@ -60,128 +72,164 @@ const lenders = [
 
 export default function LenderGrievance() {
   return (
-    <section className="min-h-screen bg-[#030d21] py-8 px-40">
-      <div className="max-w-6xl mx-auto">
+    <Box minH="100vh" bg="#030d21" py={8} px={{ base: 4, md: 8, lg: 40 }}>
+      <Container maxW="6xl" mx="auto">
         {/* Heading */}
-        <div className="text-center mb-7">
-          <h1 className="text-2xl md:text-3xl font-bold text-white">
+        <VStack gap={1} mb={7}>
+          <Heading
+            as="h1"
+            fontSize={{ base: "2xl", md: "3xl" }}
+            fontWeight="bold"
+            color="white"
+            textAlign="center"
+          >
             Lender Grievance
-          </h1>
-          <p className="mt-1 text-sm text-gray-300">
+          </Heading>
+          <Text fontSize="sm" color="gray.300" textAlign="center">
             Direct contact for grievance resolution
-          </p>
-        </div>
+          </Text>
+        </VStack>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
+        {/* Cards Grid */}
+        <SimpleGrid
+          columns={{ base: 1, sm: 2, lg: 3 }}
+          gap={4}
+          justifyItems="center"
+        >
           {lenders.map((item, index) => (
-            <div
+            <Card.Root
               key={index}
-              className="w-full max-w-[290px] bg-[#f5f5f5] rounded-lg overflow-hidden border border-gray-200 shadow-md"
+              w="full"
+              maxW="290px"
+              bg="#f5f5f5"
+              borderRadius="lg"
+              overflow="hidden"
+              borderColor="gray.200"
+              borderWidth="1px"
+              boxShadow="md"
             >
               {/* Logo */}
-              <div className="h-[65px] border-b border-gray-200 flex items-center justify-center px-3 py-2 bg-white">
+              <Box
+                h="65px"
+                borderBottom="1px"
+                borderColor="gray.200"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                px={3}
+                py={2}
+                bg="white"
+              >
                 <Image
                   src={item.logo}
                   alt={item.name}
-                  width={130}
-                  height={35}
-                  className="object-contain w-auto max-h-[35px]"
+                  height="35px"
+                  objectFit="contain"
                 />
-              </div>
+              </Box>
 
               {/* Card Content */}
-              <div className="p-3">
+              <Box p={3}>
                 {/* Company Name */}
-                <h2 className="text-[16px] font-semibold text-[#0b2242] text-center mb-4">
+                <Text
+                  fontSize="16px"
+                  fontWeight="semibold"
+                  color="#0b2242"
+                  textAlign="center"
+                  mb={4}
+                >
                   {item.name}
-                </h2>
+                </Text>
 
                 {/* Officer */}
-                <div className="flex items-start gap-2 mb-2.5">
-                  <User
-                    size={14}
-                    className="text-gray-500 mt-0.5 flex-shrink-0"
-                  />
-                  <div>
-                    <p className="text-[11px] text-gray-500">
+                <HStack align="flex-start" gap={2} mb={2.5}>
+                  <Icon as={User} boxSize="14px" color="gray.500" mt={0.5} />
+                  <Box>
+                    <Text fontSize="11px" color="gray.500">
                       Grievance Officer
-                    </p>
-                    <p className="text-[13px] text-[#1d2b4d]">
+                    </Text>
+                    <Text fontSize="13px" color="#1d2b4d">
                       {item.officer}
-                    </p>
-                  </div>
-                </div>
+                    </Text>
+                  </Box>
+                </HStack>
 
                 {/* Email */}
-                <div className="flex items-start gap-2 mb-2.5">
-                  <Mail
-                    size={14}
-                    className="text-gray-500 mt-0.5 flex-shrink-0"
-                  />
-                  <div>
-                    <p className="text-[11px] text-gray-500">
+                <HStack align="flex-start" gap={2} mb={2.5}>
+                  <Icon as={Mail} boxSize="14px" color="gray.500" mt={0.5} />
+                  <Box>
+                    <Text fontSize="11px" color="gray.500">
                       Contact Email
-                    </p>
-                    <a
+                    </Text>
+                    <Link
                       href={`mailto:${item.email}`}
-                      className="text-[13px] text-blue-600 hover:underline break-all"
+                      color="blue.600"
+                      fontSize="13px"
+                      wordBreak="break-all"
+                      _hover={{ textDecoration: "underline" }}
                     >
                       {item.email}
-                    </a>
-                  </div>
-                </div>
+                    </Link>
+                  </Box>
+                </HStack>
 
                 {/* Phone */}
                 {item.phone && (
-                  <div className="flex items-start gap-2 mb-2.5">
-                    <Phone
-                      size={14}
-                      className="text-gray-500 mt-0.5 flex-shrink-0"
-                    />
-                    <div>
-                      <p className="text-[11px] text-gray-500">
+                  <HStack align="flex-start" gap={2} mb={2.5}>
+                    <Icon as={Phone} boxSize="14px" color="gray.500" mt={0.5} />
+                    <Box>
+                      <Text fontSize="11px" color="gray.500">
                         Phone Number
-                      </p>
-                      <p className="text-[13px] text-[#1d2b4d]">
+                      </Text>
+                      <Text fontSize="13px" color="#1d2b4d">
                         {item.phone}
-                      </p>
-                    </div>
-                  </div>
+                      </Text>
+                    </Box>
+                  </HStack>
                 )}
 
                 {/* Address */}
                 {item.address && (
-                  <div className="flex items-start gap-2 mb-3">
-                    <MapPin
-                      size={14}
-                      className="text-gray-500 mt-0.5 flex-shrink-0"
-                    />
-                    <div>
-                      <p className="text-[11px] text-gray-500">
+                  <HStack align="flex-start" gap={2} mb={3}>
+                    <Icon as={MapPin} boxSize="14px" color="gray.500" mt={0.5} />
+                    <Box>
+                      <Text fontSize="11px" color="gray.500">
                         Address
-                      </p>
-                      <p className="text-[12px] leading-4 text-[#1d2b4d]">
+                      </Text>
+                      <Text fontSize="12px" color="#1d2b4d">
                         {item.address}
-                      </p>
-                    </div>
-                  </div>
+                      </Text>
+                    </Box>
+                  </HStack>
                 )}
 
                 {/* Button */}
-                <a
+                <Link
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full rounded-md bg-[#dbe3ef] hover:bg-[#d2dce8] py-1.5 text-center text-[13px] font-medium text-blue-700 transition-all duration-200"
+                  display="block"
+                  w="full"
+                  bg="#dbe3ef"
+                  py={1.5}
+                  textAlign="center"
+                  fontSize="13px"
+                  fontWeight="medium"
+                  color="blue.700"
+                  borderRadius="md"
+                  transition="all 0.2s"
+                  _hover={{
+                    bg: "#d2dce8",
+                    textDecoration: "none",
+                  }}
                 >
                   Contact Now
-                </a>
-              </div>
-            </div>
+                </Link>
+              </Box>
+            </Card.Root>
           ))}
-        </div>
-      </div>
-    </section>
+        </SimpleGrid>
+      </Container>
+    </Box>
   );
 }

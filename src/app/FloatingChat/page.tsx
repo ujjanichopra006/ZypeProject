@@ -2,27 +2,62 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { BsRobot } from "react-icons/bs";
-import { FaWhatsapp } from "react-icons/fa";
+import {
+  Box,
+  Button,
+  Input,
+  VStack,
+  HStack,
+  Text,
+  Icon,
+  Flex,
+  Badge,
+  useDisclosure,
+  IconButton,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/react";
+import toast from "react-hot-toast";
+import {
+  FaWhatsapp,
+  FaPaperPlane,
+} from "react-icons/fa";
+// import { BsRobot } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
+import { HiChatBubbleLeftRight } from "react-icons/hi2";
 
 type Message = { type: "text"; sender: "user" | "bot"; text: string };
 
 export default function FloatingChat() {
   const router = useRouter();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { open, onToggle, onClose } = useDisclosure();
 
-  const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [step, setStep] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [messages, setMessages] = useState<Message[]>([
-    { type: "text", sender: "bot", text: "👋 Welcome to KeshvaCredit.\n\nWhat's your name?" },
+    {
+      type: "text",
+      sender: "bot",
+      text: "👋 Welcome to KeshvaCredit!\n\nWhat's your name?",
+    },
   ]);
 
   const [formData, setFormData] = useState({
-    name: "", phone: "", email: "", dob: "", pan: "", pincode: "",
-    employment_type: "", income: "", loantype: "", loan_amount: "", city: "", state: "",
+    name: "",
+    phone: "",
+    email: "",
+    dob: "",
+    pan: "",
+    pincode: "",
+    employment_type: "",
+    income: "",
+    loantype: "",
+    loan_amount: "",
+    city: "",
+    state: "",
   });
 
   const loanTypes = ["Personal Loan", "Business Loan", "Home Loan", "Gold Loan"];
@@ -37,7 +72,7 @@ export default function FloatingChat() {
     }, 400);
   };
 
-  const submitUserData = async (data: any) => {
+  const submitUserData = async (data: Record<string, string>) => {
     try {
       const res = await fetch("https://keshvacredit.onrender.com/api/createuser", {
         method: "POST",
@@ -56,10 +91,9 @@ export default function FloatingChat() {
       {
         type: "text",
         sender: "bot",
-        text: "👋 Welcome to KeshvaCredit.\n\nWhat's your name?",
+        text: "👋 Welcome to KeshvaCredit!\n\nWhat's your name?",
       },
     ]);
-
     setFormData({
       name: "",
       phone: "",
@@ -74,10 +108,9 @@ export default function FloatingChat() {
       city: "",
       state: "",
     });
-
     setInput("");
     setStep(0);
-    setOpen(false);
+    onClose();
   };
 
   const handleSend = async () => {
@@ -88,55 +121,55 @@ export default function FloatingChat() {
 
     if (step === 0) {
       setFormData((p) => ({ ...p, name: value }));
-      addBotMessage("📱 Enter mobile number");
+      addBotMessage("📱 Enter your mobile number");
       setStep(1);
     } else if (step === 1) {
       setFormData((p) => ({ ...p, phone: value }));
-      addBotMessage("📧 Enter email");
+      addBotMessage("📧 Enter your email address");
       setStep(2);
     } else if (step === 2) {
       setFormData((p) => ({ ...p, email: value }));
-      addBotMessage("🎂 Enter DOB");
+      addBotMessage("🎂 Enter your Date of Birth (DD/MM/YYYY)");
       setStep(3);
     } else if (step === 3) {
       setFormData((p) => ({ ...p, dob: value }));
-      addBotMessage("🆔 Enter PAN");
+      addBotMessage("🆔 Enter your PAN Card number");
       setStep(4);
     } else if (step === 4) {
       setFormData((p) => ({ ...p, pan: value }));
-      addBotMessage("📍 Enter Pincode");
+      addBotMessage("📍 Enter your Pincode");
       setStep(5);
     } else if (step === 5) {
       setFormData((p) => ({ ...p, pincode: value }));
-      addBotMessage("💼 Employment Type");
+      addBotMessage("💼 What's your Employment Type?");
       setStep(6);
     } else if (step === 6) {
       setFormData((p) => ({ ...p, employment_type: value }));
-      addBotMessage("💰 Monthly Income");
+      addBotMessage("💰 What's your monthly income?");
       setStep(7);
     } else if (step === 7) {
       setFormData((p) => ({ ...p, income: value }));
-      addBotMessage("🏦 Select Loan Type");
+      addBotMessage("🏦 Select your Loan Type");
       setStep(8);
     } else if (step === 8) {
-      const selectedLoan = value.trim().toLowerCase();
       setFormData((p) => ({ ...p, loantype: value.trim() }));
-
-      addBotMessage("💵 Enter Loan Amount");
+      addBotMessage("💵 Enter the loan amount you need");
       setStep(9);
     } else if (step === 9) {
       setFormData((p) => ({ ...p, loan_amount: value }));
-      addBotMessage("🏙️ Enter City");
+      addBotMessage("🏙️ Enter your City");
       setStep(10);
     } else if (step === 10) {
       setFormData((p) => ({ ...p, city: value }));
-      addBotMessage("🗺️ Enter State");
+      addBotMessage("🗺️ Enter your State");
       setStep(11);
     } else if (step === 11) {
       const updated = { ...formData, state: value };
       setFormData(updated);
+      setIsSubmitting(true);
 
       const response = await submitUserData(updated);
+      setIsSubmitting(false);
 
       if (response) {
         const selectedLoan = updated.loantype?.trim().toLowerCase();
@@ -150,11 +183,12 @@ export default function FloatingChat() {
         else if (selectedLoan === "gold loan")
           localStorage.setItem("goldLoanSubmitted", "true");
 
+        toast.success("Form submitted successfully!");
         addBotMessage("✅ Form submitted successfully!");
       } else {
-        addBotMessage("❌ Submission failed");
+        toast.error("Submission failed. Please try again.");
+        addBotMessage("❌ Submission failed. Please try again.");
       }
-
       setStep(12);
     }
 
@@ -163,100 +197,339 @@ export default function FloatingChat() {
 
   const handleViewLenders = () => {
     const loan = formData.loantype?.trim().toLowerCase();
-
     resetChat();
 
     if (loan === "personal loan") router.push("/personalloanlender");
     else if (loan === "business loan") router.push("/businessloanlender");
     else if (loan === "home loan") router.push("/homeloanlender");
-    else if (loan === "gold loan") router.push("/goldloanlender");
+    else if (loan === "gold loan") router.push("/gold-loan");
   };
 
   return (
     <>
-      <div className="fixed bottom-6 right-6 flex gap-4 z-50">
-        <a href="https://wa.me/918901229195" target="_blank" rel="noopener noreferrer">
-          <FaWhatsapp className="w-14 h-14 bg-green-500 p-3 rounded-full text-white" />
-        </a>
+      {/* Floating Buttons */}
+    <Box position="fixed" bottom="6" right="6" zIndex="9999">
+  <HStack gap="3" align="flex-end">
+    {/* WhatsApp Button - Now a Full Circle */}
+    <a
+      href="https://wa.me/918901229195"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ textDecoration: "none" }}
+    >
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        bg="green.500"
+        color="white"
+        w="12"   
+        h="12"     
+        borderRadius="full"
+        shadow="lg"
+        _hover={{
+          transform: "scale(1.05)",
+          bg: "green.600",
+          shadow: "xl",
+        }}
+        transition="all 0.2s"
+      >
+        <Icon as={FaWhatsapp} w="8" h="8" />  {/* Larger icon */}
+      </Box>
+    </a>
 
-        <button
-          onClick={() => setOpen(!open)}
-          className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center"
-        >
-          <BsRobot className="text-white text-2xl" />
-        </button>
-      </div>
+    {/* Chat Toggle Button */}
+    <Box
+      as="button"
+      onClick={onToggle}
+      bg="blue.500"
+      color="white"
+      w="12"
+      h="12"
+      borderRadius="full"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      shadow="2xl"
+      _hover={{
+        transform: "scale(1.08)",
+        shadow: "xl",
+      }}
+      _active={{ transform: "scale(0.95)" }}
+      transition="all 0.2s"
+      position="relative"
+    >
+      {open ? (
+        <Icon as={IoClose} w="8" h="8" />
+      ) : (
+        <>
+          <Icon as={HiChatBubbleLeftRight} w="8" h="8" />
+          <Badge
+            position="absolute"
+            top="-1"
+            right="-1"
+            colorScheme="red"
+            borderRadius="full"
+            px="2"
+            py="0.5"
+            fontSize="xs"
+          >
+            1
+          </Badge>
+        </>
+      )}
+    </Box>
+  </HStack>
+</Box>
 
+      {/* Chat Window */}
       {open && (
-        <div className="fixed bottom-24 right-6 w-[380px] bg-white rounded-2xl shadow-xl z-50">
-          <div className="bg-blue-900 text-white flex justify-between items-center p-3 rounded-t-2xl">
-            <span className="font-semibold">KeshvaCredit Assistant</span>
-            <IoClose onClick={() => setOpen(false)} className="cursor-pointer text-xl" />
-          </div>
-
-          <div className="h-96 overflow-y-auto p-3 bg-gray-50">
-            {messages.map((m, i) => (
-              <div
-                key={i}
-                className={`p-2 my-1 rounded-lg max-w-[80%] whitespace-pre-wrap ${
-                  m.sender === "user"
-                    ? "bg-blue-600 text-white ml-auto text-right"
-                    : "bg-gray-200 text-black"
-                }`}
+        <Box
+          position="fixed"
+          bottom="28"
+          right="6"
+          width={{ base: "95%", sm: "400px" }}
+          maxW="100%"
+          bg="white"
+          borderRadius="2xl"
+          shadow="2xl"
+          overflow="hidden"
+          borderWidth="1px"
+          borderColor="gray.200"
+          zIndex="9998"
+        >
+          {/* Header */}
+          <Box
+            bgGradient="linear(to-r, blue.700, blue.900)"
+            color="white"
+            p="4"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <HStack gap="3">
+              <Box
+                w="8"
+                h="8"
+                bg="white"
+                borderRadius="full"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
               >
-                {m.text}
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
+            
+              </Box>
+              <Box>
+                <Text fontWeight="bold" fontSize="md">
+                  KeshvaCredit Assistant
+                </Text>
+                <Text fontSize="xs" color="blue.200">
+                  Online • Usually replies instantly
+                </Text>
+              </Box>
+            </HStack>
+            <IconButton
+              aria-label="Close chat"
+              variant="ghost"
+              color="white"
+              _hover={{ bg: "whiteAlpha.200" }}
+              onClick={onClose}
+              size="sm"
+            >
+              <Icon as={IoClose} />
+            </IconButton>
+          </Box>
 
-          {step === 8 && (
-            <div className="p-2 flex gap-2 flex-wrap border-t bg-white">
-              {loanTypes.map((l) => (
-                <button
-                  key={l}
-                  onClick={() => {
-                    setInput(l);
-                    setTimeout(() => handleSend(), 50);
-                  }}
-                  className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
+          {/* Messages */}
+          <Box
+            h="96"
+            overflowY="auto"
+            p="4"
+            bg="gray.50"
+            css={{
+              "&::-webkit-scrollbar": {
+                width: "4px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "transparent",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                background: "#CBD5E0",
+                borderRadius: "full",
+              },
+            }}
+          >
+            <VStack gap="3" align="stretch">
+              {messages.map((m, i) => (
+                <Flex
+                  key={i}
+                  justify={m.sender === "user" ? "flex-end" : "flex-start"}
                 >
-                  {l}
-                </button>
+                  <Box
+                    maxW="85%"
+                    p="3"
+                    borderRadius="xl"
+                    bg={m.sender === "user" ? "blue.600" : "white"}
+                    color={m.sender === "user" ? "white" : "gray.800"}
+                    shadow={m.sender === "user" ? "none" : "sm"}
+                    borderWidth={m.sender === "user" ? "0" : "1px"}
+                    borderColor="gray.200"
+                    whiteSpace="pre-wrap"
+                    fontSize="sm"
+                  >
+                    {m.text}
+                  </Box>
+                </Flex>
               ))}
-            </div>
+
+              {/* Typing Indicator */}
+              {isSubmitting && (
+                <Flex justify="flex-start">
+                  <Box
+                    bg="white"
+                    p="3"
+                    borderRadius="xl"
+                    shadow="sm"
+                    borderWidth="1px"
+                    borderColor="gray.200"
+                  >
+                    <HStack gap="2">
+                      <Box
+                        w="2"
+                        h="2"
+                        bg="blue.500"
+                        borderRadius="full"
+                        animation="bounce 1s infinite"
+                      />
+                      <Box
+                        w="2"
+                        h="2"
+                        bg="blue.500"
+                        borderRadius="full"
+                        animation="bounce 1s infinite 0.2s"
+                      />
+                      <Box
+                        w="2"
+                        h="2"
+                        bg="blue.500"
+                        borderRadius="full"
+                        animation="bounce 1s infinite 0.4s"
+                      />
+                    </HStack>
+                  </Box>
+                </Flex>
+              )}
+
+              <div ref={messagesEndRef} />
+            </VStack>
+          </Box>
+
+          {/* Loan Type Buttons */}
+          {step === 8 && (
+            <Box p="3" bg="gray.50" borderTopWidth="1px" borderColor="gray.200">
+              <Wrap gap="2" justify="center">
+                {loanTypes.map((l) => (
+                  <WrapItem key={l}>
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        setInput(l);
+                        setTimeout(() => handleSend(), 50);
+                      }}
+                      bg="blue.50"
+                      color="blue.700"
+                      _hover={{ bg: "blue.100", transform: "scale(1.05)" }}
+                      borderRadius="full"
+                      borderWidth="1px"
+                      borderColor="blue.200"
+                      fontSize="xs"
+                      px="4"
+                    >
+                      {l}
+                    </Button>
+                  </WrapItem>
+                ))}
+              </Wrap>
+            </Box>
           )}
 
+          {/* Input Area */}
           {step !== 12 && (
-            <div className="flex border-t">
-              <input
+            <Box
+              p="3"
+              bg="white"
+              borderTopWidth="1px"
+              borderColor="gray.200"
+              display="flex"
+              gap="2"
+              alignItems="center"
+            >
+              <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                className="flex-1 p-3 outline-none"
                 placeholder="Type your answer..."
+                borderRadius="full"
+                bg="gray.50"
+                flex="1"
+                _focus={{
+                  bg: "white",
+                  borderColor: "blue.500",
+                  boxShadow: "0 0 0 3px rgba(66,153,225,0.2)",
+                }}
+                borderColor="gray.300"
               />
-              <button
+              <IconButton
+                aria-label="Send message"
+                colorScheme="blue"
+                size="sm"
+                borderRadius="full"
                 onClick={handleSend}
-                className="bg-blue-600 text-white px-4"
+                disabled={!input.trim()}
               >
-                Send
-              </button>
-            </div>
+                <Icon as={FaPaperPlane} />
+              </IconButton>
+            </Box>
           )}
 
+          {/* View Lenders Button */}
           {step === 12 && (
-            <div className="p-3 border-t bg-white">
-              <button
+            <Box p="4" bg="white" borderTopWidth="1px" borderColor="gray.200">
+              <Button
+                w="full"
+                bgGradient="linear(to-r, green.500, green.600)"
+                color="white"
+                fontWeight="bold"
+                py="6"
+                borderRadius="xl"
+                _hover={{
+                  transform: "scale(1.02)",
+                  shadow: "lg",
+                }}
+                _active={{ transform: "scale(0.98)" }}
+                transition="all 0.2s"
                 onClick={handleViewLenders}
-                className="w-full bg-green-600 text-white p-3 rounded-lg font-bold"
               >
                 View Matching Lenders
-              </button>
-            </div>
+              </Button>
+            </Box>
           )}
-        </div>
+        </Box>
       )}
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes bounce {
+          0%,
+          80%,
+          100% {
+            transform: scale(0);
+          }
+          40% {
+            transform: scale(1);
+          }
+        }
+      `}</style>
     </>
   );
 }

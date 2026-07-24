@@ -1,7 +1,16 @@
 "use client";
 
 import Lottie from "lottie-react";
-import festivalAnimation from "../../../animations/rangoli.json"; // path apne folder ke hisab se adjust kar lena
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Flex,
+} from "@chakra-ui/react";
+import festivalAnimation from "../../../animations/rangoli.json";
 
 export default function FestivalBlog() {
   const festivals = [
@@ -62,97 +71,135 @@ export default function FestivalBlog() {
     },
   ];
 
-  return (
-    <section className="bg-[#0b1220] text-gray-300 px-4 py-10">
-      <div className="max-w-5xl mx-auto">
-        <div className="bg-[#111827] border border-white/10 rounded-3xl shadow-xl p-6 md:p-10">
+  // Color values
+  const bgColor = "#0b1220";
+  const cardBg = "#111827";
+  const headingColor = "white";
+  const borderColor = "white/10";
+  const accentColor = "emerald.400";
+  const dividerColor = "white/10";
+  const mutedTextColor = "gray.400";
+  const textColor = "gray.300";
 
+  return (
+    <Box bg={bgColor} px={4} py={10} minH="100vh">
+      <Container maxW="5xl">
+        <Box
+          bg={cardBg}
+          border="1px"
+          borderColor={borderColor}
+          borderRadius="2xl"
+          boxShadow="xl"
+          p={{ base: 6, md: 10 }}
+        >
           {/* Top Lottie Animation */}
-          <div className="w-full flex justify-center mb-8">
-            <div className="w-70 max-w-sm md:max-w-md">
-              <Lottie
-                animationData={festivalAnimation}
-                loop={true}
-              />
-            </div>
-          </div>
+          <Flex justify="center" mb={8}>
+            <Box w={{ base: "200px", sm: "250px", md: "300px" }}>
+              <Lottie animationData={festivalAnimation} loop={true} />
+            </Box>
+          </Flex>
 
           {/* Blog Header */}
-          <div className="text-center mb-10">
-            <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight">
-              Celebrating India’s Colorful Festivals
-            </h1>
-            <p className="text-emerald-400 mt-4 text-lg">
+          <VStack gap={4} mb={10} textAlign="center">
+            <Heading
+              as="h1"
+              size={{ base: "xl", md: "3xl" }}
+              color={headingColor}
+             
+            >
+              Celebrating India's Colorful Festivals
+            </Heading>
+            <Text color={accentColor} fontSize="lg" fontWeight="medium">
               A Journey Through Cultural Diversity
-            </p>
+            </Text>
 
-            <div className="flex justify-center gap-4 mt-5 text-sm text-gray-400 flex-wrap">
-              <span>📅 October 20, 2025</span>
-              <span>•</span>
-              <span>🏷️ Indian Culture & Festivals</span>
-            </div>
-          </div>
+            <HStack
+              gap={4}
+              mt={2}
+              color={mutedTextColor}
+              fontSize="sm"
+              flexWrap="wrap"
+              justify="center"
+            >
+              <Text>📅 October 20, 2025</Text>
+              <Text>•</Text>
+              <Text>🏷️ Indian Culture & Festivals</Text>
+            </HStack>
+          </VStack>
 
           {/* Intro */}
-          <div className="space-y-5 text-sm leading-7">
-            <p>
-              India is a land of celebrations, where every season brings a new
-              festival filled with joy, colors, and traditions. Festivals in    
-              India are not just special days—they are moments of togetherness,
-              family bonding, and cultural expression that unite the world's
-              largest democracy.
-            </p>
-          </div>
+          <Text fontSize="sm" color={textColor} mb={8}>
+            India is a land of celebrations, where every season brings a new
+            festival filled with joy, colors, and traditions. Festivals in India
+            are not just special days—they are moments of togetherness, family
+            bonding, and cultural expression that unite the world's largest
+            democracy.
+          </Text>
 
           {/* Festival Sections */}
-          <div className="mt-10 space-y-10">
+          <VStack gap={10} align="stretch" mt={6}>
             {festivals.map((festival, index) => (
-              <div
-                key={index}
-                className="border-b border-white/10 pb-8 last:border-none"
-              >
-                <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
+              <Box key={index}>
+                <Heading
+                  as="h2"
+                  size={{ base: "lg", md: "xl" }}
+                  color={headingColor}
+                  mb={4}
+                >
                   {festival.title}
-                </h2>
-
-                <p className="text-sm leading-7">
+                </Heading>
+                <Text fontSize="sm"  color={textColor}>
                   {festival.content}
-                </p>
-              </div>
+                </Text>
+                {index < festivals.length - 1 && (
+                  <Box mt={8} borderTopWidth="1px" borderColor={dividerColor} />
+                )}
+              </Box>
             ))}
-          </div>
+          </VStack>
 
           {/* Conclusion */}
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold text-white mb-4">
+          <Box mt={12}>
+            <Heading
+              as="h2"
+              size={{ base: "lg", md: "xl" }}
+              color={headingColor}
+              mb={4}
+            >
               The Cultural Tapestry of India
-            </h2>
+            </Heading>
 
-            <p className="text-sm leading-7">
+            <Text fontSize="sm"  color={textColor}>
               India's festivals represent the country's incredible diversity,
               unity, and rich cultural heritage. Each festival, with its unique
               traditions and significance, contributes to the vibrant tapestry
               of Indian society.
-            </p>
+            </Text>
 
-            <p className="text-sm leading-7 mt-4">
+            <Text fontSize="sm" color={textColor} mt={4}>
               These celebrations preserve ancient customs while adapting to
               modern times, bringing people together across religions, regions,
               and communities. The spirit of sharing, joy, and togetherness
               truly reflects the soul of India.
-            </p>
-          </div>
+            </Text>
+          </Box>
 
           {/* Disclaimer */}
-          <div className="border-t border-white/10 mt-10 pt-6">
-            <p className="text-xs text-gray-400 italic leading-6">
+          <Box mt={10} borderTopWidth="1px" borderColor={dividerColor} />
+          <Box pt={6}>
+            <Text
+              fontSize="xs"
+              color={mutedTextColor}
+              fontStyle="italic"
+             
+            >
               <strong>Disclaimer:</strong> This article is for educational and
               cultural awareness purposes only. Festival traditions and customs
               may vary across different regions and communities of India.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+            </Text>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 }

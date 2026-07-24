@@ -5,6 +5,17 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  Image,
+  Flex,
+  SimpleGrid,
+  useBreakpointValue,
+  Icon,
+} from "@chakra-ui/react";
+import {
   Users,
   BadgeCheck,
   FileText,
@@ -23,102 +34,210 @@ export default function Sixth() {
     });
   }, []);
 
+  // ✅ Responsive values
+  const headingSize = useBreakpointValue({ base: "lg", md: "xl", lg: "2xl" });
+  const cardPadding = useBreakpointValue({ base: 4, md: 5, lg: 6 });
+  const imageSize = useBreakpointValue({ base: "160px", md: "200px", lg: "220px" });
+  const iconSize = useBreakpointValue({ base: 16, md: 18, lg: 20 }); // ✅ Chota icon (20 se 16)
+  const iconContainerSize = useBreakpointValue({ base: "40px", md: "44px", lg: "48px" }); // ✅ Chota container (56px se 48px)
+
   const cards = [
     {
-      icon: <Users className="text-white w-6 h-6" />,
+      icon: Users,
       title: "Happy Customers",
       description:
         "Trusted by over five lakh users! Enjoy smooth, secure service and great financial rewards.",
+      color: "blue.400",
     },
     {
-      icon: <BadgeCheck className="text-white w-6 h-6" />,
+      icon: BadgeCheck,
       title: "Instant Approval",
       description:
         "Get online loan approval in just 48 hours with minimum paperwork and fast fund access.",
+      color: "green.400",
     },
     {
-      icon: <FileText className="text-white w-6 h-6" />,
+      icon: FileText,
       title: "100% Paperless",
       description:
         "Apply entirely online — quick, safe, and hassle-free from the comfort of your home.",
+      color: "purple.400",
     },
     {
-      icon: <DollarSign className="text-white w-6 h-6" />,
+      icon: DollarSign,
       title: "No Hidden Charges",
       description:
         "Enjoy complete transparency with no surprise fees or hidden costs.",
+      color: "orange.400",
     },
     {
-      icon: <HandCoins className="text-white w-6 h-6" />,
+      icon: HandCoins,
       title: "Loans Disbursed",
       description:
         "Over ₹1000 crore disbursed swiftly with secure and simple approvals.",
+      color: "pink.400",
     },
     {
-      icon: <Clock3 className="text-white w-6 h-6" />,
+      icon: Clock3,
       title: "Flexible Loan Options",
       description:
         "Choose loans from ₹1,000 to ₹1,00,000 with flexible repayment terms from 3 to 24 months.",
+      color: "teal.400",
     },
   ];
 
   return (
-    <section className="bg-slate-900 py-14 overflow-hidden">
-      <div className="max-w-[1700px] mx-auto px-6 lg:px-10">
-        {/* Top Line */}
-        <div
-          className="flex items-center mb-14"
+    <Box bg="#111525" py={{ base: 0, md: 0, lg: 0 }} overflow="hidden">
+      <Container maxW="1700px" px={{ base: 3, md: 5, lg: 8 }}>
+        
+        {/* ============================================ */}
+        {/* TOP LINE WITH OM */}
+        {/* ============================================ */}
+        <Box
+          display="flex"
+          alignItems="center"
+          mb={{ base: 6, md: 8, lg: 10 }}
           data-aos="fade-down"
         >
-          <div className="flex-1 h-px bg-gray-500"></div>
+          <Box flex="1" height="1px" bg="gray.600" />
 
-          <h2 className="px-6 text-yellow-300 text-xl md:text-2xl font-medium whitespace-nowrap">
+          <Heading
+            as="h2"
+            fontSize={headingSize}
+            fontWeight="medium"
+            color="yellow.300"
+            px={{ base: 3, md: 4, lg: 6 }}
+            whiteSpace="nowrap"
+          >
             ॐ KeshvaCredit ॐ
-          </h2>
+          </Heading>
 
-          <div className="flex-1 h-px bg-gray-500"></div>
-        </div>
+          <Box flex="1" height="1px" bg="gray.600" />
+        </Box>
 
-        {/* Main Layout */}
-        <div className="grid lg:grid-cols-[320px_1fr] gap-14 lg:gap-16 items-center">
-          {/* Left Mobile Image */}
-          <div
-            className="flex justify-center"
+        {/* ============================================ */}
+        {/* MAIN LAYOUT */}
+        {/* ============================================ */}
+        <Flex
+          direction={{ base: "column", lg: "row" }}
+          gap={{ base: 6, md: 8, lg: 10 }}
+          align="center"
+        >
+          {/* ============================================ */}
+          {/* LEFT - MOBILE IMAGE */}
+          {/* ============================================ */}
+          <Box
+            flexShrink={0}
+            width={{ base: "100%", lg: "auto" }}
+            display="flex"
+            justifyContent="center"
             data-aos="fade-right"
             data-aos-delay="150"
           >
-            <img
-              src="/mobile application.png"
-              alt="Mobile Application"
-              className="w-[230px] md:w-[280px] hover:scale-105 transition-all duration-300"
-            />
-          </div>
+            <Box
+              position="relative"
+              _hover={{
+                transform: "scale(1.05)",
+                transition: "all 0.4s ease",
+              }}
+            >
+              <Image
+                src="/mobile application.png"
+                alt="Mobile Application"
+                width={imageSize}
+                height="auto"
+                objectFit="contain"
+                onError={(e: any) => {
+                  e.target.style.display = "none";
+                }}
+              />
+              {/* Glow Effect */}
+              <Box
+                position="absolute"
+                bottom="-20px"
+                left="50%"
+                transform="translateX(-50%)"
+                width="80%"
+                height="30px"
+                bg="rgba(17, 165, 168, 0.2)"
+                filter="blur(25px)"
+                borderRadius="full"
+              />
+            </Box>
+          </Box>
 
-          {/* Right Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {cards.map((card, index) => (
-              <div
-                key={index}
-                data-aos="zoom-in-up"
-                data-aos-delay={index * 100}
-                className="bg-[#11a5a8] rounded-3xl border border-white p-7 min-h-[210px] flex flex-col items-center text-center shadow-xl hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
-              >
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-r from-indigo-500 to-blue-500 flex items-center justify-center shadow-lg">
-                  {card.icon}
-                </div>
+          {/* ============================================ */}
+          {/* RIGHT - CARDS GRID */}
+          {/* ============================================ */}
+          <Box flex="1" width="100%">
+            <SimpleGrid
+              columns={{ base: 1, sm: 2, xl: 3 }}
+              gap={{ base: 3, md: 4, lg: 5 }}
+            >
+              {cards.map((card, index) => (
+                <Box
+                  key={index}
+                  bg="#11a5a8"
+                  borderRadius="2xl"
+                  border="1px solid"
+                  borderColor="rgba(255,255,255,0.1)"
+                  p={cardPadding}
+                  minHeight={{ base: "170px", md: "180px", lg: "190px" }}
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  textAlign="center"
+                  boxShadow="0 10px 40px rgba(17, 165, 168, 0.2)"
+                  transition="all 0.4s ease"
+                  _hover={{
+                    transform: "translateY(-6px)",
+                    boxShadow: "0 20px 60px rgba(17, 165, 168, 0.35)",
+                  }}
+                  data-aos="zoom-in-up"
+                  data-aos-delay={index * 100}
+                >
+                  {/* ✅ Icon Container - Chota */}
+                  <Box
+                    width={iconContainerSize}
+                    height={iconContainerSize}
+                    borderRadius="xl"
+                    bgGradient={`linear(to-r, ${card.color}, ${card.color}.600)`}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    boxShadow="0 8px 25px rgba(0,0,0,0.2)"
+                    flexShrink={0}
+                  >
+                    {/* ✅ Icon - Chota */}
+                    <Icon as={card.icon} boxSize={iconSize} color="white" strokeWidth={2} />
+                  </Box>
 
-                <h3 className="text-xl font-bold text-black mt-4">
-                  {card.title}
-                </h3>
+                  {/* Title - Chota */}
+                  <Heading
+                    as="h3"
+                    fontSize={{ base: "sm", md: "md", lg: "lg" }}
+                    fontWeight="bold"
+                    color="black"
+                    mt={3}
+                    mb={1.5}
+                  >
+                    {card.title}
+                  </Heading>
 
-                <p className="text-gray-800 text-sm leading-6 mt-3">
-                  {card.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+                  {/* Description - Chota */}
+                  <Text
+                    fontSize={{ base: "2xs", sm: "2xs", md: "xs" }}
+                    color="gray.800"
+                    lineHeight="1.5"
+                  >
+                    {card.description}
+                  </Text>
+                </Box>
+              ))}
+            </SimpleGrid>
+          </Box>
+        </Flex>
+      </Container>
+    </Box>
   );
 }

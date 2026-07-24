@@ -7,89 +7,220 @@ import {
   FileText,
   Archive,
   Info,
+  ArrowRight,
 } from "lucide-react";
+
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  SimpleGrid,
+  VStack,
+  HStack,
+  Icon,
+  Badge,
+  Button,
+} from "@chakra-ui/react";
 
 const policies = [
   {
     title: "Data Breach Policy",
     desc: "Outlines the steps we take to detect, respond to, and notify you in the event of a data breach.",
-    icon: <ShieldCheck size={28} />,
-    bg: "bg-blue-500",
+    icon: ShieldCheck,
+    bg: "blue.500",
+    lightBg: "blue.50",
     link: "/DataBreachPolicy",
   },
-  {
-    title: "Data Privacy Policy",
-    desc: "Explains how we collect, use, and safeguard your personal information to protect your privacy.",
-    icon: <UserLock size={28} />,
-    bg: "bg-green-500",
-    link: "/DataPrivacyPolicy",
-  },
+ 
   {
     title: "Data Protection Policy",
     desc: "Details the security measures and compliance standards we follow to protect your data.",
-    icon: <FileText size={28} />,
-    bg: "bg-red-500",
-    link: "/DataProtectionPolicy",
+    icon: FileText,
+    bg: "red.500",
+    lightBg: "red.50",
+    link: "/DataPolicy/DataProtectionPolicy",
   },
   {
     title: "Data Retention & Deletion Policy",
-    desc: "Clarifies how long we store your data and the process for safely deleting it when no longer needed.",
-    icon: <Archive size={28} />,
-    bg: "bg-gradient-to-r from-purple-500 to-fuchsia-500",
-    link: "/DataRetentionDeletionPolicy",
+    desc: "Clarifies how long we store your data and the process for safely deleting .",
+    icon: Archive,
+    bg: "purple.500",
+    lightBg: "purple.50",
+    link: "/DataPolicy/DataRetentionDeletionPolicy",
   },
   {
     title: "Information Security Policy",
     desc: "Covers the practices, tools, and protocols we use to ensure your data remains safe and secure.",
-    icon: <Info size={28} />,
-    bg: "bg-yellow-500",
-    link: "/InformationSecurityPolicy",
+    icon: Info,
+    bg: "orange.500",
+    lightBg: "orange.50",
+    link: "/DataPolicy/InformationSecurityPolicy",
   },
 ];
 
 export default function DataPolicy() {
+  const bgColor = "#020f26";
+  const textColor = "white";
+  const textColorSecondary = "gray.300";
+
+  // Add a new policy if needed (simulating 6th card for better grid)
+  const allPolicies = [...policies];
+
   return (
-    <section className="min-h-screen bg-[#020f26] py-16 px-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Heading */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white">
+    <Box bg={bgColor} minH="100vh" py={{ base: 12, md: 16 }} px={{ base: 4, md: 6 }}>
+      <Container maxW="7xl">
+        {/* Header Section */}
+        <VStack gap={4} mb={12} textAlign="center">
+          <Badge
+            colorScheme="blue"
+            fontSize="xs"
+            px={4}
+            py={1}
+            borderRadius="full"
+            textTransform="uppercase"
+            letterSpacing="wider"
+          >
+            Trust & Security
+          </Badge>
+          <Heading
+            as="h2"
+            fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+            fontWeight="extrabold"
+            color={textColor}
+            letterSpacing="tight"
+          >
             Our Data Policies
-          </h2>
-          <p className="mt-2 text-sm md:text-base text-gray-300">
-            Learn about how we handle your data and keep it secure.
-          </p>
-        </div>
+          </Heading>
+          <Text
+            fontSize={{ base: "sm", md: "md", lg: "lg" }}
+            color={textColorSecondary}
+            maxW="2xl"
+            mx="auto"
+          >
+            Learn about how we handle your data and keep it secure with
+            industry-standard practices and protocols.
+          </Text>
+        </VStack>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {policies.map((item, index) => (
-            <Link key={index} href={item.link}>
-              <div
-                className={`${item.bg} rounded-3xl p-5 h-[180px] flex flex-col items-center justify-center text-center text-white shadow-xl hover:scale-105 hover:shadow-2xl transition-all duration-300 cursor-pointer`}
+        {/* Policy Cards Grid */}
+        <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={6}>
+          {allPolicies.map((item, index) => (
+            <Link key={index} href={item.link} passHref>
+              <Box
+                as="a"
+                bg="white"
+                borderRadius="2xl"
+                p={6}
+                minH="220px"
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between"
+                boxShadow="lg"
+                border="2px"
+                borderColor="transparent"
+                _hover={{
+                  transform: "translateY(-8px)",
+                  boxShadow: "xl",
+                  borderColor: item.bg,
+                  transition: "all 0.3s ease",
+                }}
+                transition="all 0.3s ease"
+                cursor="pointer"
+                position="relative"
+                overflow="hidden"
               >
-                {/* Icon */}
-                <div className="mb-2">{item.icon}</div>
+                {/* Colored Accent Bar */}
+                <Box
+                  position="absolute"
+                  top={0}
+                  left={0}
+                  right={0}
+                  h="4px"
+                  bg={item.bg}
+                />
 
-                {/* Title */}
-                <h3 className="text-lg md:text-xl font-bold leading-tight mb-1">
-                  {item.title}
-                </h3>
+                {/* Icon with Circle Background */}
+                <Box
+                  display="inline-flex"
+                  p={3}
+                  borderRadius="xl"
+                  bg={item.lightBg}
+                  color={item.bg}
+                  alignSelf="flex-start"
+                  mb={3}
+                >
+                  <Icon as={item.icon} boxSize={6} />
+                </Box>
 
-                {/* Blinking Click Text */}
-                <p className="text-[10px] text-white/80 mb-2 animate-pulse font-semibold tracking-wider uppercase">
-                  Click to View
-                </p>
+                {/* Content */}
+                <VStack align="flex-start" gap={2} flex="1">
+                  <Heading
+                    as="h3"
+                    fontSize="lg"
+                    fontWeight="bold"
+                    color="gray.800"
+                  >
+                    {item.title}
+                  </Heading>
+                  <Text fontSize="sm" color="gray.600">
+                    {item.desc}
+                  </Text>
+                </VStack>
 
-                {/* Description */}
-                <p className="text-xs leading-5 text-white/90 max-w-[220px]">
-                  {item.desc}
-                </p>
-              </div>
+                {/* Read More Link */}
+                <HStack
+                  mt={4}
+                  gap={1}
+                  color={item.bg}
+                  fontWeight="semibold"
+                  fontSize="sm"
+                  _groupHover={{ gap: 2 }}
+                >
+                  <Text>Read More</Text>
+                  <Icon as={ArrowRight} boxSize={4} />
+                </HStack>
+              </Box>
             </Link>
           ))}
-        </div>
-      </div>
-    </section>
+        </SimpleGrid>
+
+        {/* Footer Note */}
+        <Box mt={16} textAlign="center">
+          <VStack gap={2}>
+            <HStack gap={2} justifyContent="center">
+              <Badge colorScheme="green" variant="solid" borderRadius="full" px={3} py={1}>
+                🔒 Secure
+              </Badge>
+              <Badge colorScheme="blue" variant="solid" borderRadius="full" px={3} py={1}>
+                ✅ Compliant
+              </Badge>
+              <Badge colorScheme="purple" variant="solid" borderRadius="full" px={3} py={1}>
+                📋 Updated
+              </Badge>
+            </HStack>
+            <Text fontSize="xs" color="whiteAlpha.500">
+              All policies are reviewed and updated regularly to ensure compliance with the latest regulations.
+            </Text>
+          </VStack>
+        </Box>
+      </Container>
+
+      {/* CSS Animation */}
+      <style jsx>{`
+        @keyframes pulse {
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+        }
+        .group:hover .group-hover\\:gap-2 {
+          gap: 0.5rem;
+        }
+      `}</style>
+    </Box>
   );
 }

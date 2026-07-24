@@ -1,5 +1,15 @@
 "use client";
 
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  SimpleGrid,
+  Card,
+  Link,
+} from "@chakra-ui/react";
+
 const lenders = [
   { name: "LoanTap", link: "https://loantap.in/contact-us/" },
   { name: "CreditSea", link: "https://www.creditsea.com/contact-us" },
@@ -17,40 +27,75 @@ const lenders = [
   { name: "Instant Mudra", link: "https://www.instantmudra.com/contact.php" },
 ];
 
-export default function Lendercontact() {
+export default function LenderContact() {
   return (
-    <section className="w-full min-h-screen bg-[#020d24] py-8 px-3">
-      <div className="max-w-5xl mx-auto">
+    <Box w="full" minH="100vh" bg="#020d24" py={8} px={3}>
+      <Container maxW="5xl" mx="auto">
         {/* Heading */}
-        <h1 className="text-center text-white text-2xl md:text-3xl font-bold mb-10">
+        <Heading
+          as="h1"
+          textAlign="center"
+          color="white"
+          fontSize={{ base: "2xl", md: "3xl" }}
+          fontWeight="bold"
+          mb={10}
+        >
           Lender Contact
-        </h1>
+        </Heading>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Cards Grid */}
+        <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} gap={6}>
           {lenders.map((lender, index) => (
-            <div
+            <Card.Root
               key={index}
-              className="bg-[#868992] border border-gray-300 rounded-2xl h-[110px] flex flex-col items-center justify-center"
+              bg="#868992"
+              borderColor="gray.300"
+              borderWidth="1px"
+              borderRadius="2xl"
+              h="110px"
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              p={4}
             >
               {/* Lender Name */}
-              <h2 className="text-white text-[16px] md:text-[17px] font-bold text-center mb-3 px-2">
+              <Text
+                color="white"
+                fontSize={{ base: "16px", md: "17px" }}
+                fontWeight="bold"
+                textAlign="center"
+                mb={3}
+                px={2}
+              >
                 {lender.name}
-              </h2>
+              </Text>
 
               {/* Button */}
-              <a
+              <Link
                 href={lender.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white text-[12px] font-semibold px-5 py-1.5 rounded-full"
+                bg="blue.600"
+                color="white"
+                fontSize="12px"
+                fontWeight="semibold"
+                px={5}
+                py={1.5}
+                borderRadius="full"
+                _hover={{
+                  bg: "blue.700",
+                  textDecoration: "none",
+                }}
+                transition="all 0.3s"
+                display="inline-block"
               >
                 Contact Lender
-              </a>
-            </div>
+              </Link>
+            </Card.Root>
           ))}
-        </div>
-      </div>
-    </section>
+        </SimpleGrid>
+      </Container>
+    </Box>
   );
 }

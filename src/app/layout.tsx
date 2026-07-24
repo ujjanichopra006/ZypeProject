@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import { Providers } from "./providers";
 import Navbar from "./navbar/nav";
 import Footer from "./footer/fot";
 import IntroLoader from "./components/IntroLoader";
-
 import FloatingChat from "./FloatingChat/page";
 
 const geistSans = Geist({
@@ -37,20 +37,46 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-screen flex flex-col text-black bg-stale-900 transition-colors duration-300">
-  <IntroLoader>
-    <Navbar />
+      <body className="min-h-screen flex flex-col transition-colors duration-300">
+         <Providers>
+        <Navbar />
 
-    {/* <Popup /> */}
+<IntroLoader>
+  <main className="flex-grow">
+    {children}
+  </main>
 
-    <main className="flex-grow">
-      {children}
-    </main>
+  <Toaster
+    position="top-right"
+    reverseOrder={false}
+    toastOptions={{
+      duration: 3000,
+      style: {
+        background: "#111827",
+        color: "#fff",
+        border: "1px solid #374151",
+      },
+      success: {
+        iconTheme: {
+          primary: "#22c55e",
+          secondary: "#fff",
+        },
+      },
+      error: {
+        iconTheme: {
+          primary: "#ef4444",
+          secondary: "#fff",
+        },
+      },
+    }}
+  />
 
-    <Footer />
-  </IntroLoader>
-  <FloatingChat/>
-</body>
+  <Footer />
+</IntroLoader>
+
+<FloatingChat />
+</Providers>
+      </body>
     </html>
   );
 }

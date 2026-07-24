@@ -2,6 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  SimpleGrid,
+  Card,
+  Badge,
+  VStack,
+  HStack,
+} from "@chakra-ui/react";
 
 const blogs = [
   {
@@ -20,7 +31,7 @@ const blogs = [
     title: "Is Crypto Still a Good Investment?",
     category: "Cryptocurrency",
     date: "December 13, 2025",
-    link:"/Ourblogs/Blog2",
+    link: "/Ourblogs/Blog2",
     image:
       "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=1200&q=80",
     description:
@@ -31,7 +42,7 @@ const blogs = [
     title: "Celebrating India's Colorful Festivals",
     category: "Festivals",
     date: "October 20, 2025",
-    link:"/Ourblogs/Blog3",
+    link: "/Ourblogs/Blog3",
     image:
       "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1200&q=80",
     description:
@@ -42,7 +53,7 @@ const blogs = [
     title: "Safety Awareness about Cyber Crime",
     category: "Cyber Security",
     date: "August 08, 2025",
-    link:"/Ourblogs/Blog4",
+    link: "/Ourblogs/Blog4",
     image:
       "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&q=80",
     description:
@@ -51,9 +62,9 @@ const blogs = [
   {
     id: 5,
     title: "सर्वश्रेष्ठ पर्सनल लोन बैंक - 2024 गाइड",
-    category: "Finance",
+    category: "personal loan guide",
     date: "July 08, 2025",
-    link:"/Ourblogs/Blog5",
+    link: "/Ourblogs/Blog5",
     image:
       "https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200&q=80",
     description:
@@ -64,75 +75,122 @@ const blogs = [
     title: "How Your Phone is Rewiring Your Brain",
     category: "Lifestyle",
     date: "July 08, 2025",
-    link:"/Ourblogs/Blog6",
+    link: "/Ourblogs/Blog6",
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80",
     description:
       "Understand how mobile apps and notifications affect your brain.",
   },
- 
 ];
 
 export default function Ourblogs() {
   return (
-    <section className="bg-[#051126] py-10">
-      <div className="max-w-7xl mx-auto px-14">
+    <Box bg="#051126" py={10}>
+      <Container maxW="7xl" px={{ base: 4, md: 8, lg: 14 }}>
         {/* Heading */}
-        <div className="flex items-center justify-center gap-2 mb-8">
-          <span className="text-2xl">✍️</span>
-          <h2 className="text-2xl md:text-3xl font-bold text-white">
+        <HStack gap={2} justifyContent="center" mb={8}>
+          <Text fontSize="2xl">✍️</Text>
+          <Heading
+            as="h2"
+            fontSize={{ base: "2xl", md: "3xl" }}
+            fontWeight="bold"
+            color="white"
+          >
             Latest Blog Posts
-          </h2>
-        </div>
+          </Heading>
+        </HStack>
 
         {/* Blog Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} gap={6}>
           {blogs.map((blog) => (
-            <div
+            <Card.Root
               key={blog.id}
-              className="bg-white rounded-[24px] overflow-hidden border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              bg="white"
+              borderRadius="24px"
+              overflow="hidden"
+              borderColor="gray.200"
+              borderWidth="1px"
+              boxShadow="lg"
+              transition="all 0.3s"
+              _hover={{
+                boxShadow: "xl",
+                transform: "translateY(-4px)",
+              }}
             >
-              {/* Image */}
-              <div className="relative h-[180px] w-full">
+              {/* Image Container */}
+              <Box position="relative" h="180px" w="full" overflow="hidden">
                 <Image
                   src={blog.image}
                   alt={blog.title}
                   fill
                   unoptimized
-                  className="object-cover hover:scale-105 transition duration-500"
+                  style={{ objectFit: "cover" }}
+                  className="transition duration-500 hover:scale-105"
                 />
 
-                <span className="absolute top-3 left-3 bg-blue-600 text-white text-[10px] px-3 py-1 rounded-full font-medium">
+                <Badge
+                  position="absolute"
+                  top={3}
+                  left={3}
+                  bg="blue.600"
+                  color="white"
+                  fontSize="10px"
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  fontWeight="medium"
+                >
                   {blog.category}
-                </span>
-              </div>
+                </Badge>
+              </Box>
 
               {/* Content */}
-              <div className="p-4">
-                <h3 className="text-[16px] font-bold text-[#0d223d] leading-6 mb-2 hover:text-blue-600 transition">
-                  {blog.title}
-                </h3>
-
-                <p className="text-[13px] text-gray-600 leading-5 line-clamp-3 mb-4">
-                  {blog.description}
-                </p>
-
-                <Link
-                  href={blog.link}
-                  className="inline-flex items-center text-blue-600 text-[13px] font-semibold hover:underline"
+              <Box p={4}>
+                <Heading
+                  as="h3"
+                  fontSize="16px"
+                  fontWeight="bold"
+                  color="#0d223d"
+                  mb={2}
+                  _hover={{ color: "blue.600" }}
+                  transition="color 0.2s"
                 >
-                  Read More
-                  <span className="ml-1">→</span>
+                  {blog.title}
+                </Heading>
+
+                <Text
+                  fontSize="13px"
+                  color="gray.600"
+                  mb={4}
+                >
+                  {blog.description}
+                </Text>
+
+                <Link href={blog.link} passHref legacyBehavior>
+                  <Text
+                    as="a"
+                    color="blue.600"
+                    fontSize="13px"
+                    fontWeight="semibold"
+                    _hover={{ textDecoration: "underline" }}
+                    display="inline-flex"
+                    alignItems="center"
+                  >
+                    Read More
+                    <Box as="span" ml={1}>
+                      →
+                    </Box>
+                  </Text>
                 </Link>
 
-                <p className="mt-2 text-[11px] text-gray-400">
+                <Text fontSize="11px" color="gray.400" mt={2}>
                   {blog.date}
-                </p>
-              </div>
-            </div>
+                </Text>
+              </Box>
+            </Card.Root>
           ))}
-        </div>
-      </div>
-    </section>
+        </SimpleGrid>
+      </Container>
+    </Box>
   );
 }

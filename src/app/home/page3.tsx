@@ -1,117 +1,257 @@
 "use client";
 
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  Image,
+  Flex,
+  useBreakpointValue,
+  VStack,
+} from "@chakra-ui/react";
+
 export default function Third() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+      mirror: true,
+      easing: "ease-in-out",
+    });
+
+    setTimeout(() => {
+      AOS.refresh();
+    }, 100);
+  }, []);
+
+  // ✅ Responsive values - SMALLER SIZES
+  const headingSize = useBreakpointValue({ base: "xl", md: "3xl" });
+  const subTextSize = useBreakpointValue({ base: "sm", md: "lg" });
+  const cardWidth = useBreakpointValue({ base: "100%", lg: "480px" }); // ✅ 600px se 480px
+  const imageSize = useBreakpointValue({ base: "120px", md: "80px", lg: "100px" }); // ✅ Choti image
+  const cardPadding = useBreakpointValue({ base: 3, md: 1 }); // ✅ Kam padding
+
   return (
-    <>
-      {/* Heading Section */}
-      <div
-        className="flex flex-col items-center justify-center overflow-hidden bg-slate-900 text-white"
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-bottom"
-      >
-        <div className="max-w-3xl text-center">
-          <h1
-            className="text-2xl md:text-4xl font-bold py-5"
+    <Box bg="#111525" color="white" py={{ base: 0}} px={{  }}>
+      <Container maxW="1270px">
+        {/* ========== HEADING SECTION ========== */}
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          data-aos="fade-up"
+          data-aos-anchor-placement="top-bottom"
+          mb={{ base: 2, md: 1 }}
+        >
+          <Heading
+            as="h1"
+            fontSize={headingSize}
+            fontWeight="bold"
+            color="white"
+            py={{ base: 0, md: 0 }}
             data-aos="zoom-in"
             data-aos-delay="100"
             data-aos-anchor-placement="top-bottom"
           >
             Our Certifications
-          </h1>
+          </Heading>
 
-          <p
-            className="text-lg md:text-xl text-white leading-relaxed"
+          <Text
+            fontSize={subTextSize}
+            color="white"
+            lineHeight="relaxed"
+            mt={{ base: 1, md: 2 }}
             data-aos="fade-up"
             data-aos-delay="250"
             data-aos-anchor-placement="top-bottom"
           >
             Trusted and certified by recognized authorities
-          </p>
-        </div>
-      </div>
+          </Text>
+        </Box>
 
-      {/* Cards Section */}
-      <div className="flex flex-col lg:flex-row gap-10 justify-center items-center bg-slate-900 px-6 md:px-20 py-10">
-        
-        {/* MSME Card */}
-        <div
-          className="w-full lg:w-[600px] min-h-[300px] bg-green-100 rounded-3xl flex flex-col md:flex-row items-center px-5 py-5 gap-5 shadow-lg hover:scale-105 transition-all duration-500"
-          data-aos="fade-right"
-          data-aos-delay="100"
-          data-aos-anchor-placement="top-bottom"
+        {/* ========== CARDS SECTION ========== */}
+        <Flex
+          direction={{ base: "column", lg: "row" }}
+          gap={{ base: 4, md: 3, lg: 8 }} // ✅ Kam gap
+          justifyContent="center"
+          alignItems="center"
+          px={{ base: 0, md: 2 }}
         >
-          {/* Image */}
-          <div
-            className="w-[220px] h-[220px] bg-white rounded-3xl shadow-md flex items-center justify-center"
-            data-aos="zoom-in"
-            data-aos-delay="250"
+          
+          {/* ========== MSME CARD ========== */}
+          <Box
+            width={cardWidth}
+            minHeight={{ base: "220px", md: "240px" }} // ✅ 300px se 240px
+            bg="green.100"
+            borderRadius="2xl" // ✅ 3xl se 2xl
+            display="flex"
+            flexDirection={{ base: "column", md: "row" }}
+            alignItems="center"
+            px={cardPadding}
+            py={{ base: 3, md: 4 }} // ✅ Kam padding
+            gap={{ base: 3, md: 4 }} // ✅ Kam gap
+            boxShadow="lg"
+            transition="all 0.5s ease"
+            _hover={{
+              transform: "scale(1.05)",
+              boxShadow: "2xl",
+            }}
+            data-aos="fade-right"
+            data-aos-delay="100"
             data-aos-anchor-placement="top-bottom"
           >
-            <img
-              src="https://5.imimg.com/data5/JK/ND/MY-20716531/msme-logo.png"
-              alt="MSME"
-              className="w-[170px] h-[170px] object-contain"
-            />
-          </div>
+            {/* Image Container */}
+            <Box
+              width={imageSize}
+              height={imageSize}
+              bg="white"
+              borderRadius="2xl"
+              boxShadow="md"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              flexShrink={0}
+              data-aos="zoom-in"
+              data-aos-delay="250"
+              data-aos-anchor-placement="top-bottom"
+            >
+              <Image
+                src="https://5.imimg.com/data5/JK/ND/MY-20716531/msme-logo.png"
+                alt="MSME"
+                width={{ base: "90px", md: "110px", lg: "130px" }} // ✅ Choti image
+                height={{ base: "90px", md: "110px", lg: "130px" }}
+                objectFit="contain"
+                onError={(e: any) => {
+                  e.target.style.display = "none";
+                }}
+              />
+            </Box>
 
-          {/* Content */}
-          <div className="flex-1 text-center md:text-left">
-            <h1 className="text-2xl font-bold text-black mb-5">
-              MSME Registered
-            </h1>
+            {/* Content */}
+            <Box flex="1" textAlign={{ base: "center", md: "left" }}>
+              <Heading
+                as="h2"
+                fontSize={{ base: "lg", md: "xl" }} // ✅ Chota heading
+                fontWeight="bold"
+                color="black"
+                mb={{ base: 1, md: 2 }}
+              >
+                MSME Registered
+              </Heading>
 
-            <p className="text-sm text-gray-700 leading-relaxed mb-6">
-              Officially recognized by the Ministry of Micro, Small & Medium
-              Enterprises, Government of India under the Udyam Registration
-              scheme.
-            </p>
+              <Text
+                fontSize={{ base: "xs", sm: "xs", md: "sm" }} // ✅ Chota text
+                color="gray.700"
+                lineHeight="relaxed"
+                mb={{ base: 2, md: 3 }}
+              >
+                Officially recognized by the Ministry of Micro, Small & Medium
+                Enterprises, Government of India under the Udyam Registration
+                scheme.
+              </Text>
 
-            <div className="space-y-3 text-lg text-gray-800">
-              <p>✅ Udyam Registration Number</p>
-              <p>✅ Government Verified</p>
-            </div>
-          </div>
-        </div>
+              <VStack gap={{ base: 0.5, md: 1 }} align={{ base: "center", md: "flex-start" }}>
+                <Text fontSize={{ base: "xs", md: "sm" }} color="gray.800" fontWeight="medium">
+                  ✅ Udyam Registration Number
+                </Text>
+                <Text fontSize={{ base: "xs", md: "sm" }} color="gray.800" fontWeight="medium">
+                  ✅ Government Verified
+                </Text>
+              </VStack>
+            </Box>
+          </Box>
 
-        {/* ISO Card */}
-        <div
-          className="w-full lg:w-[600px] min-h-[300px] bg-blue-100 rounded-3xl flex flex-col md:flex-row items-center px-5 py-5 gap-5 shadow-lg hover:scale-105 transition-all duration-500"
-          data-aos="fade-left"
-          data-aos-delay="200"
-          data-aos-anchor-placement="top-bottom"
-        >
-          {/* Image */}
-          <div
-            className="w-[220px] h-[220px] bg-white rounded-3xl shadow-md flex items-center justify-center"
-            data-aos="zoom-in"
-            data-aos-delay="350"
+          {/* ========== ISO CARD ========== */}
+          <Box
+            width={cardWidth}
+            minHeight={{ base: "220px", md: "240px" }} // ✅ 300px se 240px
+            bg="blue.100"
+            borderRadius="2xl" // ✅ 3xl se 2xl
+            display="flex"
+            flexDirection={{ base: "column", md: "row" }}
+            alignItems="center"
+            px={cardPadding}
+            py={{ base: 3, md: 4 }} // ✅ Kam padding
+            gap={{ base: 3, md: 4 }} // ✅ Kam gap
+            boxShadow="lg"
+            transition="all 0.5s ease"
+            _hover={{
+              transform: "scale(1.05)",
+              boxShadow: "2xl",
+            }}
+            data-aos="fade-left"
+            data-aos-delay="200"
             data-aos-anchor-placement="top-bottom"
           >
-            <img
-              src="https://www.arenasolutions.com/wp-content/uploads/what-is-iso-9001-compliance.png"
-              alt="ISO"
-              className="w-[170px] h-[170px] object-contain"
-            />
-          </div>
+            {/* Image Container */}
+            <Box
+              width={imageSize}
+              height={imageSize}
+              bg="white"
+              borderRadius="2xl"
+              boxShadow="md"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              flexShrink={0}
+              data-aos="zoom-in"
+              data-aos-delay="350"
+              data-aos-anchor-placement="top-bottom"
+            >
+              <Image
+                src="https://www.arenasolutions.com/wp-content/uploads/what-is-iso-9001-compliance.png"
+                alt="ISO"
+                width={{ base: "90px", md: "110px", lg: "130px" }} // ✅ Choti image
+                height={{ base: "90px", md: "110px", lg: "130px" }}
+                objectFit="contain"
+                onError={(e: any) => {
+                  e.target.style.display = "none";
+                }}
+              />
+            </Box>
 
-          {/* Content */}
-          <div className="flex-1 text-center md:text-left">
-            <h1 className="text-2xl font-bold text-black mb-5">
-              ISO 270001 Certified
-            </h1>
+            {/* Content */}
+            <Box flex="1" textAlign={{ base: "center", md: "left" }}>
+              <Heading
+                as="h2"
+                fontSize={{ base: "lg", md: "xl" }} // ✅ Chota heading
+                fontWeight="bold"
+                color="black"
+                mb={{ base: 1, md: 2 }}
+              >
+                ISO 270001 Certified
+              </Heading>
 
-            <p className="text-sm text-gray-700 leading-relaxed mb-6">
-              Internationally recognized quality management system certification
-              ensuring consistent delivery of high-quality products and services.
-            </p>
+              <Text
+                fontSize={{ base: "xs", sm: "xs", md: "sm" }} // ✅ Chota text
+                color="gray.700"
+                lineHeight="relaxed"
+                mb={{ base: 2, md: 3 }}
+              >
+                Internationally recognized quality management system certification
+                ensuring consistent delivery of high-quality products and services.
+              </Text>
 
-            <div className="space-y-3 text-lg text-gray-800">
-              <p>✅ Quality Management System</p>
-              <p>✅ International Standards</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+              <VStack gap={{ base: 0.5, md: 1 }} align={{ base: "center", md: "flex-start" }}>
+                <Text fontSize={{ base: "xs", md: "sm" }} color="gray.800" fontWeight="medium">
+                  ✅ Quality Management System
+                </Text>
+                <Text fontSize={{ base: "xs", md: "sm" }} color="gray.800" fontWeight="medium">
+                  ✅ International Standards
+                </Text>
+              </VStack>
+            </Box>
+          </Box>
+
+        </Flex>
+      </Container>
+    </Box>
   );
 }

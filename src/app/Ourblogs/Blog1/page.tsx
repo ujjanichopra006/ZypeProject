@@ -1,291 +1,448 @@
 "use client";
 
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  Badge,
+  VStack,
+  HStack,
+  SimpleGrid,
+  Card,
+} from "@chakra-ui/react";
+
 export default function Hero() {
   return (
-    <>
-    <section className="bg-[#0b1220] text-white py-12 px-4">
-      <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-start justify-between gap-8">
-        
-        {/* LEFT SIDE */}
-        <div className="w-full lg:w-[65%]">
-          {/* Top Label */}
-          <p className="text-green-400 text-[10px] sm:text-xs tracking-[0.18em] mb-3 flex items-center gap-2 font-medium">
-            📊 FINTECH AWARENESS • 2026
-          </p>
+    <Box bg="#0b1220" color="white">
+      {/* Hero Section */}
+      <Box as="section" py={12} px={4}>
+        <Container maxW="5xl" mx="auto">
+          <Box
+            display="flex"
+            flexDirection={{ base: "column", lg: "row" }}
+            alignItems="flex-start"
+            justifyContent="space-between"
+            gap={8}
+          >
+            {/* LEFT SIDE */}
+            <Box w="full" maxW={{ lg: "65%" }}>
+              {/* Top Label */}
+              <Text
+                color="green.400"
+                fontSize={{ base: "10px", sm: "xs" }}
+                letterSpacing="0.18em"
+                mb={3}
+                display="flex"
+                alignItems="center"
+                gap={2}
+                fontWeight="medium"
+              >
+                📊 FINTECH AWARENESS • 2026
+              </Text>
 
-          {/* Heading */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight">
-            Credit Score Awareness in India{" "}
-            <span className="text-emerald-400">Why It Matters</span>{" "}
-            <span className="text-cyan-400">More Than Ever</span>
-          </h1>
+              {/* Heading */}
+              <Heading
+                as="h1"
+                fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
+                fontWeight="extrabold"
+                lineHeight="1.2"
+              >
+                Credit Score Awareness in India{" "}
+                <Text as="span" color="emerald.400">
+                  Why It Matters
+                </Text>{" "}
+                <Text as="span" color="cyan.400">
+                  More Than Ever
+                </Text>
+              </Heading>
 
-          {/* Description */}
-          <p className="mt-4 text-gray-300 text-xs sm:text-sm md:text-[15px] leading-6 max-w-xl">
-            Your credit score is your financial reputation. In 2026, digital
-            lending decisions happen in seconds — and your score decides whether
-            you get approved, rejected, or charged higher interest. 🔍
-          </p>
+              {/* Description */}
+              <Text
+                mt={4}
+                color="gray.300"
+                fontSize={{ base: "xs", sm: "sm", md: "15px" }}
+                maxW="xl"
+              >
+                Your credit score is your financial reputation. In 2026, digital
+                lending decisions happen in seconds — and your score decides whether
+                you get approved, rejected, or charged higher interest. 🔍
+              </Text>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mt-5">
-            <span className="bg-white/10 px-3 py-1 rounded-full text-[11px]">
-              ⏱ 6–8 min read
-            </span>
+              {/* Tags */}
+              <HStack gap={2} mt={5} flexWrap="wrap">
+                <Badge
+                  bg="whiteAlpha.200"
+                  color="white"
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  fontSize="11px"
+                  fontWeight="normal"
+                >
+                  ⏱ 6–8 min read
+                </Badge>
 
-            <span className="bg-white/10 px-3 py-1 rounded-full text-[11px]">
-              🧠 Beginner-Friendly
-            </span>
+                <Badge
+                  bg="whiteAlpha.200"
+                  color="white"
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  fontSize="11px"
+                  fontWeight="normal"
+                >
+                  🧠 Beginner-Friendly
+                </Badge>
 
-            <span className="bg-white/10 px-3 py-1 rounded-full text-[11px]">
-              🇮🇳 India Focused
-            </span>
-          </div>
-        </div>
+                <Badge
+                  bg="whiteAlpha.200"
+                  color="white"
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  fontSize="11px"
+                  fontWeight="normal"
+                >
+                  🇮🇳 India Focused
+                </Badge>
+              </HStack>
+            </Box>
 
-        {/* RIGHT CARD */}
-        <div className="w-full lg:w-[300px]">
-          <div className="bg-gradient-to-br from-[#0f2a3a] to-[#0b1b2a] border border-teal-500/30 rounded-2xl p-4 shadow-lg">
-            
-            {/* Header */}
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-semibold">
-                Score Snapshot
-              </h3>
+            {/* RIGHT CARD */}
+            <Box w="full" maxW={{ lg: "300px" }}>
+              <Card.Root
+                bgGradient="linear(to-br, #0f2a3a, #0b1b2a)"
+                borderColor="teal.500/30"
+                borderWidth="1px"
+                borderRadius="2xl"
+                p={4}
+                boxShadow="lg"
+              >
+                {/* Header */}
+                <HStack justifyContent="space-between" mb={4}>
+                  <Text fontSize="sm" fontWeight="semibold" color="black">
+                    Score Snapshot
+                  </Text>
 
-              <span className="text-[10px] bg-teal-500/20 text-teal-300 px-2.5 py-1 rounded-full">
-                300 – 900
-              </span>
-            </div>
+                  <Badge
+                    bg="teal.500/20"
+                    color="teal.700"
+                    px={2.5}
+                    py={1}
+                    borderRadius="full"
+                    fontSize="10px"
+                  >
+                    300 – 900
+                  </Badge>
+                </HStack>
 
-            {/* Score Items */}
-            <div className="space-y-3 text-xs">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">
-                  Excellent (750+)
-                </span>
-                <span className="text-green-400 font-medium">
-                  High Approval
-                </span>
-              </div>
+                {/* Score Items */}
+                <VStack gap={3} alignItems="stretch" fontSize="xs">
+                  <HStack justifyContent="space-between">
+                    <Text color="gray.700">Excellent (750+)</Text>
+                    <Text color="green.700" fontWeight="medium">
+                      High Approval
+                    </Text>
+                  </HStack>
 
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">
-                  Average (650–749)
-                </span>
-                <span className="text-yellow-400 font-medium">
-                  Moderate Risk
-                </span>
-              </div>
+                  <HStack justifyContent="space-between">
+                    <Text color="gray.700">Average (650–749)</Text>
+                    <Text color="yellow.600" fontWeight="medium">
+                      Moderate Risk
+                    </Text>
+                  </HStack>
 
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">
-                  Below 650
-                </span>
-                <span className="text-red-400 font-medium">
-                  High Risk
-                </span>
-              </div>
-            </div>
+                  <HStack justifyContent="space-between">
+                    <Text color="gray.700">Below 650</Text>
+                    <Text color="red.700" fontWeight="medium">
+                      High Risk
+                    </Text>
+                  </HStack>
+                </VStack>
 
-            {/* Footer */}
-            <p className="mt-4 text-[11px] text-gray-400 leading-5">
-              A strong credit score can save you lakhs in interest over time.
-            </p>
-          </div>
-        </div>
+                {/* Footer */}
+                <Text mt={4} fontSize="11px" color="gray.700" lineHeight="5">
+                  A strong credit score can save you lakhs in interest over time.
+                </Text>
+              </Card.Root>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
 
-      </div>
-    </section>
-    <section className="bg-[#0b1220] text-gray-300 px-4 pb-14">
-  <div className="max-w-5xl mx-auto">
-    <div
-      className="bg-[#111827] border border-white/10 rounded-2xl p-6 md:p-8 shadow-lg space-y-8"
-      data-aos="fade-up"
-      data-aos-duration="1000"
-    >
-      <p
-        className="text-sm leading-7"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        In today’s digital-first India, your credit score plays a crucial
-        role in determining your financial opportunities. Whether you
-        apply for a personal loan, credit card, or home loan, lenders
-        assess your credit profile before making a decision.
-      </p>
+      {/* Content Section */}
+      <Box as="section" bg="#0b1220" color="gray.100" px={4} pb={14}>
+        <Container maxW="5xl" mx="auto">
+          <Card.Root
+            bg="#111827"
+            borderColor="white.200"
+            borderWidth="1px"
+            borderRadius="2xl"
+            p={{ base: 6, md: 8 }}
+            boxShadow="lg"
+          >
+            <VStack gap={8} alignItems="stretch" color="white">
+              <Text fontSize="sm" 
+              >
+                In today's digital-first India, your credit score plays a crucial
+                role in determining your financial opportunities. Whether you
+                apply for a personal loan, credit card, or home loan, lenders
+                assess your credit profile before making a decision.
+              </Text>
 
-      <p
-        className="text-sm leading-7"
-        data-aos="fade-up"
-        data-aos-delay="150"
-      >
-        Regulated under the guidelines of the Reserve Bank of India (RBI),
-        digital lending platforms now rely heavily on automated credit
-        assessments.
-      </p>
+              <Text fontSize="sm" >
 
-      {/* What is Credit Score */}~
-      <div data-aos="fade-up" data-aos-delay="200">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
-          What Is a Credit Score?
-        </h2>
+                Regulated under the guidelines of the Reserve Bank of India (RBI),
+                digital lending platforms now rely heavily on automated credit
+                assessments.
+              </Text>
 
-        <p className="text-sm leading-7">
-          A credit score is a three-digit number ranging from 300 to 900
-          that represents your creditworthiness. In India, one of the most
-          widely used scores is issued by TransUnion CIBIL.
-        </p>
+              {/* What is Credit Score */}
+              <Box>
+                <Heading
+                  as="h2"
+                  fontSize={{ base: "xl", md: "2xl" }}
+                  fontWeight="bold"
+                  color="white"
+                  mb={3}
+                >
+                  What Is a Credit Score?
+                </Heading>
 
-        <p className="text-sm leading-7 mt-3">
-          Generally, a score of 750 or above is considered excellent and
-          improves your chances of quick approval and lower interest
-          rates.
-        </p>
-      </div>
+                <Text fontSize="sm" >
+                  A credit score is a three-digit number ranging from 300 to 900
+                  that represents your creditworthiness. In India, one of the most
+                  widely used scores is issued by TransUnion CIBIL.
+                </Text>
 
-      {/* Importance */}
-      <div data-aos="fade-up" data-aos-delay="250">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
-          Why Credit Score Awareness Is Important in 2026
-        </h2>
+                <Text fontSize="sm" mt={3}>
+                  Generally, a score of 750 or above is considered excellent and
+                  improves your chances of quick approval and lower interest
+                  rates.
+                </Text>
+              </Box>
 
-        <ul className="list-disc list-inside space-y-2 text-sm">
-          <li>Instant digital loan approvals</li>
-          <li>AI-based underwriting models</li>
-          <li>Risk-based interest pricing</li>
-          <li>UPI-linked credit lines and BNPL growth</li>
-        </ul>
+              {/* Importance */}
+              <Box>
+                <Heading
+                  as="h2"
+                  fontSize={{ base: "xl", md: "2xl" }}
+                  fontWeight="bold"
+                  color="white"
+                  mb={3}
+                >
+                  Why Credit Score Awareness Is Important in 2026
+                </Heading>
 
-        <p className="mt-4 text-sm leading-7">
-          A higher score means better financial flexibility and lower
-          borrowing costs.
-        </p>
-      </div>
+                <Box as="ul" pl={5}>
+                  <Box as="li" mb={2} fontSize="sm">
+                    Instant digital loan approvals
+                  </Box>
+                  <Box as="li" mb={2} fontSize="sm">
+                    AI-based underwriting models
+                  </Box>
+                  <Box as="li" mb={2} fontSize="sm">
+                    Risk-based interest pricing
+                  </Box>
+                  <Box as="li" mb={2} fontSize="sm">
+                    UPI-linked credit lines and BNPL growth
+                  </Box>
+                </Box>
 
-      {/* Factors */}
-      <div data-aos="fade-up" data-aos-delay="300">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-5">
-          Factors That Affect Your Credit Score
-        </h2>
+                <Text mt={4} fontSize="sm">
+                  A higher score means better financial flexibility and lower
+                  borrowing costs.
+                </Text>
+              </Box>
 
-        <div className="space-y-5">
-          <div data-aos="fade-right" data-aos-delay="100">
-            <h3 className="text-base font-semibold text-emerald-400">
-              1️⃣ Payment History
-            </h3>
-            <p className="text-sm mt-1 leading-7">
-              Late EMI or credit card payments significantly reduce your
-              score. Timely payments build trust with lenders.
-            </p>
-          </div>
+              {/* Factors */}
+              <Box>
+                <Heading
+                  as="h2"
+                  fontSize={{ base: "xl", md: "2xl" }}
+                  fontWeight="bold"
+                  color="white"
+                  mb={5}
+                >
+                  Factors That Affect Your Credit Score
+                </Heading>
 
-          <div data-aos="fade-right" data-aos-delay="150">
-            <h3 className="text-base font-semibold text-emerald-400">
-              2️⃣ Credit Utilisation Ratio
-            </h3>
-            <p className="text-sm mt-1 leading-7">
-              Using more than 30–40% of your credit limit may negatively
-              impact your score.
-            </p>
-          </div>
+                <VStack gap={5} alignItems="stretch">
+                  <Box>
+                    <Heading
+                      as="h3"
+                      fontSize="base"
+                      fontWeight="semibold"
+                      color="emerald.400"
+                      mb={1}
+                    >
+                      1️⃣ Payment History
+                    </Heading>
+                    <Text fontSize="sm">
+                      Late EMI or credit card payments significantly reduce your
+                      score. Timely payments build trust with lenders.
+                    </Text>
+                  </Box>
 
-          <div data-aos="fade-right" data-aos-delay="200">
-            <h3 className="text-base font-semibold text-emerald-400">
-              3️⃣ Length of Credit History
-            </h3>
-            <p className="text-sm mt-1 leading-7">
-              Older credit accounts demonstrate stability and improve your
-              score.
-            </p>
-          </div>
+                  <Box>
+                    <Heading
+                      as="h3"
+                      fontSize="base"
+                      fontWeight="semibold"
+                      color="emerald.400"
+                      mb={1}
+                    >
+                      2️⃣ Credit Utilisation Ratio
+                    </Heading>
+                    <Text fontSize="sm">
+                      Using more than 30–40% of your credit limit may negatively
+                      impact your score.
+                    </Text>
+                  </Box>
 
-          <div data-aos="fade-right" data-aos-delay="250">
-            <h3 className="text-base font-semibold text-emerald-400">
-              4️⃣ Credit Mix
-            </h3>
-            <p className="text-sm mt-1 leading-7">
-              A balanced mix of secured and unsecured loans strengthens
-              your credit profile.
-            </p>
-          </div>
+                  <Box>
+                    <Heading
+                      as="h3"
+                      fontSize="base"
+                      fontWeight="semibold"
+                      color="emerald.400"
+                      mb={1}
+                    >
+                      3️⃣ Length of Credit History
+                    </Heading>
+                    <Text fontSize="sm" lineHeight="7">
+                      Older credit accounts demonstrate stability and improve your
+                      score.
+                    </Text>
+                  </Box>
 
-          <div data-aos="fade-right" data-aos-delay="300">
-            <h3 className="text-base font-semibold text-emerald-400">
-              5️⃣ Hard Inquiries
-            </h3>
-            <p className="text-sm mt-1 leading-7">
-              Applying for multiple loans within a short period can lower
-              your score.
-            </p>
-          </div>
-        </div>
-      </div>
+                  <Box>
+                    <Heading
+                      as="h3"
+                      fontSize="base"
+                      fontWeight="semibold"
+                      color="emerald.400"
+                      mb={1}
+                    >
+                      4️⃣ Credit Mix
+                    </Heading>
+                    <Text fontSize="sm">
+                      A balanced mix of secured and unsecured loans strengthens
+                      your credit profile.
+                    </Text>
+                  </Box>
 
-      {/* Improve Score */}
-      <div data-aos="fade-up" data-aos-delay="350">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
-          How to Improve Your Credit Score
-        </h2>
+                  <Box>
+                    <Heading
+                      as="h3"
+                      fontSize="base"
+                      fontWeight="semibold"
+                      color="emerald.400"
+                      mb={1}
+                    >
+                      5️⃣ Hard Inquiries
+                    </Heading>
+                    <Text fontSize="sm" >
+                      Applying for multiple loans within a short period can lower
+                      your score.
+                    </Text>
+                  </Box>
+                </VStack>
+              </Box>
 
-        <ul className="list-disc list-inside space-y-2 text-sm">
-          <li>Pay EMIs and credit card bills on time.</li>
-          <li>Keep credit utilisation below 30%.</li>
-          <li>Avoid unnecessary loan applications.</li>
-          <li>Check your credit report regularly.</li>
-          <li>Maintain older credit accounts responsibly.</li>
-        </ul>
-      </div>
+              {/* Improve Score */}
+              <Box>
+                <Heading
+                  as="h2"
+                  fontSize={{ base: "xl", md: "2xl" }}
+                  fontWeight="bold"
+                  color="white"
+                  mb={3}
+                >
+                  How to Improve Your Credit Score
+                </Heading>
 
-      {/* Myths */}
-      <div data-aos="fade-up" data-aos-delay="400">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
-          Common Myths About Credit Scores
-        </h2>
+                <Box as="ul" pl={5}>
+                  <Box as="li" mb={2} fontSize="sm">
+                    Pay EMIs and credit card bills on time.
+                  </Box>
+                  <Box as="li" mb={2} fontSize="sm">
+                    Keep credit utilisation below 30%.
+                  </Box>
+                  <Box as="li" mb={2} fontSize="sm">
+                    Avoid unnecessary loan applications.
+                  </Box>
+                  <Box as="li" mb={2} fontSize="sm">
+                    Check your credit report regularly.
+                  </Box>
+                  <Box as="li" mb={2} fontSize="sm">
+                    Maintain older credit accounts responsibly.
+                  </Box>
+                </Box>
+              </Box>
 
-        <ul className="list-disc list-inside space-y-2 text-sm">
-          <li>❌ Checking your own credit score reduces it (False)</li>
-          <li>❌ High salary guarantees approval (False)</li>
-          <li>
-            ❌ Closing old accounts always improves score (Not always)
-          </li>
-        </ul>
-      </div>
+              {/* Myths */}
+              <Box>
+                <Heading
+                  as="h2"
+                  fontSize={{ base: "xl", md: "2xl" }}
+                  fontWeight="bold"
+                  color="white"
+                  mb={3}
+                >
+                  Common Myths About Credit Scores
+                </Heading>
 
-      {/* Final Thoughts */}
-      <div data-aos="fade-up" data-aos-delay="450">
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-3">
-          Final Thoughts
-        </h2>
+                <Box as="ul" pl={5}>
+                  <Box as="li" mb={2} fontSize="sm">
+                    ❌ Checking your own credit score reduces it (False)
+                  </Box>
+                  <Box as="li" mb={2} fontSize="sm">
+                    ❌ High salary guarantees approval (False)
+                  </Box>
+                  <Box as="li" mb={2} fontSize="sm">
+                    ❌ Closing old accounts always improves score (Not always)
+                  </Box>
+                </Box>
+              </Box>
 
-        <p className="text-sm leading-7">
-          Credit score awareness is not optional anymore — it is
-          essential. In 2026, financial institutions rely heavily on
-          digital credit evaluation systems.
-        </p>
+              {/* Final Thoughts */}
+              <Box>
+                <Heading
+                  as="h2"
+                  fontSize={{ base: "xl", md: "2xl" }}
+                  fontWeight="bold"
+                  color="white"
+                  mb={3}
+                >
+                  Final Thoughts
+                </Heading>
 
-        <p className="text-sm leading-7 mt-3">
-          Building a strong credit profile today can help you secure
-          better loan terms, faster approvals, and greater financial
-          freedom in the future.
-        </p>
-      </div>
+                <Text fontSize="sm" >
+                  Credit score awareness is not optional anymore — it is
+                  essential. In 2026, financial institutions rely heavily on
+                  digital credit evaluation systems.
+                </Text>
 
-      {/* Disclaimer */}
-      <div
-        className="border-t border-white/10 pt-5"
-        data-aos="fade-up"
-        data-aos-delay="500"
-      >
-        <p className="text-xs text-gray-400 italic leading-6">
-          <strong>Disclaimer:</strong> This article is for educational
-          purposes only and does not constitute financial advice. Please
-          consult a financial professional before making credit decisions.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-</>
+                <Text fontSize="sm" mt={3}>
+                  Building a strong credit profile today can help you secure
+                  better loan terms, faster approvals, and greater financial
+                  freedom in the future.
+                </Text>
+              </Box>
+
+              {/* Disclaimer */}
+              <Box as="hr" borderColor="whiteAlpha.200" borderWidth="1px" opacity={0.3} mt={5} />
+              <Text fontSize="xs" color="gray.400" fontStyle="italic" mt={4}>
+                <Text as="strong">Disclaimer:</Text> This article is for educational
+                purposes only and does not constitute financial advice. Please
+                consult a financial professional before making credit decisions.
+              </Text>
+            </VStack>
+          </Card.Root>
+        </Container>
+      </Box>
+    </Box>
   );
 }

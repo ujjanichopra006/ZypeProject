@@ -4,6 +4,19 @@ import { useEffect } from "react";
 import Lottie from "lottie-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Badge,
+  Flex,
+  Grid,
+  GridItem,
+  Stack,
+} from "@chakra-ui/react";
 
 // ⚠️ Apni JSON file ka sahi path yahan do
 import cyberAnimation from "../../../animations/Networking flow.json";
@@ -60,133 +73,272 @@ export default function CyberSafetyBlog() {
     });
   }, []);
 
+  // Color values
+  const bgColor = "#08111f";
+  const cardBg = "#101827";
+  const textColor = "gray.300";
+  const headingColor = "white";
+  const borderColor = "cyan.500/10";
+  const accentColor = "cyan.400";
+  const mutedColor = "gray.400";
+  const cardHoverBg = "cyan.500/10";
+
   return (
-    <section className="min-h-screen bg-[#08111f] py-10 px-4 text-gray-300 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+    <Box minH="100vh" bg={bgColor} py={10} px={4} overflow="hidden">
+      <Container maxW="6xl">
         {/* Main Card */}
-        <div className="rounded-[30px] border border-cyan-500/10 bg-[#101827]/90 backdrop-blur-lg overflow-hidden shadow-2xl">
+        <Box
+          rounded="3xl"
+          border="1px"
+          borderColor={borderColor}
+          bg={cardBg}
+          backdropFilter="blur(12px)"
+          overflow="hidden"
+          boxShadow="2xl"
+        >
+          {/* Hero Section */}
+          <Box position="relative" px={{ base: 6, md: 10 }} py={12} borderBottom="1px" borderColor="white/10">
+            {/* Background Glow Effects */}
+            <Box
+              position="absolute"
+              top="-20"
+              right="-20"
+              w="72"
+              h="72"
+              rounded="full"
+              bg="cyan.500/10"
+              filter="blur(48px)"
+            />
+            <Box
+              position="absolute"
+              bottom="-20"
+              left="-20"
+              w="72"
+              h="72"
+              rounded="full"
+              bg="blue.500/10"
+              filter="blur(48px)"
+            />
 
-          {/* Hero */}
-          <div className="relative px-6 md:px-10 py-12 border-b border-white/10">
-            {/* Background Glow */}
-            <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-cyan-500/10 blur-3xl"></div>
-            <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-blue-500/10 blur-3xl"></div>
-
-            <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
-              {/* Left */}
-              <div data-aos="fade-right">
-                <span className="inline-block rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300 animate-pulse">
+            <Grid
+              position="relative"
+              zIndex={10}
+              templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
+              gap={10}
+              alignItems="center"
+            >
+              {/* Left Content */}
+              <Box data-aos="fade-right">
+                <Badge
+                  rounded="full"
+                  border="1px"
+                  borderColor="cyan.400/20"
+                  bg="cyan.400/10"
+                  px={4}
+                  py={2}
+                  fontSize="xs"
+                  fontWeight="semibold"
+                  textTransform="uppercase"
+                  letterSpacing="0.25em"
+                  color="cyan.300"
+                  animation="pulse 2s infinite"
+                >
                   Cyber Security Guide
-                </span>
+                </Badge>
 
-                <h1 className="mt-6 text-4xl md:text-6xl font-black leading-tight text-white">
+                <Heading
+                  as="h1"
+                  mt={6}
+                  fontSize={{ base: "2xl", md: "4xl" }}
+                  fontWeight="black"
+                  color={headingColor}
+                >
                   Safety Awareness
                   <br />
-                  <span className="text-cyan-400">
+                  <Text as="span" color={accentColor}>
                     about Cyber Crime
-                  </span>
-                </h1>
+                  </Text>
+                </Heading>
 
-                <p className="mt-6 text-gray-400 leading-8 max-w-xl">
+                <Text mt={6} color={mutedColor} maxW="xl">
                   Learn how to stay safe from phishing, hacking, identity theft,
                   fake websites, online shopping scams, and digital payment
                   fraud with practical cybersecurity awareness.
-                </p>
+                </Text>
 
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <span className="rounded-xl bg-white/5 border border-white/10 px-4 py-2 text-sm">
+                <HStack mt={8} gap={3} flexWrap="wrap">
+                  <Badge
+                    rounded="xl"
+                    bg="white/5"
+                    border="1px"
+                    borderColor="white/10"
+                    px={4}
+                    py={2}
+                    fontSize="sm"
+                    fontWeight="normal"
+                  >
                     📅 October 25, 2025
-                  </span>
-                  <span className="rounded-xl bg-white/5 border border-white/10 px-4 py-2 text-sm">
+                  </Badge>
+                  <Badge
+                    rounded="xl"
+                    bg="white/5"
+                    border="1px"
+                    borderColor="white/10"
+                    px={4}
+                    py={2}
+                    fontSize="sm"
+                    fontWeight="normal"
+                  >
                     🛡️ Cyber Awareness
-                  </span>
-                  <span className="rounded-xl bg-white/5 border border-white/10 px-4 py-2 text-sm">
+                  </Badge>
+                  <Badge
+                    rounded="xl"
+                    bg="white/5"
+                    border="1px"
+                    borderColor="white/10"
+                    px={4}
+                    py={2}
+                    fontSize="sm"
+                    fontWeight="normal"
+                  >
                     ⏱️ 5 Min Read
-                  </span>
-                </div>
-              </div>
+                  </Badge>
+                </HStack>
+              </Box>
 
               {/* Right Animation */}
-              <div
+              <Flex
                 data-aos="zoom-in"
                 data-aos-delay="300"
-                className="flex justify-center"
+                justify="center"
+                align="center"
               >
+                <Box w="full" maxW="400px">
                   <Lottie animationData={cyberAnimation} loop />
-                </div>
-              </div>
-            </div>
-          </div>
+                </Box>
+              </Flex>
+            </Grid>
+          </Box>
 
           {/* Quote Section */}
-          <div
+          <Box
             data-aos="flip-up"
-            className="mx-6 md:mx-10 mt-10 rounded-3xl border-l-4 border-cyan-400 bg-cyan-500/5 p-6"
+            mx={{ base: 6, md: 10 }}
+            mt={10}
+            rounded="3xl"
+            borderLeft="4px"
+            borderLeftColor="cyan.400"
+            bg="cyan.500/5"
+            p={6}
           >
-            <p className="text-xl md:text-2xl font-semibold italic text-white leading-10">
+            <Text
+              fontSize={{ base: "xl", md: "2xl" }}
+              fontWeight="semibold"
+              fontStyle="italic"
+              color={headingColor}
+            >
               "Cyber security is not just about technology — it is about making
               safe choices every time you go online."
-            </p>
-          </div>
+            </Text>
+          </Box>
 
           {/* Timeline Topics */}
-          <div className="px-6 md:px-10 py-12">
-            <div className="relative border-l border-slate-700 ml-3 space-y-8">
+          <Box px={{ base: 6, md: 10 }} py={12}>
+            <Box position="relative" borderLeft="1px" borderColor="slate.700" ml={3} spaceY={8}>
               {topics.map((topic, index) => (
-                <div
+                <Box
                   key={index}
                   data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
                   data-aos-delay={index * 100}
-                  className="relative pl-10"
+                  position="relative"
+                  pl={10}
+                  mb={8}
                 >
-                  {/* Dot */}
-                  <div className="absolute -left-[11px] top-2 h-5 w-5 rounded-full bg-cyan-400 border-4 border-[#101827] animate-pulse"></div>
+                  {/* Timeline Dot */}
+                  <Box
+                    position="absolute"
+                    left="-11px"
+                    top={2}
+                    w={5}
+                    h={5}
+                    rounded="full"
+                    bg="cyan.400"
+                    border="4px"
+                    borderColor="#101827"
+                    animation="pulse 2s infinite"
+                  />
 
-                  {/* Card */}
-                  <div className="rounded-2xl border border-white/5 bg-slate-800/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)]">
-                    <span className="text-xs uppercase tracking-[0.2em] text-cyan-400">
+                  {/* Topic Card */}
+                  <Box
+                    rounded="2xl"
+                    border="1px"
+                    borderColor="white/5"
+                    bg="slate.800/40"
+                    p={6}
+                    transition="all 0.3s"
+                    _hover={{
+                      transform: "translateY(-4px)",
+                      borderColor: "cyan.400/40",
+                      boxShadow: "0 0 30px rgba(34,211,238,0.15)",
+                    }}
+                  >
+                    <Text
+                      fontSize="xs"
+                      textTransform="uppercase"
+                      letterSpacing="0.2em"
+                      color={accentColor}
+                    >
                       Topic {String(index + 1).padStart(2, "0")}
-                    </span>
+                    </Text>
 
-                    <h2 className="mt-2 text-2xl font-bold text-white">
+                    <Heading as="h2" mt={2} fontSize="2xl" fontWeight="bold" color={headingColor}>
                       {topic.title}
-                    </h2>
+                    </Heading>
 
-                    <p className="mt-4 leading-8 text-gray-400">
+                    <Text mt={4} color={mutedColor}>
                       {topic.content}
-                    </p>
-                  </div>
-                </div>
+                    </Text>
+                  </Box>
+                </Box>
               ))}
-            </div>
+            </Box>
 
             {/* Warning Box */}
-            <div
+            <Box
               data-aos="zoom-in-up"
-              className="mt-12 rounded-3xl border border-red-500/20 bg-red-500/10 p-6"
+              mt={12}
+              rounded="3xl"
+              border="1px"
+              borderColor="red.500/20"
+              bg="red.500/10"
+              p={6}
             >
-              <h3 className="text-2xl font-bold text-red-400 mb-3">
+              <Heading as="h3" fontSize="2xl" fontWeight="bold" color="red.400" mb={3}>
                 ⚠️ Important Warning
-              </h3>
+              </Heading>
 
-              <p className="leading-8 text-gray-300">
+              <Text color={textColor}>
                 Never share your OTP, UPI PIN, CVV, ATM PIN, passwords, or
                 banking details with anyone. Genuine banks and government
                 agencies never ask for confidential information through phone
                 calls, emails, or social media messages.
-              </p>
-            </div>
+              </Text>
+            </Box>
 
             {/* Safety Checklist */}
-            <div className="mt-14">
-              <h2
+            <Box mt={14}>
+              <Heading
+                as="h2"
                 data-aos="fade-up"
-                className="text-3xl font-bold text-white mb-6"
+                fontSize="3xl"
+                fontWeight="bold"
+                color={headingColor}
+                mb={6}
               >
                 ✔ Quick Safety Checklist
-              </h2>
+              </Heading>
 
-              <div className="grid gap-5 md:grid-cols-2">
+              <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={5}>
                 {[
                   "🔐 Use strong and unique passwords.",
                   "📲 Enable Two-Factor Authentication (2FA).",
@@ -195,48 +347,71 @@ export default function CyberSafetyBlog() {
                   "🛍️ Shop only from trusted platforms.",
                   "🛡️ Keep software and antivirus updated.",
                 ].map((item, i) => (
-                  <div
-                    key={i}
-                    data-aos="zoom-in"
-                    data-aos-delay={i * 100}
-                    className="rounded-2xl border border-white/5 bg-slate-800/40 p-5 transition-all duration-300 hover:scale-[1.03] hover:bg-cyan-500/10"
-                  >
-                    {item}
-                  </div>
+                  <GridItem key={i}>
+                    <Box
+                      data-aos="zoom-in"
+                      data-aos-delay={i * 100}
+                      rounded="2xl"
+                      border="1px"
+                      borderColor="white/5"
+                      bg="slate.800/40"
+                      p={5}
+                      transition="all 0.3s"
+                      _hover={{
+                        transform: "scale(1.03)",
+                        bg: cardHoverBg,
+                      }}
+                    >
+                      {item}
+                    </Box>
+                  </GridItem>
                 ))}
-              </div>
-            </div>
+              </Grid>
+            </Box>
 
             {/* Bottom Banner */}
-            <div
+            <Box
               data-aos="fade-up"
-              className="mt-14 rounded-[28px] bg-gradient-to-r from-cyan-500/10 via-slate-800 to-cyan-500/10 p-10 text-center"
+              mt={14}
+              rounded="28px"
+              bgGradient="linear(to-r, cyan.500/10, slate.800, cyan.500/10)"
+              p={10}
+              textAlign="center"
             >
-              <h2 className="text-3xl md:text-4xl font-black text-white">
+              <Heading as="h2" fontSize={{ base: "3xl", md: "4xl" }} fontWeight="black" color={headingColor}>
                 Think Before You Click.
-              </h2>
+              </Heading>
 
-              <p className="max-w-3xl mx-auto mt-5 text-gray-300 leading-8">
+              <Text maxW="3xl" mx="auto" mt={5} color={textColor}>
                 A few seconds of verification can save you from identity theft,
                 financial loss, and online fraud. Awareness and caution are your
                 strongest digital defenses.
-              </p>
-            </div>
+              </Text>
+            </Box>
 
             {/* Disclaimer */}
-            <div className="mt-10 border-t border-dashed border-slate-700 pt-6">
-              <p className="text-center text-sm text-gray-500 leading-7">
-                <span className="text-cyan-400 font-semibold">
+            <Box mt={10} borderTop="1px" borderColor="slate.700" borderStyle="dashed" pt={6}>
+              <Text textAlign="center" fontSize="sm" color="gray.500">
+                <Text as="span" color="cyan.400" fontWeight="semibold">
                   Disclaimer:
-                </span>{" "}
+                </Text>{" "}
                 This article is intended for educational and awareness purposes
                 only. Cyber threats evolve continuously, so always follow
                 official security recommendations and report suspicious
                 activities to the appropriate authorities.
-              </p>
-            </div>
-          </div>
-        </div>
-    </section>
+              </Text>
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+
+      {/* Add custom pulse animation */}
+      <style jsx global>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+      `}</style>
+    </Box>
   );
 }

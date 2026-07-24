@@ -7,25 +7,45 @@ import { useRouter } from "next/navigation";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  Button,
+  SimpleGrid,
+  useBreakpointValue,
+  HStack,
+} from "@chakra-ui/react";
+
 export default function Seventh() {
   const [activeTab, setActiveTab] = useState("professional");
   const router = useRouter();
 
-  // Initialize AOS
   useEffect(() => {
     AOS.init({
       duration: 1000,
       easing: "ease-in-out",
-      once: false, // animation har scroll par chalega
-      mirror: true, // scroll up par bhi animate hoga
+      once: false,
+      mirror: true,
       offset: 80,
     });
   }, []);
 
-  // Refresh AOS when tab changes
   useEffect(() => {
     AOS.refreshHard();
   }, [activeTab]);
+
+  // ✅ Responsive values
+  const headingSize = useBreakpointValue({ base: "lg", md: "xl", lg: "2xl" });
+  const subTextSize = useBreakpointValue({ base: "xs", md: "sm" });
+  const cardTitleSize = useBreakpointValue({ base: "md", md: "lg", lg: "xl" });
+  const cardTextSize = useBreakpointValue({ base: "xs", md: "sm" });
+  const imageHeight = useBreakpointValue({ base: "180px", md: "240px", lg: "300px" });
+  
+  const buttonHeight = useBreakpointValue({ base: "34px", md: "38px" });
+  const buttonFontSize = useBreakpointValue({ base: "xs", md: "sm" });
+  const buttonPadding = useBreakpointValue({ base: "10px 14px", md: "14px 20px" });
 
   const professionalData = {
     title: "Quick Loans for Professionals",
@@ -41,121 +61,221 @@ export default function Seventh() {
     image: "/self employe.jpg",
   };
 
-  const data =
-    activeTab === "professional"
-      ? professionalData
-      : selfEmployedData;
+  const data = activeTab === "professional" ? professionalData : selfEmployedData;
 
   return (
-    <section
-      className="bg-slate-900 py-6 px-3 overflow-hidden"
-      data-aos="fade-up"
-    >
-      <div className="max-w-4xl mx-auto">
-        {/* Heading */}
-        <div className="text-center mb-6" data-aos="fade-down">
-          <h2 className="text-white text-2xl md:text-3xl font-bold">
+    <Box bg="#111525" py={{ base: 0, md: 0, lg: 0 }} px={{ base: 0, md: 0, lg: 0 }} overflow="hidden">
+      {/* ✅ Container width - Balance (700px se 800px) */}
+      <Container maxW="800px" px={{ base:0, md: 0, lg: 0 }}>
+        
+        {/* ============================================ */}
+        {/* HEADING */}
+        {/* ============================================ */}
+        <Box
+          textAlign="center"
+          mb={{ base: 4, md: 5, lg: 6 }}
+          pt={{ base: 0, md: 0, lg: 0 }} // ✅ Upar ki padding 0
+          data-aos="fade-down"
+        >
+          <Heading
+            as="h2"
+            fontSize={headingSize}
+            fontWeight="bold"
+            color="white"
+          >
             Tailored Loan Solutions
-          </h2>
+          </Heading>
 
-          <p className="text-gray-200 mt-1 text-xs md:text-sm">
+          <Text
+            fontSize={subTextSize}
+            color="gray.300"
+            mt={1}
+          >
             Financial support designed for your unique needs
-          </p>
-        </div>
+          </Text>
+        </Box>
 
-        {/* Tabs */}
-        <div
-          className="flex justify-center mb-6"
+        {/* ============================================ */}
+        {/* TABS */}
+        {/* ============================================ */}
+        <Box
+          display="flex"
+          justifyContent="center"
+          mb={{ base: 4, md: 5, lg: 6 }}
           data-aos="zoom-in"
           data-aos-delay="100"
         >
-          <div className="bg-white rounded-full p-1 flex w-full max-w-md shadow-md">
-            <button
+          <Box
+            bg="white"
+            borderRadius="full"
+            p={1}
+            display="flex"
+            width="100%"
+            maxW="380px"
+            boxShadow="md"
+          >
+            <Button
               onClick={() => setActiveTab("professional")}
-              className={`flex-1 py-2 text-xs rounded-full flex items-center justify-center gap-1 transition-all duration-300 ${
-                activeTab === "professional"
-                  ? "bg-blue-600 text-white"
-                  : "text-gray-700"
-              }`}
+              flex="1"
+              height={buttonHeight}
+              fontSize={buttonFontSize}
+              borderRadius="full"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              gap={1.5}
+              transition="all 0.3s ease"
+              bg={activeTab === "professional" ? "blue.600" : "transparent"}
+              color={activeTab === "professional" ? "white" : "gray.700"}
+              _hover={{
+                bg: activeTab === "professional" ? "blue.700" : "gray.100",
+              }}
             >
               <BriefcaseBusiness size={14} />
               Working Professionals
-            </button>
+            </Button>
 
-            <button
+            <Button
               onClick={() => setActiveTab("self")}
-              className={`flex-1 py-2 text-xs rounded-full flex items-center justify-center gap-1 transition-all duration-300 ${
-                activeTab === "self"
-                  ? "bg-blue-600 text-white"
-                  : "text-gray-700"
-              }`}
+              flex="1"
+              height={buttonHeight}
+              fontSize={buttonFontSize}
+              borderRadius="full"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              gap={1.5}
+              transition="all 0.3s ease"
+              bg={activeTab === "self" ? "blue.600" : "transparent"}
+              color={activeTab === "self" ? "white" : "gray.700"}
+              _hover={{
+                bg: activeTab === "self" ? "blue.700" : "gray.100",
+              }}
             >
               <Rocket size={14} />
               Self Employed
-            </button>
-          </div>
-        </div>
+            </Button>
+          </Box>
+        </Box>
 
-        {/* Card */}
-        <div
-          key={activeTab} // tab change par component remount hoga
-          className="bg-white rounded-xl overflow-hidden shadow-lg grid lg:grid-cols-2"
+        {/* ============================================ */}
+        {/* CARD - Balanced Width */}
+        {/* ============================================ */}
+        <Box
+          key={activeTab}
+          bg="white"
+          borderRadius="2xl"
+          overflow="hidden"
+          boxShadow="0 20px 60px rgba(0,0,0,0.15)"
+          display="grid"
+          gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}
           data-aos="fade-up"
           data-aos-duration="1000"
         >
-          {/* Left Side */}
-          <div
-            className="p-4 lg:p-5"
+          {/* ========== LEFT SIDE ========== */}
+          <Box
+            p={{ base: 4, md: 5, lg: 6 }}
             data-aos="fade-right"
             data-aos-delay="150"
           >
-            <h3 className="text-xl lg:text-2xl font-bold text-[#0A2342] mb-3">
+            <Heading
+              as="h3"
+              fontSize={cardTitleSize}
+              fontWeight="bold"
+              color="#0A2342"
+              mb={{ base: 2, md: 3 }}
+            >
               {data.title}
-            </h3>
+            </Heading>
 
-            <p className="text-gray-600 text-xs md:text-sm leading-6">
+            <Text
+              fontSize={cardTextSize}
+              color="gray.600"
+              lineHeight="1.8"
+            >
               {data.description}
-            </p>
+            </Text>
 
             {/* Buttons */}
-            <div className="flex gap-2 mt-4">
-              <button
+            <HStack gap={2} mt={{ base: 3, md: 4 }}>
+              <Button
                 onClick={() => router.push("/quickLinks")}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-xs font-medium transition"
+                bg="blue.600"
+                color="white"
+                height={buttonHeight}
+                px={buttonPadding}
+                fontSize={buttonFontSize}
+                fontWeight="medium"
+                borderRadius="md"
+                _hover={{
+                  bg: "blue.700",
+                  transform: "scale(1.05)",
+                }}
+                transition="all 0.2s ease"
               >
                 Apply Now
-              </button>
+              </Button>
 
-              <button
+              <Button
                 onClick={() => router.push("/quickLinks")}
-                className="border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-md text-xs font-medium transition"
+                variant="outline"
+                borderColor="blue.600"
+                color="blue.600"
+                height={buttonHeight}
+                px={buttonPadding}
+                fontSize={buttonFontSize}
+                fontWeight="medium"
+                borderRadius="md"
+                _hover={{
+                  bg: "blue.50",
+                  transform: "scale(1.05)",
+                }}
+                transition="all 0.2s ease"
               >
                 Learn More
-              </button>
-            </div>
+              </Button>
+            </HStack>
 
             {/* Benefits */}
-            <div
-              className="border-t mt-5 pt-4"
+            <Box
+              borderTop="1px solid"
+              borderColor="gray.200"
+              mt={{ base: 4, md: 5 }}
+              pt={{ base: 3, md: 4 }}
               data-aos="fade-up"
               data-aos-delay="250"
             >
-              <h4 className="font-bold text-black text-base mb-2">
+              <Heading
+                as="h4"
+                fontSize={{ base: "sm", md: "base" }}
+                fontWeight="bold"
+                color="black"
+                mb={2}
+              >
                 Key Benefits
-              </h4>
+              </Heading>
 
-              <div className="grid grid-cols-2 gap-2 text-xs text-black">
-                <div>✓ Quick Approval</div>
-                <div>✓ Low Interest Rates</div>
-                <div>✓ Flexible Repayment</div>
-                <div>✓ Minimal Documentation</div>
-              </div>
-            </div>
-          </div>
+              <SimpleGrid columns={2} gap={{ base: 1, md: 2 }}>
+                <Text fontSize={{ base: "2xs", md: "xs" }} color="black">
+                  ✓ Quick Approval
+                </Text>
+                <Text fontSize={{ base: "2xs", md: "xs" }} color="black">
+                  ✓ Low Interest Rates
+                </Text>
+                <Text fontSize={{ base: "2xs", md: "xs" }} color="black">
+                  ✓ Flexible Repayment
+                </Text>
+                <Text fontSize={{ base: "2xs", md: "xs" }} color="black">
+                  ✓ Minimal Documentation
+                </Text>
+              </SimpleGrid>
+            </Box>
+          </Box>
 
-          {/* Right Side */}
-          <div
-            className="relative min-h-[220px] lg:min-h-[350px]"
+          {/* ========== RIGHT SIDE ========== */}
+          <Box
+            position="relative"
+            minHeight={imageHeight}
             data-aos="fade-left"
             data-aos-delay="200"
           >
@@ -165,10 +285,22 @@ export default function Seventh() {
               fill
               className="object-cover"
               priority
+              onError={(e: any) => {
+                e.target.style.display = "none";
+              }}
             />
-          </div>
-        </div>
-      </div>
-    </section>
+            <Box
+              position="absolute"
+              bottom={0}
+              left={0}
+              right={0}
+              height="40%"
+              bgGradient="linear(to-t, rgba(0,0,0,0.3), transparent)"
+              display={{ base: "block", md: "none" }}
+            />
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 }

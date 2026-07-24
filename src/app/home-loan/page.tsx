@@ -1,6 +1,6 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
+import { useState, useEffect, type ComponentProps } from "react";
 import { useRouter } from "next/navigation";
 import OtpPopup from "../popup/popup";
 
@@ -13,7 +13,48 @@ import {
   BriefcaseBusiness,
   BadgeIndianRupee,
   CreditCard,
+  Home,
 } from "lucide-react";
+
+import {
+  Box,
+  Container,
+  VStack,
+  HStack,
+  Heading,
+  Text,
+  Input,
+  InputGroup,
+  Button,
+  Spinner,
+  Grid,
+  GridItem,
+  Center,
+} from "@chakra-ui/react";
+
+// Chakra UI v3 no longer exports FormControl or InputLeftElement. These
+// wrappers retain the v2-style layout used throughout this form.
+function FormControl({ children, ...props }: ComponentProps<typeof Box>) {
+  return (
+    <Box position="relative" {...props}>
+      {children}
+    </Box>
+  );
+}
+
+function InputLeftElement({ children, ...props }: ComponentProps<typeof Box>) {
+  return (
+    <Box
+      position="absolute"
+      insetStart={3}
+      top="50%"
+      transform="translateY(-50%)"
+      {...props}
+    >
+      {children}
+    </Box>
+  );
+}
 
 export default function HomeLoan() {
   const router = useRouter();
@@ -22,7 +63,6 @@ export default function HomeLoan() {
   const [isVerified, setIsVerified] = useState(false);
   const [checkingAccess, setCheckingAccess] = useState(true);
   const [isFormComplete, setIsFormComplete] = useState(false);
-
   const [formData, setFormData] = useState({
     applicant_name: "",
     applicant_email: "",
@@ -48,49 +88,48 @@ export default function HomeLoan() {
     down_payment: "",
   });
 
-  // ✅ NEW: Real-time check for all fields filled
+  // Check if all fields are filled
   useEffect(() => {
-    const allFilled = Object.values(formData).every((val) => val !== "");
+    const allFilled = Object.values(formData).every(
+      (value) => value !== ""
+    );
     setIsFormComplete(allFilled);
   }, [formData]);
 
-useEffect(() => {
-  const submitted = localStorage.getItem("homeLoanSubmitted");
-  const phone = localStorage.getItem("phone");
+  useEffect(() => {
+    const phone = localStorage.getItem("phone");
+    const isSubmitted = localStorage.getItem("homeLoanSubmitted");
 
-  if (phone && submitted === "true") {
-    router.replace("/homeloanlender");
-    return;
-  }
+    if (isSubmitted === "true") {
+      router.replace("/homeloanlender");
+      return;
+    }
 
-  if (!submitted) {
-    localStorage.setItem("homeLoanSubmitted", "false");
-  }
-
-  if (phone) {
-    setIsVerified(true);
+    if (!phone) {
+      setShowOtp(true);
+      setCheckingAccess(false);
+      return;
+    }
 
     setFormData((prev) => ({
       ...prev,
       applicant_phone: phone,
     }));
-  } else {
-    setShowOtp(true);
-  }
 
-  setCheckingAccess(false);
-}, [router]);
+    setIsVerified(true);
+    setCheckingAccess(false);
+  }, [router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isFormComplete) {
-      alert("Please fill all fields before submitting");
+      toast.error("Please fill all fields before submitting");
       return;
     }
 
@@ -128,13 +167,9 @@ useEffect(() => {
       );
 
       const data = await response.json();
-      console.log("Status:", response.status);
-      console.log("Response:", data);
 
       if (response.ok) {
-        alert("Form Submitted Successfully");
-
-        // ✅ NEW: Set boolean to true upon successful submission
+        toast.success("Form Submitted Successfully");
         localStorage.setItem("homeLoanSubmitted", "true");
 
         setFormData({
@@ -164,24 +199,36 @@ useEffect(() => {
 
         router.push("/homeloanlender");
       } else {
-        alert(data.message || "Something went wrong");
+        toast.error(data.message || "Something went wrong");
       }
-    } catch (error) {
-      console.log(error);
-      alert("Something went wrong");
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong");
     }
   };
 
   if (checkingAccess) {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="h-12 w-12 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
-    </div>
-  );
-}
+    return (
+      <Center minH="100vh">
+        <Spinner
+          size="xl"
+          animationDuration="0.65s"
+          color="blue.500"
+        />
+      </Center>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-sky-200 via-white to-sky-200 py-10 px-4 flex justify-center items-center">
+   <Box
+      minH="100vh"
+      bg="blue.100"
+      py={{ base: 10, md: 12 }}
+      px={{ base: 4, md: 6 }}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
       {showOtp && (
         <OtpPopup
           onClose={() => router.push("/")}
@@ -198,174 +245,736 @@ useEffect(() => {
       )}
 
       {isVerified && (
-        <div className="w-full max-w-5xl">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-6xl font-extrabold text-black leading-tight">
-              Home Loans starting at{" "}
-              <span className="text-black">8.50%*</span> Interest Rates
-            </h1>
-            <p className="text-black mt-5 text-lg md:text-2xl leading-relaxed">
-              Get the best home loan offers with low interest rates and quick approval process.
-            </p>
-          </div>
+        <Container maxW="5xl" px={{ base: 0, md: 4 }}>
+          {/* Header Section */}
+          <VStack gap={6} mb={10} textAlign="center">
+            <HStack gap={3} flexWrap="wrap" justifyContent="center">
+              <Home size={40} color="black" />
+              <Heading
+                as="h1"
+                fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
+                fontWeight="extrabold"
+                color="black"
+                lineHeight="tight"
+              >
+                Home Loans starting at{" "}
+                <Text as="span" color="black">
+                  8.50%*
+                </Text>{" "}
+                Interest Rates
+              </Heading>
+            </HStack>
+            <Text
+              color="black"
+              fontSize={{ base: "lg", md: "2xl" }}
+              lineHeight="relaxed"
+              maxW="3xl"
+            >
+              Get the best home loan offers with low interest rates and quick
+              approval process.
+            </Text>
+          </VStack>
 
-          <form
+          {/* Form Section */}
+          <Box
+            as="form"
             onSubmit={handleSubmit}
-            className="mx-auto bg-white border border-gray-300 rounded-3xl w-full max-w-5xl p-6 md:p-12 shadow-xl"
+            bg="white"
+            border="1px"
+            borderColor="gray.300"
+            borderRadius="3xl"
+            p={{ base: 6, md: 8, lg: 12 }}
+            boxShadow="xl"
+            w="full"
           >
             {/* Applicant Details */}
-            <h2 className="text-3xl text-black font-bold mb-8 text-center">
+            <Heading
+              as="h2"
+              fontSize="3xl"
+              fontWeight="bold"
+              color="black"
+              textAlign="center"
+              mb={8}
+            >
               Applicant Details
-            </h2>
+            </Heading>
 
-            <div className="grid md:grid-cols-2 text-black gap-6 mb-10">
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <User className="text-gray-500" />
-                <input type="text" name="applicant_name" placeholder="Applicant Name" value={formData.applicant_name} onChange={handleChange} className="w-full outline-none" />
-              </div>
+            <Grid
+              templateColumns={{ base: "1fr", md: "1fr 1fr" }}
+              gap={6}
+              mb={10}
+            >
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <User size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="applicant_name"
+                      placeholder="Applicant Name"
+                      value={formData.applicant_name}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <Phone className="text-gray-500" />
-                <input type="text" name="applicant_phone" placeholder="Mobile Number" value={formData.applicant_phone} onChange={handleChange} className="w-full outline-none bg-gray-100" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <Phone size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="applicant_phone"
+                      placeholder="Mobile Number"
+                      value={formData.applicant_phone}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      bg="gray.100"
+                      readOnly
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <Mail className="text-gray-500" />
-                <input type="email" name="applicant_email" placeholder="Email Address" value={formData.applicant_email} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <Mail size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="email"
+                      name="applicant_email"
+                      placeholder="Email Address"
+                      value={formData.applicant_email}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <CalendarDays className="text-gray-500" />
-                <input type="date" name="applicant_dob" value={formData.applicant_dob} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <CalendarDays size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="date"
+                      name="applicant_dob"
+                      value={formData.applicant_dob}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <CreditCard className="text-gray-500" />
-                <input type="text" name="applicant_pan" placeholder="PAN Number" value={formData.applicant_pan} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <CreditCard size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="applicant_pan"
+                      placeholder="PAN Number"
+                      value={formData.applicant_pan}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <CreditCard className="text-gray-500" />
-                <input type="text" name="applicant_aadhar" placeholder="Aadhaar Number" value={formData.applicant_aadhar} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <CreditCard size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="applicant_aadhar"
+                      placeholder="Aadhaar Number"
+                      value={formData.applicant_aadhar}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <User className="text-gray-500" />
-                <input type="number" name="applicant_age" placeholder="Age" value={formData.applicant_age} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <User size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="number"
+                      name="applicant_age"
+                      placeholder="Age"
+                      value={formData.applicant_age}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <MapPin className="text-gray-500" />
-                <input type="text" name="applicant_location" placeholder="Location" value={formData.applicant_location} onChange={handleChange} className="w-full outline-none" />
-              </div>
-            </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <MapPin size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="applicant_location"
+                      placeholder="Location"
+                      value={formData.applicant_location}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
+            </Grid>
 
             {/* Employment Details */}
-            <h2 className="text-3xl text-black font-bold mb-8 text-center">
+            <Heading
+              as="h2"
+              fontSize="3xl"
+              fontWeight="bold"
+              color="black"
+              textAlign="center"
+              mb={8}
+            >
               Employment Details
-            </h2>
+            </Heading>
 
-            <div className="grid md:grid-cols-2 text-black gap-6 mb-10">
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <BriefcaseBusiness className="text-gray-500" />
-                <input type="text" name="employment_type" placeholder="Employment Type" value={formData.employment_type} onChange={handleChange} className="w-full outline-none" />
-              </div>
+            <Grid
+              templateColumns={{ base: "1fr", md: "1fr 1fr" }}
+              gap={6}
+              mb={10}
+            >
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <BriefcaseBusiness size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="employment_type"
+                      placeholder="Employment Type"
+                      value={formData.employment_type}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <BadgeIndianRupee className="text-gray-500" />
-                <input type="number" name="annual_income" placeholder="Annual Income" value={formData.annual_income} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <BadgeIndianRupee size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="number"
+                      name="annual_income"
+                      placeholder="Annual Income"
+                      value={formData.annual_income}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <BriefcaseBusiness className="text-gray-500" />
-                <input type="number" name="work_experience_years" placeholder="Work Experience (Years)" value={formData.work_experience_years} onChange={handleChange} className="w-full outline-none" />
-              </div>
-            </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <BriefcaseBusiness size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="number"
+                      name="work_experience_years"
+                      placeholder="Work Experience (Years)"
+                      value={formData.work_experience_years}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
+            </Grid>
 
             {/* Property Details */}
-            <h2 className="text-3xl text-black font-bold mb-8 text-center">
+            <Heading
+              as="h2"
+              fontSize="3xl"
+              fontWeight="bold"
+              color="black"
+              textAlign="center"
+              mb={8}
+            >
               Property Details
-            </h2>
+            </Heading>
 
-            <div className="grid md:grid-cols-2 text-black gap-6 mb-10">
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <MapPin className="text-gray-500" />
-                <input type="text" name="property_type" placeholder="Property Type" value={formData.property_type} onChange={handleChange} className="w-full outline-none" />
-              </div>
+            <Grid
+              templateColumns={{ base: "1fr", md: "1fr 1fr" }}
+              gap={6}
+              mb={10}
+            >
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <MapPin size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="property_type"
+                      placeholder="Property Type"
+                      value={formData.property_type}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <MapPin className="text-gray-500" />
-                <input type="text" name="property_address" placeholder="Property Address" value={formData.property_address} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <MapPin size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="property_address"
+                      placeholder="Property Address"
+                      value={formData.property_address}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <MapPin className="text-gray-500" />
-                <input type="text" name="property_city" placeholder="City" value={formData.property_city} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <MapPin size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="property_city"
+                      placeholder="City"
+                      value={formData.property_city}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <MapPin className="text-gray-500" />
-                <input type="text" name="property_state" placeholder="State" value={formData.property_state} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <MapPin size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="property_state"
+                      placeholder="State"
+                      value={formData.property_state}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <MapPin className="text-gray-500" />
-                <input type="text" name="property_pincode" placeholder="Pincode" value={formData.property_pincode} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <MapPin size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="property_pincode"
+                      placeholder="Pincode"
+                      value={formData.property_pincode}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <MapPin className="text-gray-500" />
-                <input type="number" name="property_area_sqft" placeholder="Area (Sq Ft)" value={formData.property_area_sqft} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <MapPin size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="number"
+                      name="property_area_sqft"
+                      placeholder="Area (Sq Ft)"
+                      value={formData.property_area_sqft}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <BadgeIndianRupee className="text-gray-500" />
-                <input type="number" name="property_value" placeholder="Property Value" value={formData.property_value} onChange={handleChange} className="w-full outline-none" />
-              </div>
-            </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <BadgeIndianRupee size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="number"
+                      name="property_value"
+                      placeholder="Property Value"
+                      value={formData.property_value}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
+            </Grid>
 
             {/* Loan Details */}
-            <h2 className="text-3xl text-black font-bold mb-8 text-center">
+            <Heading
+              as="h2"
+              fontSize="3xl"
+              fontWeight="bold"
+              color="black"
+              textAlign="center"
+              mb={8}
+            >
               Loan Details
-            </h2>
+            </Heading>
 
-            <div className="grid md:grid-cols-2 text-black gap-6 mb-10">
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <BadgeIndianRupee className="text-gray-500" />
-                <input type="number" name="loan_amount_requested" placeholder="Loan Amount" value={formData.loan_amount_requested} onChange={handleChange} className="w-full outline-none" />
-              </div>
+            <Grid
+              templateColumns={{ base: "1fr", md: "1fr 1fr" }}
+              gap={6}
+              mb={10}
+            >
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <BadgeIndianRupee size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="number"
+                      name="loan_amount_requested"
+                      placeholder="Loan Amount"
+                      value={formData.loan_amount_requested}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <BriefcaseBusiness className="text-gray-500" />
-                <input type="text" name="loan_purpose" placeholder="Loan Purpose" value={formData.loan_purpose} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <BriefcaseBusiness size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="text"
+                      name="loan_purpose"
+                      placeholder="Loan Purpose"
+                      value={formData.loan_purpose}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <CalendarDays className="text-gray-500" />
-                <input type="number" name="loan_tenure_years" placeholder="Loan Tenure (Years)" value={formData.loan_tenure_years} onChange={handleChange} className="w-full outline-none" />
-              </div>
+              <GridItem>
+                <FormControl>
+                  {/* <InputGroup> */}
+                    <InputLeftElement pointerEvents="none">
+                      <CalendarDays size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="number"
+                      name="loan_tenure_years"
+                      placeholder="Loan Tenure (Years)"
+                      value={formData.loan_tenure_years}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                  {/* </InputGroup> */}
+                </FormControl>
+              </GridItem>
 
-              <div className="flex items-center border rounded-xl px-4 py-3 gap-3">
-                <BadgeIndianRupee className="text-gray-500" />
-                <input type="number" name="down_payment" placeholder="Down Payment" value={formData.down_payment} onChange={handleChange} className="w-full outline-none" />
-              </div>
-            </div>
+              <GridItem>
+                <FormControl>
+                  
+                    <InputLeftElement pointerEvents="none">
+                      <BadgeIndianRupee size={20} color="#718096" />
+                    </InputLeftElement>
+                    <Input
+                      type="number"
+                      name="down_payment"
+                      placeholder="Down Payment"
+                      value={formData.down_payment}
+                      onChange={handleChange}
+                      pl={10}
+                      py={6}
+                      borderRadius="xl"
+                      borderColor="gray.300"
+                      _hover={{ borderColor: "blue.400" }}
+                      _focus={{
+                        borderColor: "blue.500",
+                        boxShadow: "0 0 0 1px blue.500",
+                      }}
+                      required
+                    />
+                 
+                </FormControl>
+              </GridItem>
+            </Grid>
 
-            {/* ✅ Submit button is disabled until all fields are filled */}
-            <button
+            {/* Submit Button */}
+            <Button
               type="submit"
               disabled={!isFormComplete}
-              className={`w-full py-4 rounded-xl text-xl font-bold transition-all duration-300 mt-4 ${
-                isFormComplete
-                  ? "bg-black text-white hover:bg-gray-800 cursor-pointer"
-                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
-              }`}
+              w="full"
+              h="64px"
+              fontSize="xl"
+              fontWeight="bold"
+              borderRadius="xl"
+              bg={isFormComplete ? "black" : "gray.300"}
+              color={isFormComplete ? "white" : "gray.500"}
+              _hover={isFormComplete ? { bg: "gray.800" } : {}}
+              _disabled={{
+                opacity: 1,
+                cursor: "not-allowed",
+              }}
+              transition="all 0.3s"
+              mt={4}
             >
-              {isFormComplete ? "Submit Application" : "Fill All Fields to Submit"}
-            </button>
-          </form>
-        </div>
+              {isFormComplete
+                ? "Submit Application"
+                : "Fill All Fields to Submit"}
+            </Button>
+          </Box>
+        </Container>
       )}
-    </div>
+    </Box>
   );
 }

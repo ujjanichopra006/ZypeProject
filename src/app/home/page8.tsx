@@ -12,6 +12,19 @@ import {
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  SimpleGrid,
+  Flex,
+  useBreakpointValue,
+  VStack,
+  HStack,
+  Icon,
+} from "@chakra-ui/react";
+
 const steps = [
   {
     id: 1,
@@ -68,28 +81,28 @@ const testimonials = [
 
 const stats = [
   {
-    icon: <Users size={26} className="text-blue-600" />,
+    icon: Users,
     value: "60,000+",
     title: "Happy Customers",
-    color: "text-blue-600",
+    color: "blue.500",
   },
   {
-    icon: <Handshake size={26} className="text-purple-600" />,
+    icon: Handshake,
     value: "50+",
     title: "Relationships",
-    color: "text-purple-600",
+    color: "purple.500",
   },
   {
-    icon: <Landmark size={26} className="text-green-600" />,
+    icon: Landmark,
     value: "30+",
     title: "Partner NBFCs",
-    color: "text-green-600",
+    color: "green.500",
   },
   {
-    icon: <Clock3 size={26} className="text-orange-500" />,
+    icon: Clock3,
     value: "Under 24h",
     title: "Fast Disbursement",
-    color: "text-orange-500",
+    color: "orange.500",
   },
 ];
 
@@ -98,91 +111,196 @@ export default function Eighth() {
     AOS.init({
       duration: 1000,
       easing: "ease-in-out",
-      once: false, // Har scroll par animation chalega
-      mirror: true, // Scroll up par bhi animate hoga
+      once: false,
+      mirror: true,
       offset: 80,
     });
 
     AOS.refresh();
   }, []);
 
+  // ✅ Responsive values
+  const headingSize = useBreakpointValue({ base: "xl", md: "2xl" });
+  const subTextSize = useBreakpointValue({ base: "xs", md: "sm" });
+  const stepTitleSize = useBreakpointValue({ base: "sm", md: "base" });
+  const stepDescSize = useBreakpointValue({ base: "2xs", md: "xs" });
+  const testimonialWidth = useBreakpointValue({ base: "200px", md: "220px" });
+
   return (
-    <section className="bg-slate-900 text-white py-8 overflow-hidden">
-      <div className="max-w-4xl mx-auto px-3">
-        {/* ---------------- How It Works ---------------- */}
-        <div className="text-center" data-aos="fade-up">
-          <h2 className="text-xl text-white md:text-2xl font-bold">
+    <Box bg="#111525" color="white" py={{ base: 6, md: 8, lg: 10 }} overflow="hidden">
+      <Container maxW="1200px" px={{ base: 3, md: 5, lg: 6 }}>
+        
+        {/* ============================================ */}
+        {/* HOW IT WORKS - HEADING */}
+        {/* ============================================ */}
+        <Box textAlign="center" data-aos="fade-up">
+          <Heading
+            as="h2"
+            fontSize={headingSize}
+            fontWeight="bold"
+            color="white"
+          >
             How It Works
-          </h2>
+          </Heading>
 
-          <p className="text-xs md:text-sm text-gray-200 mt-1">
+          <Text
+            fontSize={subTextSize}
+            color="gray.300"
+            mt={1}
+          >
             Get your loan in just 3 simple steps.
-          </p>
-        </div>
+          </Text>
+        </Box>
 
-        {/* Timeline */}
-        <div
-          className="relative mt-5 hidden lg:block"
+        {/* ============================================ */}
+        {/* TIMELINE - Desktop */}
+        {/* ============================================ */}
+        <Box
+          position="relative"
+          mt={5}
+          display={{ base: "none", lg: "block" }}
           data-aos="zoom-in"
           data-aos-delay="100"
         >
-          <div className="absolute top-3 left-0 w-full h-[2px] bg-blue-500 rounded-full"></div>
+          <Box
+            position="absolute"
+            top="12px"
+            left={0}
+            width="100%"
+            height="2px"
+            bg="blue.500"
+            borderRadius="full"
+          />
 
-          <div className="flex justify-between relative z-10">
+          <Flex justify="space-between" position="relative" zIndex={10}>
             {[1, 2, 3].map((num) => (
-              <div
+              <Box
                 key={num}
-                className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold"
+                width="32px"
+                height="32px"
+                borderRadius="full"
+                bg="blue.500"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                fontSize="xs"
+                fontWeight="bold"
+                color="white"
               >
                 {num}
-              </div>
+              </Box>
             ))}
-          </div>
-        </div>
+          </Flex>
+        </Box>
 
-        {/* Step Cards */}
-        <div className="grid lg:grid-cols-3 text-black gap-3 mt-5">
+        {/* ============================================ */}
+        {/* STEP CARDS */}
+        {/* ============================================ */}
+        <SimpleGrid
+          columns={{ base: 1, md: 2, lg: 3 }}
+          gap={3}
+          mt={5}
+        >
           {steps.map((item, index) => (
-            <div
+            <Box
               key={index}
+              bg="#4ca77f"
+              border="1px solid"
+              borderColor="yellow.400"
+              borderRadius="lg"
+              p={3}
+              textAlign="center"
+              boxShadow="lg"
+              transition="all 0.3s ease"
+              _hover={{
+                transform: "translateY(-4px)",
+                boxShadow: "xl",
+              }}
               data-aos="fade-up"
               data-aos-delay={index * 150}
-              className="bg-[#4ca77f] border border-yellow-400 rounded-lg p-3 text-center shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="flex justify-center mb-4">
-                <Image
-                  src={item.img}
-                  alt={item.title}
-                  width={50}
-                  height={50}
-                  className="object-contain"
-                />
-              </div>
+              <Flex justify="center" mb={4}>
+                <Box
+                  width="50px"
+                  height="50px"
+                  position="relative"
+                >
+                  <Image
+                    src={item.img}
+                    alt={item.title}
+                    fill
+                    className="object-contain"
+                  />
+                </Box>
+              </Flex>
 
-              <h3 className="text-base font-bold text-black">
+              <Heading
+                as="h3"
+                fontSize={stepTitleSize}
+                fontWeight="bold"
+                color="black"
+              >
                 {item.title}
-              </h3>
+              </Heading>
 
-              <p className="text-black text-xs mt-2 leading-5">
+              <Text
+                fontSize={stepDescSize}
+                color="black"
+                mt={2}
+                lineHeight="1.6"
+              >
                 {item.desc}
-              </p>
-            </div>
+              </Text>
+            </Box>
           ))}
-        </div>
+        </SimpleGrid>
 
-        {/* ---------------- Testimonials ---------------- */}
-        <div
-          className="mt-10 overflow-hidden"
+        {/* ============================================ */}
+        {/* TESTIMONIALS */}
+        {/* ============================================ */}
+        <Box
+          mt={10}
+          overflow="hidden"
           data-aos="fade-up"
           data-aos-delay="150"
         >
-          <div className="animate-testimonials flex gap-3">
+          <style>{`
+            @keyframes scrollTestimonials {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            
+            .testimonial-track {
+              display: flex;
+              gap: 12px;
+              width: max-content;
+              animation: scrollTestimonials 30s linear infinite;
+            }
+            
+            .testimonial-track:hover {
+              animation-play-state: paused;
+            }
+          `}</style>
+
+          <Box className="testimonial-track">
             {[...testimonials, ...testimonials].map((item, index) => (
-              <div
+              <Box
                 key={index}
-                className="w-[220px] shrink-0 border border-gray-500 rounded-xl p-3 bg-transparent"
+                width={testimonialWidth}
+                flexShrink={0}
+                border="1px solid"
+                borderColor="gray.600"
+                borderRadius="xl"
+                p={3}
+                bg="transparent"
+                transition="all 0.3s ease"
+                _hover={{
+                  transform: "scale(1.05)",
+                  borderColor: "yellow.400",
+                }}
               >
-                <div className="flex gap-1 mb-3 text-yellow-400">
+                {/* Stars */}
+                <HStack gap={1} mb={3} color="yellow.400">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
@@ -191,68 +309,141 @@ export default function Eighth() {
                       strokeWidth={0}
                     />
                   ))}
-                </div>
+                </HStack>
 
-                <p className="text-sm leading-5 text-gray-200 min-h-[85px]">
+                <Text
+                  fontSize="sm"
+                  lineHeight="1.6"
+                  color="gray.200"
+                  minHeight="85px"
+                >
                   {item.text}
-                </p>
+                </Text>
 
-                <div className="border-t border-gray-500 mt-3 pt-3 flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-xs font-bold text-black">
+                <Box
+                  borderTop="1px solid"
+                  borderColor="gray.600"
+                  mt={3}
+                  pt={3}
+                  display="flex"
+                  alignItems="center"
+                  gap={2}
+                >
+                  <Box
+                    width="32px"
+                    height="32px"
+                    borderRadius="full"
+                    bg="yellow.500"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    fontSize="xs"
+                    fontWeight="bold"
+                    color="black"
+                  >
                     {item.letter}
-                  </div>
+                  </Box>
 
-                  <h4 className="text-sm font-semibold">
+                  <Text fontSize="sm" fontWeight="semibold" color="white">
                     {item.name}
-                  </h4>
-                </div>
-              </div>
+                  </Text>
+                </Box>
+              </Box>
             ))}
-          </div>
-        </div>
+          </Box>
+        </Box>
 
-        {/* ---------------- Statistics ---------------- */}
-        <div
-          className="text-center mt-10"
+        {/* ============================================ */}
+        {/* STATISTICS - HEADING */}
+        {/* ============================================ */}
+        <Box
+          textAlign="center"
+          mt={10}
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          <h2 className="text-xl md:text-2xl font-bold">
-            Our <span className="text-blue-500">Impressive</span> Statistics
-          </h2>
+          <Heading
+            as="h2"
+            fontSize={headingSize}
+            fontWeight="bold"
+            color="white"
+          >
+            Our <Text as="span" color="blue.500">Impressive</Text> Statistics
+          </Heading>
 
-          <p className="text-xs md:text-sm text-gray-200 mt-1">
+          <Text
+            fontSize={subTextSize}
+            color="gray.300"
+            mt={1}
+          >
             Trusted by thousands, delivering excellence every day
-          </p>
-        </div>
+          </Text>
+        </Box>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 mt-5">
+        {/* ============================================ */}
+        {/* STATISTICS - CARDS */}
+        {/* ============================================ */}
+        <SimpleGrid
+          columns={{ base: 1, sm: 2, lg: 4 }}
+          gap={3}
+          mt={5}
+        >
           {stats.map((item, index) => (
-            <div
+            <Box
               key={index}
+              bg="white"
+              borderRadius="xl"
+              p={3}
+              minHeight="180px"
+              display="flex"
+              flexDirection="column"
+              justifyContent="space-between"
+              transition="all 0.3s ease"
+              _hover={{
+                transform: "scale(1.05)",
+                boxShadow: "lg",
+              }}
               data-aos="zoom-in-up"
               data-aos-delay={index * 150}
-              className="bg-white rounded-xl p-3 min-h-[180px] flex flex-col justify-between hover:scale-105 transition-all duration-300"
             >
-              <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                {item.icon}
-              </div>
+              <Box
+                width="40px"
+                height="40px"
+                borderRadius="full"
+                bg="gray.100"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Icon as={item.icon} boxSize={6} color={item.color} />
+              </Box>
 
-              <div>
-                <h3 className={`text-xl font-bold ${item.color}`}>
+              <Box>
+                <Heading
+                  as="h3"
+                  fontSize="xl"
+                  fontWeight="bold"
+                  color={item.color}
+                >
                   {item.value}
-                </h3>
+                </Heading>
 
-                <p className="text-gray-700 text-xs mt-1">
+                <Text fontSize="xs" color="gray.600" mt={1}>
                   {item.title}
-                </p>
-              </div>
+                </Text>
+              </Box>
 
-              <div className="w-10 h-1 rounded-full bg-orange-300 mt-1"></div>
-            </div>
+              <Box
+                width="40px"
+                height="4px"
+                borderRadius="full"
+                bg="orange.300"
+                mt={1}
+              />
+            </Box>
           ))}
-        </div>
-      </div>
-    </section>
+        </SimpleGrid>
+      </Container>
+    </Box>
   );
 }

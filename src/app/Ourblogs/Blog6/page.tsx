@@ -4,6 +4,22 @@ import { useEffect } from "react";
 import Lottie from "lottie-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  Badge,
+  Flex,
+  VStack,
+  HStack,
+  Grid,
+  GridItem,
+  Tag,
+  TagLabel,
+  SimpleGrid,
+  Stack,
+} from "@chakra-ui/react";
 
 // 📌 Replace this with your own animation file
 import brainAnimation from "../../../animations/phone.json";
@@ -69,195 +85,369 @@ export default function PhoneBrainBlog() {
     "👨‍👩‍👧 Spend quality time with family and friends without devices.",
   ];
 
+  function useColorModeValue<T>(light: T, _dark: T): T {
+    return light;
+  }
+
+  // Color mode values
+  const bgColor = useColorModeValue("gray.50", "#0b1020");
+  const textColor = useColorModeValue("gray.700", "gray.300");
+  const cardBg = useColorModeValue("white", "rgba(15, 23, 42, 0.9)");
+  const borderColor = useColorModeValue("gray.200", "rgba(99, 102, 241, 0.1)");
+
   return (
-    <section className="min-h-screen bg-[#0b1020] py-10 px-4 text-gray-300 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
-        <div className="overflow-hidden rounded-[32px] border border-indigo-500/10 bg-slate-900/90 backdrop-blur-lg shadow-2xl">
-
+    <Box minH="100vh" bg={"gray.900"} py={{ base: 5, md: 10 }} px={{ base: 4, md: 6 }}>
+      <Container maxW="6xl" mx="auto">
+        <Box
+          overflow="hidden"
+          borderRadius="32px"
+          border="1px solid"
+          borderColor={borderColor}
+          bg={cardBg}
+          backdropFilter="blur(12px)"
+          shadow="2xl"
+          position="relative"
+        >
           {/* ================= HERO SECTION ================= */}
-          <div className="relative px-6 md:px-10 py-12 overflow-hidden">
+          <Box position="relative" px={{ base: 6, md: 10 }} py={{ base: 8, md: 12 }}>
             {/* Background Glow */}
-            <div className="absolute -top-24 -left-20 h-80 w-80 rounded-full bg-indigo-500/10 blur-3xl"></div>
-            <div className="absolute -bottom-20 -right-16 h-80 w-80 rounded-full bg-cyan-500/10 blur-3xl"></div>
+            <Box
+              position="absolute"
+              top="-24"
+              left="-20"
+              h="80"
+              w="80"
+              borderRadius="full"
+              bg="rgba(99, 102, 241, 0.1)"
+              filter="blur(64px)"
+              zIndex={0}
+            />
+            <Box
+              position="absolute"
+              bottom="-20"
+              right="-16"
+              h="80"
+              w="80"
+              borderRadius="full"
+              bg="rgba(6, 182, 212, 0.1)"
+              filter="blur(64px)"
+              zIndex={0}
+            />
 
-            <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
-              {/* Left */}
-              <div data-aos="fade-right">
-                <span className="inline-flex items-center rounded-full border border-indigo-400/20 bg-indigo-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300">
+            <Grid
+              templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
+              gap={10}
+              alignItems="center"
+              position="relative"
+              zIndex={1}
+            >
+              {/* Left Content */}
+              <Box data-aos="fade-right">
+                <Badge
+                  display="inline-flex"
+                  alignItems="center"
+                  borderRadius="full"
+                  border="1px solid"
+                  borderColor="rgba(99, 102, 241, 0.2)"
+                  bg="rgba(99, 102, 241, 0.1)"
+                  px={4}
+                  py={2}
+                  fontSize="xs"
+                  fontWeight="semibold"
+                  letterSpacing="0.2em"
+                  color="cyan.400"
+                  textTransform="uppercase"
+                >
                   📱 Digital Wellness Guide
-                </span>
+                </Badge>
 
-                <h1 className="mt-6 text-4xl md:text-6xl font-black leading-tight text-white">
+                <Heading
+                  mt={6}
+                  fontSize={{ base: "2xl", md: "3xl" }}
+                  fontWeight="black"
+                  color="gray.700"
+                >
                   How Your Phone
                   <br />
-                  <span className="text-indigo-400">
+                  <Box as="span" color="indigo.400">
                     is Rewiring
-                  </span>
+                  </Box>
                   <br />
-                  <span className="text-cyan-400">
+                  <Box as="span" color="cyan.400">
                     Your Brain
-                  </span>
-                </h1>
+                  </Box>
+                </Heading>
 
-                <p className="mt-6 max-w-xl text-lg leading-8 text-gray-400">
+                <Text
+                  mt={6}
+                  maxW="xl"
+                  fontSize="lg"
+                  color="gray.800"
+                >
                   Discover how mobile apps, notifications, and constant digital
                   interactions influence your attention, focus, sleep, and
                   everyday habits—and learn practical ways to build a healthier
                   relationship with technology.
-                </p>
+                </Text>
 
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <span className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm">
-                    📅 November 12, 2025
-                  </span>
+                <HStack mt={8} gap={3} flexWrap="wrap">
+                  <Tag.Root
+                    borderRadius="xl"
+                    border="1px solid"
+                    borderColor="rgba(255,255,255,0.1)"
+                    bg="rgba(255,255,255,0.05)"
+                    px={4}
+                    py={2}
+                    size="lg"
+                  >
+                    <TagLabel>📅 November 12, 2025</TagLabel>
+                  </Tag.Root>
 
-                  <span className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm">
-                    🧠 Mental Wellness
-                  </span>
+                  <Tag.Root
+                    borderRadius="xl"
+                    border="1px solid"
+                    borderColor="rgba(255,255,255,0.1)"
+                    bg="rgba(255,255,255,0.05)"
+                    px={4}
+                    py={2}
+                    size="lg"
+                  >
+                    <TagLabel>🧠 Mental Wellness</TagLabel>
+                  </Tag.Root>
 
-                  <span className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm">
-                    📱 Digital Lifestyle
-                  </span>
-                </div>
-              </div>
+                  <Tag.Root
+                    borderRadius="xl"
+                    border="1px solid"
+                    borderColor="rgba(255,255,255,0.1)"
+                    bg="rgba(255,255,255,0.05)"
+                    px={4}
+                    py={2}
+                    size="lg"
+                  >
+                    <TagLabel>📱 Digital Lifestyle</TagLabel>
+                  </Tag.Root>
+                </HStack>
+              </Box>
 
               {/* Right Animation */}
-              <div
+              <Flex
                 data-aos="zoom-in"
                 data-aos-delay="200"
-                className="flex justify-center"
+                justify="center"
+                align="center"
               >
-                <div className="w-[190px] h-[190px] md:w-[280px] md:h-[280px] rounded-3xl border border-indigo-400/20 bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 p-5 hover:scale-105 transition-all duration-500 hover:shadow-[0_0_35px_rgba(99,102,241,0.2)]">
-                  <Lottie
-                    animationData={brainAnimation}
-                    loop={true}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+                <Box
+                  w={{ base: "190px", md: "280px" }}
+                  h={{ base: "190px", md: "280px" }}
+                  borderRadius="3xl"
+                  border="1px solid"
+                  borderColor="rgba(99, 102, 241, 0.2)"
+                  bgGradient="linear(to-br, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1))"
+                  p={5}
+                  transition="all 0.5s"
+                  _hover={{
+                    transform: "scale(1.05)",
+                    boxShadow: "0 0 35px rgba(99,102,241,0.2)",
+                  }}
+                >
+                  <Lottie animationData={brainAnimation} loop={true} />
+                </Box>
+              </Flex>
+            </Grid>
+          </Box>
 
           {/* ================= INTRO CARD ================= */}
-          <div
+          <Box
             data-aos="fade-up"
-            className="mx-6 md:mx-10 rounded-3xl border border-indigo-500/10 bg-gradient-to-r from-indigo-500/5 via-slate-800 to-cyan-500/5 p-8"
+            mx={{ base: 6, md: 10 }}
+            borderRadius="3xl"
+            border="1px solid"
+            borderColor="rgba(99, 102, 241, 0.1)"
+            bgGradient="linear(to-r, rgba(99, 102, 241, 0.05), rgba(30, 41, 59, 0.8), rgba(6, 182, 212, 0.05))"
+            p={8}
           >
-            <h2 className="text-3xl font-bold text-white mb-4">
+            <Heading as="h2" size="xl" color="white" mb={4}>
               Why Digital Awareness Matters
-            </h2>
+            </Heading>
 
-            <p className="leading-8 text-gray-300">
+            <Text  color="gray.800">
               Smartphones have transformed the way we learn, work, and
               communicate. While these devices offer incredible convenience,
               constant notifications and endless scrolling can influence our
               attention patterns and daily routines. Understanding these effects
               can help us make more balanced and mindful technology choices.
-            </p>
-          </div>
+            </Text>
+          </Box>
 
           {/* ================= MAIN CONTENT ================= */}
-          <div className="px-6 md:px-10 py-12">
-            <div className="space-y-6">
+          <Box px={{ base: 6, md: 10 }} py={{ base: 6, md: 12 }}>
+            <VStack gap={4} align="stretch">
               {sections.map((section, index) => (
-                <div
+                <Box
                   key={index}
                   data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
                   data-aos-delay={index * 100}
-                  className="group rounded-3xl border border-slate-700 bg-slate-800/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-400/40 hover:shadow-[0_0_30px_rgba(99,102,241,0.15)]"
+                  borderRadius="3xl"
+                  border="1px solid"
+                  borderColor="gray.500"
+                  bg="rgba(30, 41, 59, 0.4)"
+                  p={6}
+                  transition="all 0.3s"
+                  _hover={{
+                    transform: "translateY(-4px)",
+                    borderColor: "rgba(99, 102, 241, 0.4)",
+                    boxShadow: "0 0 30px rgba(99,102,241,0.15)",
+                  }}
                 >
-                  <div className="flex gap-5">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-indigo-400/20 bg-indigo-500/10 text-indigo-300 font-bold">
+                  <HStack gap={5} align="flex-start">
+                    <Flex
+                      h="48px"
+                      w="48px"
+                      flexShrink={0}
+                      alignItems="center"
+                      justifyContent="center"
+                      borderRadius="2xl"
+                      border="1px solid"
+                      borderColor="rgba(99, 102, 241, 0.2)"
+                      bg="rgba(99, 102, 241, 0.1)"
+                      color="rgba(165, 180, 252, 1)"
+                      fontWeight="bold"
+                    >
                       {String(index + 1).padStart(2, "0")}
-                    </div>
+                    </Flex>
 
-                    <div>
-                      <h2 className="text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors">
+                    <Box>
+                      <Heading
+                        as="h2"
+                        size="lg"
+                        color="black"
+                        transition="color 0.3s"
+                        _groupHover={{ color: "indigo.300" }}
+                      >
                         {section.title}
-                      </h2>
+                      </Heading>
 
-                      <p className="mt-4 text-gray-400 leading-8">
+                      <Text mt={4} color="black">
                         {section.content}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                      </Text>
+                    </Box>
+                  </HStack>
+                </Box>
               ))}
-            </div>
+            </VStack>
 
             {/* ================= DIGITAL BALANCE BOX ================= */}
-            <div
+            <Box
               data-aos="zoom-in-up"
-              className="mt-14 rounded-3xl border border-cyan-500/20 bg-cyan-500/5 p-8"
+              mt={14}
+              borderRadius="3xl"
+              border="1px solid"
+              borderColor="rgba(6, 182, 212, 0.2)"
+              bg="rgba(6, 182, 212, 0.05)"
+              p={8}
             >
-              <h2 className="text-3xl font-bold text-white mb-4">
+              <Heading as="h2" size="xl" color="cyan.400" mb={4}>
                 💡 The Goal Is Balance, Not Elimination
-              </h2>
+              </Heading>
 
-              <p className="leading-8 text-gray-300">
+              <Text  color="gray.800">
                 Smartphones and mobile apps are valuable tools that help us stay
                 informed and connected. The objective is not to avoid technology
                 completely, but to use it intentionally. Creating healthy
                 boundaries allows you to enjoy the benefits of digital
                 innovation while protecting your focus and well-being.
-              </p>
-            </div>
+              </Text>
+            </Box>
 
             {/* ================= HEALTHY HABITS ================= */}
-            <div className="mt-14">
-              <h2
+            <Box mt={14}>
+              <Heading
+                as="h2"
                 data-aos="fade-up"
-                className="text-3xl font-bold text-white mb-6"
+                size="xl"
+                color="cyan.400"
+                mb={6}
               >
                 ✔ Healthy Digital Habits
-              </h2>
+              </Heading>
 
-              <div className="grid gap-5 md:grid-cols-2">
+              <SimpleGrid columns={{ base: 1, md: 2 }} gap={5}>
                 {healthyHabits.map((habit, index) => (
-                  <div
+                  <Box
                     key={index}
                     data-aos="zoom-in"
                     data-aos-delay={index * 100}
-                    className="rounded-2xl border border-white/10 bg-slate-800/50 p-5 transition-all duration-300 hover:scale-[1.03] hover:bg-indigo-500/10"
+                    borderRadius="2xl"
+                    border="1px solid"
+                    borderColor="rgba(255,255,255,0.1)"
+                    bg="rgba(30, 41, 59, 0.5)"
+                    p={5}
+                    transition="all 0.3s"
+                    _hover={{
+                      transform: "scale(1.03)",
+                      bg: "rgba(99, 102, 241, 0.1)",
+                    }}
                   >
                     {habit}
-                  </div>
+                  </Box>
                 ))}
-              </div>
-            </div>
+              </SimpleGrid>
+            </Box>
 
             {/* ================= CONCLUSION ================= */}
-            <div
+            <Box
               data-aos="fade-up"
-              className="mt-16 rounded-[28px] bg-gradient-to-r from-indigo-500/10 via-slate-800 to-cyan-500/10 p-10 text-center"
+              mt={16}
+              borderRadius="28px"
+              bgGradient="linear(to-r, rgba(99, 102, 241, 0.1), rgba(30, 41, 59, 0.8), rgba(6, 182, 212, 0.1))"
+              p={10}
+              textAlign="center"
             >
-              <h2 className="text-3xl md:text-4xl font-black text-white">
+              <Heading
+                as="h2"
+                fontSize={{ base: "3xl", md: "4xl" }}
+                fontWeight="black"
+                color="cyan.400"
+              >
                 Use Technology. Don't Let Technology Use You.
-              </h2>
+              </Heading>
 
-              <p className="max-w-3xl mx-auto mt-5 leading-8 text-gray-300">
+              <Text
+                maxW="3xl"
+                mx="auto"
+                mt={5}
+                color="gray.700"
+              >
                 Small changes—such as limiting distractions, reducing screen
                 time before bed, and taking regular offline breaks—can improve
                 focus, support better sleep, and encourage healthier digital
                 habits. Awareness is the first step toward building a more
                 balanced relationship with your devices.
-              </p>
-            </div>
+              </Text>
+            </Box>
 
             {/* ================= DISCLAIMER ================= */}
-            <div className="mt-10 rounded-2xl border border-slate-700 bg-slate-800/50 p-5">
-              <p className="text-sm leading-7 text-gray-400">
-                <span className="font-semibold text-indigo-400">
+            <Box
+              mt={10}
+              borderRadius="2xl"
+              border="1px solid"
+              borderColor="gray.700"
+              bg="rgba(30, 41, 59, 0.5)"
+              p={5}
+            >
+              <Text fontSize="sm" color="gray.800">
+                <Box as="span" fontWeight="semibold" color="indigo.800">
                   Disclaimer:
-                </span>{" "}
+                </Box>{" "}
                 This article is intended for educational and informational
                 purposes only. It provides general awareness about digital
                 habits and technology use and should not be considered medical,
                 psychological, or professional health advice.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+              </Text>
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 }
