@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import toast from "react-hot-toast";
@@ -21,7 +21,6 @@ import {
   Button,
   SimpleGrid,
   Icon,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 
 import { FaMapMarkerAlt, FaEnvelope, FaClock, FaPhone } from "react-icons/fa";
@@ -90,7 +89,7 @@ export default function ContactPage() {
     return isValid;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -127,9 +126,7 @@ export default function ContactPage() {
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof typeof errors]) {
@@ -174,7 +171,7 @@ export default function ContactPage() {
       desc: "Get offers from multiple banks in one place.",
     },
     {
-      title: "💰 Best Rates",
+      title: " Best Rates",
       desc: "Compare interest rates instantly.",
     },
     {
@@ -183,76 +180,78 @@ export default function ContactPage() {
     },
   ];
 
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
   return (
     <Box minH="100vh" bg="gray.900" color="white">
       <Container maxW="6xl" px={{ base: 4, md: 6 }} py={8}>
-        {/* Navigation Tabs */}
-        <HStack
-          gap={3}
-          justifyContent="center"
-          mb={10}
-          flexWrap="wrap"
+        {/* Navigation Tabs - FIXED WITH VISIBLE BUTTONS */}
+        <Box 
+          mb={10} 
           data-aos="fade-down"
+          borderWidth="1px"
+          borderColor="gray.700"
+          borderRadius="full"
+          p={2}
+          bg="gray.800"
         >
-          <Link href="/Contact" passHref legacyBehavior>
-            <Box
-              as="a"
-              px={6}
-              py={2.5}
-              borderRadius="full"
-              fontSize="sm"
-              fontWeight="medium"
-              textAlign="center"
-              transition="all 0.3s"
-              bg={pathname === "/Contact" ? "blue.600" : "transparent"}
-              color={pathname === "/Contact" ? "white" : "white"}
-              border={
-                pathname === "/Contact"
-                  ? "2px solid transparent"
-                  : "2px solid blue.500"
-              }
-              _hover={{
-                bg: pathname === "/Contact" ? "blue.700" : "blue.600",
-                borderColor: pathname === "/Contact" ? "transparent" : "blue.600",
-                transform: "translateY(-2px)",
-              }}
-              cursor="pointer"
-            >
-              Contact
-            </Box>
-          </Link>
+          <HStack
+            gap={4}
+            justifyContent="center"
+            flexWrap="wrap"
+          >
+            <Link href="/contact" passHref legacyBehavior>
+              <Box
+                as="button"
+                px={8}
+                py={3}
+                borderRadius="full"
+                fontSize="sm"
+                fontWeight="bold"
+                textAlign="center"
+                minW="150px"
+                bg={pathname === "/contact" ? "blue.600" : "transparent"}
+                color="white"
+                border="2px solid blue.500"
+                _hover={{
+                  bg: "blue.600",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 4px 12px rgba(66, 153, 225, 0.4)",
+                }}
+                transition="all 0.3s"
+                cursor="pointer"
+                display="inline-block"
+              >
+                Contact
+              </Box>
+            </Link>
 
-          <Link href="/partner" passHref legacyBehavior>
-            <Box
-              as="a"
-              px={6}
-              py={2.5}
-              borderRadius="full"
-              fontSize="sm"
-              fontWeight="medium"
-              textAlign="center"
-              transition="all 0.3s"
-              bg={pathname === "/partner" ? "yellow.500" : "transparent"}
-              color={pathname === "/partner" ? "black" : "yellow.400"}
-              border={
-                pathname === "/partner"
-                  ? "2px solid transparent"
-                  : "2px solid yellow.500"
-              }
-              _hover={{
-                bg: "yellow.500",
-                color: "black",
-                borderColor: "yellow.500",
-                transform: "translateY(-2px)",
-              }}
-              cursor="pointer"
-            >
-              Register as Partner
-            </Box>
-          </Link>
-        </HStack>
+            <Link href="/partner" passHref legacyBehavior>
+              <Box
+                as="button"
+                px={8}
+                py={3}
+                borderRadius="full"
+                fontSize="sm"
+                fontWeight="bold"
+                textAlign="center"
+                minW="200px"
+                bg={pathname === "/partner" ? "yellow.500" : "transparent"}
+                color={pathname === "/partner" ? "black" : "yellow.400"}
+                border="2px solid yellow.500"
+                _hover={{
+                  bg: "yellow.500",
+                  color: "black",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 4px 12px rgba(237, 137, 54, 0.4)",
+                }}
+                transition="all 0.3s"
+                cursor="pointer"
+                display="inline-block"
+              >
+                Register as Partner
+              </Box>
+            </Link>
+          </HStack>
+        </Box>
 
         {/* Heading */}
         <VStack gap={3} mb={12} textAlign="center" data-aos="fade-up">
@@ -330,7 +329,7 @@ export default function ContactPage() {
                     />
                     {errors.name && (
                       <Text fontSize="xs" color="red.400" mt={1}>
-                        ⚠ {errors.name}
+                         {errors.name}
                       </Text>
                     )}
                   </Box>
