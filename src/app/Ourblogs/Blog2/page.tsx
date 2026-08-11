@@ -13,9 +13,9 @@ import {
 
 export default function Hero() {
   return (
-    <Box bg="#0b1220" color="white">
+    <Box bg="blue.50" color="blue.900">
       {/* ================= HERO SECTION ================= */}
-      <Box as="section" py={12} px={4}>
+      <Box as="section" py={20} mt={20} px={4}>
         <Container maxW="5xl" mx="auto">
           <Box
             display="flex"
@@ -28,7 +28,7 @@ export default function Hero() {
             <Box w="full" maxW={{ lg: "65%" }}>
               {/* Top Label */}
               <Text
-                color="green.400"
+                color="green.600"
                 fontSize={{ base: "10px", sm: "xs" }}
                 letterSpacing="0.18em"
                 mb={3}
@@ -46,12 +46,13 @@ export default function Hero() {
                 fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
                 fontWeight="extrabold"
                 lineHeight="1.2"
+                color="blue.900"
               >
                 Is Crypto Still a Good{" "}
-                <Text as="span" color="emerald.400">
+                <Text as="span" color="emerald.600">
                   Investment in 2026? A
                 </Text>{" "}
-                <Text as="span" color="cyan.400">
+                <Text as="span" color="blue.600">
                   Realistic Breakdown
                 </Text>
               </Heading>
@@ -59,7 +60,7 @@ export default function Hero() {
               {/* Description */}
               <Text
                 mt={4}
-                color="gray.300"
+                color="blue.700"
                 fontSize="sm"
                 maxW="xl"
               >
@@ -71,37 +72,43 @@ export default function Hero() {
               {/* Tags */}
               <HStack gap={2} mt={5} flexWrap="wrap">
                 <Badge
-                  bg="whiteAlpha.200"
-                  color="white"
+                  bg="blue.100"
+                  color="blue.800"
                   px={3}
                   py={1}
                   borderRadius="full"
                   fontSize="11px"
                   fontWeight="normal"
+                  border="1px solid"
+                  borderColor="blue.200"
                 >
                   ⏱ 7–9 min read
                 </Badge>
 
                 <Badge
-                  bg="whiteAlpha.200"
-                  color="white"
+                  bg="green.100"
+                  color="green.800"
                   px={3}
                   py={1}
                   borderRadius="full"
                   fontSize="11px"
                   fontWeight="normal"
+                  border="1px solid"
+                  borderColor="green.200"
                 >
                   🧠 Beginner-Friendly
                 </Badge>
 
                 <Badge
-                  bg="whiteAlpha.200"
-                  color="white"
+                  bg="orange.100"
+                  color="orange.800"
                   px={3}
                   py={1}
                   borderRadius="full"
                   fontSize="11px"
                   fontWeight="normal"
+                  border="1px solid"
+                  borderColor="orange.200"
                 >
                   ⚠️ Not Financial Advice
                 </Badge>
@@ -111,26 +118,28 @@ export default function Hero() {
             {/* RIGHT CARD */}
             <Box w="full" maxW={{ lg: "300px" }}>
               <Card.Root
-                bgGradient="linear(to-br, #0f2a3a, #0b1b2a)"
-                borderColor="teal.500/30"
+                bg="white"
+                borderColor="blue.200"
                 borderWidth="1px"
                 borderRadius="2xl"
                 p={4}
-                boxShadow="lg"
+                boxShadow="0 15px 40px rgba(30, 64, 175, 0.08)"
               >
                 {/* Header */}
                 <HStack justifyContent="space-between" mb={4}>
-                  <Text fontSize="sm" fontWeight="semibold" color="black">
+                  <Text fontSize="sm" fontWeight="semibold" color="blue.900">
                     Market Snapshot
                   </Text>
 
                   <Badge
-                    bg="teal.500/20"
-                    color="teal.700"
+                    bg="blue.100"
+                    color="blue.700"
                     px={2.5}
                     py={1}
                     borderRadius="full"
                     fontSize="10px"
+                    border="1px solid"
+                    borderColor="blue.200"
                   >
                     2026
                   </Badge>
@@ -139,29 +148,29 @@ export default function Hero() {
                 {/* Market Items */}
                 <VStack gap={3} alignItems="stretch" fontSize="xs">
                   <HStack justifyContent="space-between">
-                    <Text color="gray.700">🟡 Bitcoin (BTC)</Text>
-                    <Text color="green.700" fontWeight="medium">
+                    <Text color="blue.700">🟡 Bitcoin (BTC)</Text>
+                    <Text color="green.600" fontWeight="medium">
                       Volatile
                     </Text>
                   </HStack>
 
                   <HStack justifyContent="space-between">
-                    <Text color="gray.700">🟣 Ethereum (ETH)</Text>
-                    <Text color="yellow.700" fontWeight="medium">
+                    <Text color="blue.700">🟣 Ethereum (ETH)</Text>
+                    <Text color="yellow.600" fontWeight="medium">
                       Growing
                     </Text>
                   </HStack>
 
                   <HStack justifyContent="space-between">
-                    <Text color="gray.700">🟢 Altcoins</Text>
-                    <Text color="red.700" fontWeight="medium">
+                    <Text color="blue.700">🟢 Altcoins</Text>
+                    <Text color="red.600" fontWeight="medium">
                       High Risk
                     </Text>
                   </HStack>
                 </VStack>
 
                 {/* Footer */}
-                <Text mt={4} fontSize="11px" color="gray.700">
+                <Text mt={4} fontSize="11px" color="blue.600">
                   Crypto can still be powerful in a diversified portfolio — if
                   you understand the risks and play the long game. 🧭
                 </Text>
@@ -172,30 +181,30 @@ export default function Hero() {
       </Box>
 
       {/* ================= BLOG CONTENT ================= */}
-      <Box as="section" bg="#0b1220" color="gray.300" px={4} pb={14}>
+      <Box as="section" bg="blue.50" color="blue.800" px={4} pb={14}>
         <Container maxW="5xl" mx="auto">
           <Card.Root
-            bg="#111827"
-            borderColor="whiteAlpha.200"
+            bg="white"
+            borderColor="blue.100"
             borderWidth="1px"
             borderRadius="2xl"
             p={{ base: 6, md: 8 }}
-            boxShadow="lg"
+            boxShadow="0 20px 50px rgba(30, 64, 175, 0.08)"
           >
             <VStack gap={8} alignItems="stretch">
-              <Text fontSize="sm" color="white">
+              <Text fontSize="sm" color="blue.800">
                 Cryptocurrency has been one of the most talked-about investment
                 options of the last decade. From creating overnight millionaires to
                 causing massive losses, crypto has seen extreme highs and painful
                 lows.
               </Text>
 
-              <Text fontSize="sm"  color="white">
-                So the big question in 2026 is: <Text as="strong">Is crypto still a good
+              <Text fontSize="sm" color="blue.800">
+                So the big question in 2026 is: <Text as="strong" color="blue.900">Is crypto still a good
                 investment, or has the opportunity already passed?</Text>
               </Text>
 
-              <Text fontSize="sm"  color="white">
+              <Text fontSize="sm" color="blue.800">
                 Let's break it down honestly — without hype.
               </Text>
 
@@ -205,32 +214,32 @@ export default function Hero() {
                   as="h2"
                   fontSize={{ base: "xl", md: "2xl" }}
                   fontWeight="bold"
-                  color="white"
+                  color="blue.900"
                   mb={3}
                 >
                   What Is Cryptocurrency?
                 </Heading>
 
-                <Text fontSize="sm" color="white">
+                <Text fontSize="sm" color="blue.800">
                   Cryptocurrency is a digital asset built on blockchain technology.
                   It operates without a central authority like banks or governments.
                 </Text>
 
-                <Box as="ul" pl={5} mt={4}  color="white">
+                <Box as="ul" pl={5} mt={4} color="blue.800">
                   <Box as="li" mb={2} fontSize="sm">
-                    <Text as="strong">Bitcoin (BTC)</Text> – Often referred to as digital
+                    <Text as="strong" color="blue.900">Bitcoin (BTC)</Text> – Often referred to as digital
                     gold.
                   </Box>
                   <Box as="li" mb={2} fontSize="sm">
-                    <Text as="strong">Ethereum (ETH)</Text> – Powers smart contracts and
+                    <Text as="strong" color="blue.900">Ethereum (ETH)</Text> – Powers smart contracts and
                     decentralized applications.
                   </Box>
                   <Box as="li" mb={2} fontSize="sm">
-                    <Text as="strong">Solana & Polygon</Text> – High-speed blockchain
+                    <Text as="strong" color="blue.900">Solana & Polygon</Text> – High-speed blockchain
                     platforms.
                   </Box>
                   <Box as="li" mb={2} fontSize="sm">
-                    <Text as="strong">Stablecoins</Text> – Assets like USDT and USDC designed
+                    <Text as="strong" color="blue.900">Stablecoins</Text> – Assets like USDT and USDC designed
                     to maintain stable value.
                   </Box>
                 </Box>
@@ -242,19 +251,19 @@ export default function Hero() {
                   as="h2"
                   fontSize={{ base: "xl", md: "2xl" }}
                   fontWeight="bold"
-                  color="white"
+                  color="blue.900"
                   mb={3}
                 >
                   The State of Crypto in 2026
                 </Heading>
 
-                <Text fontSize="sm" color="white">
+                <Text fontSize="sm" color="blue.800">
                   Crypto is no longer a new experiment. Today, it is more regulated,
                   institutionally adopted, and integrated into global finance than
                   ever before.
                 </Text>
 
-                <Box as="ul" pl={5} mt={4}  color="white">
+                <Box as="ul" pl={5} mt={4} color="blue.800">
                   <Box as="li" mb={2} fontSize="sm">
                     Institutional investors hold Bitcoin.
                   </Box>
@@ -273,7 +282,7 @@ export default function Hero() {
                   as="h2"
                   fontSize={{ base: "xl", md: "2xl" }}
                   fontWeight="bold"
-                  color="white"
+                  color="blue.900"
                   mb={5}
                 >
                   Reasons Crypto Can Still Be a Good Investment
@@ -285,12 +294,12 @@ export default function Hero() {
                       as="h3"
                       fontSize="base"
                       fontWeight="semibold"
-                      color="emerald.400"
+                      color="emerald.600"
                       mb={1}
                     >
                       1️⃣ Long-Term Growth Potential
                     </Heading>
-                    <Text fontSize="sm" color="white">
+                    <Text fontSize="sm" color="blue.800">
                       Bitcoin has a fixed supply of 21 million coins. Scarcity,
                       combined with increasing demand, makes it attractive as a
                       long-term store of value.
@@ -302,12 +311,12 @@ export default function Hero() {
                       as="h3"
                       fontSize="base"
                       fontWeight="semibold"
-                      color="emerald.400"
+                      color="emerald.600"
                       mb={1}
                     >
                       2️⃣ Institutional Adoption
                     </Heading>
-                    <Text fontSize="sm" color="white">
+                    <Text fontSize="sm" color="blue.800">
                       Large banks, hedge funds, and payment companies are now part of
                       the crypto ecosystem, adding credibility and liquidity.
                     </Text>
@@ -318,12 +327,12 @@ export default function Hero() {
                       as="h3"
                       fontSize="base"
                       fontWeight="semibold"
-                      color="emerald.400"
+                      color="emerald.600"
                       mb={1}
                     >
                       3️⃣ Real-World Use Cases
                     </Heading>
-                    <Text fontSize="sm" color="white">
+                    <Text fontSize="sm" color="blue.800">
                       Crypto powers decentralized finance (DeFi), utility-based NFTs,
                       cross-border payments, and smart contracts that reduce the need
                       for intermediaries.
@@ -335,12 +344,12 @@ export default function Hero() {
                       as="h3"
                       fontSize="base"
                       fontWeight="semibold"
-                      color="emerald.400"
+                      color="emerald.600"
                       mb={1}
                     >
                       4️⃣ High Return Potential
                     </Heading>
-                    <Text fontSize="sm" color="white">
+                    <Text fontSize="sm" color="blue.800">
                       Despite volatility, cryptocurrency has historically
                       outperformed many traditional asset classes during strong market
                       cycles.
@@ -355,7 +364,7 @@ export default function Hero() {
                   as="h2"
                   fontSize={{ base: "xl", md: "2xl" }}
                   fontWeight="bold"
-                  color="white"
+                  color="blue.900"
                   mb={5}
                 >
                   Risks You Must Consider
@@ -367,12 +376,12 @@ export default function Hero() {
                       as="h3"
                       fontSize="base"
                       fontWeight="semibold"
-                      color="red.400"
+                      color="red.600"
                       mb={1}
                     >
                       1️⃣ High Volatility
                     </Heading>
-                    <Text fontSize="sm" color="white">
+                    <Text fontSize="sm" color="blue.800">
                       Crypto prices can rise or fall dramatically within weeks,
                       making it unsuitable for short-term or emotional investors.
                     </Text>
@@ -383,12 +392,12 @@ export default function Hero() {
                       as="h3"
                       fontSize="base"
                       fontWeight="semibold"
-                      color="red.400"
+                      color="red.600"
                       mb={1}
                     >
                       2️⃣ Regulations
                     </Heading>
-                    <Text fontSize="sm" color="white">
+                    <Text fontSize="sm" color="blue.800">
                       Governments around the world are tightening crypto regulations,
                       which can improve safety but may also impact market growth.
                     </Text>
@@ -399,12 +408,12 @@ export default function Hero() {
                       as="h3"
                       fontSize="base"
                       fontWeight="semibold"
-                      color="red.400"
+                      color="red.600"
                       mb={1}
                     >
                       3️⃣ Scams and Weak Projects
                     </Heading>
-                    <Text fontSize="sm"color="white">
+                    <Text fontSize="sm" color="blue.800">
                       Many crypto projects fail or turn out to be fraudulent.
                       Investing without proper research can lead to a complete loss of
                       funds.
@@ -419,17 +428,17 @@ export default function Hero() {
                   as="h2"
                   fontSize={{ base: "xl", md: "2xl" }}
                   fontWeight="bold"
-                  color="white"
+                  color="blue.900"
                   mb={3}
                 >
                   Who Should Invest in Crypto?
                 </Heading>
 
-                <Text fontSize="sm"  color="white">
+                <Text fontSize="sm" color="blue.800">
                   Cryptocurrency may be suitable if you:
                 </Text>
 
-                <Box as="ul" pl={5} mt={4}>
+                <Box as="ul" pl={5} mt={4} color="blue.800">
                   <Box as="li" mb={2} fontSize="sm">
                     Have a long-term investment mindset (3–5+ years).
                   </Box>
@@ -441,7 +450,7 @@ export default function Hero() {
                   </Box>
                 </Box>
 
-                <Text mt={4} fontSize="sm" color="white">
+                <Text mt={4} fontSize="sm" color="blue.800">
                   Crypto is generally not ideal if you are looking for guaranteed or
                   short-term returns.
                 </Text>
@@ -453,13 +462,13 @@ export default function Hero() {
                   as="h2"
                   fontSize={{ base: "xl", md: "2xl" }}
                   fontWeight="bold"
-                  color="white"
+                  color="blue.900"
                   mb={3}
                 >
                   Smart Crypto Investment Strategy for 2026
                 </Heading>
 
-                <Box as="ul" pl={5}>
+                <Box as="ul" pl={5} color="blue.800">
                   <Box as="li" mb={2} fontSize="sm">
                     Focus on established projects like Bitcoin and Ethereum.
                   </Box>
@@ -481,20 +490,20 @@ export default function Hero() {
                   as="h2"
                   fontSize={{ base: "xl", md: "2xl" }}
                   fontWeight="bold"
-                  color="white"
+                  color="blue.900"
                   mb={3}
                 >
                   Final Verdict
                 </Heading>
 
-                <Text fontSize="sm" color="white">
+                <Text fontSize="sm" color="blue.800">
                   Crypto can still be a good investment in 2026 — but only for
                   informed and disciplined investors. The market has matured, but
                   opportunities remain for those who understand the risks and take a
                   long-term approach.
                 </Text>
 
-                <Text fontSize="sm" mt={3}>
+                <Text fontSize="sm" mt={3} color="blue.800">
                   Investors who treat cryptocurrency as a long-term technology
                   investment, rather than a get-rich-quick scheme, may continue to
                   benefit from the growth of the digital asset ecosystem.
@@ -502,9 +511,9 @@ export default function Hero() {
               </Box>
 
               {/* Disclaimer */}
-              <Box as="hr" borderColor="whiteAlpha.200" borderWidth="1px" opacity={0.3} mt={5} />
-              <Text fontSize="xs" color="gray.400" fontStyle="italic" mt={4}>
-                <Text as="strong">Disclaimer:</Text> This article is for educational
+              <Box as="hr" borderColor="blue.200" borderWidth="1px" mt={5} />
+              <Text fontSize="xs" color="blue.600" fontStyle="italic" mt={4}>
+                <Text as="strong" color="blue.800">Disclaimer:</Text> This article is for educational
                 purposes only and does not constitute financial or investment
                 advice. Cryptocurrency investments involve market risk. Always do
                 your own research and consult a qualified financial advisor before

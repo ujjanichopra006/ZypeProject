@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { BriefcaseBusiness, Rocket } from "lucide-react";
+import { BriefcaseBusiness, Rocket, CheckCircle, ArrowRight, Clock, Percent, FileText, Calendar } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -16,19 +16,22 @@ import {
   SimpleGrid,
   useBreakpointValue,
   HStack,
+  VStack,
+  Icon,
+  Badge,
+  Flex,
 } from "@chakra-ui/react";
 
 export default function Seventh() {
-  const [activeTab, setActiveTab] = useState("professional");
+  const [activeTab, setActiveTab] = useState<"professional" | "self">("professional");
   const router = useRouter();
 
   useEffect(() => {
     AOS.init({
-      duration: 1000,
-      easing: "ease-in-out",
-      once: false,
-      mirror: true,
-      offset: 80,
+      duration: 800,
+      easing: "ease-out-cubic",
+      once: true,
+      offset: 60,
     });
   }, []);
 
@@ -36,258 +39,289 @@ export default function Seventh() {
     AOS.refreshHard();
   }, [activeTab]);
 
-  // ✅ Responsive values
-  const headingSize = useBreakpointValue({ base: "lg", md: "xl", lg: "2xl" });
-  const subTextSize = useBreakpointValue({ base: "xs", md: "sm" });
-  const cardTitleSize = useBreakpointValue({ base: "md", md: "lg", lg: "xl" });
-  const cardTextSize = useBreakpointValue({ base: "xs", md: "sm" });
-  const imageHeight = useBreakpointValue({ base: "180px", md: "240px", lg: "300px" });
-  
-  const buttonHeight = useBreakpointValue({ base: "34px", md: "38px" });
-  const buttonFontSize = useBreakpointValue({ base: "xs", md: "sm" });
-  const buttonPadding = useBreakpointValue({ base: "10px 14px", md: "14px 20px" });
+  // Responsive values
+  const headingSize = useBreakpointValue({ base: "2xl", md: "3xl", lg: "4xl" });
+  const subTextSize = useBreakpointValue({ base: "sm", md: "md", lg: "lg" });
+  const cardTitleSize = useBreakpointValue({ base: "xl", md: "2xl" });
+  const cardTextSize = useBreakpointValue({ base: "sm", md: "md" });
+  const imageHeight = useBreakpointValue({ base: "220px", md: "300px", lg: "380px" });
+  const containerMaxW = useBreakpointValue({ base: "100%", md: "900px", lg: "1000px" });
+  const buttonSize = useBreakpointValue({ base: "sm", md: "md" }) as "sm" | "md" | "lg";
 
-  const professionalData = {
-    title: "Quick Loans for Professionals",
-    description:
-      "As a working professional, managing personal expenses, home renovations, or urgent financial needs can be challenging. mPokket provides quick loan disbursements with fast approvals, flexible repayment options, and competitive interest rates.",
-    image: "/loan Professionals.avif",
+  const loanData = {
+    professional: {
+      title: "Professional Loans",
+      subtitle: "For Salaried Individuals",
+      badge: "Popular Choice",
+      description: "Get instant financial support with minimal documentation and competitive rates.",
+      image: "/loan Professionals.avif",
+      benefits: [
+        { icon: Clock, label: "30-Minute Approval", desc: "Quick decision making" },
+        { icon: Percent, label: "Low Interest Rates", desc: "Starting from 10.99%" },
+        { icon: Calendar, label: "Flexible Tenure", desc: "3-36 months" },
+        { icon: FileText, label: "Minimal Docs", desc: "Only 2 documents needed" },
+      ],
+      features: ["No Collateral Required", "100% Digital Process", "Same Day Disbursement"],
+    },
+    self: {
+      title: "Business & Self-Employed",
+      subtitle: "For Entrepreneurs & Freelancers",
+      badge: "Flexible Terms",
+      description: "Tailored financing solutions for business growth, working capital, and personal needs.",
+      image: "/self employe.jpg",
+      benefits: [
+        { icon: Clock, label: "Quick Processing", desc: "48-hour approval" },
+        { icon: Percent, label: "Competitive Rates", desc: "Starting from 11.99%" },
+        { icon: Calendar, label: "Flexible Repayment", desc: "6-48 months" },
+        { icon: FileText, label: "Simplified Docs", desc: "Income proof & ITR" },
+      ],
+      features: ["No Collateral Required", "Business & Personal Use", "Flexible EMI Options"],
+    },
   };
 
-  const selfEmployedData = {
-    title: "Quick Loans for Self Employed",
-    description:
-      "Our loans are designed for freelancers, entrepreneurs, and business owners. Get working capital, manage cash flow, or meet personal needs with quick approvals, low interest rates, and flexible repayment plans.",
-    image: "/self employe.jpg",
-  };
+  const currentData = loanData[activeTab];
 
-  const data = activeTab === "professional" ? professionalData : selfEmployedData;
+  const getBenefitIcon = (index: number) => {
+    const icons = [Clock, Percent, Calendar, FileText];
+    return icons[index] || Clock;
+  };
 
   return (
-    <Box bg="#111525" py={{ base: 0, md: 0, lg: 0 }} px={{ base: 0, md: 0, lg: 0 }} overflow="hidden">
-      {/* ✅ Container width - Balance (700px se 800px) */}
-      <Container maxW="800px" px={{ base:0, md: 0, lg: 0 }}>
-        
-        {/* ============================================ */}
-        {/* HEADING */}
-        {/* ============================================ */}
-        <Box
-          textAlign="center"
-          mb={{ base: 4, md: 5, lg: 6 }}
-          pt={{ base: 0, md: 0, lg: 0 }} // ✅ Upar ki padding 0
-          data-aos="fade-down"
-        >
+    <Box bg="blue.50" py={{ base: 10, md: 12, lg: 20 }} overflow="hidden">
+      <Container maxW={containerMaxW} px={{ base: 4, md: 6 }}>
+        {/* Header */}
+        <VStack gap={{ base: 3, md: 4 }} mb={{ base: 8, md: 10 }} data-aos="fade-down">
+          <Badge
+            colorScheme="blue"
+            fontSize={{ base: "xs", md: "sm" }}
+            px={{ base: 4, md: 6 }}
+            py={{ base: 1.5, md: 2 }}
+            borderRadius="full"
+            bg="blue.600"
+            color="white"
+            textTransform="uppercase"
+            letterSpacing="wider"
+          >
+            Loan Solutions
+          </Badge>
           <Heading
             as="h2"
             fontSize={headingSize}
             fontWeight="bold"
-            color="white"
+            color="blue.900"
+            textAlign="center"
+            letterSpacing="-0.02em"
+            lineHeight="1.2"
           >
-            Tailored Loan Solutions
+            Quick Loans for Every Need
           </Heading>
-
-          <Text
-            fontSize={subTextSize}
-            color="gray.300"
-            mt={1}
-          >
-            Financial support designed for your unique needs
+          <Text fontSize={subTextSize} color="blue.700" textAlign="center" maxW="600px">
+            Choose the loan type that fits your profile and get funds when you need them most
           </Text>
-        </Box>
+        </VStack>
 
-        {/* ============================================ */}
-        {/* TABS */}
-        {/* ============================================ */}
-        <Box
-          display="flex"
-          justifyContent="center"
-          mb={{ base: 4, md: 5, lg: 6 }}
-          data-aos="zoom-in"
-          data-aos-delay="100"
-        >
-          <Box
+        {/* Tabs */}
+        <Box display="flex" justifyContent="center" mb={{ base: 8, md: 10 }} data-aos="zoom-in">
+          <Flex
             bg="white"
             borderRadius="full"
-            p={1}
-            display="flex"
+            p={1.5}
             width="100%"
-            maxW="380px"
-            boxShadow="md"
+            maxW="440px"
+            boxShadow="0 4px 20px rgba(30, 64, 175, 0.08)"
+            border="1px solid"
+            borderColor="blue.100"
+            gap={1}
           >
             <Button
               onClick={() => setActiveTab("professional")}
               flex="1"
-              height={buttonHeight}
-              fontSize={buttonFontSize}
+              size={buttonSize}
               borderRadius="full"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              gap={1.5}
-              transition="all 0.3s ease"
+              py={{ base: 5, md: 6 }}
+              px={{ base: 4, md: 6 }}
               bg={activeTab === "professional" ? "blue.600" : "transparent"}
-              color={activeTab === "professional" ? "white" : "gray.700"}
+              color={activeTab === "professional" ? "white" : "blue.700"}
               _hover={{
-                bg: activeTab === "professional" ? "blue.700" : "gray.100",
+                bg: activeTab === "professional" ? "blue.700" : "blue.50",
+                transform: "scale(1.02)",
               }}
+              _active={{ transform: "scale(0.98)" }}
+              transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+              fontWeight="semibold"
+              boxShadow={activeTab === "professional" ? "0 4px 12px rgba(37, 99, 235, 0.4)" : "none"}
             >
-              <BriefcaseBusiness size={14} />
-              Working Professionals
+              <BriefcaseBusiness size={18} style={{ display: 'inline', marginRight: '8px' }} />
+              Professionals
             </Button>
 
             <Button
               onClick={() => setActiveTab("self")}
               flex="1"
-              height={buttonHeight}
-              fontSize={buttonFontSize}
+              size={buttonSize}
               borderRadius="full"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              gap={1.5}
-              transition="all 0.3s ease"
+              py={{ base: 5, md: 6 }}
+              px={{ base: 4, md: 6 }}
               bg={activeTab === "self" ? "blue.600" : "transparent"}
-              color={activeTab === "self" ? "white" : "gray.700"}
+              color={activeTab === "self" ? "white" : "blue.700"}
               _hover={{
-                bg: activeTab === "self" ? "blue.700" : "gray.100",
+                bg: activeTab === "self" ? "blue.700" : "blue.50",
+                transform: "scale(1.02)",
               }}
+              _active={{ transform: "scale(0.98)" }}
+              transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+              fontWeight="semibold"
+              boxShadow={activeTab === "self" ? "0 4px 12px rgba(37, 99, 235, 0.4)" : "none"}
             >
-              <Rocket size={14} />
-              Self Employed
+              <Rocket size={18} style={{ display: 'inline', marginRight: '8px' }} />
+              Self-Employed
             </Button>
-          </Box>
+          </Flex>
         </Box>
 
-        {/* ============================================ */}
-        {/* CARD - Balanced Width */}
-        {/* ============================================ */}
+        {/* Main Card */}
         <Box
           key={activeTab}
           bg="white"
-          borderRadius="2xl"
+          borderRadius="3xl"
           overflow="hidden"
-          boxShadow="0 20px 60px rgba(0,0,0,0.15)"
+          boxShadow="0 20px 60px rgba(30, 64, 175, 0.1)"
+          border="1px solid"
+          borderColor="blue.100"
           display="grid"
           gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}
           data-aos="fade-up"
-          data-aos-duration="1000"
+          transition="all 0.5s ease"
         >
-          {/* ========== LEFT SIDE ========== */}
-          <Box
-            p={{ base: 4, md: 5, lg: 6 }}
-            data-aos="fade-right"
-            data-aos-delay="150"
-          >
-            <Heading
-              as="h3"
-              fontSize={cardTitleSize}
-              fontWeight="bold"
-              color="#0A2342"
-              mb={{ base: 2, md: 3 }}
-            >
-              {data.title}
-            </Heading>
+          {/* Left - Content */}
+          <Box p={{ base: 6, md: 8, lg: 10 }} bg="white" data-aos="fade-right">
+            <VStack align="start" gap={{ base: 4, md: 5 }} w="full">
+              {/* Badge & Title */}
+              <Flex w="full" justify="space-between" align="center">
+                <Badge
+                  colorScheme="blue"
+                  fontSize="xs"
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  bg="blue.50"
+                  color="blue.600"
+                  fontWeight="semibold"
+                >
+                  {currentData.badge}
+                </Badge>
+              </Flex>
 
-            <Text
-              fontSize={cardTextSize}
-              color="gray.600"
-              lineHeight="1.8"
-            >
-              {data.description}
-            </Text>
-
-            {/* Buttons */}
-            <HStack gap={2} mt={{ base: 3, md: 4 }}>
-              <Button
-                onClick={() => router.push("/quickLinks")}
-                bg="blue.600"
-                color="white"
-                height={buttonHeight}
-                px={buttonPadding}
-                fontSize={buttonFontSize}
-                fontWeight="medium"
-                borderRadius="md"
-                _hover={{
-                  bg: "blue.700",
-                  transform: "scale(1.05)",
-                }}
-                transition="all 0.2s ease"
-              >
-                Apply Now
-              </Button>
-
-              <Button
-                onClick={() => router.push("/quickLinks")}
-                variant="outline"
-                borderColor="blue.600"
-                color="blue.600"
-                height={buttonHeight}
-                px={buttonPadding}
-                fontSize={buttonFontSize}
-                fontWeight="medium"
-                borderRadius="md"
-                _hover={{
-                  bg: "blue.50",
-                  transform: "scale(1.05)",
-                }}
-                transition="all 0.2s ease"
-              >
-                Learn More
-              </Button>
-            </HStack>
-
-            {/* Benefits */}
-            <Box
-              borderTop="1px solid"
-              borderColor="gray.200"
-              mt={{ base: 4, md: 5 }}
-              pt={{ base: 3, md: 4 }}
-              data-aos="fade-up"
-              data-aos-delay="250"
-            >
-              <Heading
-                as="h4"
-                fontSize={{ base: "sm", md: "base" }}
-                fontWeight="bold"
-                color="black"
-                mb={2}
-              >
-                Key Benefits
-              </Heading>
-
-              <SimpleGrid columns={2} gap={{ base: 1, md: 2 }}>
-                <Text fontSize={{ base: "2xs", md: "xs" }} color="black">
-                  ✓ Quick Approval
+              <VStack align="start" gap={1}>
+                <Heading as="h3" fontSize={cardTitleSize} fontWeight="bold" color="blue.900" lineHeight="1.2">
+                  {currentData.title}
+                </Heading>
+                <Text fontSize={{ base: "sm", md: "md" }} color="blue.600" fontWeight="medium">
+                  {currentData.subtitle}
                 </Text>
-                <Text fontSize={{ base: "2xs", md: "xs" }} color="black">
-                  ✓ Low Interest Rates
-                </Text>
-                <Text fontSize={{ base: "2xs", md: "xs" }} color="black">
-                  ✓ Flexible Repayment
-                </Text>
-                <Text fontSize={{ base: "2xs", md: "xs" }} color="black">
-                  ✓ Minimal Documentation
-                </Text>
+              </VStack>
+
+              <Text fontSize={cardTextSize} color="blue.700" lineHeight="1.8">
+                {currentData.description}
+              </Text>
+
+              {/* Benefits Grid */}
+              <SimpleGrid columns={{ base: 1, sm: 2 }} gap={3} w="full" pt={2}>
+                {currentData.benefits.map((benefit, index) => {
+                  const IconComponent = getBenefitIcon(index);
+                  return (
+                    <Box
+                      key={index}
+                      bg="blue.50"
+                      p={3}
+                      borderRadius="xl"
+                      border="1px solid"
+                      borderColor="blue.100"
+                      _hover={{
+                        bg: "blue.100",
+                        borderColor: "blue.300",
+                        transform: "translateY(-2px)",
+                        boxShadow: "md",
+                      }}
+                      transition="all 0.3s ease"
+                      cursor="default"
+                    >
+                      <HStack gap={2.5} align="start">
+                        <Box bg="blue.200" p={1.5} borderRadius="lg">
+                          <Icon as={IconComponent} w={4} h={4} color="blue.700" />
+                        </Box>
+                        <Box>
+                          <Text fontWeight="bold" fontSize="sm" color="blue.900">
+                            {benefit.label}
+                          </Text>
+                          <Text fontSize="xs" color="blue.600">
+                            {benefit.desc}
+                          </Text>
+                        </Box>
+                      </HStack>
+                    </Box>
+                  );
+                })}
               </SimpleGrid>
-            </Box>
+
+              {/* Features */}
+              <Flex wrap="wrap" gap={2} pt={2}>
+                {currentData.features.map((feature, index) => (
+                  <Badge
+                    key={index}
+                    variant="outline"
+                    borderColor="blue.200"
+                    color="blue.700"
+                    fontSize="xs"
+                    px={3}
+                    py={1.5}
+                    borderRadius="full"
+                    bg="blue.50"
+                    fontWeight="medium"
+                  >
+                    <HStack gap={1}>
+                      <CheckCircle size={12} />
+                      <Text>{feature}</Text>
+                    </HStack>
+                  </Badge>
+                ))}
+              </Flex>
+
+              {/* Action Buttons */}
+              <HStack gap={3} pt={4} w="full">
+                <Button
+                  onClick={() => router.push("/quickLinks")}
+                  bg="blue.600"
+                  color="white"
+                  size={buttonSize}
+                  fontSize="sm"
+                  px={{ base: 6, md: 8 }}
+                  py={{ base: 6, md: 7 }}
+                  _hover={{
+                    bg: "blue.700",
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 8px 25px rgba(37, 99, 235, 0.3)",
+                  }}
+                  _active={{ transform: "translateY(0)" }}
+                  transition="all 0.3s ease"
+                  flex={1}
+                  borderRadius="lg"
+                >
+                  Apply Now <ArrowRight size={16} style={{ display: 'inline', marginLeft: '8px' }} />
+                </Button>
+              </HStack>
+            </VStack>
           </Box>
 
-          {/* ========== RIGHT SIDE ========== */}
-          <Box
-            position="relative"
-            minHeight={imageHeight}
-            data-aos="fade-left"
-            data-aos-delay="200"
-          >
+          {/* Right - Image */}
+          <Box position="relative" minHeight={imageHeight} data-aos="fade-left">
             <Image
-              src={data.image}
-              alt={data.title}
+              src={currentData.image}
+              alt={currentData.title}
               fill
               className="object-cover"
               priority
-              onError={(e: any) => {
-                e.target.style.display = "none";
-              }}
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
             <Box
               position="absolute"
@@ -295,9 +329,29 @@ export default function Seventh() {
               left={0}
               right={0}
               height="40%"
-              bgGradient="linear(to-t, rgba(0,0,0,0.3), transparent)"
+              bgGradient="linear(to-t, rgba(30, 64, 175, 0.2), transparent)"
               display={{ base: "block", md: "none" }}
             />
+            {/* Floating badge on image */}
+            <Box
+              position="absolute"
+              top={{ base: 4, md: 6 }}
+              right={{ base: 4, md: 6 }}
+              bg="rgba(255,255,255,0.95)"
+              backdropFilter="blur(10px)"
+              px={3}
+              py={1.5}
+              borderRadius="full"
+              boxShadow="0 8px 25px rgba(30, 64, 175, 0.15)"
+              display={{ base: "none", md: "flex" }}
+              alignItems="center"
+              gap={2}
+            >
+              <Box w={2} h={2} bg="green.500" borderRadius="full" />
+              <Text fontSize="xs" fontWeight="bold" color="blue.800">
+                Funds Available
+              </Text>
+            </Box>
           </Box>
         </Box>
       </Container>

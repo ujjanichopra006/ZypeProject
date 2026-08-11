@@ -1,6 +1,23 @@
 "use client";
 
-import { UserRound } from "lucide-react";
+import {
+  UserRound,
+  Mail,
+  Phone,
+  CreditCard,
+  Calendar,
+  MapPin,
+  Briefcase,
+  Target,
+  IndianRupee,
+  TrendingUp,
+  User,
+  Edit3,
+  Save,
+  X,
+  Shield,
+  Sparkles,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
@@ -20,6 +37,12 @@ import {
   Icon,
   Spinner,
   Center,
+  Flex,
+  Badge,
+  Progress,
+  Group,
+  InputElement,
+  Separator,
 } from "@chakra-ui/react";
 
 interface UserData {
@@ -47,16 +70,10 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const bgColor = "gray.50";
-  const cardBg = "white";
-  const borderColor = "gray.200";
-  const textColor = "gray.800";
-  const labelColor = "gray.700";
-  const inputBg = "white";
-
   const fetchUser = async () => {
     try {
-      const phone = typeof window !== "undefined" ? localStorage.getItem("phone") || "" : "";
+      const phone =
+        typeof window !== "undefined" ? localStorage.getItem("phone") || "" : "";
 
       if (!phone) {
         setIsEmpty(true);
@@ -66,9 +83,7 @@ export default function Profile() {
 
       const res = await axios.post(
         "https://keshvacredit.onrender.com/api/personal-loan/get-user",
-        {
-          person_phone: phone,
-        }
+        { person_phone: phone }
       );
 
       const user = res.data?.data || res.data?.user || res.data;
@@ -101,26 +116,17 @@ export default function Profile() {
     setIsSubmitting(true);
 
     try {
-      const response = await axios.put(
+      await axios.put(
         "https://keshvacredit.onrender.com/api/personal-loan/update-user",
         data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
 
-      console.log("Update Response:", response.data);
-
       toast.success("Profile Updated Successfully");
-
       setIsEditing(false);
-
       await fetchUser();
     } catch (error: any) {
       console.error(error.response?.data || error);
-
       toast.error(error.response?.data?.message || "Profile Update Failed");
     } finally {
       setIsSubmitting(false);
@@ -133,212 +139,550 @@ export default function Profile() {
       if (!prev) return prev;
       return {
         ...prev,
-        [name]: name === "person_age" || name === "personal_loan_amount" || name === "annual_income"
-          ? Number(value)
-          : value,
+        [name]:
+          name === "person_age" ||
+          name === "personal_loan_amount" ||
+          name === "annual_income"
+            ? Number(value)
+            : value,
       };
     });
   };
 
-  // LOADING
+  // Profile completion calculation
+  const calculateCompletion = () => {
+    if (!data) return 0;
+    const fields = [
+      data.person_name,
+      data.person_email,
+      data.person_phone,
+      data.person_pan,
+      data.person_dob,
+      data.person_aadhar,
+      data.employment_type,
+      data.person_age,
+      data.person_location,
+      data.loan_purpose,
+      data.personal_loan_amount,
+      data.annual_income,
+    ];
+    const filled = fields.filter((f) => f && f !== "" && f !== 0).length;
+    return Math.round((filled / fields.length) * 100);
+  };
+
+  // ============ LOADING ============
   if (loading) {
     return (
-      <Center minH="100vh" bg={bgColor}>
-        <VStack gap={4}>
-          <Spinner
-            size="xl"
-            color="blue.500"
-          />
-          <Text color="gray.500" fontSize="sm">
-            Loading profile...
-          </Text>
+      <Center minH="100vh" bg="gray.50">
+        <VStack gap={6}>
+          <Box position="relative">
+            <Spinner
+              size="xl"
+              color="blue.500"
+            />
+            <Icon
+              as={UserRound}
+              position="absolute"
+              top="50%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              boxSize={6}
+              color="blue.500"
+            />
+          </Box>
+          <VStack gap={1}>
+            <Text color="gray.800" fontWeight="bold" fontSize="lg">
+              Loading your profile
+            </Text>
+            <Text color="gray.500" fontSize="sm">
+              Please wait a moment...
+            </Text>
+          </VStack>
         </VStack>
       </Center>
     );
   }
 
-  // EMPTY STATE
+  // ============ EMPTY STATE ============
   if (isEmpty || !data) {
     return (
-      <Center minH="100vh" bg={bgColor}>
-        <VStack gap={6} textAlign="center">
-          <Icon as={UserRound} boxSize={16} color="gray.400" />
-          <Heading as="h1" fontSize="3xl" fontWeight="bold" color={textColor}>
+      <Center minH="100vh" bg="gray.50" px={4}>
+        <Box
+          maxW="500px"
+          w="full"
+          bg="white"
+          borderRadius="3xl"
+          p={{ base: 8, md: 12 }}
+          boxShadow="2xl"
+          textAlign="center"
+        >
+          <Flex
+            w="100px"
+            h="100px"
+            bg="linear-gradient(135deg, #FF9933 0%, #f97316 100%)"
+            borderRadius="full"
+            alignItems="center"
+            justifyContent="center"
+            mx="auto"
+            mb={6}
+            boxShadow="0 10px 30px rgba(255, 153, 51, 0.3)"
+          >
+            <Icon as={UserRound} boxSize={12} color="white" />
+          </Flex>
+
+          <Heading
+            as="h1"
+            fontSize={{ base: "2xl", md: "3xl" }}
+            fontWeight="black"
+            color="gray.800"
+            mb={3}
+          >
             Complete Your Profile
           </Heading>
-          <Text color="gray.500" fontSize="md">
-            No profile found. Please fill your details.
+
+          <Text color="gray.500" fontSize="md" mb={8} maxW="sm" mx="auto">
+            Please fill in your details to get personalized loan offers and
+            faster approvals.
           </Text>
+
           <Button
             onClick={() => router.push("/personal-loan")}
-            colorScheme="blue"
             size="lg"
-            px={8}
+            w="full"
+            bg="linear-gradient(135deg, #FF9933 0%, #f97316 100%)"
+            color="white"
+            fontSize="lg"
+            fontWeight="bold"
             borderRadius="xl"
+            py={7}
             _hover={{
               transform: "translateY(-2px)",
-              boxShadow: "lg",
+              boxShadow: "0 10px 30px rgba(255, 153, 51, 0.4)",
             }}
             transition="all 0.3s"
           >
             Complete Profile
           </Button>
-        </VStack>
+        </Box>
       </Center>
     );
   }
 
-  // ✅ MAIN PROFILE UI
-  const profileFields = [
-    { label: "Name", name: "person_name", type: "text", value: data.person_name },
-    { label: "Email", name: "person_email", type: "email", value: data.person_email },
-    { label: "Phone", name: "person_phone", type: "text", value: data.person_phone, disabled: true },
-    { label: "PAN", name: "person_pan", type: "text", value: data.person_pan },
-    { label: "Aadhar", name: "person_aadhar", type: "text", value: data.person_aadhar },
-    { label: "Date of Birth", name: "person_dob", type: "date", value: data.person_dob?.split("T")[0] },
-    { label: "Employment Type", name: "employment_type", type: "text", value: data.employment_type },
-    { label: "Age", name: "person_age", type: "number", value: data.person_age },
-    { label: "Location", name: "person_location", type: "text", value: data.person_location },
-    { label: "Loan Purpose", name: "loan_purpose", type: "text", value: data.loan_purpose },
-    { label: "Loan Amount", name: "personal_loan_amount", type: "number", value: data.personal_loan_amount },
-    { label: "Annual Income", name: "annual_income", type: "number", value: data.annual_income },
+  // ============ MAIN PROFILE UI ============
+  const completion = calculateCompletion();
+
+  // Grouped fields with icons
+  const personalInfo = [
+    { label: "Full Name", name: "person_name", type: "text", value: data.person_name, icon: User, color: "blue" },
+    { label: "Date of Birth", name: "person_dob", type: "date", value: data.person_dob?.split("T")[0], icon: Calendar, color: "purple" },
+    { label: "Age", name: "person_age", type: "number", value: data.person_age, icon: Sparkles, color: "pink" },
+    { label: "PAN Number", name: "person_pan", type: "text", value: data.person_pan, icon: CreditCard, color: "orange" },
+    { label: "Aadhar Number", name: "person_aadhar", type: "text", value: data.person_aadhar, icon: Shield, color: "green" },
   ];
 
-  return (
-    <Box minH="100vh" bg={bgColor} py={{ base: 6, md: 10 }} px={{ base: 4, md: 6 }}>
-      <Container maxW="6xl">
-        {/* Header */}
-        <VStack gap={2} mb={8} align="flex-start">
-          <Heading as="h1" fontSize={{ base: "2xl", md: "3xl" }} fontWeight="bold" color={textColor}>
-            Welcome {data.person_name}
-          </Heading>
-          <Text color="gray.500" fontSize="sm">
-            Manage your profile information
-          </Text>
-        </VStack>
+  const contactInfo = [
+    { label: "Email Address", name: "person_email", type: "email", value: data.person_email, icon: Mail, color: "red" },
+    { label: "Phone Number", name: "person_phone", type: "text", value: data.person_phone, icon: Phone, color: "teal", disabled: true },
+    { label: "Location", name: "person_location", type: "text", value: data.person_location, icon: MapPin, color: "cyan" },
+  ];
 
-        {/* Profile Card */}
+  const loanInfo = [
+    { label: "Employment Type", name: "employment_type", type: "text", value: data.employment_type, icon: Briefcase, color: "indigo" },
+    { label: "Annual Income", name: "annual_income", type: "number", value: data.annual_income, icon: TrendingUp, color: "green" },
+    { label: "Loan Purpose", name: "loan_purpose", type: "text", value: data.loan_purpose, icon: Target, color: "yellow" },
+    { label: "Loan Amount", name: "personal_loan_amount", type: "number", value: data.personal_loan_amount, icon: IndianRupee, color: "emerald" },
+  ];
+
+  const renderField = (field: any, index: number) => {
+    const IconComponent = field.icon;
+    return (
+      <GridItem key={index}>
+        <Text
+          color="gray.600"
+          fontWeight="semibold"
+          fontSize="xs"
+          mb={2}
+          textTransform="uppercase"
+          letterSpacing="wide"
+        >
+          {field.label}
+        </Text>
+        <Group>
+          <InputElement pointerEvents="none" h="50px">
+            <Icon as={IconComponent} color={`${field.color}.500`} boxSize={5} />
+          </InputElement>
+          <Input
+            name={field.name}
+            type={field.type}
+            value={field.value || ""}
+            onChange={handleInputChange}
+            disabled={!isEditing || field.disabled}
+            bg={field.disabled ? "gray.50" : "white"}
+            border="2px"
+            borderColor="gray.200"
+            borderRadius="xl"
+            height="50px"
+            pl={12}
+            pr={4}
+            fontSize="sm"
+            color="gray.800"
+            fontWeight="medium"
+            _disabled={{
+              opacity: 0.8,
+              cursor: "not-allowed",
+            }}
+            _hover={{
+              borderColor: isEditing && !field.disabled ? `${field.color}.300` : "gray.200",
+            }}
+            _focus={{
+              borderColor: `${field.color}.500`,
+              boxShadow: `0 0 0 3px rgba(66, 153, 225, 0.15)`,
+            }}
+          />
+        </Group>
+      </GridItem>
+    );
+  };
+
+  const SectionCard = ({
+    title,
+    subtitle,
+    icon,
+    gradient,
+    children,
+  }: {
+    title: string;
+    subtitle: string;
+    icon: any;
+    gradient: string;
+    children: React.ReactNode;
+  }) => (
+    <Box
+      bg="white"
+      borderRadius="2xl"
+      boxShadow="lg"
+      border="1px"
+      borderColor="gray.100"
+      overflow="hidden"
+      transition="all 0.3s"
+      _hover={{ boxShadow: "xl" }}
+    >
+      {/* Section Header */}
+      <Box bg={gradient} p={5} color="white">
+        <Flex align="center" gap={3}>
+          <Flex
+            w="40px"
+            h="40px"
+            bg="rgba(255,255,255,0.2)"
+            borderRadius="lg"
+            alignItems="center"
+            justifyContent="center"
+            backdropFilter="blur(10px)"
+          >
+            <Icon as={icon} boxSize={5} />
+          </Flex>
+          <Box>
+            <Heading fontSize="lg" fontWeight="bold">
+              {title}
+            </Heading>
+            <Text fontSize="xs" opacity={0.9}>
+              {subtitle}
+            </Text>
+          </Box>
+        </Flex>
+      </Box>
+
+      {/* Section Content */}
+      <Box p={{ base: 5, md: 6 }}>{children}</Box>
+    </Box>
+  );
+
+  return (
+    <Box minH="100vh" bg="gray.50" py={{ base: 6, md: 10 }} px={{ base: 4, md: 6 }} mt={20}>
+      <Container maxW="6xl">
+        {/* ============ PROFILE HEADER ============ */}
         <Box
-          bg={cardBg}
+          bg="white"
           borderRadius="2xl"
           boxShadow="xl"
           border="1px"
-          borderColor={borderColor}
-          p={{ base: 4, md: 8 }}
+          borderColor="gray.100"
+          p={{ base: 6, md: 8 }}
+          mb={6}
+          position="relative"
+          overflow="hidden"
         >
-          <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={6}>
-            {profileFields.map((field, index) => (
-              <GridItem key={index}>
+          {/* Decorative background */}
+          <Box
+            position="absolute"
+            top={0}
+            left={0}
+            right={0}
+            h="3px"
+            bg="linear-gradient(90deg, #FF9933, #FFFFFF, #138808)"
+          />
+
+          <Flex
+            direction={{ base: "column", md: "row" }}
+            align={{ base: "flex-start", md: "center" }}
+            gap={6}
+          >
+            {/* Avatar */}
+            <Flex
+              w={{ base: "80px", md: "100px" }}
+              h={{ base: "80px", md: "100px" }}
+              bg="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+              borderRadius="2xl"
+              alignItems="center"
+              justifyContent="center"
+              flexShrink={0}
+              boxShadow="0 10px 30px rgba(102, 126, 234, 0.3)"
+              position="relative"
+            >
+              <Text fontSize={{ base: "2xl", md: "3xl" }} fontWeight="black" color="black">
+                {data.person_name?.charAt(0)?.toUpperCase() || "U"}
+              </Text>
+              <Box
+                position="absolute"
+                bottom="-4px"
+                right="-4px"
+                w="28px"
+                h="28px"
+                bg="green.500"
+                borderRadius="full"
+                border="3px solid white"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Box w="8px" h="8px" bg="white" borderRadius="full" />
+              </Box>
+            </Flex>
+
+            {/* User Info */}
+            <Box flex="1" w="full">
+              <HStack mb={2} flexWrap="wrap" gap={2}>
+                <Heading
+                  as="h1"
+                  fontSize={{ base: "2xl", md: "3xl" }}
+                  fontWeight="black"
+                  color="gray.800"
+                >
+                  {data.person_name}
+                </Heading>
+                <Badge
+                  colorScheme="green"
+                  fontSize="xs"
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  fontWeight="bold"
+                >
+                  ✓ VERIFIED
+                </Badge>
+              </HStack>
+
+              <HStack color="gray.500" fontSize="sm" mb={3} flexWrap="wrap" gap={3}>
+                <HStack gap={1}>
+                  <Icon as={Mail} boxSize={4} />
+                  <Text>{data.person_email}</Text>
+                </HStack>
+                <HStack gap={1}>
+                  <Icon as={Phone} boxSize={4} />
+                  <Text>{data.person_phone}</Text>
+                </HStack>
+              </HStack>
+
+              {/* Profile Completion */}
               <Box>
-                <Text color={labelColor} fontWeight="semibold" fontSize="sm" mb={2}>
-                  {field.label}
-                </Text>
-                <Input
-                  name={field.name}
-                  type={field.type}
-                  value={field.value || ""}
-                  onChange={handleInputChange}
-                  disabled={!isEditing || field.disabled}
-                  bg={inputBg}
-                  border="2px"
-                  borderColor={borderColor}
-                  borderRadius="xl"
-                  height="50px"
-                  px={4}
-                  fontSize="sm"
-                  color={textColor}
-                  _disabled={{
-                    opacity: 0.7,
-                    cursor: "not-allowed",
-                    bg: inputBg,
-                  }}
-                  _hover={{
-                    borderColor: isEditing && !field.disabled ? "blue.400" : borderColor,
-                  }}
-                  _focus={{
-                    borderColor: isEditing && !field.disabled ? "blue.500" : borderColor,
-                    boxShadow: isEditing && !field.disabled ? "0 0 0 3px rgba(66, 153, 225, 0.2)" : "none",
+                <Flex justify="space-between" mb={1}>
+                  <Text fontSize="xs" fontWeight="semibold" color="gray.600">
+                    Profile Completion
+                  </Text>
+                  <Text fontSize="xs" fontWeight="bold" color="green.600">
+                    {completion}%
+                  </Text>
+                </Flex>
+                <Progress.Root
+                  value={completion}
+                  size="sm"
+                  borderRadius="full"
+                  bg="gray.100"
+                  css={{
+                    "& > div": {
+                      bg: completion === 100
+                        ? "linear-gradient(90deg, #138808, #22c55e)"
+                        : "linear-gradient(90deg, #FF9933, #f97316)",
+                    },
                   }}
                 />
               </Box>
-            </GridItem>
-            ))}
-          </Grid>
+            </Box>
 
-          {/* Action Buttons */}
-          <HStack gap={4} mt={8} flexWrap="wrap">
-            {!isEditing ? (
-              <Button
-                onClick={() => setIsEditing(true)}
-                colorScheme="blue"
-                size="lg"
-                px={8}
-                borderRadius="xl"
-                _hover={{
-                  transform: "translateY(-2px)",
-                  boxShadow: "lg",
-                }}
-                transition="all 0.3s"
-              >
-                Edit Profile
-              </Button>
-            ) : (
-              <>
+            {/* Action Button */}
+            <Box flexShrink={0}>
+              {!isEditing ? (
                 <Button
-                  onClick={updateUser}
-                  colorScheme="green"
+                  onClick={() => setIsEditing(true)}
+                  bg="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+                  color="white"
                   size="lg"
-                  px={8}
+                  px={6}
                   borderRadius="xl"
-                  disabled={isSubmitting}
+                  fontWeight="bold"
                   _hover={{
                     transform: "translateY(-2px)",
-                    boxShadow: "lg",
+                    boxShadow: "0 10px 25px rgba(255, 153, 51, 0.3)",
                   }}
                   transition="all 0.3s"
                 >
-                  {isSubmitting ? "Saving..." : "Save Changes"}
+                  Edit Profile
                 </Button>
+              ) : (
+                <HStack gap={2}>
+                  <Button
+                    onClick={updateUser}
+                    colorScheme="green"
+                    size="lg"
+                    px={5}
+                    borderRadius="xl"
+                    fontWeight="bold"
+                    disabled={isSubmitting}
+                    _hover={{ transform: "translateY(-2px)", boxShadow: "lg" }}
+                    transition="all 0.3s"
+                  >
+                    {isSubmitting ? "Saving..." : "Save"}
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setIsEditing(false);
+                      fetchUser();
+                    }}
+                  
+                    variant="outline"
+                    size="lg"
+                    px={5}
+                    borderRadius="xl"
+                    fontWeight="bold"
+                    _hover={{ transform: "translateY(-2px)" }}
+                    transition="all 0.3s"
+                  >
+                    Cancel
+                  </Button>
+                </HStack>
+              )}
+            </Box>
+          </Flex>
 
-                <Button
-                  onClick={() => {
-                    setIsEditing(false);
-                    fetchUser();
-                  }}
-                  colorScheme="gray"
-                  size="lg"
-                  px={8}
-                  borderRadius="xl"
-                  _hover={{
-                    transform: "translateY(-2px)",
-                  }}
-                  transition="all 0.3s"
-                >
-                  Cancel
-                </Button>
-              </>
-            )}
-          </HStack>
-
-          {/* Info Alert */}
+          {/* Edit Mode Alert */}
           {isEditing && (
             <Box
-              borderRadius="xl"
               mt={6}
               bg="blue.50"
-              color="blue.700"
               border="1px"
               borderColor="blue.200"
+              borderRadius="xl"
               p={4}
             >
-              <Text fontSize="sm" fontWeight="bold" mb={1}>
-                Edit Mode
-              </Text>
-              <Text fontSize="xs">
-                You are currently editing your profile. Click "Save Changes" when you're done.
-              </Text>
+              <Flex align="center" gap={3}>
+                <Flex
+                  w="36px"
+                  h="36px"
+                  bg="blue.500"
+                  borderRadius="lg"
+                  alignItems="center"
+                  justifyContent="center"
+                  flexShrink={0}
+                >
+                  <Icon as={Edit3} color="white" boxSize={4} />
+                </Flex>
+                <Box>
+                  <Text fontSize="sm" fontWeight="bold" color="blue.800">
+                    Edit Mode Active
+                  </Text>
+                  <Text fontSize="xs" color="blue.700">
+                    You can now update your information. Click "Save" when done.
+                  </Text>
+                </Box>
+              </Flex>
             </Box>
           )}
+        </Box>
+
+        {/* ============ SECTIONS GRID ============ */}
+        <Grid
+          templateColumns={{ base: "1fr", lg: "1fr 1fr" }}
+          gap={6}
+          mb={6}
+        >
+          {/* Personal Information */}
+          <GridItem colSpan={{ base: 1, lg: 2 }}>
+            <SectionCard
+              title="Personal Information"
+              subtitle="Your basic identity details"
+              icon={UserRound}
+              gradient="linear-gradient(135deg,  #4facfe 0%, #00f2fe 100%)"
+            >
+              <Grid templateColumns={{ base: "1fr", md: "1fr 1fr 1fr" }} gap={5}>
+                {personalInfo.map((field, index) => renderField(field, index))}
+              </Grid>
+            </SectionCard>
+          </GridItem>
+
+          {/* Contact Information */}
+          <SectionCard
+            title="Contact Details"
+            subtitle="How we can reach you"
+            icon={Mail}
+            gradient="linear-gradient(135deg,  #4facfe 0%, #00f2fe 100%)"
+          >
+            <VStack gap={5} align="stretch">
+              {contactInfo.map((field, index) => renderField(field, index))}
+            </VStack>
+          </SectionCard>
+
+          {/* Employment & Loan */}
+          <SectionCard
+            title="Employment & Loan"
+            subtitle="Financial & loan preferences"
+            icon={Briefcase}
+            gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+          >
+            <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={5}>
+              {loanInfo.map((field, index) => renderField(field, index))}
+            </Grid>
+          </SectionCard>
+        </Grid>
+
+        {/* ============ FOOTER INFO ============ */}
+        <Box
+          bg="white"
+          borderRadius="xl"
+          p={5}
+          border="1px"
+          borderColor="gray.100"
+          textAlign="center"
+        >
+          <Flex
+            direction={{ base: "column", md: "row" }}
+            align="center"
+            justify="center"
+            gap={{ base: 2, md: 4 }}
+            color="gray.500"
+            fontSize="sm"
+          >
+            <HStack gap={2}>
+              <Icon as={Shield} boxSize={4} color="green.500" />
+              <Text>Your data is secured with bank-grade encryption</Text>
+            </HStack>
+            <Separator
+              orientation="vertical"
+              h="16px"
+              borderColor="gray.300"
+              display={{ base: "none", md: "block" }}
+            />
+            <Text>🔒 Last updated: {new Date().toLocaleDateString()}</Text>
+          </Flex>
         </Box>
       </Container>
     </Box>

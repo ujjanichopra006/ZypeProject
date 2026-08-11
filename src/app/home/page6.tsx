@@ -38,8 +38,8 @@ export default function Sixth() {
   const headingSize = useBreakpointValue({ base: "lg", md: "xl", lg: "2xl" });
   const cardPadding = useBreakpointValue({ base: 4, md: 5, lg: 6 });
   const imageSize = useBreakpointValue({ base: "160px", md: "200px", lg: "220px" });
-  const iconSize = useBreakpointValue({ base: 16, md: 18, lg: 20 }); // ✅ Chota icon (20 se 16)
-  const iconContainerSize = useBreakpointValue({ base: "40px", md: "44px", lg: "48px" }); // ✅ Chota container (56px se 48px)
+  const iconSize = useBreakpointValue({ base: 14, md: 15, lg: 19 });
+  const iconContainerSize = useBreakpointValue({ base: "40px", md: "44px", lg: "48px" });
 
   const cards = [
     {
@@ -87,7 +87,7 @@ export default function Sixth() {
   ];
 
   return (
-    <Box bg="#111525" py={{ base: 0, md: 0, lg: 0 }} overflow="hidden">
+    <Box bg="blue.50" py={{ base: 0, md: 0, lg: 0 }} overflow="hidden">
       <Container maxW="1700px" px={{ base: 3, md: 5, lg: 8 }}>
         
         {/* ============================================ */}
@@ -99,20 +99,16 @@ export default function Sixth() {
           mb={{ base: 6, md: 8, lg: 10 }}
           data-aos="fade-down"
         >
-          <Box flex="1" height="1px" bg="gray.600" />
+          <Box flex="1" height="1px" bg="blue.200" />
 
-          <Heading
-            as="h2"
-            fontSize={headingSize}
-            fontWeight="medium"
-            color="yellow.300"
-            px={{ base: 3, md: 4, lg: 6 }}
+           <Text color="blue.900" px={{ base: 3, md: 4, lg: 6 }}
             whiteSpace="nowrap"
-          >
-            ॐ KeshvaCredit ॐ
-          </Heading>
+            fontWeight="bold"
+            fontSize={{ base: "sm", md: "md" }}>
+             ॐ KeshvaCredit ॐ
+           </Text>
 
-          <Box flex="1" height="1px" bg="gray.600" />
+          <Box flex="1" height="1px" bg="blue.200" />
         </Box>
 
         {/* ============================================ */}
@@ -159,7 +155,7 @@ export default function Sixth() {
                 transform="translateX(-50%)"
                 width="80%"
                 height="30px"
-                bg="rgba(17, 165, 168, 0.2)"
+                bg="rgba(59, 130, 246, 0.2)"
                 filter="blur(25px)"
                 borderRadius="full"
               />
@@ -177,26 +173,27 @@ export default function Sixth() {
               {cards.map((card, index) => (
                 <Box
                   key={index}
-                  bg="#11a5a8"
+                  bg="white"
                   borderRadius="2xl"
                   border="1px solid"
-                  borderColor="rgba(255,255,255,0.1)"
+                  borderColor="blue.100"
                   p={cardPadding}
                   minHeight={{ base: "170px", md: "180px", lg: "190px" }}
                   display="flex"
                   flexDirection="column"
                   alignItems="center"
                   textAlign="center"
-                  boxShadow="0 10px 40px rgba(17, 165, 168, 0.2)"
+                  boxShadow="0 10px 40px rgba(59, 130, 246, 0.08)"
                   transition="all 0.4s ease"
                   _hover={{
                     transform: "translateY(-6px)",
-                    boxShadow: "0 20px 60px rgba(17, 165, 168, 0.35)",
+                    boxShadow: "0 20px 60px rgba(59, 130, 246, 0.15)",
+                    borderColor: "blue.300",
                   }}
                   data-aos="zoom-in-up"
                   data-aos-delay={index * 100}
                 >
-                  {/* ✅ Icon Container - Chota */}
+                  {/* Icon Container */}
                   <Box
                     width={iconContainerSize}
                     height={iconContainerSize}
@@ -205,29 +202,28 @@ export default function Sixth() {
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
-                    boxShadow="0 8px 25px rgba(0,0,0,0.2)"
+                    boxShadow="0 8px 25px rgba(0,0,0,0.12)"
                     flexShrink={0}
                   >
-                    {/* ✅ Icon - Chota */}
-                    <Icon as={card.icon} boxSize={iconSize} color="white" strokeWidth={2} />
+                    <Icon as={card.icon} boxSize={iconSize} color="black" strokeWidth={2} />
                   </Box>
 
-                  {/* Title - Chota */}
+                  {/* Title */}
                   <Heading
                     as="h3"
                     fontSize={{ base: "sm", md: "md", lg: "lg" }}
                     fontWeight="bold"
-                    color="black"
+                    color="blue.900"
                     mt={3}
                     mb={1.5}
                   >
                     {card.title}
                   </Heading>
 
-                  {/* Description - Chota */}
+                  {/* Description */}
                   <Text
                     fontSize={{ base: "2xs", sm: "2xs", md: "xs" }}
-                    color="gray.800"
+                    color="blue.700"
                     lineHeight="1.5"
                   >
                     {card.description}

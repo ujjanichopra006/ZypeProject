@@ -96,8 +96,8 @@ export default function PhoneBrainBlog() {
   const borderColor = useColorModeValue("gray.200", "rgba(99, 102, 241, 0.1)");
 
   return (
-    <Box minH="100vh" bg={"gray.900"} py={{ base: 5, md: 10 }} px={{ base: 4, md: 6 }}>
-      <Container maxW="6xl" mx="auto">
+    <Box minH="100vh" bg={"blue.50"} py={{ base: 5, md: 30 }} px={{ base: 4, md: 6 }} mt={20} >
+      <Container maxW="6xl" mx="auto" mt="10">
         <Box
           overflow="hidden"
           borderRadius="32px"
@@ -266,11 +266,11 @@ export default function PhoneBrainBlog() {
             bgGradient="linear(to-r, rgba(99, 102, 241, 0.05), rgba(30, 41, 59, 0.8), rgba(6, 182, 212, 0.05))"
             p={8}
           >
-            <Heading as="h2" size="xl" color="white" mb={4}>
+            <Heading as="h2" size="xl" color="black" mb={4}>
               Why Digital Awareness Matters
             </Heading>
 
-            <Text  color="gray.800">
+            <Text color="gray.800">
               Smartphones have transformed the way we learn, work, and
               communicate. While these devices offer incredible convenience,
               constant notifications and endless scrolling can influence our
@@ -289,8 +289,6 @@ export default function PhoneBrainBlog() {
                   data-aos-delay={index * 100}
                   borderRadius="3xl"
                   border="1px solid"
-                  borderColor="gray.500"
-                  bg="rgba(30, 41, 59, 0.4)"
                   p={6}
                   transition="all 0.3s"
                   _hover={{
@@ -350,7 +348,7 @@ export default function PhoneBrainBlog() {
                 💡 The Goal Is Balance, Not Elimination
               </Heading>
 
-              <Text  color="gray.800">
+              <Text color="gray.800">
                 Smartphones and mobile apps are valuable tools that help us stay
                 informed and connected. The objective is not to avoid technology
                 completely, but to use it intentionally. Creating healthy
@@ -379,8 +377,6 @@ export default function PhoneBrainBlog() {
                     data-aos-delay={index * 100}
                     borderRadius="2xl"
                     border="1px solid"
-                    borderColor="rgba(255,255,255,0.1)"
-                    bg="rgba(30, 41, 59, 0.5)"
                     p={5}
                     transition="all 0.3s"
                     _hover={{
@@ -428,15 +424,13 @@ export default function PhoneBrainBlog() {
 
             {/* ================= DISCLAIMER ================= */}
             <Box
-              mt={10}
+              mt={4}
               borderRadius="2xl"
               border="1px solid"
-              borderColor="gray.700"
-              bg="rgba(30, 41, 59, 0.5)"
               p={5}
             >
-              <Text fontSize="sm" color="gray.800">
-                <Box as="span" fontWeight="semibold" color="indigo.800">
+              <Text fontSize="sm"color="black">
+                <Box as="span" fontWeight="semibold">
                   Disclaimer:
                 </Box>{" "}
                 This article is intended for educational and informational

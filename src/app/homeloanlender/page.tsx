@@ -25,7 +25,7 @@ const homeloanlender = [
 
 export default function BusinessLoanLender() {
   return (
-    <Box minH="100vh" bg="#0b1220" px={{ base: 4, md: 6 }} py={{ base: 10, md: 12 }}>
+    <Box minH="100vh" bg="blue.50" px={{ base: 4, md: 6 }} py={{ base: 10, md: 12 }} mt={10} >
       <Container maxW="6xl">
         {/* Header Section */}
         <Box
@@ -38,14 +38,14 @@ export default function BusinessLoanLender() {
             as="h1"
             fontSize={{ base: "3xl", md: "4xl" }}
             fontWeight="bold"
-            color="white"
+            color="black"
           >
             Home Loan Lenders
           </Heading>
           <Text
             mt={4}
             fontSize={{ base: "sm", md: "md" }}
-            color="whiteAlpha.900"
+            color="blackAlpha.800"
           >
             Choose the best Home Loan lender for your needs.
           </Text>

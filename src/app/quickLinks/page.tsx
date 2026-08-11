@@ -167,23 +167,18 @@ function QuickLinksContent() {
 
   const filteredLoans = loans.filter((loan) => loan.category === activeTab);
 
-  const bgColor = "#0b1220";
-  const cardBg = "#0f172a";
-  const borderColor = "whiteAlpha.200";
-  const textColor = "white";
-  const textColorSecondary = "whiteAlpha.800";
-
   return (
-    <Box minH="100vh" bg={bgColor} px={{ base: 4, md: 6 }} py={{ base: 8, md: 10 }}>
+    <Box minH="100vh" bg="blue.50" px={{ base: 4, md: 6 }} py={{ base: 8, md: 10 }} mt={20}>
       <Container maxW="6xl">
         {/* Header Section */}
         <Box
           borderRadius="2xl"
-          bgGradient="linear(to-r, green.500, cyan.500, blue.600)"
+          bgGradient="linear(to-r, blue.600, purple.600, pink.500)"
           p={{ base: 8, md: 10 }}
           textAlign="center"
           position="relative"
           overflow="hidden"
+          boxShadow="0 20px 60px rgba(59, 130, 246, 0.2)"
         >
           {/* Decorative Shapes */}
           <Box
@@ -208,18 +203,18 @@ function QuickLinksContent() {
           <Box position="relative" zIndex={1}>
             <Heading
               as="h1"
-              fontSize={{ base: "3xl", md: "4xl" }}
+              fontSize={{ base: "3xl", md: "4xl",}}
               fontWeight="bold"
-              color="white"
+              color="blue.800"
             >
               Quick Links
             </Heading>
             <Text
               mt={4}
               fontSize={{ base: "sm", md: "md" }}
-              color="whiteAlpha.900"
               maxW="2xl"
               mx="auto"
+              color="blue.600"
             >
               Financial Freedom Starts with the Right Loan. We Help You Find It.
             </Text>
@@ -244,13 +239,15 @@ function QuickLinksContent() {
               fontSize="sm"
               fontWeight="medium"
               bg={activeTab === tab ? "blue.600" : "white"}
-              color={activeTab === tab ? "white" : "black"}
+              color={activeTab === tab ? "white" : "blue.700"}
               border="2px"
-              borderColor={activeTab === tab ? "blue.600" : "gray.300"}
+              borderColor={activeTab === tab ? "blue.600" : "blue.200"}
+              boxShadow={activeTab === tab ? "0 4px 12px rgba(59, 130, 246, 0.3)" : "sm"}
               _hover={{
-                bg: activeTab === tab ? "blue.700" : "gray.100",
+                bg: activeTab === tab ? "blue.700" : "blue.50",
                 transform: "translateY(-2px)",
-                boxShadow: "lg",
+                boxShadow: "0 8px 20px rgba(59, 130, 246, 0.2)",
+                borderColor: activeTab === tab ? "blue.700" : "blue.400",
               }}
               transition="all 0.3s"
               size="md"
@@ -269,21 +266,28 @@ function QuickLinksContent() {
                 key={loan.name}
                 borderRadius="2xl"
                 border="1px"
-                borderColor={borderColor}
-                bg={cardBg}
+                borderColor="blue.100"
+                bg="white"
                 p={6}
-                boxShadow="lg"
+                boxShadow="0 10px 30px rgba(30, 64, 175, 0.06)"
                 _hover={{
-                  boxShadow: "0 0 30px rgba(59, 130, 246, 0.15)",
+                  boxShadow: "0 20px 50px rgba(59, 130, 246, 0.15)",
                   transform: "translateY(-4px)",
                   transition: "all 0.3s ease",
-                  borderColor: "blue.500",
+                  borderColor: "blue.300",
                 }}
                 transition="all 0.3s ease"
               >
                 <HStack gap={4} alignItems="center">
                   {/* Logo */}
-                  <Box flexShrink={0}>
+                  <Box 
+                    flexShrink={0}
+                    bg="blue.50"
+                    p={2}
+                    borderRadius="xl"
+                    border="1px solid"
+                    borderColor="blue.100"
+                  >
                     <Image
                       src={loan.logo}
                       alt={loan.name}
@@ -299,23 +303,23 @@ function QuickLinksContent() {
 
                   {/* Loan Details */}
                   <Box flex="1">
-                    <Heading as="h2" fontSize="xl" fontWeight="bold" color={textColor} mb={2}>
+                    <Heading as="h2" fontSize="xl" fontWeight="bold" color="blue.900" mb={2}>
                       {loan.name}
                     </Heading>
-                    <Text fontSize="sm" color={textColorSecondary}>
+                    <Text fontSize="sm" color="blue.700">
                       • Interest Rate: {loan.rate}
                     </Text>
-                    <Text fontSize="sm" color={textColorSecondary} mt={1}>
+                    <Text fontSize="sm" color="blue.700" mt={1}>
                       • Max Loan: {loan.max}
                     </Text>
                   </Box>
                 </HStack>
 
                 {/* Feature Badge */}
-                <Box mt={4} bg="whiteAlpha.100" p={3} borderRadius="lg">
+                <Box mt={4} bg="blue.50" p={3} borderRadius="lg" border="1px solid" borderColor="blue.100">
                   <HStack gap={2}>
-                    <Icon as={FaBolt} color="yellow.400" boxSize={4} />
-                    <Text fontSize="sm" color={textColorSecondary}>
+                    <Icon as={FaBolt} color="orange.500" boxSize={4} />
+                    <Text fontSize="sm" color="blue.800" fontWeight="medium">
                       Fast approval with minimal documents
                     </Text>
                   </HStack>
@@ -336,6 +340,7 @@ function QuickLinksContent() {
                     _hover={{
                       bg: "blue.700",
                       transform: "scale(1.02)",
+                      boxShadow: "0 8px 25px rgba(59, 130, 246, 0.4)",
                     }}
                     _active={{
                       bg: "blue.800",
@@ -355,12 +360,20 @@ function QuickLinksContent() {
             ))
           ) : (
             <GridItem colSpan={{ base: 1, md: 2 }}>
-              <Box textAlign="center" py={10}>
+              <Box 
+                textAlign="center" 
+                py={10}
+                bg="white"
+                borderRadius="2xl"
+                border="1px solid"
+                borderColor="blue.100"
+                boxShadow="0 10px 30px rgba(30, 64, 175, 0.06)"
+              >
                 <VStack gap={3}>
-                  <Text fontSize="lg" color="whiteAlpha.700">
+                  <Text fontSize="lg" color="blue.700" fontWeight="medium">
                     🚧 No lenders available for this category yet
                   </Text>
-                  <Text fontSize="sm" color="whiteAlpha.500">
+                  <Text fontSize="sm" color="blue.600">
                     Please check back later for more options.
                   </Text>
                 </VStack>
@@ -372,9 +385,3 @@ function QuickLinksContent() {
     </Box>
   );
 }
-
-// export default function QuickLinks() {
-//   return (
-//     <Suspense
-//       fallback={
-//         <Center minH="100vh">

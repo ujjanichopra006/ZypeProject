@@ -37,6 +37,7 @@ function PersonalLoanCalculatorContent() {
       py={{ base: 8, md: 16 }}
       px={{ base: 4, md: 6 }}
       bgGradient="linear(to-br, #071739, #0B1F4D, #102A63)"
+      mt={20}
     >
       <Container maxW="5xl" mx="auto" p={0}>
         <Box

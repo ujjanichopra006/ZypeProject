@@ -67,7 +67,7 @@ export default function DeleteAccount() {
   };
 
   return (
-    <Container maxW="container.lg" py={8} bg="blue.200">
+    <Container maxW="container.lg" py={20} mt={20}bg="blue.200">
       {showInfoModal && (
         <Box as="section" display="flex" justifyContent="center" minH="60vh">
           <Box

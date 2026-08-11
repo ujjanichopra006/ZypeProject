@@ -245,7 +245,7 @@ export default function HomeLoan() {
       )}
 
       {isVerified && (
-        <Container maxW="5xl" px={{ base: 0, md: 4 }}>
+        <Container maxW="5xl" px={{ base: 0, md: 4 }} mt={38} py={10}>
           {/* Header Section */}
           <VStack gap={6} mb={10} textAlign="center">
             <HStack gap={3} flexWrap="wrap" justifyContent="center">

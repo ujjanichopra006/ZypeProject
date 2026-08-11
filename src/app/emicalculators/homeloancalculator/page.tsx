@@ -57,7 +57,7 @@ export default function HomeLoanCalculator() {
       px={{ base: 4, md: 6 }}
       bgGradient="linear(to-br, #071739, #0B1F4D, #102A63)"
     >
-      <Container maxW="4xl" mx="auto" p={0}>
+      <Container maxW="4xl" mx="auto" p={0} mt={20}>
         <Box
           bg="white"
           borderRadius="32px"

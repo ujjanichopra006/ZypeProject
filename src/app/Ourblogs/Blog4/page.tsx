@@ -73,31 +73,20 @@ export default function CyberSafetyBlog() {
     });
   }, []);
 
-  // Color values
-  const bgColor = "#08111f";
-  const cardBg = "#101827";
-  const textColor = "gray.300";
-  const headingColor = "white";
-  const borderColor = "cyan.500/10";
-  const accentColor = "cyan.400";
-  const mutedColor = "gray.400";
-  const cardHoverBg = "cyan.500/10";
-
   return (
-    <Box minH="100vh" bg={bgColor} py={10} px={4} overflow="hidden">
+    <Box minH="100vh" bg="blue.50" py={20} mt={30} px={4} overflow="hidden">
       <Container maxW="6xl">
         {/* Main Card */}
         <Box
           rounded="3xl"
           border="1px"
-          borderColor={borderColor}
-          bg={cardBg}
-          backdropFilter="blur(12px)"
+          borderColor="blue.100"
+          bg="white"
           overflow="hidden"
-          boxShadow="2xl"
+          boxShadow="0 25px 50px rgba(30, 64, 175, 0.1)"
         >
           {/* Hero Section */}
-          <Box position="relative" px={{ base: 6, md: 10 }} py={12} borderBottom="1px" borderColor="white/10">
+          <Box position="relative" px={{ base: 6, md: 10 }} py={12} borderBottom="1px" borderColor="blue.100">
             {/* Background Glow Effects */}
             <Box
               position="absolute"
@@ -106,8 +95,9 @@ export default function CyberSafetyBlog() {
               w="72"
               h="72"
               rounded="full"
-              bg="cyan.500/10"
+              bg="cyan.100"
               filter="blur(48px)"
+              opacity={0.6}
             />
             <Box
               position="absolute"
@@ -116,8 +106,9 @@ export default function CyberSafetyBlog() {
               w="72"
               h="72"
               rounded="full"
-              bg="blue.500/10"
+              bg="blue.100"
               filter="blur(48px)"
+              opacity={0.6}
             />
 
             <Grid
@@ -132,16 +123,15 @@ export default function CyberSafetyBlog() {
                 <Badge
                   rounded="full"
                   border="1px"
-                  borderColor="cyan.400/20"
-                  bg="cyan.400/10"
+                  borderColor="cyan.200"
+                  bg="cyan.50"
                   px={4}
                   py={2}
                   fontSize="xs"
                   fontWeight="semibold"
                   textTransform="uppercase"
                   letterSpacing="0.25em"
-                  color="cyan.300"
-                  animation="pulse 2s infinite"
+                  color="cyan.700"
                 >
                   Cyber Security Guide
                 </Badge>
@@ -149,18 +139,19 @@ export default function CyberSafetyBlog() {
                 <Heading
                   as="h1"
                   mt={6}
-                  fontSize={{ base: "2xl", md: "4xl" }}
+                  mb={4}
+                  fontSize={{ base: "2xl", md: "3xl" }}
                   fontWeight="black"
-                  color={headingColor}
+                  color="blue.900"
                 >
                   Safety Awareness
                   <br />
-                  <Text as="span" color={accentColor}>
+                  <Text as="span" color="cyan.600">
                     about Cyber Crime
                   </Text>
                 </Heading>
 
-                <Text mt={6} color={mutedColor} maxW="xl">
+                <Text mt={6} color="blue.700" maxW="xl">
                   Learn how to stay safe from phishing, hacking, identity theft,
                   fake websites, online shopping scams, and digital payment
                   fraud with practical cybersecurity awareness.
@@ -169,37 +160,40 @@ export default function CyberSafetyBlog() {
                 <HStack mt={8} gap={3} flexWrap="wrap">
                   <Badge
                     rounded="xl"
-                    bg="white/5"
+                    bg="blue.50"
                     border="1px"
-                    borderColor="white/10"
+                    borderColor="blue.200"
                     px={4}
                     py={2}
                     fontSize="sm"
                     fontWeight="normal"
+                    color="blue.800"
                   >
                     📅 October 25, 2025
                   </Badge>
                   <Badge
                     rounded="xl"
-                    bg="white/5"
+                    bg="blue.50"
                     border="1px"
-                    borderColor="white/10"
+                    borderColor="blue.200"
                     px={4}
                     py={2}
                     fontSize="sm"
                     fontWeight="normal"
+                    color="blue.800"
                   >
                     🛡️ Cyber Awareness
                   </Badge>
                   <Badge
                     rounded="xl"
-                    bg="white/5"
+                    bg="blue.50"
                     border="1px"
-                    borderColor="white/10"
+                    borderColor="blue.200"
                     px={4}
                     py={2}
                     fontSize="sm"
                     fontWeight="normal"
+                    color="blue.800"
                   >
                     ⏱️ 5 Min Read
                   </Badge>
@@ -227,15 +221,17 @@ export default function CyberSafetyBlog() {
             mt={10}
             rounded="3xl"
             borderLeft="4px"
-            borderLeftColor="cyan.400"
-            bg="cyan.500/5"
+            borderLeftColor="cyan.500"
+            bg="cyan.50"
             p={6}
+            border="1px solid"
+            borderColor="cyan.100"
           >
             <Text
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
               fontStyle="italic"
-              color={headingColor}
+              color="blue.900"
             >
               "Cyber security is not just about technology — it is about making
               safe choices every time you go online."
@@ -244,7 +240,7 @@ export default function CyberSafetyBlog() {
 
           {/* Timeline Topics */}
           <Box px={{ base: 6, md: 10 }} py={12}>
-            <Box position="relative" borderLeft="1px" borderColor="slate.700" ml={3} spaceY={8}>
+            <Box position="relative" borderLeft="2px" borderColor="blue.200" ml={3}>
               {topics.map((topic, index) => (
                 <Box
                   key={index}
@@ -257,45 +253,47 @@ export default function CyberSafetyBlog() {
                   {/* Timeline Dot */}
                   <Box
                     position="absolute"
-                    left="-11px"
+                    left="-12px"
                     top={2}
                     w={5}
                     h={5}
                     rounded="full"
-                    bg="cyan.400"
+                    bg="cyan.500"
                     border="4px"
-                    borderColor="#101827"
-                    animation="pulse 2s infinite"
+                    borderColor="white"
+                    boxShadow="0 0 0 2px rgba(6, 182, 212, 0.3)"
                   />
 
                   {/* Topic Card */}
                   <Box
                     rounded="2xl"
                     border="1px"
-                    borderColor="white/5"
-                    bg="slate.800/40"
+                    borderColor="blue.100"
+                    bg="blue.50"
                     p={6}
                     transition="all 0.3s"
                     _hover={{
                       transform: "translateY(-4px)",
-                      borderColor: "cyan.400/40",
-                      boxShadow: "0 0 30px rgba(34,211,238,0.15)",
+                      borderColor: "cyan.300",
+                      boxShadow: "0 15px 40px rgba(6, 182, 212, 0.1)",
+                      bg: "white",
                     }}
                   >
                     <Text
                       fontSize="xs"
                       textTransform="uppercase"
                       letterSpacing="0.2em"
-                      color={accentColor}
+                      color="cyan.600"
+                      fontWeight="semibold"
                     >
                       Topic {String(index + 1).padStart(2, "0")}
                     </Text>
 
-                    <Heading as="h2" mt={2} fontSize="2xl" fontWeight="bold" color={headingColor}>
+                    <Heading as="h2" mt={2} fontSize="2xl" fontWeight="bold" color="blue.900">
                       {topic.title}
                     </Heading>
 
-                    <Text mt={4} color={mutedColor}>
+                    <Text mt={4} color="blue.700">
                       {topic.content}
                     </Text>
                   </Box>
@@ -309,15 +307,15 @@ export default function CyberSafetyBlog() {
               mt={12}
               rounded="3xl"
               border="1px"
-              borderColor="red.500/20"
-              bg="red.500/10"
+              borderColor="red.200"
+              bg="red.50"
               p={6}
             >
-              <Heading as="h3" fontSize="2xl" fontWeight="bold" color="red.400" mb={3}>
+              <Heading as="h3" fontSize="2xl" fontWeight="bold" color="red.700" mb={3}>
                 ⚠️ Important Warning
               </Heading>
 
-              <Text color={textColor}>
+              <Text color="red.900" fontWeight="medium">
                 Never share your OTP, UPI PIN, CVV, ATM PIN, passwords, or
                 banking details with anyone. Genuine banks and government
                 agencies never ask for confidential information through phone
@@ -332,7 +330,7 @@ export default function CyberSafetyBlog() {
                 data-aos="fade-up"
                 fontSize="3xl"
                 fontWeight="bold"
-                color={headingColor}
+                color="blue.900"
                 mb={6}
               >
                 ✔ Quick Safety Checklist
@@ -353,13 +351,17 @@ export default function CyberSafetyBlog() {
                       data-aos-delay={i * 100}
                       rounded="2xl"
                       border="1px"
-                      borderColor="white/5"
-                      bg="slate.800/40"
+                      borderColor="blue.100"
+                      bg="white"
                       p={5}
+                      color="blue.800"
+                      fontWeight="medium"
                       transition="all 0.3s"
                       _hover={{
                         transform: "scale(1.03)",
-                        bg: cardHoverBg,
+                        bg: "cyan.50",
+                        borderColor: "cyan.200",
+                        boxShadow: "0 10px 30px rgba(6, 182, 212, 0.08)",
                       }}
                     >
                       {item}
@@ -374,15 +376,17 @@ export default function CyberSafetyBlog() {
               data-aos="fade-up"
               mt={14}
               rounded="28px"
-              bgGradient="linear(to-r, cyan.500/10, slate.800, cyan.500/10)"
+              bgGradient="linear(to-r, cyan.50, blue.50, cyan.50)"
+              border="1px solid"
+              borderColor="cyan.200"
               p={10}
               textAlign="center"
             >
-              <Heading as="h2" fontSize={{ base: "3xl", md: "4xl" }} fontWeight="black" color={headingColor}>
+              <Heading as="h2" fontSize={{ base: "3xl", md: "4xl" }} fontWeight="black" color="blue.900">
                 Think Before You Click.
               </Heading>
 
-              <Text maxW="3xl" mx="auto" mt={5} color={textColor}>
+              <Text maxW="3xl" mx="auto" mt={5} color="blue.800" fontWeight="medium">
                 A few seconds of verification can save you from identity theft,
                 financial loss, and online fraud. Awareness and caution are your
                 strongest digital defenses.
@@ -390,9 +394,9 @@ export default function CyberSafetyBlog() {
             </Box>
 
             {/* Disclaimer */}
-            <Box mt={10} borderTop="1px" borderColor="slate.700" borderStyle="dashed" pt={6}>
-              <Text textAlign="center" fontSize="sm" color="gray.500">
-                <Text as="span" color="cyan.400" fontWeight="semibold">
+            <Box mt={10} borderTop="1px" borderColor="blue.200" borderStyle="dashed" pt={6}>
+              <Text textAlign="center" fontSize="sm" color="blue.600">
+                <Text as="span" color="cyan.700" fontWeight="semibold">
                   Disclaimer:
                 </Text>{" "}
                 This article is intended for educational and awareness purposes
@@ -404,14 +408,6 @@ export default function CyberSafetyBlog() {
           </Box>
         </Box>
       </Container>
-
-      {/* Add custom pulse animation */}
-      <style jsx global>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-      `}</style>
     </Box>
   );
 }

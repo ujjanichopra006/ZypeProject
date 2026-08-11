@@ -91,14 +91,14 @@ export default function PersonalLoanGuide() {
   ];
 
   return (
-    <Box minH="100vh" bg="gray.900" py={10} px={4}>
+    <Box minH="100vh" bg="blue.50" py={20} mt={20} px={4}>
       <Container maxW="container.xl">
         <Box
           borderRadius="2xl"
           borderWidth="1px"
-          borderColor="green.700"
-          bg="gray.800"
-          boxShadow="2xl"
+          borderColor="blue.200"
+          bg="white"
+          boxShadow="0 25px 50px rgba(30, 64, 175, 0.1)"
           overflow="hidden"
           position="relative"
           _before={{
@@ -109,8 +109,8 @@ export default function PersonalLoanGuide() {
             width: "288px",
             height: "288px",
             borderRadius: "full",
-            bg: "green.900",
-            opacity: 0.3,
+            bg: "green.100",
+            opacity: 0.6,
             filter: "blur(80px)",
             zIndex: 0,
           }}
@@ -122,8 +122,8 @@ export default function PersonalLoanGuide() {
             width: "288px",
             height: "288px",
             borderRadius: "full",
-            bg: "blue.900",
-            opacity: 0.3,
+            bg: "blue.100",
+            opacity: 0.6,
             filter: "blur(80px)",
             zIndex: 0,
           }}
@@ -143,8 +143,10 @@ export default function PersonalLoanGuide() {
                   textTransform="uppercase"
                   letterSpacing="0.25em"
                   fontWeight="semibold"
-                  bg="green.900"
-                  color="green.300"
+                  bg="green.100"
+                  color="green.700"
+                  border="1px solid"
+                  borderColor="green.200"
                 >
                   💰 Finance & Banking Guide
                 </Badge>
@@ -154,24 +156,24 @@ export default function PersonalLoanGuide() {
                   mt={6}
                   fontSize={{ base: "2xl", md: "3xl" }}
                   fontWeight="black"
-                  color="white"
+                  color="blue.900"
                 >
                   Best Personal
                   <br />
-                  <Text as="span" color="green.400">
+                  <Text as="span" color="green.600">
                     Loan Banks
                   </Text>
                   <br />
                   <Text 
                     as="span" 
                     fontSize={{ base: "2xl", md: "2xl" }} 
-                    color="gray.300"
+                    color="blue.700"
                   >
                     2024 Guide
                   </Text>
                 </Heading>
 
-                <Text mt={6} maxW="xl" fontSize="lg" color="gray.300">
+                <Text mt={6} maxW="xl" fontSize="lg" color="blue.800">
                   A practical guide to choosing the right personal loan bank in
                   2024. Learn how to compare interest rates, eligibility,
                   processing fees, loan tenure, and repayment options before
@@ -183,9 +185,11 @@ export default function PersonalLoanGuide() {
                     size="lg"
                     borderRadius="xl"
                     variant="subtle"
-                    colorScheme="gray"
-                    bg="whiteAlpha.100"
-                    color="white"
+                    colorScheme="blue"
+                    bg="blue.100"
+                    color="blue.800"
+                    border="1px solid"
+                    borderColor="blue.200"
                   >
                     <TagLabel>📅 January 15, 2024</TagLabel>
                   </Tag.Root>
@@ -194,9 +198,11 @@ export default function PersonalLoanGuide() {
                     size="lg"
                     borderRadius="xl"
                     variant="subtle"
-                    colorScheme="gray"
-                    bg="whiteAlpha.100"
-                    color="white"
+                    colorScheme="blue"
+                    bg="blue.100"
+                    color="blue.800"
+                    border="1px solid"
+                    borderColor="blue.200"
                   >
                     <TagLabel>💳 Personal Loans</TagLabel>
                   </Tag.Root>
@@ -205,9 +211,11 @@ export default function PersonalLoanGuide() {
                     size="lg"
                     borderRadius="xl"
                     variant="subtle"
-                    colorScheme="gray"
-                    bg="whiteAlpha.100"
-                    color="white"
+                    colorScheme="blue"
+                    bg="blue.100"
+                    color="blue.800"
+                    border="1px solid"
+                    borderColor="blue.200"
                   >
                     <TagLabel>📚 Finance & Banking</TagLabel>
                   </Tag.Root>
@@ -225,13 +233,15 @@ export default function PersonalLoanGuide() {
                   w={{ base: "200px", md: "280px" }}
                   h={{ base: "200px", md: "280px" }}
                   borderRadius="2xl"
-                  bgGradient="linear(to-br, green.900, blue.900)"
+                  bgGradient="linear(to-br, green.50, blue.50)"
                   borderWidth="1px"
-                  borderColor="green.700"
+                  borderColor="blue.200"
                   p={5}
                   transition="all 0.5s"
+                  boxShadow="0 15px 40px rgba(30, 64, 175, 0.08)"
                   _hover={{
                     transform: "scale(1.05)",
+                    boxShadow: "0 20px 50px rgba(30, 64, 175, 0.12)",
                   }}
                 >
                   <Lottie animationData={financeAnimation} loop={true} />
@@ -246,16 +256,16 @@ export default function PersonalLoanGuide() {
             mx={{ base: 6, md: 10 }}
             borderRadius="2xl"
             borderWidth="1px"
-            borderColor="green.700"
-            bgGradient="linear(to-r, green.900, blue.900)"
+            borderColor="green.200"
+            bgGradient="linear(to-r, green.50, blue.50)"
             p={8}
             position="relative"
             zIndex={1}
           >
-            <Heading as="h2" size="xl" color="white" mb={4}>
+            <Heading as="h2" size="xl" color="blue.900" mb={4}>
               Why Choosing the Right Personal Loan Matters
             </Heading>
-            <Text fontSize="lg" color="gray.300">
+            <Text fontSize="lg" color="blue.800">
               Personal loans can help you manage important life events and
               unexpected expenses without liquidating your savings. However,
               selecting the wrong lender may result in higher costs, hidden
@@ -273,25 +283,26 @@ export default function PersonalLoanGuide() {
                   key={index}
                   data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
                   data-aos-delay={index * 100}
-                  bg="gray.700"
+                  bg="blue.50"
                   borderRadius="2xl"
                   borderWidth="1px"
-                  borderColor="gray.600"
+                  borderColor="blue.100"
                   transition="all 0.3s"
                   _hover={{
                     transform: "translateY(-4px)",
-                    borderColor: "green.500",
-                    boxShadow: "0 0 30px rgba(52, 211, 153, 0.15)",
+                    borderColor: "green.400",
+                    boxShadow: "0 15px 40px rgba(52, 211, 153, 0.12)",
+                    bg: "white",
                   }}
                 >
                   <Card.Body>
                     <Flex gap={5}>
                       <Circle
                         size="48px"
-                        bg="green.900"
+                        bg="green.100"
                         borderWidth="1px"
-                        borderColor="green.700"
-                        color="green.400"
+                        borderColor="green.200"
+                        color="green.700"
                         fontWeight="bold"
                         flexShrink={0}
                       >
@@ -302,13 +313,13 @@ export default function PersonalLoanGuide() {
                         <Heading
                           as="h2"
                           size="lg"
-                          color="white"
+                          color="blue.900"
                           transition="color 0.3s"
-                          _hover={{ color: "green.400" }}
+                          _hover={{ color: "green.600" }}
                         >
                           {topic.title}
                         </Heading>
-                        <Text mt={4} fontSize="lg" color="gray.300">
+                        <Text mt={4} fontSize="lg" color="blue.800">
                           {topic.content}
                         </Text>
                       </Box>
@@ -324,11 +335,11 @@ export default function PersonalLoanGuide() {
               mt={14}
               borderRadius="2xl"
               borderWidth="1px"
-              borderColor="green.700"
-              bg="green.900"
+              borderColor="green.200"
+              bg="green.50"
               p={8}
             >
-              <Heading as="h2" size="xl" color="white" mb={6}>
+              <Heading as="h2" size="xl" color="blue.900" mb={6}>
                 ✔ Quick Tips Before Applying
               </Heading>
 
@@ -338,17 +349,18 @@ export default function PersonalLoanGuide() {
                     key={index}
                     borderRadius="2xl"
                     borderWidth="1px"
-                    borderColor="whiteAlpha.200"
-                    bg="gray.700"
+                    borderColor="green.200"
+                    bg="white"
                     p={4}
                     transition="all 0.3s"
                     _hover={{
-                      bg: "green.800",
+                      bg: "green.100",
                       transform: "scale(1.02)",
+                      borderColor: "green.300",
                     }}
                   >
-                    <Text color="gray.200">
-                      <Text as="span" color="green.400" mr={2}>
+                    <Text color="blue.800" fontWeight="medium">
+                      <Text as="span" color="green.600" mr={2}>
                         ✔
                       </Text>
                       {tip}
@@ -363,15 +375,15 @@ export default function PersonalLoanGuide() {
               data-aos="fade-up"
               mt={14}
               borderRadius="2xl"
-              bgGradient="linear(to-r, green.900, gray.700, blue.900)"
+              bgGradient="linear(to-r, green.50, blue.50, green.50)"
               borderWidth="1px"
-              borderColor="whiteAlpha.200"
+              borderColor="blue.200"
               p={8}
             >
-              <Heading as="h3" size="lg" color="white" mb={4}>
+              <Heading as="h3" size="lg" color="blue.900" mb={4}>
                 💡 Smart Borrowing Advice
               </Heading>
-              <Text fontSize="lg" color="gray.300">
+              <Text fontSize="lg" color="blue.800">
                 The lowest interest rate is not always the only factor to
                 consider. Evaluate the complete loan package, including fees,
                 repayment flexibility, customer service, and your own repayment
@@ -386,14 +398,14 @@ export default function PersonalLoanGuide() {
               mt={14}
               pt={10}
               borderTopWidth="1px"
-              borderColor="whiteAlpha.200"
+              borderColor="blue.200"
               textAlign="center"
             >
-              <Heading as="h2" size="2xl" fontWeight="black" color="white">
+              <Heading as="h2" size="2xl" fontWeight="black" color="blue.900">
                 Make Informed Financial Decisions
               </Heading>
 
-              <Text maxW="3xl" mx="auto" mt={5} fontSize="lg" color="gray.300">
+              <Text maxW="3xl" mx="auto" mt={5} fontSize="lg" color="blue.800">
                 Choosing the best personal loan bank is about finding a balance
                 between affordability, flexibility, and reliability. By
                 comparing multiple lenders, maintaining a good credit profile,
@@ -407,12 +419,12 @@ export default function PersonalLoanGuide() {
               mt={10}
               borderRadius="2xl"
               borderWidth="1px"
-              borderColor="gray.600"
-              bg="gray.700"
+              borderColor="blue.100"
+              bg="blue.50"
               p={5}
             >
-              <Text fontSize="sm" color="gray.400">
-                <Text as="span" color="green.400">
+              <Text fontSize="sm" color="blue.700">
+                <Text as="span" color="green.600" fontWeight="semibold">
                   Disclaimer:
                 </Text>{" "}
                 This article is intended for general informational and

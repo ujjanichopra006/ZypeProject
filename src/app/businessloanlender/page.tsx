@@ -49,7 +49,7 @@ const businessLoanLenders = [
 
 export default function BusinessLoanLenderPage() {
   return (
-    <Box minH="100vh" bg="#0b1220" px={{ base: 4, md: 6 }} py={{ base: 10, md: 12 }}>
+    <Box minH="100vh" bg="blue.50" px={{ base: 4, md: 6 }} py={{ base: 10, md: 12 }} mt={10} >
       <Container maxW="6xl">
         {/* Header Section */}
         <Box
@@ -62,14 +62,14 @@ export default function BusinessLoanLenderPage() {
             as="h1"
             fontSize={{ base: "3xl", md: "4xl" }}
             fontWeight="bold"
-            color="white"
+            color="black"
           >
             Business Loan Lenders
           </Heading>
           <Text
             mt={4}
             fontSize={{ base: "sm", md: "md" }}
-            color="whiteAlpha.900"
+            color="blackAlpha.800"
           >
             Choose the best business loan lender for your needs.
           </Text>
@@ -129,7 +129,7 @@ export default function BusinessLoanLenderPage() {
                   p={3}
                   borderRadius="lg"
                 >
-                  <Text fontSize="sm" color="whiteAlpha.800">
+                  <Text fontSize="sm" color="gray.100">
                     ⚡ Fast approval with minimal documents
                   </Text>
                 </Box>
@@ -140,7 +140,7 @@ export default function BusinessLoanLenderPage() {
                   mt={5}
                   w="full"
                   bg="blue.600"
-                  color="white"
+                  color="black"
                   _hover={{
                     bg: "blue.700",
                     transform: "scale(1.02)",

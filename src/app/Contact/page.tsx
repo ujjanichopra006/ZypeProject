@@ -140,28 +140,28 @@ export default function ContactPage() {
       title: "Our Address",
       content: "233, Thakar Basti, Bagichi Mohalla,\nDharamshala Road, Fatehabad",
       delay: 0,
-      color: "blue.400",
+      color: "blue.500",
     },
     {
       icon: FaEnvelope,
       title: "Email Us",
       content: "keshvacredit@gmail.com",
       delay: 100,
-      color: "green.400",
+      color: "green.500",
     },
     {
       icon: FaPhone,
       title: "Call Us",
       content: "+91 93xxxxxxx5",
       delay: 200,
-      color: "purple.400",
+      color: "purple.500",
     },
     {
       icon: FaClock,
       title: "Working Hours",
       content: "Mon - Fri: 09:00 AM - 05:00 PM\nSat - Sun: 09:00 AM - 01:00 PM",
       delay: 300,
-      color: "orange.400",
+      color: "orange.500",
     },
   ];
 
@@ -171,7 +171,7 @@ export default function ContactPage() {
       desc: "Get offers from multiple banks in one place.",
     },
     {
-      title: " Best Rates",
+      title: "💰 Best Rates",
       desc: "Compare interest rates instantly.",
     },
     {
@@ -181,104 +181,95 @@ export default function ContactPage() {
   ];
 
   return (
-    <Box minH="100vh" bg="gray.900" color="white">
+    <Box minH="100vh" bg="blue.50" color="blue.900">
       <Container maxW="6xl" px={{ base: 4, md: 6 }} py={8}>
-        {/* Navigation Tabs - FIXED WITH VISIBLE BUTTONS */}
+        {/* Navigation Tabs */}
         <Box
-  as="section"
-  pt={{ base: "100px", md: "120px" }} // Navbar se niche lane ke liye
-  pb={10}
->
-  <Container maxW="7xl">
-    <Box
-      mb={10}
-      data-aos="fade-down"
-      borderWidth="1px"
-      borderColor="gray.700"
-      borderRadius="full"
-      p={2}
-      bg="gray.800"
-      maxW="700px"
-      mx="auto"
-      boxShadow="lg"
-    >
-      <HStack
-        gap={4}
-        justifyContent="center"
-        flexWrap="wrap"
-      >
-        {/* Contact Button */}
-        <Link href="/contact" passHref legacyBehavior>
-          <Box
-            as="button"
-            px={8}
-            py={3}
-            borderRadius="full"
-            fontSize="sm"
-            fontWeight="bold"
-            textAlign="center"
-            minW="160px"
-            bg={pathname === "/contact" ? "blue.600" : "transparent"}
-            color="white"
-            border="2px solid"
-            borderColor="blue.500"
-            _hover={{
-              bg: "blue.600",
-              transform: "translateY(-2px)",
-              boxShadow: "0 4px 12px rgba(66,153,225,0.4)",
-            }}
-            transition="all .3s"
-            cursor="pointer"
-          >
-            Contact
-          </Box>
-        </Link>
+          as="section"
+          pt={{ base: "100px", md: "120px" }}
+          pb={10}
+        >
+          <Container maxW="7xl">
+            <HStack
+              gap={4}
+              justifyContent="center"
+              flexWrap="wrap"
+            >
+              {/* Contact Button */}
+              <Link href="/contact" passHref legacyBehavior>
+                <Box
+                  as="button"
+                  px={8}
+                  py={3}
+                  borderRadius="full"
+                  fontSize="sm"
+                  fontWeight="bold"
+                  textAlign="center"
+                  minW="160px"
+                  bg={pathname === "/contact" ? "blue.600" : "white"}
+                  color={pathname === "/contact" ? "white" : "blue.700"}
+                  border="2px solid"
+                  borderColor={pathname === "/contact" ? "blue.600" : "blue.300"}
+                  boxShadow={pathname === "/contact" ? "0 4px 12px rgba(59, 130, 246, 0.3)" : "sm"}
+                  _hover={{
+                    bg: "blue.600",
+                    color: "white",
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 8px 20px rgba(59, 130, 246, 0.4)",
+                    borderColor: "blue.600",
+                  }}
+                  transition="all .3s"
+                  cursor="pointer"
+                >
+                  Contact
+                </Box>
+              </Link>
 
-        {/* Partner Button */}
-        <Link href="/partner" passHref legacyBehavior>
-          <Box
-            as="button"
-            px={8}
-            py={3}
-            borderRadius="full"
-            fontSize="sm"
-            fontWeight="bold"
-            textAlign="center"
-            minW="220px"
-            bg={pathname === "/partner" ? "yellow.500" : "transparent"}
-            color={pathname === "/partner" ? "black" : "yellow.400"}
-            border="2px solid"
-            borderColor="yellow.500"
-            _hover={{
-              bg: "yellow.500",
-              color: "black",
-              transform: "translateY(-2px)",
-              boxShadow: "0 4px 12px rgba(237,137,54,0.4)",
-            }}
-            transition="all .3s"
-            cursor="pointer"
-          >
-            Register as Partner
-          </Box>
-        </Link>
-      </HStack>
-    </Box>
-  </Container>
-</Box>
+              {/* Partner Button */}
+              <Link href="/partner" passHref legacyBehavior>
+                <Box
+                  as="button"
+                  px={8}
+                  py={3}
+                  borderRadius="full"
+                  fontSize="sm"
+                  fontWeight="bold"
+                  textAlign="center"
+                  minW="220px"
+                  bg={pathname === "/partner" ? "yellow.500" : "white"}
+                  color={pathname === "/partner" ? "white" : "yellow.700"}
+                  border="2px solid"
+                  borderColor={pathname === "/partner" ? "yellow.500" : "yellow.400"}
+                  boxShadow={pathname === "/partner" ? "0 4px 12px rgba(234, 179, 8, 0.3)" : "sm"}
+                  _hover={{
+                    bg: "yellow.500",
+                    color: "white",
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 8px 20px rgba(234, 179, 8, 0.4)",
+                    borderColor: "yellow.500",
+                  }}
+                  transition="all .3s"
+                  cursor="pointer"
+                >
+                  Register as Partner
+                </Box>
+              </Link>
+            </HStack>
+          </Container>
+        </Box>
 
         {/* Heading */}
-        <VStack gap={3} mb={12} textAlign="center" data-aos="fade-up">
+        <VStack gap={1} mb={6} textAlign="center" data-aos="fade-up">
           <Heading
             as="h1"
-            fontSize={{ base: "3xl", md: "4xl" }}
+            fontSize={{ base: "3xl", md: "2xl" }}
             fontWeight="extrabold"
-            bgGradient="linear(to-r, blue.400, purple.500)"
             bgClip="text"
-            color="white"
+            color="blue.900"
           >
             Get in Touch
           </Heading>
-          <Text fontSize={{ base: "sm", md: "md" }} color="gray.300" maxW="xl" mx="auto">
+          <Text fontSize={{ base: "sm", md: "md" }} color="blue.700" maxW="xl" mx="auto">
             We'd love to hear from you. Fill out the form below and we'll get
             back to you soon.
           </Text>
@@ -293,13 +284,13 @@ export default function ContactPage() {
           <GridItem>
             <Box
               border="1px"
-              borderColor="gray.700"
+              borderColor="blue.100"
               borderRadius="2xl"
               p={{ base: 6, md: 8 }}
-              bg="gray.800"
-              boxShadow="xl"
+              bg="white"
+              boxShadow="0 15px 40px rgba(30, 64, 175, 0.08)"
               data-aos="zoom-in"
-              _hover={{ borderColor: "blue.500", transition: "all 0.3s" }}
+              _hover={{ borderColor: "blue.300", transition: "all 0.3s" }}
             >
               <Heading
                 as="h2"
@@ -307,7 +298,7 @@ export default function ContactPage() {
                 fontWeight="bold"
                 textAlign="center"
                 mb={8}
-                color="white"
+                color="blue.900"
               >
                 📩 Contact Form
               </Heading>
@@ -315,7 +306,7 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit}>
                 <VStack gap={5}>
                   <Box w="full">
-                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.300">
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="blue.700">
                       Full Name *
                     </Text>
                     <Input
@@ -324,32 +315,33 @@ export default function ContactPage() {
                       placeholder="Enter your full name"
                       value={formData.name}
                       onChange={handleChange}
-                      bg="gray.700"
+                      bg="blue.50"
                       border="2px"
-                      borderColor={errors.name ? "red.400" : "gray.600"}
+                      borderColor={errors.name ? "red.400" : "blue.200"}
                       borderRadius="lg"
                       height="50px"
                       px={4}
                       fontSize="sm"
-                      color="white"
-                      _placeholder={{ color: "gray.400" }}
+                      color="blue.900"
+                      _placeholder={{ color: "blue.400" }}
                       _hover={{
                         borderColor: errors.name ? "red.400" : "blue.400",
                       }}
                       _focus={{
                         borderColor: errors.name ? "red.400" : "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.2)",
+                        bg: "white",
                       }}
                     />
                     {errors.name && (
-                      <Text fontSize="xs" color="red.400" mt={1}>
-                         {errors.name}
+                      <Text fontSize="xs" color="red.500" mt={1}>
+                         ⚠ {errors.name}
                       </Text>
                     )}
                   </Box>
 
                   <Box w="full">
-                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.300">
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="blue.700">
                       Email Address *
                     </Text>
                     <Input
@@ -358,32 +350,33 @@ export default function ContactPage() {
                       placeholder="you@example.com"
                       value={formData.email}
                       onChange={handleChange}
-                      bg="gray.700"
+                      bg="blue.50"
                       border="2px"
-                      borderColor={errors.email ? "red.400" : "gray.600"}
+                      borderColor={errors.email ? "red.400" : "blue.200"}
                       borderRadius="lg"
                       height="50px"
                       px={4}
                       fontSize="sm"
-                      color="white"
-                      _placeholder={{ color: "gray.400" }}
+                      color="blue.900"
+                      _placeholder={{ color: "blue.400" }}
                       _hover={{
                         borderColor: errors.email ? "red.400" : "blue.400",
                       }}
                       _focus={{
                         borderColor: errors.email ? "red.400" : "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.2)",
+                        bg: "white",
                       }}
                     />
                     {errors.email && (
-                      <Text fontSize="xs" color="red.400" mt={1}>
+                      <Text fontSize="xs" color="red.500" mt={1}>
                         ⚠ {errors.email}
                       </Text>
                     )}
                   </Box>
 
                   <Box w="full">
-                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.300">
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="blue.700">
                       Phone Number *
                     </Text>
                     <Input
@@ -392,32 +385,33 @@ export default function ContactPage() {
                       placeholder="+91 93xxxxxxx5"
                       value={formData.phone}
                       onChange={handleChange}
-                      bg="gray.700"
+                      bg="blue.50"
                       border="2px"
-                      borderColor={errors.phone ? "red.400" : "gray.600"}
+                      borderColor={errors.phone ? "red.400" : "blue.200"}
                       borderRadius="lg"
                       height="50px"
                       px={4}
                       fontSize="sm"
-                      color="white"
-                      _placeholder={{ color: "gray.400" }}
+                      color="blue.900"
+                      _placeholder={{ color: "blue.400" }}
                       _hover={{
                         borderColor: errors.phone ? "red.400" : "blue.400",
                       }}
                       _focus={{
                         borderColor: errors.phone ? "red.400" : "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.2)",
+                        bg: "white",
                       }}
                     />
                     {errors.phone && (
-                      <Text fontSize="xs" color="red.400" mt={1}>
+                      <Text fontSize="xs" color="red.500" mt={1}>
                         ⚠ {errors.phone}
                       </Text>
                     )}
                   </Box>
 
                   <Box w="full">
-                    <Text fontSize="sm" fontWeight="medium" mb={1} color="gray.300">
+                    <Text fontSize="sm" fontWeight="medium" mb={1} color="blue.700">
                       Your Message *
                     </Text>
                     <Textarea
@@ -425,15 +419,15 @@ export default function ContactPage() {
                       placeholder="Write your message here..."
                       value={formData.message}
                       onChange={handleChange}
-                      bg="gray.700"
+                      bg="blue.50"
                       border="2px"
-                      borderColor={errors.message ? "red.400" : "gray.600"}
+                      borderColor={errors.message ? "red.400" : "blue.200"}
                       borderRadius="lg"
                       px={4}
                       py={3}
                       fontSize="sm"
-                      color="white"
-                      _placeholder={{ color: "gray.400" }}
+                      color="blue.900"
+                      _placeholder={{ color: "blue.400" }}
                       resize="none"
                       rows={5}
                       _hover={{
@@ -441,11 +435,12 @@ export default function ContactPage() {
                       }}
                       _focus={{
                         borderColor: errors.message ? "red.400" : "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.2)",
+                        bg: "white",
                       }}
                     />
                     {errors.message && (
-                      <Text fontSize="xs" color="red.400" mt={1}>
+                      <Text fontSize="xs" color="red.500" mt={1}>
                         ⚠ {errors.message}
                       </Text>
                     )}
@@ -463,7 +458,7 @@ export default function ContactPage() {
                     _hover={{
                       bgGradient: "linear(to-r, blue.600, purple.700)",
                       transform: "translateY(-2px)",
-                      boxShadow: "0 8px 25px rgba(66, 153, 225, 0.4)",
+                      boxShadow: "0 8px 25px rgba(59, 130, 246, 0.4)",
                     }}
                     _active={{
                       transform: "translateY(0)",
@@ -485,24 +480,25 @@ export default function ContactPage() {
              {infoItems.map((item, index) => (
   <Box
     key={index}
-    bg="gray.800"
+    bg="white"
     borderRadius="xl"
     p={{ base: 3, md: 4 }}
     w="full"
     border="1px"
-    borderColor="gray.700"
+    borderColor="blue.100"
     data-aos="fade-left"
     data-aos-delay={item.delay}
+    boxShadow="0 8px 24px rgba(30, 64, 175, 0.05)"
     _hover={{
       borderColor: item.color,
       transform: "translateY(-2px)",
       transition: "all 0.3s",
-      boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+      boxShadow: "0 15px 40px rgba(30, 64, 175, 0.12)",
     }}
   >
     <HStack align="start" gap={3}>
       <Box
-        bg="gray.700"
+        bg="blue.50"
         p={2}
         borderRadius="lg"
         border="1px"
@@ -517,13 +513,13 @@ export default function ContactPage() {
       </Box>
 
       <VStack align="start" gap={1} flex="1">
-        <Heading as="h3" fontSize="md" fontWeight="bold" color="white">
+        <Heading as="h3" fontSize="md" fontWeight="bold" color="blue.900">
           {item.title}
         </Heading>
 
         <Text
           fontSize="sm"
-          color="white"
+          color="blue.700"
           lineHeight="1.6"
           whiteSpace="pre-line"
         >
@@ -536,14 +532,15 @@ export default function ContactPage() {
 
               {/* Map */}
               <Box
-                bg="gray.800"
+                bg="white"
                 borderRadius="2xl"
                 overflow="hidden"
                 border="1px"
-                borderColor="gray.700"
+                borderColor="blue.100"
                 w="full"
                 data-aos="zoom-in-up"
-                _hover={{ borderColor: "blue.500", transition: "all 0.3s" }}
+                boxShadow="0 8px 24px rgba(30, 64, 175, 0.05)"
+                _hover={{ borderColor: "blue.300", transition: "all 0.3s" }}
               >
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.0!2d75.456!3d29.506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391228e4e9f1f8b3%3A0x8e8c7c5c6e7f6d9a!2sFatehabad%2C%20Haryana!5e0!3m2!1sen!2sin!4v1234567890"
@@ -560,8 +557,11 @@ export default function ContactPage() {
         {/* Why Choose Us Section */}
         <Box mt={20}>
           <VStack gap={3} mb={10} textAlign="center" data-aos="fade-up">
-            <Text fontSize={{ base: "sm", md: "md" }} color="white" maxW="xl" mx="auto">
-              Compare loans easily and choose the best offer instantly.
+            <Heading as="h2" fontSize="2xl" fontWeight="bold" color="blue.900">
+              Why Choose KeshvaCredit?
+            </Heading>
+            <Text fontSize={{ base: "sm", md: "md" }} color="blue.700" maxW="xl" mx="auto">
+           As a leading loan aggregator platform in India, we connect you with a network of certified lenders to give you transparency, choices, and competitive interest rates.
             </Text>
           </VStack>
 
@@ -570,15 +570,15 @@ export default function ContactPage() {
               <Box
                 key={index}
                 bgGradient="linear(to-br, #58B98C, #4CAF50)"
-                color="white"
                 borderRadius="2xl"
                 p={6}
                 textAlign="center"
                 data-aos="flip-left"
                 data-aos-delay={index * 100}
+                boxShadow="0 10px 30px rgba(76, 175, 80, 0.2)"
                 _hover={{
                   transform: "translateY(-8px) scale(1.02)",
-                  boxShadow: "0 20px 40px rgba(88, 185, 140, 0.3)",
+                  boxShadow: "0 20px 40px rgba(76, 175, 80, 0.35)",
                   transition: "all 0.3s",
                 }}
                 transition="all 0.3s"
@@ -587,12 +587,12 @@ export default function ContactPage() {
                   as="h3"
                   fontSize="xl"
                   fontWeight="bold"
-                  color="white"
+                  color="gray.800"
                   mb={3}
                 >
                   {item.title}
                 </Heading>
-                <Text fontSize="sm" color="white" opacity={0.9}>
+                <Text fontSize="sm" color="gray.600" opacity={0.95}>
                   {item.desc}
                 </Text>
               </Box>

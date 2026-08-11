@@ -75,14 +75,14 @@ export default function About() {
   return (
     <Box>
       {/* Loan Partners Section */}
-      <Box bg="gray.900" py={{ base: 8, md: 12 }}>
+      <Box bg="blue.50" py={{ base: 8, md: 6 }}>
         <Container maxW="7xl">
           <VStack gap={4} mb={12}>
             <Heading
               as="h2"
               fontSize={{ base: "3xl", md: "4xl" }}
               fontWeight="bold"
-              color="white"
+              color="black"
               textAlign="center"
               data-aos="fade-up"
             >
@@ -91,7 +91,7 @@ export default function About() {
 
             <Text
               fontSize={{ base: "md", md: "lg" }}
-              color="gray.200"
+              color="gray.800"
               textAlign="center"
               maxW="2xl"
               data-aos="fade-up"
@@ -281,7 +281,7 @@ export default function About() {
           {/* Heading */}
           <Heading
             as="h1"
-            fontSize={{ base: "3xl", md: "5xl" }}
+            fontSize={{ base: "2xl", md: "3xl" }}
             fontWeight="bold"
             color="white"
             lineHeight="tight"
@@ -291,7 +291,7 @@ export default function About() {
 
           {/* Paragraph */}
           <Text
-            mt={4}
+            mt={2}
             color="white"
             fontSize={{ base: "md", md: "lg" }}
           >

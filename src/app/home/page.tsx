@@ -29,7 +29,16 @@ import {
   Flex,
   VStack,
   useBreakpointValue,
+  Badge,
+  HStack
 } from "@chakra-ui/react";
+
+import {
+  FaUser,
+  FaHome,
+  FaBuilding,
+  FaCoins,
+} from "react-icons/fa";
 
 export default function Home() {
   const router = useRouter();
@@ -118,7 +127,7 @@ export default function Home() {
   // ✅ Responsive values
   const headingSize = useBreakpointValue({ base: "2xl", sm: "3xl", md: "4xl" });
   const textSize = useBreakpointValue({ base: "sm", md: "lg" });
-  const animationHeight = index === 0 
+  const animationHeight = index === 0
     ? useBreakpointValue({ base: "200px", sm: "220px", md: "280px" })
     : useBreakpointValue({ base: "250px", sm: "280px", md: "350px" });
 
@@ -146,23 +155,36 @@ export default function Home() {
     },
   ];
 
+  // ✨ BLINK ANIMATION STYLES (Sirf text ke liye)
+  const blinkTextStyle = {
+    sx: {
+      "@keyframes blinkText": {
+        "0%, 100%": { opacity: 1 },
+        "50%": { opacity: 0.3 },
+      },
+      animation: "blinkText 1.5s ease-in-out infinite",
+    },
+  };
+
   return (
-    <Box width="100%" overflowX="hidden" bg="#111525">
+    // 🎨 MAIN BG CHANGED TO BLUE-50
+    <Box width="100%" overflowX="hidden" bg="blue.50">
 
       {/* ============================================ */}
       {/* HERO SECTION */}
       {/* ============================================ */}
       <Box
-        minHeight={{ base: "auto", md: "90vh" }}
+        minHeight={{ base: "auto", md: "90vh", lg: "90vh" }}
         display="flex"
+        mt={10}
         alignItems="center"
         justifyContent="center"
-        bg="#111525"
-        color="white"
+        bg="blue.50"
+        color="blue.900"
         px={{ base: 4, md: 10, lg: 8 }}
         py={{ base: 6, md: 8, lg: 20 }}
       >
-        <Container maxWidth="1280px" px={{ base: 2, md: 4 }}>
+        <Container maxWidth="1280px" px={{ base: 2, md: 4, lg: 8 }}>
           <Flex
             direction={{ base: "column", lg: "row" }}
             align="center"
@@ -170,9 +192,9 @@ export default function Home() {
             gap={{ base: 6, md: 8, lg: 10 }}
           >
             {/* LEFT TEXT */}
-            <Box 
-              flex="1" 
-              textAlign={{ base: "center", lg: "left" }} 
+            <Box
+              flex="1"
+              textAlign={{ base: "center", lg: "left" }}
               data-aos="fade-right"
               width="100%"
             >
@@ -182,9 +204,10 @@ export default function Home() {
                 fontWeight="extrabold"
                 lineHeight={{ base: "1.3", md: "1.4" }}
                 letterSpacing="tight"
+                color="blue.900"
               >
                 Empowering Every Indian with
-                <Text as="span" color="yellow.400" fontWeight="bold" display="block">
+                <Text as="span" color="blue.600" fontWeight="bold" display="block">
                   Instant Loans
                 </Text>
               </Heading>
@@ -193,20 +216,20 @@ export default function Home() {
                 fontSize={textSize}
                 mt={{ base: 4, md: 6 }}
                 lineHeight={{ base: "1.7", md: "1.8" }}
-                color="gray.300"
+                color="blue.800"
                 maxWidth={{ base: "100%", lg: "90%" }}
               >
                 Get the funds you need with quick approvals,
                 minimal paperwork, and fast disbursals. Whether
                 it's a small expense or a big dream, our hassle-free loan solutions are
-                <Text as="span" color="red.400" fontWeight="semibold">
+                <Text as="span" color="blue.700" fontWeight="semibold">
                   {" "}designed to fit your needs.
                 </Text>
                 We are innovators, problem solvers, and trusted partners
                 making borrowing simple.
               </Text>
 
-              {/* LOAN BUTTONS */}
+              {/* ✨ LOAN BUTTONS WITH BLINKING TEXT ✨ */}
               <SimpleGrid
                 columns={{ base: 2, sm: 2 }}
                 gap={{ base: 3, md: 4 }}
@@ -214,17 +237,18 @@ export default function Home() {
                 mt={5}
                 mx={{ base: "auto", lg: 0 }}
               >
+                {/* Personal Loan */}
                 <Button
                   onClick={handlePersonalLoanClick}
-                  bg="green.400"
-                  color="black"
+                  bg="green.500"
+                  color="white"
                   borderRadius="xl"
                   py={{ base: 4, md: 6 }}
-                  height={{ base: "48px", md: "56px" }}
+                  height={{ base: "50px", md: "60px" }}
                   fontSize={{ base: "sm", md: "md" }}
                   fontWeight="bold"
                   _hover={{
-                    bg: "green.500",
+                    bg: "green.600",
                     transform: "scale(1.05)",
                     boxShadow: "lg",
                   }}
@@ -232,20 +256,29 @@ export default function Home() {
                   transition="all 0.2s ease"
                   boxShadow="md"
                 >
-                  Personal Loan
+                  <Image
+                    src="/2.png"
+                    alt="Personal Loan"
+                    width={10}
+                    height={10}
+                  />
+                  <span className="blink-text">
+                    Personal Loan
+                  </span>
                 </Button>
 
+                {/* Business Loan */}
                 <Button
                   onClick={handleBusinessLoanClick}
-                  bg="red.400"
-                  color="black"
+                  bg="red.500"
+                  color="white"
                   borderRadius="xl"
                   py={{ base: 4, md: 6 }}
-                  height={{ base: "48px", md: "56px" }}
+                  height={{ base: "50px", md: "60px" }}
                   fontSize={{ base: "sm", md: "md" }}
                   fontWeight="bold"
                   _hover={{
-                    bg: "red.500",
+                    bg: "red.600",
                     transform: "scale(1.05)",
                     boxShadow: "lg",
                   }}
@@ -253,16 +286,25 @@ export default function Home() {
                   transition="all 0.2s ease"
                   boxShadow="md"
                 >
-                  Business Loan
+                  <Image
+                    src="/3.png"
+                    alt="Business Loan"
+                    width={10}
+                    height={10}
+                  />
+                  <span className="blink-text">
+                    Business Loan
+                  </span>
                 </Button>
 
+                {/* Home Loan */}
                 <Button
                   onClick={handleHomeLoanClick}
                   bg="yellow.400"
-                  color="black"
+                  color="white"
                   borderRadius="xl"
                   py={{ base: 4, md: 6 }}
-                  height={{ base: "48px", md: "56px" }}
+                  height={{ base: "50px", md: "60px" }}
                   fontSize={{ base: "sm", md: "md" }}
                   fontWeight="bold"
                   _hover={{
@@ -274,20 +316,29 @@ export default function Home() {
                   transition="all 0.2s ease"
                   boxShadow="md"
                 >
-                  Home Loan
+                  <Image
+                    src="/4.png"
+                    alt="Home Loan"
+                    width={10}
+                    height={10}
+                  />
+                  <span className="blink-text">
+                    Home Loan
+                  </span>
                 </Button>
 
+                {/* Gold Loan */}
                 <Button
                   onClick={handleGoldLoanClick}
-                  bg="blue.400"
-                  color="black"
+                  bg="blue.600"
+                  color="white"
                   borderRadius="xl"
                   py={{ base: 4, md: 6 }}
-                  height={{ base: "48px", md: "56px" }}
+                  height={{ base: "50px", md: "60px" }}
                   fontSize={{ base: "sm", md: "md" }}
                   fontWeight="bold"
                   _hover={{
-                    bg: "blue.500",
+                    bg: "blue.700",
                     transform: "scale(1.05)",
                     boxShadow: "lg",
                   }}
@@ -295,38 +346,35 @@ export default function Home() {
                   transition="all 0.2s ease"
                   boxShadow="md"
                 >
-                  Gold Loan
+                  <Image
+                    src="/5.png"
+                    alt="Gold Loan"
+                    width={10}
+                    height={10}
+                  />
+                  <span className="blink-text">
+                    Gold Loan
+                  </span>
                 </Button>
               </SimpleGrid>
             </Box>
 
             {/* RIGHT ANIMATION */}
-            <Box 
-              flex="1" 
-              display="flex" 
-              justifyContent="center" 
+            <Box
+              width={{ base: "100%", sm: "350px", md: "400px", lg: "450px" }}
+              // maxWidth="450px"
+              // height={animationHeight}
+              display="flex"
               alignItems="center"
-              data-aos="zoom-in"
-              width="100%"
+              justifyContent="center"
             >
-              <Box
-                width={{ base: "100%", sm: "350px", md: "400px", lg: "450px" }}
-                maxWidth="450px"
-                height={animationHeight}
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Lottie
-                  animationData={animations[index]}
-                  loop
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    transition: "all 0.6s ease-in-out",
-                  }}
-                />
-              </Box>
+              <Image
+                src="/loans-instant3"
+                alt="Instant Loan"
+                w="100"
+                h="100"
+                borderRadius="24px"
+              />
             </Box>
           </Flex>
         </Container>
@@ -335,7 +383,7 @@ export default function Home() {
       {/* ============================================ */}
       {/* FEATURE CARDS */}
       {/* ============================================ */}
-      <Box bg="#111525" px={{ base: 4, md: 6, lg: 8 }} py={{ base: 5, md: 7, lg: 8 }}>
+      <Box bg="blue.50" px={{ base: 4, md: 6, lg: 8 }} py={{ base: 5, md: 7, lg: 8 }}>
         <Container maxW="1280px">
           <SimpleGrid
             columns={{ base: 1, sm: 2, lg: 4 }}
@@ -344,9 +392,11 @@ export default function Home() {
             {features.map((feature, idx) => (
               <Box
                 key={idx}
-                bg="green.300"
+                bg="white"
+                border="1px solid"
+                borderColor="blue.100"
                 borderRadius="xl"
-                boxShadow="lg"
+                boxShadow="md"
                 p={4}
                 minHeight={{ base: "140px", md: "160px" }}
                 display="flex"
@@ -356,6 +406,7 @@ export default function Home() {
                 _hover={{
                   transform: "translateY(-8px) scale(1.02)",
                   boxShadow: "2xl",
+                  borderColor: "blue.300",
                 }}
               >
                 <Text fontSize={{ base: "2xl", md: "3xl" }} mb={2}>
@@ -365,15 +416,15 @@ export default function Home() {
                   as="h3"
                   fontSize={{ base: "sm", md: "md" }}
                   fontWeight="bold"
-                  color="black"
+                  color="blue.900"
                   mb={1}
                 >
                   {feature.title}
                 </Heading>
                 <Text
                   fontSize={{ base: "xs", md: "sm" }}
-                  color="black"
-                  opacity={0.8}
+                  color="blue.800"
+                  opacity={0.9}
                   lineHeight="tall"
                 >
                   {feature.description}
@@ -385,129 +436,342 @@ export default function Home() {
       </Box>
 
       {/* ============================================ */}
-      {/* BANNER SECTION - FIXED IMAGE */}
+      {/* BANNER SECTION */}
       {/* ============================================ */}
-      <Box 
-        bg="#111525" 
-        px={{ base: 0, md: 0, lg: 0 }} 
-        py={{ base: 0, md: 0, lg: 0 }}
+      <Box
+        position="relative"
+        py={{ base: 10, md: 15, lg: 25 }}
+        overflow="hidden"
+        bg="blue.50"
+        _before={{
+          content: '""',
+          position: "absolute",
+          inset: 0,
+          bgGradient: "linear(to-br, blue.50 via-white to-purple.50)",
+          zIndex: 0,
+        }}
       >
-        <Container maxW="1280px">
+        {/* Decorative Background Blobs */}
+        <Box
+          position="absolute"
+          top="-10%"
+          right="-5%"
+          w={{ base: "300px", lg: "600px" }}
+          h={{ base: "300px", lg: "600px" }}
+          bg="radial-gradient(circle, rgba(99,179,237,0.15) 0%, transparent 70%)"
+          borderRadius="full"
+          filter="blur(40px)"
+          zIndex={0}
+        />
+        <Box
+          position="absolute"
+          bottom="-10%"
+          left="-5%"
+          w={{ base: "250px", lg: "500px" }}
+          h={{ base: "250px", lg: "500px" }}
+          bg="radial-gradient(circle, rgba(183,148,244,0.12) 0%, transparent 70%)"
+          borderRadius="full"
+          filter="blur(40px)"
+          zIndex={0}
+        />
+
+        <Container maxW="1200px" position="relative" zIndex={1}>
           <Flex
-            direction={{ base: "column", lg: "row" }}
+            direction={{ base: "column-reverse", lg: "row" }}
             align="center"
-            gap={{ base: 5, md: 6, lg: 8 }}
+            gap={{ base: 8, lg: 10 }}
           >
-            {/* Image with Error Handling */}
-            <Box 
-              flex="1" 
-              display="flex" 
-              justifyContent="center"
+            {/* LEFT CONTENT */}
+            <VStack
+              flex="1"
+              align={{ base: "center", lg: "start" }}
+              gap={6}
               data-aos="fade-right"
-              width="100%"
             >
+              {/* Trust Badge */}
+              <Badge
+                colorPalette="green"
+                variant="subtle"
+                px="4"
+                py="1.5"
+                borderRadius="full"
+                fontSize="xs"
+                fontWeight="bold"
+                display="inline-flex"
+                alignItems="center"
+                gap="2"
+                boxShadow="sm"
+              >
+                <Text fontSize="sm">✓</Text>
+                RBI Registered • ISO Certified
+              </Badge>
+              {/* Main Heading with Gradient */}
+              <Heading
+                as="h2"
+                fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+                fontWeight="extrabold"
+                lineHeight={1.15}
+                letterSpacing="tight"
+                textAlign={{ base: "center", lg: "left" }}
+              >
+                <Text as="span" color="gray.900">Get Instant Loans from </Text>
+                <Text
+                  as="span"
+                 color="blue.600"
+                >
+                  ₹2,000 to ₹20 Lakhs
+                </Text>
+                <Text as="span" color="gray.900"> 💰</Text>
+              </Heading>
+
+              {/* Subheading */}
+              <Text
+                fontSize={{ base: "lg", md: "xl" }}
+                color="blue.700"
+                fontWeight="semibold"
+                textAlign={{ base: "center", lg: "left" }}
+                lineHeight={1.5}
+              >
+                Your Dreams, Our Priority — Approved in Minutes! ⚡
+              </Text>
+
+              {/* Description */}
+              <Text
+                color="gray.600"
+                fontSize={{ base: "md", lg: "lg" }}
+                lineHeight={1.8}
+                textAlign={{ base: "center", lg: "left" }}
+                maxW={{ lg: "520px" }}
+              >
+                At <Text as="span" fontWeight="bold" color="blue.700">KeshvaCredit</Text>, we believe financial freedom should be accessible to everyone.
+                Whether it's your dream wedding, business expansion, education, or medical emergencies — we're here to support you every step of the way. ✨
+              </Text>
+
+              {/* Feature Pills Grid */}
+              <Flex
+                wrap="wrap"
+                gap={3}
+                justify={{ base: "center", lg: "start" }}
+                w="100%"
+              >
+                {features.map((feat, idx) => (
+                  <Badge
+                    colorPalette="green"
+                    variant="subtle"
+                    px="4"
+                    py="1.5"
+                    borderRadius="full"
+                    fontSize="xs"
+                    fontWeight="bold"
+                    display="inline-flex"
+                    alignItems="center"
+                    gap="2"
+                    boxShadow="sm"
+                  >
+                    <Text fontSize="sm">✓</Text>
+                    RBI Registered • ISO Certified
+                  </Badge>
+                ))}
+              </Flex>
+
+              {/* CTA Button with Shimmer */}
+              <Box mt={2} position="relative">
+                <Button
+                  size="lg"
+                  bgGradient="linear(to-r, blue.600, blue.700)"
+                  color="white"
+                  px={10}
+                  py={7}
+                  borderRadius="full"
+                  fontWeight="bold"
+                  fontSize={{ base: "md", md: "lg" }}
+                  boxShadow="0 4px 20px rgba(49, 130, 206, 0.4)"
+                  _hover={{
+                    bgGradient: "linear(to-r, blue.700, blue.800)",
+                    transform: "translateY(-3px)",
+                    boxShadow: "0 8px 30px rgba(49, 130, 206, 0.5)",
+                  }}
+                  _active={{ transform: "translateY(-1px)" }}
+                  transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+                  position="relative"
+                  overflow="hidden"
+                >
+                  <Box
+                    as="span"
+                    position="absolute"
+                    top={0}
+                    left="-100%"
+                    w="100%"
+                    h="100%"
+                    bgGradient="linear(to-r, transparent, rgba(255,255,255,0.2), transparent)"
+                    css={{
+                      animation: "shimmer 3s infinite",
+                      "@keyframes shimmer": {
+                        "0%": { left: "-100%" },
+                        "100%": { left: "100%" },
+                      },
+                    }}
+                  />
+                  Apply Now — Just 2 Minutes 🚀
+                </Button>
+              </Box>
+            </VStack>
+
+            {/* RIGHT IMAGE SECTION */}
+            <Box
+              flex="1"
+              display="flex"
+              justifyContent="center"
+              position="relative"
+              data-aos="fade-left"
+            >
+              {/* Animated Glow Behind Image */}
+              {/* <Box
+                position="absolute"
+                w="80%"
+                h="80%"
+                top="7.5%"
+                bgGradient="linear(to-tr, blue.400, purple.400, pink.300)"
+                borderRadius="full"
+                filter="blur(60px)"
+                opacity={0.25}
+                zIndex={-1}
+                css={{
+                  animation: "pulse-glow 4s ease-in-out infinite alternate",
+                  "@keyframes pulse-glow": {
+                    "0%": { opacity: 0.2, transform: "scale(0.95)" },
+                    "100%": { opacity: 0.35, transform: "scale(1.05)" },
+                  },
+                }}
+              /> */}
+
               {imageError ? (
-                // ✅ Fallback when image fails to load
                 <Box
-                  width={{ base: "280px", sm: "320px", md: "350px", lg: "400px" }}
-                  height={{ base: "280px", sm: "320px", md: "350px", lg: "400px" }}
-                  bg="gray.700"
+                  w={{ base: "2500px", md: "300px", lg: "400px" }}
+                  h={{ base: "300px", md: "420px", lg: "500px" }}
+                  bg="white"
                   borderRadius="3xl"
+                  border="2px dashed"
+                  borderColor="blue.200"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
-                  boxShadow="2xl"
                   flexDirection="column"
+                  gap={3}
                 >
-                  <Text fontSize="5xl" mb={2}>🏠</Text>
-                  <Text color="gray.400" fontSize="sm" fontWeight="medium">
-                    Image Not Found
-                  </Text>
+                  <Text fontSize="5xl">🏦</Text>
+                  <Text color="gray.400" fontWeight="medium">Image Unavailable</Text>
                 </Box>
               ) : (
-                <Image
-                  src="/sell car.jpg"
-                  alt="KeshvaCredit - Sell Car"
-                  width={{ base: "280px", sm: "320px", md: "350px", lg: "400px" }}
-                  height={{ base: "280px", sm: "320px", md: "350px", lg: "400px" }}
-                  objectFit="cover"
-                  borderRadius="3xl"
-                  boxShadow="2xl"
-                  transition="all 0.3s ease"
-                  _hover={{
-                    transform: "scale(1.03)",
-                    boxShadow: "dark-lg",
-                  }}
-                  onError={() => setImageError(true)}
-                />
+                <Box position="relative">
+                  <Image
+                    src="/instant-instant-loan.png"
+                    alt="KeshvaCredit - Instant Loans"
+                    // w={{ base: "300px", md: "200px", lg: "200px" }}
+                    // h={{ base: "300px", md: "200px", lg: "200px" }}
+                    // objectFit="cover"
+                    borderRadius="3xl"
+                    border="4px solid white"
+                    boxShadow="2xl"
+                    transition="all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
+                    _hover={{
+                      transform: "scale(1.03) rotate(1deg)",
+                      boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
+                    }}
+                    onError={() => setImageError(true)}
+                  />
+
+                  {/* Floating Rating Card */}
+                  <Box
+                    position="absolute"
+                    bottom={-6}
+                    left={-6}
+                    bg="rgba(255,255,255,0.95)"
+                    backdropFilter="blur(10px)"
+                    p={4}
+                    borderRadius="2xl"
+                    boxShadow="xl"
+                    display={{ base: "none", md: "flex" }}
+                    alignItems="center"
+                    gap={3}
+                    border="1px solid"
+                    borderColor="whiteAlpha.300"
+                    css={{
+                      animation: "float 3s ease-in-out infinite",
+                      "@keyframes float": {
+                        "0%, 100%": { transform: "translateY(0)" },
+                        "50%": { transform: "translateY(-10px)" },
+                      },
+                    }}
+                  >
+                    <Box bg="yellow.400" p={2.5} borderRadius="xl">
+                    </Box>
+                    <Box>
+                      <Text fontWeight="extrabold" fontSize="xl" color="gray.800">4.9/5</Text>
+                      <Text fontSize="xs" color="gray.500" fontWeight="medium">10,000+ Happy Customers</Text>
+                    </Box>
+                  </Box>
+
+                  {/* Floating Quick Approval Badge */}
+                  <Box
+                    position="absolute"
+                    top={-4}
+                    right={-4}
+                    bg="rgba(255,255,255,0.95)"
+                    backdropFilter="blur(10px)"
+                    px={4}
+                    py={2}
+                    borderRadius="full"
+                    boxShadow="lg"
+                    display={{ base: "none", md: "flex" }}
+                    alignItems="center"
+                    gap={2}
+                    border="1px solid"
+                    borderColor="green.100"
+                    css={{
+                      animation: "float 3s ease-in-out infinite 1.5s",
+                      "@keyframes float": {
+                        "0%, 100%": { transform: "translateY(0)" },
+                        "50%": { transform: "translateY(-8px)" },
+                      },
+                    }}
+                  >
+                    <Text color="green.500" fontSize="lg">✓</Text>
+                    <Text fontSize="sm" fontWeight="bold" color="green.700">Quick Approval</Text>
+                  </Box>
+                </Box>
               )}
-            </Box>
-
-            {/* Content */}
-            <Box 
-              flex="1" 
-              textAlign={{ base: "center", lg: "left" }} 
-              data-aos="fade-left"
-              width="100%"
-            >
-              <Heading
-                as="h2"
-                fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
-                fontWeight="bold"
-                color="white"
-                lineHeight={{ base: "1.3", md: "1.4" }}
-              >
-                Avail Loans from ₹2,000 to ₹20 Lakhs
-                <Text as="span" color="yellow.400" display="block" mt={1}>
-                  Quick, Hassle-Free, Secure 🚀
-                </Text>
-              </Heading>
-
-              <Text
-                mt={{ base: 4, md: 6 }}
-                color="blue.300"
-                fontWeight="medium"
-                fontSize={{ base: "sm", md: "md", lg: "lg" }}
-                lineHeight={{ base: "1.7", md: "1.8" }}
-              >
-                With KeshvaCredit, achieve your financial goals effortlessly.
-                We're on a mission to make financial inclusion a reality for
-                every Indian by providing fast, secure, and hassle-free loan
-                solutions. Whether you need funds for personal needs, business
-                growth, education, or emergencies, we've got you covered.
-              </Text>
             </Box>
           </Flex>
         </Container>
-      </Box>
-
+      </Box>\
       {/* ============================================ */}
       {/* OTHER SECTIONS */}
       {/* ============================================ */}
-      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+      <Box as="section" width="100%" py={{ base: 2, md: 3, lg: 2 }}>
         <Second />
       </Box>
-      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+      <Box as="section" width="100%" py={{ base: 2, md: 3, lg: 2 }}>
         <Third />
       </Box>
-      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+      <Box as="section" width="100%" py={{ base: 2, md: 3, lg: 2 }}>
         <Forth />
       </Box>
-      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+      <Box as="section" width="100%" py={{ base: 2, md: 3, lg: 2 }}>
         <Fifth />
       </Box>
-      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+      <Box as="section" width="100%" py={{ base: 2, md: 3, lg: 2 }}>
         <EMICalculator />
       </Box>
-      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+      <Box as="section" width="100%" py={{ base: 2, md: 3, lg: 2 }}>
         <Sixth />
       </Box>
-      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+      <Box as="section" width="100%" py={{ base: 1, md: 1, lg: 2 }}>
         <Seventh />
       </Box>
-      <Box as="section" width="100%" py={{ base: 4, md: 4, lg: 16 }}>
+      <Box as="section" width="100%" py={{ base: 2, md: 1, lg: 2 }}>
         <Eighth />
-        </Box>
+      </Box>
     </Box>
   );
 }

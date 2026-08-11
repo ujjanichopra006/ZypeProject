@@ -12,18 +12,18 @@ import {
 
 export default function InformationSecurityPolicy() {
   return (
-    <Box bg="#020f26" minH="100vh" py={10}>
-      <Container maxW="5xl" px={{ base: 5, lg: 8 }}>
+    <Box bg="blue.50" minH="100vh" py={10}>
+      <Container maxW="5xl" px={{ base: 5, lg: 8 }} mt="20">
         {/* Heading */}
-        <Heading as="h1" fontSize="3xl" color="blue.500" mb={2} fontWeight="bold">
+        <Heading as="h1" fontSize="3xl" color="blue.700" mb={2} fontWeight="bold">
           Information Security Policy
         </Heading>
 
-        <Text color="gray.300" fontSize="sm" fontWeight="medium">
+        <Text color="blue.800" fontSize="sm" fontWeight="medium">
           <strong>KeshvaCredit Services Pvt. Ltd.</strong>
         </Text>
 
-        <HStack color="gray.400" fontSize="xs" mt={1} mb={8} gap={2}>
+        <HStack color="blue.600" fontSize="xs" mt={1} mb={8} gap={2}>
           <Text>Effective Date: Aug 18, 2025</Text>
           <Text>|</Text>
           <Text>Version: 1.0</Text>
@@ -32,10 +32,10 @@ export default function InformationSecurityPolicy() {
         <VStack gap={6} align="stretch" fontSize={{ base: "sm", md: "md" }}>
           {/* Section 1 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               1. Purpose
             </Heading>
-            <Text color="gray.200">
+            <Text color="blue.800">
               This policy establishes the framework for protecting information
               assets, customer data, and technology resources. It ensures
               adherence to applicable legal, regulatory, and contractual
@@ -46,10 +46,10 @@ export default function InformationSecurityPolicy() {
 
           {/* Section 2 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               2. Scope
             </Heading>
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={2}>
                 All employees, contractors, and authorized third parties.
               </Box>
@@ -65,10 +65,10 @@ export default function InformationSecurityPolicy() {
 
           {/* Section 3 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               3. Principles of Information Security
             </Heading>
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={2}>
                 <strong>Confidentiality:</strong> Access to information is
                 restricted to authorized individuals only.
@@ -86,10 +86,10 @@ export default function InformationSecurityPolicy() {
 
           {/* Section 4 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               4. Roles & Responsibilities
             </Heading>
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={2}>
                 <strong>Management:</strong> Ensure implementation and
                 compliance with this policy.
@@ -111,10 +111,10 @@ export default function InformationSecurityPolicy() {
 
           {/* Section 5 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               5. Security Controls
             </Heading>
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={2}>
                 <strong>Access Management:</strong> Role-based access,
                 multi-factor authentication, and regular reviews.
@@ -152,10 +152,10 @@ export default function InformationSecurityPolicy() {
 
           {/* Section 6 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               6. Data Privacy & Compliance
             </Heading>
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={2}>
                 Compliance with applicable regulatory guidelines, data
                 protection laws, and industry standards.
@@ -172,10 +172,10 @@ export default function InformationSecurityPolicy() {
 
           {/* Section 7 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               7. Training & Awareness
             </Heading>
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={2}>
                 All employees receive regular training on information security
                 and data privacy.
@@ -189,10 +189,10 @@ export default function InformationSecurityPolicy() {
 
           {/* Section 8 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               8. Review & Updates
             </Heading>
-            <Text color="gray.200">
+            <Text color="blue.800">
               This policy will be reviewed annually or whenever significant
               changes occur in business, technology, or regulatory
               requirements.
@@ -201,10 +201,10 @@ export default function InformationSecurityPolicy() {
 
           {/* Section 9 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               9. Enforcement
             </Heading>
-            <Text color="gray.200">
+            <Text color="blue.800">
               All employees, contractors, and partners are required to comply
               with this policy. Any violation will be addressed in accordance
               with company rules and contractual obligations.
@@ -213,34 +213,35 @@ export default function InformationSecurityPolicy() {
 
           {/* Contact Information */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               Contact Information
             </Heading>
 
             <Card.Root
-              bg="#081a3d"
-              borderColor="blue.500/30"
+              bg="white"
+              borderColor="blue.200"
               borderWidth="1px"
               borderRadius="lg"
               p={5}
               mt={3}
+              boxShadow="0 10px 30px rgba(30, 64, 175, 0.08)"
             >
-              <Text fontSize="base" fontWeight="semibold" color="white" mb={2}>
+              <Text fontSize="base" fontWeight="semibold" color="blue.900" mb={2}>
                 Information Security Officer (ISO)
               </Text>
 
-              <Text color="gray.200" fontSize="sm" mb={1}>
+              <Text color="blue.800" fontSize="sm" mb={1}>
                 KeshvaCredit Services Pvt. Ltd.
               </Text>
 
-              <Text color="gray.200" fontSize="sm" mb={1}>
-                ✉ <Box as="span" color="blue.400">
+              <Text color="blue.800" fontSize="sm" mb={1}>
+                ✉ <Box as="span" color="blue.600" fontWeight="medium">
                   info@keshvacredit.in
                 </Box>
               </Text>
 
-              <Text color="gray.200" fontSize="sm">
-                📞 <Box as="span" color="blue.400">
+              <Text color="blue.800" fontSize="sm">
+                📞 <Box as="span" color="blue.600" fontWeight="medium">
                   8901229195
                 </Box>
               </Text>

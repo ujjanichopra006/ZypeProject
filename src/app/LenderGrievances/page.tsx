@@ -72,7 +72,7 @@ const lenders = [
 
 export default function LenderGrievance() {
   return (
-    <Box minH="100vh" bg="#030d21" py={8} px={{ base: 4, md: 8, lg: 40 }}>
+    <Box minH="100vh" bg="blue.50" py={8} px={{ base: 4, md: 8, lg: 40 }} mt={20}>
       <Container maxW="6xl" mx="auto">
         {/* Heading */}
         <VStack gap={1} mb={7}>
@@ -80,12 +80,12 @@ export default function LenderGrievance() {
             as="h1"
             fontSize={{ base: "2xl", md: "3xl" }}
             fontWeight="bold"
-            color="white"
+            color="blue.900"
             textAlign="center"
           >
             Lender Grievance
           </Heading>
-          <Text fontSize="sm" color="gray.300" textAlign="center">
+          <Text fontSize="sm" color="blue.700" textAlign="center">
             Direct contact for grievance resolution
           </Text>
         </VStack>
@@ -101,24 +101,30 @@ export default function LenderGrievance() {
               key={index}
               w="full"
               maxW="290px"
-              bg="#f5f5f5"
+              bg="white"
               borderRadius="lg"
               overflow="hidden"
-              borderColor="gray.200"
+              borderColor="blue.100"
               borderWidth="1px"
-              boxShadow="md"
+              boxShadow="0 10px 30px rgba(30, 64, 175, 0.06)"
+              transition="all 0.3s ease"
+              _hover={{
+                transform: "translateY(-4px)",
+                boxShadow: "0 15px 40px rgba(30, 64, 175, 0.12)",
+                borderColor: "blue.300",
+              }}
             >
               {/* Logo */}
               <Box
                 h="65px"
                 borderBottom="1px"
-                borderColor="gray.200"
+                borderColor="blue.100"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
                 px={3}
                 py={2}
-                bg="white"
+                bg="blue.50"
               >
                 <Image
                   src={item.logo}
@@ -134,7 +140,7 @@ export default function LenderGrievance() {
                 <Text
                   fontSize="16px"
                   fontWeight="semibold"
-                  color="#0b2242"
+                  color="blue.900"
                   textAlign="center"
                   mb={4}
                 >
@@ -143,12 +149,12 @@ export default function LenderGrievance() {
 
                 {/* Officer */}
                 <HStack align="flex-start" gap={2} mb={2.5}>
-                  <Icon as={User} boxSize="14px" color="gray.500" mt={0.5} />
+                  <Icon as={User} boxSize="14px" color="blue.500" mt={0.5} />
                   <Box>
-                    <Text fontSize="11px" color="gray.500">
+                    <Text fontSize="11px" color="blue.600">
                       Grievance Officer
                     </Text>
-                    <Text fontSize="13px" color="#1d2b4d">
+                    <Text fontSize="13px" color="blue.900">
                       {item.officer}
                     </Text>
                   </Box>
@@ -156,9 +162,9 @@ export default function LenderGrievance() {
 
                 {/* Email */}
                 <HStack align="flex-start" gap={2} mb={2.5}>
-                  <Icon as={Mail} boxSize="14px" color="gray.500" mt={0.5} />
+                  <Icon as={Mail} boxSize="14px" color="blue.500" mt={0.5} />
                   <Box>
-                    <Text fontSize="11px" color="gray.500">
+                    <Text fontSize="11px" color="blue.600">
                       Contact Email
                     </Text>
                     <Link
@@ -166,7 +172,8 @@ export default function LenderGrievance() {
                       color="blue.600"
                       fontSize="13px"
                       wordBreak="break-all"
-                      _hover={{ textDecoration: "underline" }}
+                      fontWeight="medium"
+                      _hover={{ textDecoration: "underline", color: "blue.700" }}
                     >
                       {item.email}
                     </Link>
@@ -176,12 +183,12 @@ export default function LenderGrievance() {
                 {/* Phone */}
                 {item.phone && (
                   <HStack align="flex-start" gap={2} mb={2.5}>
-                    <Icon as={Phone} boxSize="14px" color="gray.500" mt={0.5} />
+                    <Icon as={Phone} boxSize="14px" color="blue.500" mt={0.5} />
                     <Box>
-                      <Text fontSize="11px" color="gray.500">
+                      <Text fontSize="11px" color="blue.600">
                         Phone Number
                       </Text>
-                      <Text fontSize="13px" color="#1d2b4d">
+                      <Text fontSize="13px" color="blue.900">
                         {item.phone}
                       </Text>
                     </Box>
@@ -191,12 +198,12 @@ export default function LenderGrievance() {
                 {/* Address */}
                 {item.address && (
                   <HStack align="flex-start" gap={2} mb={3}>
-                    <Icon as={MapPin} boxSize="14px" color="gray.500" mt={0.5} />
+                    <Icon as={MapPin} boxSize="14px" color="blue.500" mt={0.5} />
                     <Box>
-                      <Text fontSize="11px" color="gray.500">
+                      <Text fontSize="11px" color="blue.600">
                         Address
                       </Text>
-                      <Text fontSize="12px" color="#1d2b4d">
+                      <Text fontSize="12px" color="blue.800">
                         {item.address}
                       </Text>
                     </Box>
@@ -210,7 +217,9 @@ export default function LenderGrievance() {
                   rel="noopener noreferrer"
                   display="block"
                   w="full"
-                  bg="#dbe3ef"
+                  bg="blue.50"
+                  border="1px solid"
+                  borderColor="blue.200"
                   py={1.5}
                   textAlign="center"
                   fontSize="13px"
@@ -219,7 +228,9 @@ export default function LenderGrievance() {
                   borderRadius="md"
                   transition="all 0.2s"
                   _hover={{
-                    bg: "#d2dce8",
+                    bg: "blue.600",
+                    color: "white",
+                    borderColor: "blue.600",
                     textDecoration: "none",
                   }}
                 >

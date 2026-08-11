@@ -60,15 +60,11 @@ const policies = [
 ];
 
 export default function DataPolicy() {
-  const bgColor = "#020f26";
-  const textColor = "white";
-  const textColorSecondary = "gray.300";
-
   // Add a new policy if needed (simulating 6th card for better grid)
   const allPolicies = [...policies];
 
   return (
-    <Box bg={bgColor} minH="100vh" py={{ base: 12, md: 16 }} px={{ base: 4, md: 6 }}>
+    <Box bg="blue.50" minH="100vh" py={{ base: 12, md: 16 }} px={{ base: 4, md: 6 }} mt="10">
       <Container maxW="7xl">
         {/* Header Section */}
         <VStack gap={4} mb={12} textAlign="center">
@@ -76,7 +72,7 @@ export default function DataPolicy() {
             colorScheme="blue"
             fontSize="xs"
             px={4}
-            py={1}
+            py={2}
             borderRadius="full"
             textTransform="uppercase"
             letterSpacing="wider"
@@ -87,14 +83,14 @@ export default function DataPolicy() {
             as="h2"
             fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
             fontWeight="extrabold"
-            color={textColor}
+            color="blue.900"
             letterSpacing="tight"
           >
             Our Data Policies
           </Heading>
           <Text
             fontSize={{ base: "sm", md: "md", lg: "lg" }}
-            color={textColorSecondary}
+            color="blue.700"
             maxW="2xl"
             mx="auto"
           >
@@ -116,12 +112,12 @@ export default function DataPolicy() {
                 display="flex"
                 flexDirection="column"
                 justifyContent="space-between"
-                boxShadow="lg"
+                boxShadow="0 10px 30px rgba(30, 64, 175, 0.08)"
                 border="2px"
-                borderColor="transparent"
+                borderColor="blue.100"
                 _hover={{
                   transform: "translateY(-8px)",
-                  boxShadow: "xl",
+                  boxShadow: "0 20px 50px rgba(30, 64, 175, 0.15)",
                   borderColor: item.bg,
                   transition: "all 0.3s ease",
                 }}
@@ -159,11 +155,11 @@ export default function DataPolicy() {
                     as="h3"
                     fontSize="lg"
                     fontWeight="bold"
-                    color="gray.800"
+                    color="blue.900"
                   >
                     {item.title}
                   </Heading>
-                  <Text fontSize="sm" color="gray.600">
+                  <Text fontSize="sm" color="blue.700">
                     {item.desc}
                   </Text>
                 </VStack>
@@ -199,7 +195,7 @@ export default function DataPolicy() {
                 📋 Updated
               </Badge>
             </HStack>
-            <Text fontSize="xs" color="whiteAlpha.500">
+            <Text fontSize="xs" color="blue.600">
               All policies are reviewed and updated regularly to ensure compliance with the latest regulations.
             </Text>
           </VStack>

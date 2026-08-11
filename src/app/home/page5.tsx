@@ -75,124 +75,35 @@ export default function Fifth() {
 
   return (
     <Box 
-      bg="#111525" 
-      py={{ base: 0.5, md: 1, lg: 1.5 }} // ✅ Bahar ki padding aur kam (1 se 0.5)
+      bg="blue.50"
+      py={{ base: 0.5, md: 1, lg: 1.5 }}
       overflow="hidden"
     >
       <Container 
         maxW="1200px"
-        px={{ base: 0.5, md: 1, lg: 1.5 }} // ✅ Container ki padding aur kam
+        px={{ base: 0.5, md: 1, lg: 1.5 }}
       >
         <Flex
           direction={{ base: "column", lg: "row" }}
-          gap={{ base: 1.5, md: 2, lg: 2.5 }} // ✅ Gap kam (2 se 1.5)
+          gap={{ base: 3, md: 5, lg: 10 }}
           align="center"
           justify="center"
         >
-          {/* ============================================ */}
-          {/* LEFT CONTENT - Featured Card */}
-          {/* ============================================ */}
+          {/* LEFT SIDE IMAGE */}
           <Box
-            width={{ base: "100%", lg: "28%" }}
+            width={{ base: "100%", lg: "32%" }}
             data-aos="fade-right"
             data-aos-duration="1000"
           >
-            <Box
-              bg="linear-gradient(145deg, #2dd4bf, #14b8a6)"
-              p={{ base: 2.5, md: 3, lg: 3.5 }} // ✅ Andar ki padding thodi kam
+            <Image
+              src="/girl.png"
+              alt="Loan Banner"
+              w="100%"
+              h={{ base: "600px", md: "400px", lg: "600px" }}
+              objectFit="cover"
               borderRadius="2xl"
-              boxShadow="0 15px 40px rgba(45, 212, 191, 0.25)"
-              transition="all 0.4s ease"
-              minHeight={{ base: "200px", md: "250px", lg: "300px" }}
-              _hover={{
-                transform: "translateY(-4px)",
-                boxShadow: "0 20px 50px rgba(45, 212, 191, 0.35)",
-              }}
-              position="relative"
-              overflow="hidden"
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-            >
-              <Box
-                position="absolute"
-                top="-40px"
-                right="-40px"
-                width="100px"
-                height="100px"
-                borderRadius="full"
-                bg="rgba(255,255,255,0.1)"
-              />
-              <Box
-                position="absolute"
-                bottom="-20px"
-                left="-20px"
-                width="70px"
-                height="70px"
-                borderRadius="full"
-                bg="rgba(255,255,255,0.08)"
-              />
-
-              <Box position="relative" zIndex={1}>
-                <Flex align="center" gap={1.5} mb={2}>
-                  <Box
-                    bg="rgba(255,255,255,0.2)"
-                    borderRadius="full"
-                    p={1}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    <FaRocket size={14} color="white" />
-                  </Box>
-                  <Text color="white" fontWeight="bold" fontSize="xs" textTransform="uppercase" letterSpacing="wider">
-                    Featured
-                  </Text>
-                </Flex>
-
-                <Heading
-                  as="h2"
-                  fontSize={{ base: "lg", md: "xl", lg: "2xl" }}
-                  fontWeight="extrabold"
-                  color="gray.900"
-                  lineHeight="1.2"
-                  mb={2}
-                >
-                  Instant Funds,
-                  <br />
-                  <Text as="span" color="white">
-                    Endless Possibilities
-                  </Text>
-                </Heading>
-
-                <Text
-                  fontSize={{ base: "xs", md: "xs", lg: "sm" }}
-                  color="gray.800"
-                  lineHeight="1.5"
-                  fontWeight="medium"
-                >
-                  Get quick access to funds whenever you need them! Fast
-                  approvals, hassle-free processing, and secure transactions.
-                </Text>
-
-                <Flex
-                  gap={{ base: 2, md: 3 }}
-                  mt={3}
-                  pt={2}
-                  borderTop="2px solid"
-                  borderColor="rgba(255,255,255,0.2)"
-                >
-                  <Box>
-                    <Text fontSize="md" fontWeight="bold" color="white">50K+</Text>
-                    <Text fontSize="xs" color="gray.800" fontWeight="medium">Customers</Text>
-                  </Box>
-                  <Box>
-                    <Text fontSize="md" fontWeight="bold" color="white">₹500Cr+</Text>
-                    <Text fontSize="xs" color="gray.800" fontWeight="medium">Disbursed</Text>
-                  </Box>
-                </Flex>
-              </Box>
-            </Box>
+              boxShadow="0 25px 50px rgba(30, 64, 175, 0.15)"
+            />
           </Box>
 
           {/* ============================================ */}
@@ -200,39 +111,80 @@ export default function Fifth() {
           {/* ============================================ */}
           <Box
             width={{ base: "100%", lg: "68%" }}
+            mt={{ base: 8, md: 10, lg: 14 }} 
             data-aos="fade-left"
             data-aos-duration="1000"
           >
+            <Box mb={8} textAlign={{ base: "center", lg: "left" }}>
+              <Text
+                color="blue.600"
+                fontSize="sm"
+                fontWeight="bold"
+                textTransform="uppercase"
+                letterSpacing="2px"
+                mb={2}
+              >
+                OUR LOAN SERVICES
+              </Text>
+
+              <Heading
+                color="blue.900"
+                fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
+                fontWeight="extrabold"
+                lineHeight="1.2"
+                mb={3}
+              >
+                Find the Perfect
+                <Text as="span" color="blue.600">
+                  {" "}Loan for You
+                </Text>
+              </Heading>
+
+              <Text
+                color="blue.800"
+                maxW="650px"
+                fontSize={{ base: "sm", md: "md" }}
+                lineHeight="1.8"
+              >
+                Explore our wide range of loan solutions with fast approvals,
+                competitive interest rates, minimal documentation, and trusted
+                banking partners across India.
+              </Text>
+            </Box>
+
             <SimpleGrid
               columns={{ base: 1, md: 2 }}
-              gap={{ base: 1, md: 1.5 }} // ✅ Grid gap aur kam (1.5 se 1)
+              gap={{ base: 1, md: 1.5 }}
             >
               {loanCards.map((card, index) => (
                 <Box
                   key={index}
-                  bg="linear-gradient(145deg, #2dd4bf, #14b8a6)"
+                  bg="white"
+                  border="1px solid"
+                  borderColor="blue.100"
                   borderRadius="xl"
-                  p={{ base: 1.5, md: 2, lg: 2.5 }} // ✅ Andar ki padding kam
+                  p={{ base: 1.5, md: 2, lg: 2.5 }}
                   boxShadow="sm"
                   minHeight={{ base: "100px", md: "120px", lg: "140px" }}
                   transition="all 0.3s ease"
                   _hover={{
                     transform: "translateY(-3px) scale(1.01)",
-                    boxShadow: "lg",
+                    boxShadow: "0 15px 40px rgba(30, 64, 175, 0.12)",
+                    borderColor: "blue.300",
                   }}
                   data-aos="zoom-in-up"
                   data-aos-delay={index * 100}
                   data-aos-duration="1000"
                   display="flex"
                   alignItems="center"
-                  gap={{ base: 1.5, md: 2 }} // ✅ Gap kam
+                  gap={{ base: 1.5, md: 2 }}
                 >
-                  {/* Image/Icon */}
+                  {/* Image/Icon Container */}
                   <Box
                     flexShrink={0}
                     width={imageSize}
                     height={imageSize}
-                    bg="rgba(255,255,255,0.2)"
+                    bg="blue.50"
                     borderRadius="lg"
                     display="flex"
                     alignItems="center"
@@ -240,7 +192,7 @@ export default function Fifth() {
                     transition="all 0.3s ease"
                     _hover={{
                       transform: "scale(1.1)",
-                      bg: "rgba(255,255,255,0.3)",
+                      bg: "blue.100",
                     }}
                   >
                     {card.image ? (
@@ -257,7 +209,7 @@ export default function Fifth() {
                         }}
                       />
                     ) : (
-                      <Icon as={card.icon} boxSize={5} color="white" />
+                      <Icon as={card.icon} boxSize={5} color="blue.600" />
                     )}
                   </Box>
 
@@ -267,7 +219,7 @@ export default function Fifth() {
                       as="h3"
                       fontSize={{ base: "sm", md: "md" }}
                       fontWeight="bold"
-                      color="gray.900"
+                      color="blue.900"
                       mb={0.5}
                     >
                       {card.title}
@@ -275,7 +227,7 @@ export default function Fifth() {
 
                     <Text
                       fontSize={{ base: "xs", sm: "xs", md: "sm" }}
-                      color="gray.800"
+                      color="blue.700"
                       lineHeight="1.4"
                       overflow="hidden"
                       display="-webkit-box"

@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import toast from "react-hot-toast";
+import Image from "next/image"; // ✅ Added for Partner Logos
+import AOS from "aos"; // ✅ Added for Animations
+import "aos/dist/aos.css"; // ✅ Added for Animations
 
 import {
   Box,
@@ -21,7 +24,8 @@ import {
   Badge,
 } from "@chakra-ui/react";
 
-import { FaHandshake, FaRocket, FaUsers, FaBuilding, FaChartLine } from "react-icons/fa";
+// FaCheck import kiya hai tick marks ke liye
+import { FaHandshake, FaRocket, FaUsers, FaBuilding, FaChartLine, FaCheck } from "react-icons/fa";
 
 export default function Partner() {
   const pathname = usePathname();
@@ -29,6 +33,14 @@ export default function Partner() {
   const [view, setView] = useState("register");
   const [selectedType, setSelectedType] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // ✅ Initialize AOS Animation
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+    });
+  }, []);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -51,6 +63,25 @@ export default function Partner() {
     email: "",
     partnerType: "",
   });
+
+  // ✅ LOAN PARTNERS DATA (Added Here)
+  const partners = [
+    { src: "/Zype.png", alt: "Zype", delay: 0 },
+    { src: "/Moneyview.jpg", alt: "MoneyView", delay: 100 },
+    { src: "/Ramfin.png", alt: "Ramfin", delay: 200 },
+    { src: "/Fatakpay.jpg", alt: "FatakPay", delay: 300 },
+    { src: "/olyv.png", alt: "Olyv", delay: 400 },
+    { src: "/trustpaisa.png", alt: "trustPaisa", delay: 0 },
+    { src: "/CreditSea.png", alt: "CreditSea", delay: 100 },
+    { src: "/payme.png", alt: "Payme", delay: 200 },
+    { src: "/capitalnow.png", alt: "Capitalnow", delay: 300 },
+    { src: "/bajaj housing.jpg", alt: "Bajaj Housing", delay: 0 },
+    { src: "/faircent.png", alt: "Faircent", delay: 0 },
+    { src: "/protium.png", alt: "Protium", delay: 0 },
+    { src: "/Muthoot fincorp.png", alt: "Muthoot Fincorp", delay: 0 },
+    { src: "/branch.webp", alt: "Branch", delay: 0 },
+    { src: "/kamakshi money.png", alt: "Kamakshi Money", delay: 0 },
+  ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -137,98 +168,48 @@ export default function Partner() {
       title: "DSA Partners",
       subtitle: "Direct Selling Agents",
       icon: FaHandshake,
-      color: "blue",
-      benefits: ["✔ High commission earnings", "✔ Easy onboarding"],
+      color: "teal",
+      benefits: [
+        "Refer customers for loans",
+        "Earn commission on approvals",
+        "No minimum targets"
+      ],
     },
     {
       id: "Aggregator",
       title: "Aggregators",
       subtitle: "Platform Partnerships",
       icon: FaUsers,
-      color: "purple",
-      benefits: ["✔ API support", "✔ Bulk leads"],
+      color: "teal",
+      benefits: [
+        "API integration options",
+        "Higher commission tiers",
+        "Dedicated account manager"
+      ],
     },
     {
       id: "Corporate",
       title: "Corporate Partners",
       subtitle: "Business Collaborations",
       icon: FaBuilding,
-      color: "pink",
-      benefits: ["✔ Enterprise solutions", "✔ Priority support"],
+      color: "teal",
+      benefits: [
+        "Custom partnership programs",
+        "Employee benefit programs",
+        "Co-branding opportunities"
+      ],
     },
   ];
 
   return (
-    <Box minH="100vh" bg="#0f172a" py={{ base: 8, md: 16 }} px={{ base: 4, md: 6 }}>
+    <Box minH="100vh" bg="blue.50" py={{ base: 8, md: 16 }} px={{ base: 4, md: 6 }}>
       <Container maxW="6xl">
-        {/* Navigation Tabs - FIXED */}
-        <HStack
-  mt={10}
-  gap={3}
-  justifyContent="center"
-  mb={10}
-  flexWrap="wrap"
->
-  {/* Contact Button */}
-  <Link href="/Contact" passHref legacyBehavior>
-    <Box
-      as="a"
-      px={6}
-      py={2.5}
-      borderRadius="full"
-      fontSize="sm"
-      fontWeight="medium"
-      textAlign="center"
-      transition="all 0.3s"
-      bg={pathname === "/Contact" ? "blue.600" : "transparent"}
-      color="white"
-      border={
-        pathname === "/Contact"
-          ? "2px solid blue.600"
-          : "2px solid blue.500"
-      }
-      _hover={{
-        bg: pathname === "/Contact" ? "blue.700" : "blue.600",
-        borderColor: pathname === "/Contact" ? "blue.700" : "blue.600",
-        color: "white",
-        transform: "translateY(-2px)",
-      }}
-      cursor="pointer"
-    >
-      Contact
-    </Box>
-  </Link>
-
-  {/* Partner Button */}
-  <Link href="/partner" passHref legacyBehavior>
-    <Box
-      as="a"
-      px={6}
-      py={2.5}
-      borderRadius="full"
-      fontSize="sm"
-      fontWeight="medium"
-      textAlign="center"
-      transition="all 0.3s"
-      bg={pathname === "/partner" ? "yellow.500" : "transparent"}
-      color={pathname === "/partner" ? "black" : "yellow.400"}
-      border="2px solid yellow.500"
-      _hover={{
-        bg: "yellow.500",
-        color: "black",
-        borderColor: "yellow.500",
-        transform: "translateY(-2px)",
-      }}
-      cursor="pointer"
-    >
-      Register as Partner
-    </Box>
-  </Link>
-</HStack>
+        {/* Navigation Tabs */}
+        <HStack mt={10} gap={3} justifyContent="center" mb={10} flexWrap="wrap"></HStack>
 
         {/* Hero Section */}
         <Box
-          bg="gray.200"
+          bg="white"
           borderRadius="3xl"
           py={{ base: 16, md: 20 }}
           px={{ base: 6, md: 10 }}
@@ -237,43 +218,16 @@ export default function Partner() {
           position="relative"
           overflow="hidden"
         >
-          <Box
-            position="absolute"
-            top="-50%"
-            right="-10%"
-            w="300px"
-            h="300px"
-            bg="blue.100"
-            borderRadius="full"
-            opacity={0.3}
-          />
-          <Box
-            position="absolute"
-            bottom="-30%"
-            left="-5%"
-            w="200px"
-            h="200px"
-            bg="purple.100"
-            borderRadius="full"
-            opacity={0.3}
-          />
-
           <VStack gap={6} position="relative" zIndex={1}>
-            <Icon as={FaHandshake} boxSize={16} color="blue.600" />
-            <Heading
-              as="h1"
-              fontSize={{ base: "3xl", md: "5xl" }}
-              fontWeight="extrabold"
-              color="black"
-            >
+            <Icon as={FaHandshake} boxSize={16} color="pink.800" />
+            <Heading as="h1" fontSize={{ base: "3xl", md: "5xl" }} fontWeight="extrabold" color="black">
               Partner with{" "}
-              <Text as="span" color="blue.600">
+              <Text as="span" color="#F59E0B">
                 KeshvaCredit
               </Text>
             </Heading>
             <Text fontSize={{ base: "md", md: "lg" }} color="gray.600" maxW="2xl">
-              Join our growing network of partners and unlock new opportunities
-              in the financial services industry.
+              Join our growing network of partners and unlock new opportunities in the financial services industry.
             </Text>
 
             <HStack gap={4} flexWrap="wrap" justifyContent="center">
@@ -283,11 +237,11 @@ export default function Partner() {
                 px={10}
                 py={6}
                 borderRadius="xl"
-                bg={view === "register" ? "blue.600" : "transparent"}
-                color={view === "register" ? "white" : "blue.600"}
-                border={view === "register" ? "none" : "2px solid blue.600"}
+                bg={view === "register" ? "pink.800" : "transparent"}
+                color={view === "register" ? "white" : "pink.800"}
+                border={view === "register" ? "none" : "2px solid pink.800"}
                 _hover={{
-                  bg: view === "register" ? "blue.700" : "blue.50",
+                  bg: view === "register" ? "teal.700" : "teal.50",
                   transform: "translateY(-2px)",
                 }}
                 transition="all 0.3s"
@@ -303,11 +257,11 @@ export default function Partner() {
                 px={10}
                 py={6}
                 borderRadius="xl"
-                bg={view === "learn" ? "blue.600" : "transparent"}
+                bg={view === "learn" ? "teal.600" : "transparent"}
                 color={view === "learn" ? "white" : "black"}
                 border={view === "learn" ? "none" : "2px solid black"}
                 _hover={{
-                  bg: view === "learn" ? "blue.700" : "gray.100",
+                  bg: view === "learn" ? "teal.700" : "gray.100",
                   transform: "translateY(-2px)",
                 }}
                 transition="all 0.3s"
@@ -333,14 +287,7 @@ export default function Partner() {
             borderColor="gray.200"
           >
             {selectedType && (
-              <Badge
-                colorScheme="blue"
-                fontSize="md"
-                px={4}
-                py={2}
-                borderRadius="full"
-                mb={6}
-              >
+              <Badge colorScheme="teal" fontSize="md" px={4} py={2} borderRadius="full" mb={6}>
                 Selected Partner Type: {selectedType}
               </Badge>
             )}
@@ -363,10 +310,10 @@ export default function Partner() {
                       borderRadius="xl"
                       height="50px"
                       px={4}
-                      _hover={{ borderColor: errors.fullName ? "red.400" : "blue.400" }}
+                      _hover={{ borderColor: errors.fullName ? "red.400" : "teal.400" }}
                       _focus={{
-                        borderColor: errors.fullName ? "red.400" : "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        borderColor: errors.fullName ? "red.400" : "teal.500",
+                        boxShadow: "0 0 0 3px rgba(56, 178, 172, 0.2)",
                       }}
                     />
                     {errors.fullName && (
@@ -393,10 +340,10 @@ export default function Partner() {
                       borderRadius="xl"
                       height="50px"
                       px={4}
-                      _hover={{ borderColor: errors.contact ? "red.400" : "blue.400" }}
+                      _hover={{ borderColor: errors.contact ? "red.400" : "teal.400" }}
                       _focus={{
-                        borderColor: errors.contact ? "red.400" : "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        borderColor: errors.contact ? "red.400" : "teal.500",
+                        boxShadow: "0 0 0 3px rgba(56, 178, 172, 0.2)",
                       }}
                     />
                     {errors.contact && (
@@ -423,10 +370,10 @@ export default function Partner() {
                       borderRadius="xl"
                       height="50px"
                       px={4}
-                      _hover={{ borderColor: errors.email ? "red.400" : "blue.400" }}
+                      _hover={{ borderColor: errors.email ? "red.400" : "teal.400" }}
                       _focus={{
-                        borderColor: errors.email ? "red.400" : "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        borderColor: errors.email ? "red.400" : "teal.500",
+                        boxShadow: "0 0 0 3px rgba(56, 178, 172, 0.2)",
                       }}
                     />
                     {errors.email && (
@@ -453,10 +400,10 @@ export default function Partner() {
                       borderRadius="xl"
                       height="50px"
                       px={4}
-                      _hover={{ borderColor: "blue.400" }}
+                      _hover={{ borderColor: "teal.400" }}
                       _focus={{
-                        borderColor: "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        borderColor: "teal.500",
+                        boxShadow: "0 0 0 3px rgba(56, 178, 172, 0.2)",
                       }}
                     />
                   </Box>
@@ -538,10 +485,10 @@ export default function Partner() {
                       borderRadius="xl"
                       height="50px"
                       px={4}
-                      _hover={{ borderColor: "blue.400" }}
+                      _hover={{ borderColor: "teal.400" }}
                       _focus={{
-                        borderColor: "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        borderColor: "teal.500",
+                        boxShadow: "0 0 0 3px rgba(56, 178, 172, 0.2)",
                       }}
                     />
                   </Box>
@@ -563,10 +510,10 @@ export default function Partner() {
                       borderRadius="xl"
                       height="50px"
                       px={4}
-                      _hover={{ borderColor: "blue.400" }}
+                      _hover={{ borderColor: "teal.400" }}
                       _focus={{
-                        borderColor: "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        borderColor: "teal.500",
+                        boxShadow: "0 0 0 3px rgba(56, 178, 172, 0.2)",
                       }}
                     />
                   </Box>
@@ -616,10 +563,10 @@ export default function Partner() {
                       borderRadius="xl"
                       height="50px"
                       px={4}
-                      _hover={{ borderColor: "blue.400" }}
+                      _hover={{ borderColor: "teal.400" }}
                       _focus={{
-                        borderColor: "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        borderColor: "teal.500",
+                        boxShadow: "0 0 0 3px rgba(56, 178, 172, 0.2)",
                       }}
                     />
                   </Box>
@@ -641,10 +588,10 @@ export default function Partner() {
                       borderRadius="xl"
                       height="50px"
                       px={4}
-                      _hover={{ borderColor: "blue.400" }}
+                      _hover={{ borderColor: "teal.400" }}
                       _focus={{
-                        borderColor: "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        borderColor: "teal.500",
+                        boxShadow: "0 0 0 3px rgba(56, 178, 172, 0.2)",
                       }}
                     />
                   </Box>
@@ -666,10 +613,10 @@ export default function Partner() {
                       borderRadius="xl"
                       height="50px"
                       px={4}
-                      _hover={{ borderColor: "blue.400" }}
+                      _hover={{ borderColor: "teal.400" }}
                       _focus={{
-                        borderColor: "blue.500",
-                        boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
+                        borderColor: "teal.500",
+                        boxShadow: "0 0 0 3px rgba(56, 178, 172, 0.2)",
                       }}
                     />
                   </Box>
@@ -681,15 +628,15 @@ export default function Partner() {
                 w="full"
                 mt={8}
                 height="56px"
-                bgGradient="linear(to-r, blue.500, purple.600)"
+                bgGradient="linear(to-r, teal.500, teal.700)"
                 color="white"
                 fontSize="lg"
                 fontWeight="bold"
                 borderRadius="xl"
                 _hover={{
-                  bgGradient: "linear(to-r, blue.600, purple.700)",
+                  bgGradient: "linear(to-r, teal.600, teal.800)",
                   transform: "translateY(-2px)",
-                  boxShadow: "0 8px 25px rgba(66, 153, 225, 0.4)",
+                  boxShadow: "0 8px 25px rgba(56, 178, 172, 0.4)",
                 }}
                 _active={{ transform: "translateY(0)" }}
                 transition="all 0.3s"
@@ -700,6 +647,79 @@ export default function Partner() {
                 {isSubmitting ? "Submitting..." : "Submit Partnership Request"}
               </Button>
             </form>
+          </Box>
+        )}
+
+        {/* Partnership Models Section */}
+        {view === "register" && (
+          <Box mt={20} mb={10} textAlign="center">
+            <Heading as="h2" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="bold" color="gray.800" mb={4}>
+              Our Partnership Models
+            </Heading>
+            <Text fontSize={{ base: "md", md: "lg" }} color="gray.600" mb={12}>
+              Choose the partnership model that best fits your business and goals
+            </Text>
+
+            <SimpleGrid columns={{ base: 1, md: 3 }} gap={8} px={{ base: 2, md: 0 }}>
+              {partnerTypes.map((type, index) => (
+                <Box
+                  key={index}
+                  bg="white"
+                  borderRadius="xl"
+                  overflow="hidden"
+                  boxShadow="md"
+                  border="1px"
+                  borderColor="gray.100"
+                  textAlign="left"
+                  display="flex"
+                  flexDirection="column"
+                  transition="all 0.3s"
+                  _hover={{ transform: "translateY(-5px)", boxShadow: "xl" }}
+                >
+                  {/* Card Header - Teal Background like image */}
+                  <Box bg="pink.800" p={6} color="white">
+                    <Heading as="h3" fontSize="xl" fontWeight="bold" mb={1}>
+                      {type.title}
+                    </Heading>
+                    <Text fontSize="sm" opacity={0.9}>
+                      {type.subtitle}
+                    </Text>
+                  </Box>
+
+                  {/* Card Body */}
+                  <Box p={6} flex="1" display="flex" flexDirection="column">
+                    <VStack align="stretch" gap={4} mb={8} flex="1">
+                      {type.benefits.map((benefit, i) => (
+                        <HStack key={i} align="flex-start">
+                          <Icon as={FaCheck} color="green.500" boxSize={5} mt={0.5} />
+                          <Text color="gray.700" fontSize="sm">
+                            {benefit}
+                          </Text>
+                        </HStack>
+                      ))}
+                    </VStack>
+
+                    <Button
+                      onClick={() => {
+                        setSelectedType(type.id);
+                        setFormData({ ...formData, partnerType: type.id });
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        toast.success(`${type.title} selected! Please fill the form above.`);
+                      }}
+                      w="full"
+                      bg="pink.800"
+                      color="white"
+                      py={6}
+                      borderRadius="lg"
+                      fontWeight="bold"
+                      _hover={{ bg: "teal.700" }}
+                    >
+                      Apply Now
+                    </Button>
+                  </Box>
+                </Box>
+              ))}
+            </SimpleGrid>
           </Box>
         )}
 
@@ -723,13 +743,7 @@ export default function Partner() {
                 }}
                 transition="all 0.3s"
               >
-                <Box
-                  display="inline-block"
-                  p={4}
-                  borderRadius="full"
-                  bg={`${type.color}.50`}
-                  mb={4}
-                >
+                <Box display="inline-block" p={4} borderRadius="full" bg={`${type.color}.50`} mb={4}>
                   <Icon as={type.icon} boxSize={8} color={`${type.color}.600`} />
                 </Box>
 
@@ -744,7 +758,7 @@ export default function Partner() {
                 <VStack gap={2} align="flex-start">
                   {type.benefits.map((benefit, i) => (
                     <Text key={i} color="green.600" fontSize="sm">
-                      {benefit}
+                      ✔ {benefit}
                     </Text>
                   ))}
                 </VStack>
@@ -774,6 +788,64 @@ export default function Partner() {
             ))}
           </SimpleGrid>
         )}
+
+        {/* ✅ NEW SECTION ADDED HERE: OUR LOAN PARTNERS */}
+        <Box bg="gray.50" py={{ base: 8, md: 12 }} mt={20} borderRadius={{ base: "none", md: "2xl" }}>
+          <Container maxW="7xl">
+            <VStack gap={4} mb={12}>
+              <Heading
+                as="h2"
+                fontSize={{ base: "3xl", md: "4xl" }}
+                fontWeight="bold"
+                color="blue.800"
+                textAlign="center"
+                data-aos="fade-up"
+              >
+                Our Loan Partners
+              </Heading>
+
+              <Text
+                fontSize={{ base: "md", md: "lg" }}
+                color="gray.600"
+                textAlign="center"
+                maxW="2xl"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                We work with partners who believe in "quality over quantity" and
+                strive for excellence.
+              </Text>
+            </VStack>
+
+            <SimpleGrid columns={{ base: 2, md: 5 }} gap={4}>
+              {partners.map((partner, index) => (
+                <Box
+                  key={index}
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  p={4}
+                  data-aos="zoom-in"
+                  data-aos-delay={partner.delay}
+                >
+                  <Image
+                    src={partner.src}
+                    alt={partner.alt}
+                    width={100}
+                    height={70}
+                    className="object-contain"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "/placeholder.png";
+                    }}
+                  />
+                </Box>
+              ))}
+            </SimpleGrid>
+          </Container>
+        </Box>
+        {/* ✅ END OF NEW SECTION */}
+
       </Container>
     </Box>
   );

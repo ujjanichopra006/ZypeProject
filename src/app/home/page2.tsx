@@ -33,7 +33,6 @@ export default function Second() {
   // ✅ Responsive values
   const headingSize = useBreakpointValue({ base: "xl", sm: "2xl", md: "3xl" });
   const textSize = useBreakpointValue({ base: "sm", sm: "base", md: "xl" });
-  const logoHeight = useBreakpointValue({ base: "24px", sm: "28px", md: "32px" });
 
   // ✅ Partner logos data
   const partners = [
@@ -75,21 +74,13 @@ export default function Second() {
   // ✅ Duplicate logos for seamless infinite scroll
   const allLogos = [...partners, ...partners, ...partners];
 
-  // ✅ CSS for animation (inline style)
-  const scrollStyles = {
-    display: "flex",
-    alignItems: "center",
-    width: "max-content",
-    animation: "scroll 20s linear infinite",
-  };
-
   return (
     <Box
       as="section"
-      bg="#111525"
-      color="white"
-      py={{ base: 0, md: 0 }}
-      px={{ base:0, md: 0}}
+      bg="blue.50" // 🎨 BG Updated to Light Blue
+      color="blue.900" // 🎨 Base Text Color Updated
+      py={{ base: 4, md: 6 }}
+      px={{ base: 0, md: 0 }}
       overflow="hidden"
       width="100%"
     >
@@ -100,7 +91,7 @@ export default function Second() {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.33%);
+            transform: translateX(-33.333%);
           }
         }
         
@@ -108,60 +99,12 @@ export default function Second() {
           display: flex;
           align-items: center;
           width: max-content;
-          animation: scroll 20s linear infinite;
+          animation: scroll 28s linear infinite;
         }
         
         .slider-track:hover {
           animation-play-state: paused;
         }
-        
-        .logo-item {
-          flex-shrink: 0;
-          margin: 0 6px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.3s ease;
-          opacity: 0.8;
-        }
-        
-        .logo-item:hover {
-          opacity: 1;
-          transform: scale(1.1);
-        }
-        
-        @media (min-width: 768px) {
-          .logo-item {
-            margin: 0 5px;
-          }
-        }
-        
-        @media (min-width: 1024px) {
-          .logo-item {
-            margin: 0 5px;
-          }
-        }
-
-          @keyframes scroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-33.333%);
-  }
-}
-
-.slider-track {
-  display: flex;
-  align-items: center;
-  width: max-content;
-  animation: scroll 28s linear infinite;
-}
-
-.slider-track:hover {
-  animation-play-state: paused;
-}
       `}</style>
 
       <Container maxW="1280px" centerContent>
@@ -172,118 +115,121 @@ export default function Second() {
           data-aos="fade-up"
           data-aos-duration="1200"
           mb={{ base: 2, md: 3 }}
-          mt="0"
+          mt="8"
         >
           <Heading
             as="h1"
             fontSize={headingSize}
             fontWeight="bold"
-            color="white"
+            color="blue.900" // 🎨 Dark Blue Heading
           >
             🚀 Our Trusted Partners
           </Heading>
 
           <Text
             fontSize={textSize}
-            color="white"
+            color="blue.800" // 🎨 Dark Blue Paragraph
             mt={{ base: 1, md: 2 }}
             px={{ base: 2, md: 3 }}
             lineHeight="relaxed"
           >
             We collaborate with leading financial partners who believe in quality
-            <Text as="span" color="blue.400" fontWeight="semibold">
+            <Text as="span" color="blue.600" fontWeight="semibold">
               {" "}over quantity and deliver excellence.
             </Text>
           </Text>
         </Box>
 
-       {/* LOGO SLIDER */}
-<Box
-  mt={10}
-  w="100%"
-  position="relative"
-  overflow="hidden"
-  borderRadius="28px"
-  borderColor="gray.200"
-  py={10}
-  boxShadow="0 20px 60px rgba(0,0,0,.08)"
->
-  {/* Left Gradient */}
-  <Box
-    position="absolute"
-    left={0}
-    top={0}
-    h="100%"
-    w="120px"
-    bgGradient="linear(to-r, white, transparent)"
-    zIndex={5}
-  />
-
-  {/* Right Gradient */}
-  <Box
-    position="absolute"
-    right={0}
-    top={0}
-    h="100%"
-    w="120px"
-    bgGradient="linear(to-l, white, transparent)"
-    zIndex={5}
-  />
-
-  <Box className="slider-track">
-    {allLogos.map((partner, idx) => {
-      const originalIndex = idx % partners.length;
-      const hasError = logoErrors[originalIndex];
-
-      return (
+        {/* LOGO SLIDER */}
         <Box
-          key={idx}
-          mx={4}
-          minW={{ base: "100px", md: "150px" }}
-          h={{ base: "90px", md: "90px" }}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          bg="white"
-          borderRadius="24px"
-          border="1px solid"
-          borderColor="gray.100"
-          boxShadow="0 8px 30px rgba(0,0,0,.06)"
-          transition=".35s"
-          _hover={{
-            transform: "translateY(-8px)",
-            boxShadow: "0 20px 45px rgba(0,0,0,.15)",
-          }}
+          mt={6}
+          w="100%"
+          position="relative"
+          overflow="hidden"
+          borderRadius="28px"
+          borderColor="blue.100" // 🎨 Border matched to light theme
+          py={0}
+          boxShadow="0 20px 60px rgba(30, 64, 175, 0.08)" // 🎨 Subtle blue-tinted shadow
         >
-          {hasError ? (
-            <Text
-              color="gray.500"
-              fontWeight="bold"
-              fontSize="sm"
-            >
-              {partner.alt}
-            </Text>
-          ) : (
-            <Image
-              src={partner.src}
-              alt={partner.alt}
-              maxH="55px"
-              maxW="120px"
-              objectFit="contain"
-              loading="lazy"
-              onError={() => handleImageError(originalIndex)}
-              transition=".3s"
-              _hover={{
-                filter: "grayscale(0%)",
-                transform: "scale(1.08)",
-              }}
-            />
-          )}
+          {/* Left Gradient - Matched to blue.50 */}
+          <Box
+            position="absolute"
+            left={0}
+            top={0}
+            h="100%"
+            w="120px"
+            bgGradient="linear(to-r, #eff6ff, transparent)" // 🎨 blue.50 hex equivalent fade
+            zIndex={5}
+            pointerEvents="none"
+          />
+
+          {/* Right Gradient - Matched to blue.50 */}
+          <Box
+            position="absolute"
+            right={0}
+            top={0}
+            h="100%"
+            w="120px"
+            bgGradient="linear(to-l, #eff6ff, transparent)" // 🎨 blue.50 hex equivalent fade
+            zIndex={5}
+            pointerEvents="none"
+          />
+
+          <Box className="slider-track">
+            {allLogos.map((partner, idx) => {
+              const originalIndex = idx % partners.length;
+              const hasError = logoErrors[originalIndex];
+
+              return (
+                <Box
+                  key={idx}
+                  mx={4}
+                  minW={{ base: "100px", md: "150px" }}
+                  h={{ base: "80px", md: "90px" }}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  bg="white"
+                  borderRadius="24px"
+                  border="1px solid"
+                  borderColor="blue.100" // 🎨 Light blue border instead of gray
+                  boxShadow="0 8px 30px rgba(30, 64, 175, 0.06)" // 🎨 Blue-tinted card shadow
+                  transition=".35s"
+                  _hover={{
+                    transform: "translateY(-8px)",
+                    boxShadow: "0 20px 45px rgba(30, 64, 175, 0.15)",
+                    borderColor: "blue.300",
+                  }}
+                >
+                  {hasError ? (
+                    <Text
+                      color="blue.400" // 🎨 Error text adjusted for light bg
+                      fontWeight="bold"
+                      fontSize="sm"
+                    >
+                      {partner.alt}
+                    </Text>
+                  ) : (
+                    <Image
+                      src={partner.src}
+                      alt={partner.alt}
+                      maxH="55px"
+                      maxW="120px"
+                      objectFit="contain"
+                      loading="lazy"
+                      onError={() => handleImageError(originalIndex)}
+                      transition=".3s"
+                      _hover={{
+                        filter: "grayscale(0%)",
+                        transform: "scale(1.08)",
+                      }}
+                    />
+                  )}
+                </Box>
+              );
+            })}
+          </Box>
         </Box>
-      );
-    })}
-  </Box>
-</Box>
       </Container>
     </Box>
   );

@@ -63,7 +63,7 @@ export default function BusinessLoanCalculator() {
       px={{ base: 4, md: 6 }}
       bgGradient={bgGradient}
     >
-      <Container maxW="4xl" mx="auto" p={0}>
+      <Container maxW="4xl" mx="auto" p={0} mt={20} >
         <Box
           bg={cardBg}
           borderRadius="32px"

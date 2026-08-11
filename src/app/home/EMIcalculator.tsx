@@ -74,7 +74,7 @@ export default function EMICalculator() {
   const inputHeight = useBreakpointValue({ base: "40px", md: "44px" });
 
   return (
-    <Box bg="#111525" py={{ base: 6, md: 8, lg: 10 }} overflow="hidden">
+    <Box bg="blue.50" py={{ base: 6, md: 8, lg: 10 }} overflow="hidden">
       <Container maxW="1280px" px={{ base: 3, md: 5, lg: 6 }}>
         
         {/* ========== HEADING ========== */}
@@ -87,11 +87,11 @@ export default function EMICalculator() {
             as="h1"
             fontSize={headingSize}
             fontWeight="extrabold"
-            color="white"
+            color="blue.900"
             data-aos="zoom-in"
           >
             Periodic{" "}
-            <Text as="span" color="blue.400">
+            <Text as="span" color="blue.600">
               Loan EMI
             </Text>{" "}
             Calculator
@@ -109,10 +109,12 @@ export default function EMICalculator() {
           {/* LEFT - EMI CALCULATOR FORM */}
           {/* ============================================ */}
           <Box
-            bg="linear-gradient(145deg, #1a2a67, #162055)"
+            bg="white"
+            border="1px solid"
+            borderColor="blue.100"
             borderRadius="2xl"
             p={cardPadding}
-            boxShadow="0 20px 60px rgba(26, 42, 103, 0.4)"
+            boxShadow="0 20px 60px rgba(30, 64, 175, 0.08)"
             data-aos="fade-right"
             position="relative"
             overflow="hidden"
@@ -125,7 +127,7 @@ export default function EMICalculator() {
               width="150px"
               height="150px"
               borderRadius="full"
-              bg="rgba(255,255,255,0.03)"
+              bg="blue.50"
             />
 
             <Box position="relative" zIndex={1}>
@@ -133,7 +135,7 @@ export default function EMICalculator() {
                 as="h2"
                 fontSize={{ base: "xl", md: "2xl" }}
                 fontWeight="bold"
-                color="white"
+                color="blue.900"
                 mb={{ base: 4, md: 5 }}
               >
                 EMI Calculator
@@ -145,7 +147,7 @@ export default function EMICalculator() {
                   <Text
                     as="label"
                     display="block"
-                    color="gray.300"
+                    color="blue.700"
                     fontWeight="medium"
                     fontSize="sm"
                     mb={1}
@@ -157,18 +159,19 @@ export default function EMICalculator() {
                     value={loanAmount}
                     onChange={(e) => setLoanAmount(Number(e.target.value))}
                     height={inputHeight}
-                    bg="rgba(255,255,255,0.05)"
+                    bg="blue.50"
                     border="1px solid"
-                    borderColor="rgba(255,255,255,0.2)"
-                    color="white"
+                    borderColor="blue.200"
+                    color="blue.900"
                     borderRadius="md"
                     px={3}
                     _hover={{
-                      borderColor: "rgba(255,255,255,0.4)",
+                      borderColor: "blue.300",
                     }}
                     _focus={{
-                      borderColor: "blue.400",
-                      boxShadow: "0 0 0 1px blue.400",
+                      borderColor: "blue.500",
+                      boxShadow: "0 0 0 1px blue.500",
+                      bg: "white",
                     }}
                   />
                 </Box>
@@ -178,7 +181,7 @@ export default function EMICalculator() {
                   <Text
                     as="label"
                     display="block"
-                    color="gray.300"
+                    color="blue.700"
                     fontWeight="medium"
                     fontSize="sm"
                     mb={1}
@@ -190,18 +193,19 @@ export default function EMICalculator() {
                     value={interestRate}
                     onChange={(e) => setInterestRate(Number(e.target.value))}
                     height={inputHeight}
-                    bg="rgba(255,255,255,0.05)"
+                    bg="blue.50"
                     border="1px solid"
-                    borderColor="rgba(255,255,255,0.2)"
-                    color="white"
+                    borderColor="blue.200"
+                    color="blue.900"
                     borderRadius="md"
                     px={3}
                     _hover={{
-                      borderColor: "rgba(255,255,255,0.4)",
+                      borderColor: "blue.300",
                     }}
                     _focus={{
-                      borderColor: "blue.400",
-                      boxShadow: "0 0 0 1px blue.400",
+                      borderColor: "blue.500",
+                      boxShadow: "0 0 0 1px blue.500",
+                      bg: "white",
                     }}
                   />
                 </Box>
@@ -211,7 +215,7 @@ export default function EMICalculator() {
                   <Text
                     as="label"
                     display="block"
-                    color="gray.300"
+                    color="blue.700"
                     fontWeight="medium"
                     fontSize="sm"
                     mb={1}
@@ -223,48 +227,50 @@ export default function EMICalculator() {
                     value={tenure}
                     onChange={(e) => setTenure(Number(e.target.value))}
                     height={inputHeight}
-                    bg="rgba(255,255,255,0.05)"
+                    bg="blue.50"
                     border="1px solid"
-                    borderColor="rgba(255,255,255,0.2)"
-                    color="white"
+                    borderColor="blue.200"
+                    color="blue.900"
                     borderRadius="md"
                     px={3}
                     _hover={{
-                      borderColor: "rgba(255,255,255,0.4)",
+                      borderColor: "blue.300",
                     }}
                     _focus={{
-                      borderColor: "blue.400",
-                      boxShadow: "0 0 0 1px blue.400",
+                      borderColor: "blue.500",
+                      boxShadow: "0 0 0 1px blue.500",
+                      bg: "white",
                     }}
                   />
                 </Box>
               </VStack>
 
-              {/* ✅ Divider replaced with Box */}
+              {/* Divider */}
               <Box
                 my={{ base: 4, md: 5 }}
                 height="1px"
-                bg="rgba(255,255,255,0.15)"
+                bg="blue.100"
               />
 
               {/* Summary Cards */}
               <SimpleGrid columns={{ base: 1, sm: 2 }} gap={3}>
                 <Box
-                  bg="rgba(255,255,255,0.08)"
+                  bg="blue.50"
+                  border="1px solid"
+                  borderColor="blue.200"
                   borderRadius="lg"
                   p={3}
                   data-aos="flip-left"
                   data-aos-delay="100"
-                  backdropFilter="blur(10px)"
                 >
-                  <Text fontSize="xs" color="gray.400" fontWeight="medium">
+                  <Text fontSize="xs" color="blue.600" fontWeight="medium">
                     Total Payment
                   </Text>
                   <Heading
                     as="h3"
                     fontSize={{ base: "lg", md: "xl" }}
                     fontWeight="bold"
-                    color="white"
+                    color="blue.900"
                   >
                     ₹{emiData.totalPayment.toLocaleString("en-IN", {
                       maximumFractionDigits: 2,
@@ -273,21 +279,22 @@ export default function EMICalculator() {
                 </Box>
 
                 <Box
-                  bg="rgba(255,255,255,0.08)"
+                  bg="blue.50"
+                  border="1px solid"
+                  borderColor="blue.200"
                   borderRadius="lg"
                   p={3}
                   data-aos="flip-right"
                   data-aos-delay="200"
-                  backdropFilter="blur(10px)"
                 >
-                  <Text fontSize="xs" color="gray.400" fontWeight="medium">
+                  <Text fontSize="xs" color="blue.600" fontWeight="medium">
                     Total Interest
                   </Text>
                   <Heading
                     as="h3"
                     fontSize={{ base: "lg", md: "xl" }}
                     fontWeight="bold"
-                    color="orange.300"
+                    color="orange.600"
                   >
                     ₹{emiData.totalInterest.toLocaleString("en-IN", {
                       maximumFractionDigits: 2,
@@ -302,22 +309,24 @@ export default function EMICalculator() {
           {/* RIGHT - EMI RESULT */}
           {/* ============================================ */}
           <Box
-            bg="linear-gradient(145deg, #f8f9fa, #e9ecef)"
+            bg="white"
+            border="1px solid"
+            borderColor="blue.100"
             borderRadius="2xl"
             p={cardPadding}
-            boxShadow="0 20px 60px rgba(0,0,0,0.15)"
+            boxShadow="0 20px 60px rgba(30, 64, 175, 0.08)"
             data-aos="fade-left"
           >
             <Heading
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="bold"
-              color="gray.800"
+              color="blue.900"
             >
               EMI Result
             </Heading>
 
-            {/* ✅ Divider replaced with Box */}
+            {/* Divider */}
             <Box
               height="2px"
               bgGradient="linear(to-r, blue.500, blue.300)"
@@ -328,21 +337,22 @@ export default function EMICalculator() {
             {/* Result Cards */}
             <SimpleGrid columns={{ base: 1, sm: 3 }} gap={3}>
               <Box
-                bg="white"
+                bg="blue.50"
+                border="1px solid"
+                borderColor="blue.200"
                 p={3}
                 borderRadius="lg"
-                boxShadow="sm"
                 data-aos="zoom-in"
                 data-aos-delay="100"
               >
-                <Text fontSize="xs" color="gray.500" fontWeight="medium">
+                <Text fontSize="xs" color="blue.600" fontWeight="medium">
                   Monthly EMI
                 </Text>
                 <Heading
                   as="h3"
                   fontSize={{ base: "md", md: "lg" }}
                   fontWeight="bold"
-                  color="#1a2a67"
+                  color="blue.900"
                 >
                   ₹{emiData.emi.toLocaleString("en-IN", {
                     maximumFractionDigits: 2,
@@ -351,21 +361,22 @@ export default function EMICalculator() {
               </Box>
 
               <Box
-                bg="white"
+                bg="blue.50"
+                border="1px solid"
+                borderColor="blue.200"
                 p={3}
                 borderRadius="lg"
-                boxShadow="sm"
                 data-aos="zoom-in"
                 data-aos-delay="200"
               >
-                <Text fontSize="xs" color="gray.500" fontWeight="medium">
+                <Text fontSize="xs" color="blue.600" fontWeight="medium">
                   Total Payment
                 </Text>
                 <Heading
                   as="h3"
                   fontSize={{ base: "md", md: "lg" }}
                   fontWeight="bold"
-                  color="#1a2a67"
+                  color="blue.900"
                 >
                   ₹{emiData.totalPayment.toLocaleString("en-IN", {
                     maximumFractionDigits: 2,
@@ -374,21 +385,22 @@ export default function EMICalculator() {
               </Box>
 
               <Box
-                bg="white"
+                bg="blue.50"
+                border="1px solid"
+                borderColor="blue.200"
                 p={3}
                 borderRadius="lg"
-                boxShadow="sm"
                 data-aos="zoom-in"
                 data-aos-delay="300"
               >
-                <Text fontSize="xs" color="gray.500" fontWeight="medium">
+                <Text fontSize="xs" color="blue.600" fontWeight="medium">
                   Total Interest
                 </Text>
                 <Heading
                   as="h3"
                   fontSize={{ base: "md", md: "lg" }}
                   fontWeight="bold"
-                  color="red.500"
+                  color="red.600"
                 >
                   ₹{emiData.totalInterest.toLocaleString("en-IN", {
                     maximumFractionDigits: 2,
@@ -403,7 +415,7 @@ export default function EMICalculator() {
                 as="h3"
                 fontSize={{ base: "md", md: "lg" }}
                 fontWeight="bold"
-                color="gray.700"
+                color="blue.800"
                 textAlign="center"
                 mb={2}
                 data-aos="fade-up"
@@ -428,8 +440,8 @@ export default function EMICalculator() {
                         `${name}: ₹${Number(value).toLocaleString("en-IN")}`
                       }
                     >
-                      <Cell fill="#4CAF50" />
-                      <Cell fill="#FF4D3D" />
+                      <Cell fill="#3b82f6" />
+                      <Cell fill="#ef4444" />
                     </Pie>
                     <Tooltip
                       formatter={(value) =>
@@ -451,15 +463,15 @@ export default function EMICalculator() {
                 data-aos-delay="200"
               >
                 <HStack gap={2}>
-                  <Box width="12px" height="12px" bg="green.500" borderRadius="full" />
-                  <Text fontSize="sm" fontWeight="medium" color="gray.700">
+                  <Box width="12px" height="12px" bg="blue.500" borderRadius="full" />
+                  <Text fontSize="sm" fontWeight="medium" color="blue.800">
                     Principal: ₹{loanAmount.toLocaleString("en-IN")}
                   </Text>
                 </HStack>
 
                 <HStack gap={2}>
                   <Box width="12px" height="12px" bg="red.500" borderRadius="full" />
-                  <Text fontSize="sm" fontWeight="medium" color="gray.700">
+                  <Text fontSize="sm" fontWeight="medium" color="blue.800">
                     Interest: ₹{emiData.totalInterest.toLocaleString("en-IN", {
                       maximumFractionDigits: 0,
                     })}

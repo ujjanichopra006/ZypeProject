@@ -85,7 +85,7 @@ const blogs = [
 
 export default function Ourblogs() {
   return (
-    <Box bg="#051126" py={10}>
+    <Box bg="blue.50" py={10}>
       <Container maxW="7xl" px={{ base: 4, md: 8, lg: 14 }}>
         {/* Heading */}
         <HStack gap={2} justifyContent="center" mb={8}>

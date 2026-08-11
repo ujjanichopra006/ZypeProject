@@ -10,13 +10,13 @@ import {
 
 export default function TermsConditions() {
   return (
-    <Box bg="#020f26" color="white" minH="100vh" py={12}>
-      <Container maxW="4xl" px={{ base: 6, lg: 10 }}>
+    <Box bg="blue.50" color="blue.900" minH="100vh" py={12}>
+      <Container maxW="4xl" px={{ base: 6, lg: 10 }} mt={20}>
         {/* Heading */}
         <Heading
           as="h1"
           fontSize="3xl"
-          color="#38bdf8"
+          color="blue.700"
           fontWeight="bold"
           mb={4}
         >
@@ -25,7 +25,7 @@ export default function TermsConditions() {
 
         <Text
           fontSize={{ base: "sm", md: "base" }}
-          color="gray.300"
+          color="blue.700"
           mb={8}
         >
           Please read these Terms & Conditions carefully before using the
@@ -37,7 +37,7 @@ export default function TermsConditions() {
           gap={7}
           align="stretch"
           fontSize={{ base: "sm", md: "base" }}
-          color="gray.200"
+          color="blue.800"
         >
           {/* Section 1 */}
           <Box>
@@ -45,7 +45,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               1. Introduction
@@ -89,7 +89,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               2. General Information
@@ -110,7 +110,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               3. Services Provided
@@ -141,7 +141,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               4. User Eligibility
@@ -161,7 +161,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               5. Acceptance of Terms
@@ -181,7 +181,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               6. User Accounts
@@ -206,7 +206,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               7. Privacy
@@ -225,7 +225,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               8. License to Use the Platform
@@ -248,7 +248,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               9. Monitoring of Platform
@@ -267,7 +267,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               10. Service Suspension
@@ -286,7 +286,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               11. Limitation of Liability
@@ -309,7 +309,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               12. Indemnity
@@ -328,7 +328,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               13. Advertisements & Third-Party Links
@@ -347,7 +347,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               14. Acknowledgements
@@ -367,7 +367,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               15. Governing Law
@@ -386,7 +386,7 @@ export default function TermsConditions() {
               as="h2"
               fontSize={{ base: "xl", md: "2xl" }}
               fontWeight="semibold"
-              color="#38bdf8"
+              color="blue.600"
               mb={2}
             >
               16. Grievance Redressal
@@ -399,14 +399,15 @@ export default function TermsConditions() {
 
             <Box
               mt={4}
-              p={3}
+              p={4}
               borderRadius="xl"
               border="1px solid"
-              borderColor="#38bdf8/30"
-              bg="#08182f"
+              borderColor="blue.200"
+              bg="white"
+              boxShadow="0 10px 30px rgba(30, 64, 175, 0.06)"
             >
-              <Text fontSize={{ base: "sm", md: "base" }} color="white">
-                <Text as="span" fontWeight="semibold" color="#38bdf8">
+              <Text fontSize={{ base: "sm", md: "base" }} color="blue.800">
+                <Text as="span" fontWeight="semibold" color="blue.600">
                   Email:
                 </Text>{" "}
                 keshvacredit@gmail.com

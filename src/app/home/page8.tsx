@@ -79,33 +79,6 @@ const testimonials = [
   },
 ];
 
-const stats = [
-  {
-    icon: Users,
-    value: "60,000+",
-    title: "Happy Customers",
-    color: "blue.500",
-  },
-  {
-    icon: Handshake,
-    value: "50+",
-    title: "Relationships",
-    color: "purple.500",
-  },
-  {
-    icon: Landmark,
-    value: "30+",
-    title: "Partner NBFCs",
-    color: "green.500",
-  },
-  {
-    icon: Clock3,
-    value: "Under 24h",
-    title: "Fast Disbursement",
-    color: "orange.500",
-  },
-];
-
 export default function Eighth() {
   useEffect(() => {
     AOS.init({
@@ -127,7 +100,7 @@ export default function Eighth() {
   const testimonialWidth = useBreakpointValue({ base: "200px", md: "220px" });
 
   return (
-    <Box bg="#111525" color="white" py={{ base: 6, md: 8, lg: 10 }} overflow="hidden">
+    <Box bg="blue.50" color="blue.900" py={{ base: 3, md: 2, lg: 3 }} overflow="hidden">
       <Container maxW="1200px" px={{ base: 3, md: 5, lg: 6 }}>
         
         {/* ============================================ */}
@@ -138,14 +111,14 @@ export default function Eighth() {
             as="h2"
             fontSize={headingSize}
             fontWeight="bold"
-            color="white"
+            color="blue.900"
           >
             How It Works
           </Heading>
 
           <Text
             fontSize={subTextSize}
-            color="gray.300"
+            color="blue.700"
             mt={1}
           >
             Get your loan in just 3 simple steps.
@@ -204,17 +177,18 @@ export default function Eighth() {
           {steps.map((item, index) => (
             <Box
               key={index}
-              bg="#4ca77f"
+              bg="white"
               border="1px solid"
-              borderColor="yellow.400"
+              borderColor="green.200"
               borderRadius="lg"
               p={3}
               textAlign="center"
-              boxShadow="lg"
+              boxShadow="0 10px 30px rgba(30, 64, 175, 0.08)"
               transition="all 0.3s ease"
               _hover={{
                 transform: "translateY(-4px)",
-                boxShadow: "xl",
+                boxShadow: "0 20px 50px rgba(30, 64, 175, 0.15)",
+                borderColor: "green.400",
               }}
               data-aos="fade-up"
               data-aos-delay={index * 150}
@@ -238,14 +212,14 @@ export default function Eighth() {
                 as="h3"
                 fontSize={stepTitleSize}
                 fontWeight="bold"
-                color="black"
+                color="blue.900"
               >
                 {item.title}
               </Heading>
 
               <Text
                 fontSize={stepDescSize}
-                color="black"
+                color="blue.700"
                 mt={2}
                 lineHeight="1.6"
               >
@@ -289,18 +263,19 @@ export default function Eighth() {
                 width={testimonialWidth}
                 flexShrink={0}
                 border="1px solid"
-                borderColor="gray.600"
+                borderColor="blue.200"
                 borderRadius="xl"
                 p={3}
-                bg="transparent"
+                bg="white"
                 transition="all 0.3s ease"
                 _hover={{
                   transform: "scale(1.05)",
-                  borderColor: "yellow.400",
+                  borderColor: "blue.400",
+                  boxShadow: "0 15px 40px rgba(30, 64, 175, 0.12)",
                 }}
               >
                 {/* Stars */}
-                <HStack gap={1} mb={3} color="yellow.400">
+                <HStack gap={1} mb={3} color="yellow.500">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
@@ -314,7 +289,7 @@ export default function Eighth() {
                 <Text
                   fontSize="sm"
                   lineHeight="1.6"
-                  color="gray.200"
+                  color="blue.800"
                   minHeight="85px"
                 >
                   {item.text}
@@ -322,7 +297,7 @@ export default function Eighth() {
 
                 <Box
                   borderTop="1px solid"
-                  borderColor="gray.600"
+                  borderColor="blue.100"
                   mt={3}
                   pt={3}
                   display="flex"
@@ -333,18 +308,18 @@ export default function Eighth() {
                     width="32px"
                     height="32px"
                     borderRadius="full"
-                    bg="yellow.500"
+                    bg="blue.500"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
                     fontSize="xs"
                     fontWeight="bold"
-                    color="black"
+                    color="white"
                   >
                     {item.letter}
                   </Box>
 
-                  <Text fontSize="sm" fontWeight="semibold" color="white">
+                  <Text fontSize="sm" fontWeight="semibold" color="blue.900">
                     {item.name}
                   </Text>
                 </Box>
@@ -352,97 +327,6 @@ export default function Eighth() {
             ))}
           </Box>
         </Box>
-
-        {/* ============================================ */}
-        {/* STATISTICS - HEADING */}
-        {/* ============================================ */}
-        <Box
-          textAlign="center"
-          mt={10}
-          data-aos="fade-up"
-          data-aos-delay="100"
-        >
-          <Heading
-            as="h2"
-            fontSize={headingSize}
-            fontWeight="bold"
-            color="white"
-          >
-            Our <Text as="span" color="blue.500">Impressive</Text> Statistics
-          </Heading>
-
-          <Text
-            fontSize={subTextSize}
-            color="gray.300"
-            mt={1}
-          >
-            Trusted by thousands, delivering excellence every day
-          </Text>
-        </Box>
-
-        {/* ============================================ */}
-        {/* STATISTICS - CARDS */}
-        {/* ============================================ */}
-        <SimpleGrid
-          columns={{ base: 1, sm: 2, lg: 4 }}
-          gap={3}
-          mt={5}
-        >
-          {stats.map((item, index) => (
-            <Box
-              key={index}
-              bg="white"
-              borderRadius="xl"
-              p={3}
-              minHeight="180px"
-              display="flex"
-              flexDirection="column"
-              justifyContent="space-between"
-              transition="all 0.3s ease"
-              _hover={{
-                transform: "scale(1.05)",
-                boxShadow: "lg",
-              }}
-              data-aos="zoom-in-up"
-              data-aos-delay={index * 150}
-            >
-              <Box
-                width="40px"
-                height="40px"
-                borderRadius="full"
-                bg="gray.100"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Icon as={item.icon} boxSize={6} color={item.color} />
-              </Box>
-
-              <Box>
-                <Heading
-                  as="h3"
-                  fontSize="xl"
-                  fontWeight="bold"
-                  color={item.color}
-                >
-                  {item.value}
-                </Heading>
-
-                <Text fontSize="xs" color="gray.600" mt={1}>
-                  {item.title}
-                </Text>
-              </Box>
-
-              <Box
-                width="40px"
-                height="4px"
-                borderRadius="full"
-                bg="orange.300"
-                mt={1}
-              />
-            </Box>
-          ))}
-        </SimpleGrid>
       </Container>
     </Box>
   );

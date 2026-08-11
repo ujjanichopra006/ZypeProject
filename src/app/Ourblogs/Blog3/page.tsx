@@ -71,25 +71,15 @@ export default function FestivalBlog() {
     },
   ];
 
-  // Color values
-  const bgColor = "#0b1220";
-  const cardBg = "#111827";
-  const headingColor = "white";
-  const borderColor = "white/10";
-  const accentColor = "emerald.400";
-  const dividerColor = "white/10";
-  const mutedTextColor = "gray.400";
-  const textColor = "gray.300";
-
   return (
-    <Box bg={bgColor} px={4} py={10} minH="100vh">
+    <Box bg="blue.50" px={4} py={10} minH="100vh">
       <Container maxW="5xl">
         <Box
-          bg={cardBg}
+          bg="white"
           border="1px"
-          borderColor={borderColor}
+          borderColor="blue.100"
           borderRadius="2xl"
-          boxShadow="xl"
+          boxShadow="0 20px 50px rgba(30, 64, 175, 0.08)"
           p={{ base: 6, md: 10 }}
         >
           {/* Top Lottie Animation */}
@@ -104,19 +94,18 @@ export default function FestivalBlog() {
             <Heading
               as="h1"
               size={{ base: "xl", md: "3xl" }}
-              color={headingColor}
-             
+              color="blue.900"
             >
               Celebrating India's Colorful Festivals
             </Heading>
-            <Text color={accentColor} fontSize="lg" fontWeight="medium">
+            <Text color="emerald.600" fontSize="lg" fontWeight="medium">
               A Journey Through Cultural Diversity
             </Text>
 
             <HStack
               gap={4}
               mt={2}
-              color={mutedTextColor}
+              color="blue.600"
               fontSize="sm"
               flexWrap="wrap"
               justify="center"
@@ -128,7 +117,7 @@ export default function FestivalBlog() {
           </VStack>
 
           {/* Intro */}
-          <Text fontSize="sm" color={textColor} mb={8}>
+          <Text fontSize="sm" color="blue.800" mb={8}>
             India is a land of celebrations, where every season brings a new
             festival filled with joy, colors, and traditions. Festivals in India
             are not just special days—they are moments of togetherness, family
@@ -143,16 +132,16 @@ export default function FestivalBlog() {
                 <Heading
                   as="h2"
                   size={{ base: "lg", md: "xl" }}
-                  color={headingColor}
+                  color="blue.900"
                   mb={4}
                 >
                   {festival.title}
                 </Heading>
-                <Text fontSize="sm"  color={textColor}>
+                <Text fontSize="sm" color="blue.800">
                   {festival.content}
                 </Text>
                 {index < festivals.length - 1 && (
-                  <Box mt={8} borderTopWidth="1px" borderColor={dividerColor} />
+                  <Box mt={8} borderTopWidth="1px" borderColor="blue.200" />
                 )}
               </Box>
             ))}
@@ -163,20 +152,20 @@ export default function FestivalBlog() {
             <Heading
               as="h2"
               size={{ base: "lg", md: "xl" }}
-              color={headingColor}
+              color="blue.900"
               mb={4}
             >
               The Cultural Tapestry of India
             </Heading>
 
-            <Text fontSize="sm"  color={textColor}>
+            <Text fontSize="sm" color="blue.800">
               India's festivals represent the country's incredible diversity,
               unity, and rich cultural heritage. Each festival, with its unique
               traditions and significance, contributes to the vibrant tapestry
               of Indian society.
             </Text>
 
-            <Text fontSize="sm" color={textColor} mt={4}>
+            <Text fontSize="sm" color="blue.800" mt={4}>
               These celebrations preserve ancient customs while adapting to
               modern times, bringing people together across religions, regions,
               and communities. The spirit of sharing, joy, and togetherness
@@ -185,13 +174,12 @@ export default function FestivalBlog() {
           </Box>
 
           {/* Disclaimer */}
-          <Box mt={10} borderTopWidth="1px" borderColor={dividerColor} />
+          <Box mt={10} borderTopWidth="1px" borderColor="blue.200" />
           <Box pt={6}>
             <Text
               fontSize="xs"
-              color={mutedTextColor}
+              color="blue.600"
               fontStyle="italic"
-             
             >
               <strong>Disclaimer:</strong> This article is for educational and
               cultural awareness purposes only. Festival traditions and customs

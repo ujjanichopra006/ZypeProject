@@ -12,18 +12,18 @@ import {
 
 export default function DataBreachPolicy() {
   return (
-    <Box bg="#020f26" minH="100vh" py={10}>
-      <Container maxW="5xl" px={{ base: 5, lg: 8 }}>
+    <Box bg="blue.50" minH="100vh" py={10}>
+      <Container maxW="5xl" px={{ base: 5, lg: 8 }} mt="20">
         {/* Heading */}
-        <Heading as="h1" fontSize="3xl" color="blue.500" mb={2} fontWeight="bold">
+        <Heading as="h1" fontSize="3xl" color="blue.700" mb={2} fontWeight="bold">
           Data Breach Policy
         </Heading>
 
-        <Text color="gray.300" fontSize="sm" fontWeight="medium">
+        <Text color="blue.800" fontSize="sm" fontWeight="medium">
           <strong>KeshvaCredit Services Pvt. Ltd.</strong>
         </Text>
 
-        <HStack color="gray.400" fontSize="xs" mt={1} mb={8} gap={2}>
+        <HStack color="blue.600" fontSize="xs" mt={1} mb={8} gap={2}>
           <Text>Effective Date: Aug 18, 2025</Text>
           <Text>|</Text>
           <Text>Version: 1.0</Text>
@@ -32,10 +32,10 @@ export default function DataBreachPolicy() {
         <VStack gap={6} align="stretch" fontSize={{ base: "sm", md: "md" }}>
           {/* Section 1 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               1. Purpose
             </Heading>
-            <Text color="gray.200">
+            <Text color="blue.800">
               This policy outlines the process for identifying, reporting, and responding to
               incidents that may affect the confidentiality, integrity, or availability of
               company or customer data. KeshvaCredit Services Pvt. Ltd. is committed to
@@ -45,13 +45,13 @@ export default function DataBreachPolicy() {
 
           {/* Section 2 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               2. Scope
             </Heading>
-            <Text color="gray.200" mb={2}>
+            <Text color="blue.800" mb={2}>
               This policy applies to:
             </Text>
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={1}>
                 Employees, contractors, and third-party service providers.
               </Box>
@@ -66,15 +66,15 @@ export default function DataBreachPolicy() {
 
           {/* Section 3 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               3. What is a Data Breach?
             </Heading>
-            <Text color="gray.200" mb={2}>
+            <Text color="blue.800" mb={2}>
               A data breach is any suspected or confirmed incident involving unauthorized
               access, disclosure, alteration, or loss of data.
             </Text>
 
-            <Box as="ul" pl={5} color="gray.200" mb={3}>
+            <Box as="ul" pl={5} color="blue.800" mb={3}>
               <Box as="li" mb={1}>
                 Customer personal or financial information.
               </Box>
@@ -86,11 +86,11 @@ export default function DataBreachPolicy() {
               </Box>
             </Box>
 
-            <Text color="gray.200" mb={2}>
+            <Text color="blue.800" mb={2}>
               Examples:
             </Text>
 
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={1}>
                 Unauthorized system access.
               </Box>
@@ -108,10 +108,10 @@ export default function DataBreachPolicy() {
 
           {/* Section 4 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               4. Roles & Responsibilities
             </Heading>
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={1}>
                 <strong>Employees:</strong> Report suspected or actual breaches immediately.
               </Box>
@@ -132,10 +132,10 @@ export default function DataBreachPolicy() {
 
           {/* Section 5 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               5. Breach Response Procedure
             </Heading>
-            <Box as="ol" pl={5} color="gray.200">
+            <Box as="ol" pl={5} color="blue.800">
               <Box as="li" mb={2}>
                 <strong>Identification:</strong> Detect or report the incident.
               </Box>
@@ -160,10 +160,10 @@ export default function DataBreachPolicy() {
 
           {/* Section 6 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               6. Data Breach Notification
             </Heading>
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={1}>
                 Affected customers will be informed transparently when required.
               </Box>
@@ -178,10 +178,10 @@ export default function DataBreachPolicy() {
 
           {/* Section 7 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               7. Prevention & Preparedness
             </Heading>
-            <Box as="ul" pl={5} color="gray.200">
+            <Box as="ul" pl={5} color="blue.800">
               <Box as="li" mb={1}>
                 Regular security audits and testing.
               </Box>
@@ -199,10 +199,10 @@ export default function DataBreachPolicy() {
 
           {/* Section 8 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               8. Policy Review
             </Heading>
-            <Text color="gray.200">
+            <Text color="blue.800">
               This policy is reviewed annually or whenever significant changes occur in
               technology, regulations, or business operations.
             </Text>
@@ -210,34 +210,35 @@ export default function DataBreachPolicy() {
 
           {/* Section 9 */}
           <Box>
-            <Heading as="h2" fontSize="xl" color="blue.400" mb={2} fontWeight="semibold">
+            <Heading as="h2" fontSize="xl" color="blue.600" mb={2} fontWeight="semibold">
               9. Contact Information
             </Heading>
 
             <Card.Root
-              bg="#081a3d"
-              borderColor="blue.500/30"
+              bg="white"
+              borderColor="blue.200"
               borderWidth="1px"
               borderRadius="lg"
               p={5}
               mt={3}
+              boxShadow="0 10px 30px rgba(30, 64, 175, 0.08)"
             >
-              <Text fontSize="base" fontWeight="semibold" color="white" mb={2}>
+              <Text fontSize="base" fontWeight="semibold" color="blue.900" mb={2}>
                 Data Protection Officer (DPO)
               </Text>
 
-              <Text color="gray.200" fontSize="sm" mb={1}>
+              <Text color="blue.800" fontSize="sm" mb={1}>
                 KeshvaCredit Services Pvt. Ltd.
               </Text>
 
-              <Text color="gray.200" fontSize="sm" mb={1}>
-                ✉ <Box as="span" color="blue.400">
+              <Text color="blue.800" fontSize="sm" mb={1}>
+                ✉ <Box as="span" color="blue.600" fontWeight="medium">
                   info@keshvacredit.in
                 </Box>
               </Text>
 
-              <Text color="gray.200" fontSize="sm">
-                📞 <Box as="span" color="blue.400">
+              <Text color="blue.800" fontSize="sm">
+                📞 <Box as="span" color="blue.600" fontWeight="medium">
                   8901229195
                 </Box>
               </Text>

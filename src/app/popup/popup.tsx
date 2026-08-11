@@ -13,9 +13,12 @@ import {
   Input,
   Button,
   Icon,
+  Flex,
+  Badge,
 } from "@chakra-ui/react";
 
-import { FaPhone, FaKey } from "react-icons/fa";
+import { FaPhone, FaKey, FaShieldAlt, FaCheckCircle } from "react-icons/fa";
+import { MdPhoneInTalk } from "react-icons/md";
 
 type OtpPopupProps = {
   onClose: () => void;
@@ -53,11 +56,6 @@ export default function OtpPopup({ onClose, onVerified }: OtpPopupProps) {
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState<"info" | "success" | "error">("info");
   const [otpSent, setOtpSent] = useState(false);
-
-  const bgColor = "white";
-  const textColor = "gray.800";
-  const borderColor = "gray.200";
-  const labelColor = "gray.600";
 
   const sendOtp = async () => {
     const cleanPhone = phone.trim();
@@ -101,7 +99,7 @@ export default function OtpPopup({ onClose, onVerified }: OtpPopupProps) {
 
   const verifyOtp = async () => {
     if (otp.length !== 6) {
-      setToastMessage("Enter valid OTP");
+      setToastMessage("Enter valid 6 digit OTP");
       setToastType("error");
       return;
     }
@@ -122,7 +120,7 @@ export default function OtpPopup({ onClose, onVerified }: OtpPopupProps) {
       const data = await res.json();
 
       if (res.ok) {
-        setToastMessage("OTP Verified Successfully");
+        setToastMessage("OTP Verified Successfully!");
         setToastType("success");
 
         localStorage.setItem("phone", phone);
@@ -145,251 +143,452 @@ export default function OtpPopup({ onClose, onVerified }: OtpPopupProps) {
   };
 
   return (
+   <Box as="section" position="fixed" inset={0} zIndex={9999} bg="blackAlpha.600" backdropFilter="blur(8px)" display="flex" alignItems="center" justifyContent="center" p={{ base: 2, md: 4 }} animation="fadeIn 0.3s ease-out">
+  <Box
+    bg="white"
+    borderRadius="2xl"
+    width="full"
+    maxW="xs"
+    position="relative"
+    boxShadow="0 20px 60px rgba(0,0,0,0.3)"
+    overflow="hidden"
+    animation="slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+  >
+    {/* Decorative Header Gradient - Smaller */}
     <Box
-      as="section"
-      position="fixed"
-      inset={0}
-      zIndex={9999}
-      bg="blackAlpha.500"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      p={{ base: 4, md: 6 }}
+      position="absolute"
+      top={0}
+      left={0}
+      right={0}
+      h="80px"
+      bg="linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #312e81 100%)"
+      overflow="hidden"
     >
       <Box
-        bg={bgColor}
-        borderRadius="2xl"
-        p={{ base: 4, md: 6 }}
-        width="full"
-        maxW="md"
-        position="relative"
-        boxShadow="0 20px 60px rgba(0,0,0,0.3)"
-        border="1px"
-        borderColor="whiteAlpha.200"
-        animation="scaleUp 0.3s ease-out"
-      >
-        <Button
-          position="absolute"
-          top={3}
-          right={3}
-          size="sm"
-          variant="ghost"
-          color="gray.400"
-          onClick={onClose}
-          _hover={{
-            bg: "gray.100",
-            color: "gray.600",
-            transform: "rotate(90deg)",
-          }}
-          transition="all 0.3s"
-        >
-          <Icon as={X} boxSize={5} />
-        </Button>
+        position="absolute"
+        top="-15px"
+        right="-30px"
+        w="80px"
+        h="35px"
+        bg="whiteAlpha.100"
+        borderRadius="full"
+      />
+    </Box>
 
+    {/* Close Button - Smaller */}
+    <Button
+      position="absolute"
+      top={2}
+      right={2}
+      size="xs"
+      variant="ghost"
+      color="white"
+      onClick={onClose}
+      _hover={{
+        bg: "whiteAlpha.200",
+        transform: "rotate(90deg)",
+      }}
+      transition="all 0.3s"
+      borderRadius="full"
+      zIndex={10}
+      minW="8"
+      h="8"
+      p={0}
+    >
+      <Icon as={X} boxSize={4} />
+    </Button>
+
+    {/* Content - Smaller padding */}
+    <Box position="relative" zIndex={1} pt={6} pb={4} px={{ base: 4, md: 6 }}>
+      {/* Header Icon - Smaller */}
+      <Flex justify="center" mb={2}>
+        <Box
+          w="14"
+          h="14"
+          bg="white"
+          borderRadius="full"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          boxShadow="0 8px 25px rgba(0,0,0,0.15)"
+          position="relative"
+        >
+          <Icon
+            as={otpSent ? FaCheckCircle : FaShieldAlt}
+            color={otpSent ? "green.500" : "blue.600"}
+            boxSize={6}
+          />
+          <Box
+            position="absolute"
+            inset="0"
+            borderRadius="full"
+            bg={otpSent ? "green.400" : "blue.400"}
+            opacity="0.2"
+            animation="pulse 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite"
+          />
+        </Box>
+      </Flex>
+
+      {/* Title - Smaller */}
+      <VStack gap={1} mb={3}>
         <Heading
-          fontSize="2xl"
-          fontWeight="bold"
+          fontSize={{ base: "md", md: "lg" }}
+          fontWeight="black"
           textAlign="center"
-          pb={2}
-          pt={2}
-          color={textColor}
+          color="gray.800"
         >
-          🔐 Login with OTP
+          {otpSent ? "Verify OTP" : "Login"}
         </Heading>
+        <Text
+          fontSize="xs"
+          color="gray.500"
+          textAlign="center"
+          maxW="xs"
+          lineHeight="1.4"
+        >
+          {otpSent
+            ? `OTP sent to +91 ${phone}`
+            : "Enter mobile number"}
+        </Text>
+      </VStack>
 
-        <Box pb={4}>
-          <VStack gap ={5} align="stretch">
-            {!otpSent ? (
-              <>
-                <FormControl _required={{ color: "red.500" }}>
-                  <Text fontSize="sm" fontWeight="medium" color={labelColor} mb={2}>
-                    Mobile Number
-                  </Text>
-                  <InputLeftElement pointerEvents="none" h="full">
-                    <Icon as={FaPhone} color="gray.400" boxSize={5} />
-                  </InputLeftElement>
-                  <Input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) =>
-                      setPhone(e.target.value.replace(/\D/g, ""))
-                    }
-                    maxLength={10}
-                    placeholder="Enter 10 digit mobile number"
-                    borderRadius="xl"
-                    border="2px"
-                    borderColor={borderColor}
-                    bg="transparent"
-                    height="52px"
-                    pl={12}
-                    fontSize="md"
-                    color={textColor}
-                    _placeholder={{ color: "gray.400" }}
-                    _hover={{
-                      borderColor: "blue.400",
-                    }}
-                    _focus={{
-                      borderColor: "blue.500",
-                      boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
-                    }}
-                  />
-                </FormControl>
+      {/* Step Indicator - Smaller */}
+      <HStack justify="center" gap={2} mb={4}>
+        <Badge
+          px={2}
+          py={1}
+          borderRadius="full"
+          bg={!otpSent ? "blue.500" : "green.500"}
+          color="white"
+          fontSize="2xs"
+          fontWeight="bold"
+        >
+          Step 1
+        </Badge>
+        <Box w="16px" h="1.5px" bg={!otpSent ? "gray.300" : "green.500"} />
+        <Badge
+          px={2}
+          py={1}
+          borderRadius="full"
+          bg={otpSent ? "blue.500" : "gray.200"}
+          color={otpSent ? "white" : "gray.500"}
+          fontSize="2xs"
+          fontWeight="bold"
+        >
+          Step 2
+        </Badge>
+      </HStack>
 
-                <Button
-                  onClick={sendOtp}
-                  loading={loading}
-                  loadingText="Sending..."
-                  colorScheme="green"
-                  size="lg"
-                  height="52px"
-                  borderRadius="xl"
-                  fontSize="md"
-                  fontWeight="bold"
-                  _hover={{
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 8px 25px rgba(72, 187, 120, 0.4)",
-                  }}
-                  _active={{
-                    transform: "translateY(0)",
-                  }}
-                  transition="all 0.3s"
-                >
-                  Send OTP
-                </Button>
-              </>
-            ) : (
-              <>
-                <FormControl _required={{ color: "red.500" }}>
-                  <Text fontSize="sm" fontWeight="medium" color={labelColor} mb={2}>
-                    Enter OTP
-                  </Text>
-                  <InputLeftElement pointerEvents="none" h="full">
-                    <Icon as={FaKey} color="gray.400" boxSize={5} />
-                  </InputLeftElement>
-                  <Input
-                    type="text"
-                    value={otp}
-                    onChange={(e) =>
-                      setOtp(e.target.value.replace(/\D/g, ""))
-                    }
-                    maxLength={6}
-                    placeholder="Enter 6 digit OTP"
-                    borderRadius="xl"
-                    border="2px"
-                    borderColor={borderColor}
-                    bg="transparent"
-                    height="52px"
-                    pl={12}
-                    fontSize="md"
-                    color={textColor}
-                    _placeholder={{ color: "gray.400" }}
-                    _hover={{
-                      borderColor: "blue.400",
-                    }}
-                    _focus={{
-                      borderColor: "blue.500",
-                      boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.2)",
-                    }}
-                  />
-                </FormControl>
-
-                <Button
-                  onClick={verifyOtp}
-                  loading={loading}
-                  loadingText="Verifying..."
-                  colorScheme="blue"
-                  size="lg"
-                  height="52px"
-                  borderRadius="xl"
-                  fontSize="md"
-                  fontWeight="bold"
-                  _hover={{
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 8px 25px rgba(66, 153, 225, 0.4)",
-                  }}
-                  _active={{
-                    transform: "translateY(0)",
-                  }}
-                  transition="all 0.3s"
-                >
-                  Verify OTP
-                </Button>
-
-                <Text
-                  textAlign="center"
+      {/* Form - Compact */}
+      <VStack gap={3} align="stretch">
+        {!otpSent ? (
+          <>
+            <FormControl>
+              <Text fontSize="xs" fontWeight="semibold" color="gray.700" mb={1}>
+                Mobile Number
+              </Text>
+              <Box position="relative">
+                <InputLeftElement pointerEvents="none" h="full">
+                  <Box
+                    w="6"
+                    h="6"
+                    bg="blue.50"
+                    borderRadius="md"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <Icon as={MdPhoneInTalk} color="blue.500" boxSize={3} />
+                  </Box>
+                </InputLeftElement>
+                <Input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) =>
+                    setPhone(e.target.value.replace(/\D/g, ""))
+                  }
+                  maxLength={10}
+                  placeholder="Enter 10 digit"
+                  borderRadius="lg"
+                  border="2px"
+                  borderColor="gray.200"
+                  bg="gray.50"
+                  height="44px"
+                  pl={10}
+                  pr={3}
                   fontSize="sm"
-                  color="blue.500"
-                  cursor="pointer"
                   fontWeight="medium"
+                  color="gray.800"
+                  _placeholder={{ color: "gray.400", fontSize: "xs" }}
                   _hover={{
-                    color: "blue.600",
-                    textDecoration: "underline",
+                    borderColor: "blue.300",
+                    bg: "white",
+                  }}
+                  _focus={{
+                    borderColor: "blue.500",
+                    bg: "white",
+                    boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.15)",
                   }}
                   transition="all 0.2s"
-                  onClick={() => {
-                    setOtpSent(false);
-                    setOtp("");
-                    setToastMessage("");
-                  }}
-                >
-                  Didn't receive OTP? Resend
-                </Text>
-              </>
-            )}
-
-            {toastMessage && (
-              <Box
-                borderRadius="xl"
-                fontSize="sm"
-                py={3}
-                px={4}
-                border="1px"
-                borderColor={
-                  toastType === "success"
-                    ? "green.200"
-                    : toastType === "error"
-                    ? "red.200"
-                    : "blue.200"
-                }
-                bg={
-                  toastType === "success"
-                    ? "green.50"
-                    : toastType === "error"
-                    ? "red.50"
-                    : "blue.50"
-                }
-                animation="fadeIn 0.3s ease-out"
-              >
-                <Text fontWeight="medium" color={textColor}>{toastMessage}</Text>
+                />
               </Box>
-            )}
-          </VStack>
-        </Box>
-      </Box>
+              {phone.length > 0 && phone.length < 10 && (
+                <Text fontSize="2xs" color="red.500" mt={0.5}>
+                  {10 - phone.length} digits remaining
+                </Text>
+              )}
+              {phone.length === 10 && (
+                <HStack gap={0.5} mt={0.5}>
+                  <Icon as={FaCheckCircle} color="green.500" boxSize={2.5} />
+                  <Text fontSize="2xs" color="green.600" fontWeight="medium">
+                    Valid number
+                  </Text>
+                </HStack>
+              )}
+            </FormControl>
 
-      {/* Add CSS animations */}
-      <style jsx>{`
-        @keyframes scaleUp {
-          from {
-            transform: scale(0.9);
-            opacity: 0;
-          }
-          to {
-            transform: scale(1);
-            opacity: 1;
-          }
-        }
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+            <Button
+              onClick={sendOtp}
+              loading={loading}
+              loadingText="Sending..."
+              bg="linear-gradient(135deg, #10b981 0%, #059669 100%)"
+              color="white"
+              size="md"
+              height="44px"
+              borderRadius="lg"
+              fontSize="sm"
+              fontWeight="bold"
+              _hover={{
+                transform: "translateY(-1px)",
+                boxShadow: "0 8px 25px rgba(16, 185, 129, 0.3)",
+              }}
+              _active={{
+                transform: "translateY(0)",
+              }}
+              transition="all 0.3s"
+              disabled={phone.length !== 10}
+              opacity={phone.length === 10 ? 1 : 0.5}
+            >
+              Send OTP
+            </Button>
+          </>
+        ) : (
+          <>
+            <FormControl>
+              <Text fontSize="xs" fontWeight="semibold" color="gray.700" mb={1}>
+                Enter OTP
+              </Text>
+              <Box position="relative">
+                <InputLeftElement pointerEvents="none" h="full">
+                  <Box
+                    w="6"
+                    h="6"
+                    bg="blue.50"
+                    borderRadius="md"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <Icon as={FaKey} color="blue.500" boxSize={3} />
+                  </Box>
+                </InputLeftElement>
+                <Input
+                  type="text"
+                  value={otp}
+                  onChange={(e) =>
+                    setOtp(e.target.value.replace(/\D/g, ""))
+                  }
+                  maxLength={6}
+                  placeholder="Enter 6 digit"
+                  borderRadius="lg"
+                  border="2px"
+                  borderColor="gray.200"
+                  bg="gray.50"
+                  height="44px"
+                  pl={10}
+                  pr={3}
+                  fontSize="sm"
+                  fontWeight="medium"
+                  color="gray.800"
+                  letterSpacing="0.3em"
+                  textAlign="center"
+                  _placeholder={{ color: "gray.400", letterSpacing: "normal", textAlign: "left", fontSize: "xs" }}
+                  _hover={{
+                    borderColor: "blue.300",
+                    bg: "white",
+                  }}
+                  _focus={{
+                    borderColor: "blue.500",
+                    bg: "white",
+                    boxShadow: "0 0 0 3px rgba(66, 153, 225, 0.15)",
+                  }}
+                  transition="all 0.2s"
+                />
+              </Box>
+              {otp.length > 0 && otp.length < 6 && (
+                <Text fontSize="2xs" color="orange.500" mt={0.5}>
+                  {6 - otp.length} digits remaining
+                </Text>
+              )}
+              {otp.length === 6 && (
+                <HStack gap={0.5} mt={0.5}>
+                  <Icon as={FaCheckCircle} color="green.500" boxSize={2.5} />
+                  <Text fontSize="2xs" color="green.600" fontWeight="medium">
+                    OTP complete
+                  </Text>
+                </HStack>
+              )}
+            </FormControl>
+
+            <Button
+              onClick={verifyOtp}
+              loading={loading}
+              loadingText="Verifying..."
+              bg="linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)"
+              color="white"
+              size="md"
+              height="44px"
+              borderRadius="lg"
+              fontSize="sm"
+              fontWeight="bold"
+              _hover={{
+                transform: "translateY(-1px)",
+                boxShadow: "0 8px 25px rgba(59, 130, 246, 0.3)",
+              }}
+              _active={{
+                transform: "translateY(0)",
+              }}
+              transition="all 0.3s"
+              disabled={otp.length !== 6}
+              opacity={otp.length === 6 ? 1 : 0.5}
+            >
+              Verify OTP
+            </Button>
+
+            <Button
+              variant="ghost"
+              color="blue.500"
+              fontSize="xs"
+              fontWeight="semibold"
+              _hover={{
+                bg: "blue.50",
+                color: "blue.600",
+              }}
+              onClick={() => {
+                setOtpSent(false);
+                setOtp("");
+                setToastMessage("");
+              }}
+              transition="all 0.2s"
+              h="32px"
+            >
+              ← Change Number
+            </Button>
+          </>
+        )}
+
+        {/* Toast Message - Compact */}
+        {toastMessage && (
+          <Box
+            borderRadius="lg"
+            py={2}
+            px={3}
+            border="1px"
+            borderColor={
+              toastType === "success"
+                ? "green.200"
+                : toastType === "error"
+                ? "red.200"
+                : "blue.200"
+            }
+            bg={
+              toastType === "success"
+                ? "green.50"
+                : toastType === "error"
+                ? "red.50"
+                : "blue.50"
+            }
+            animation="slideIn 0.3s ease-out"
+          >
+            <HStack gap={1.5}>
+              <Icon
+                as={
+                  toastType === "success"
+                    ? FaCheckCircle
+                    : toastType === "error"
+                    ? X
+                    : FaShieldAlt
+                }
+                color={
+                  toastType === "success"
+                    ? "green.500"
+                    : toastType === "error"
+                    ? "red.500"
+                    : "blue.500"
+                }
+                boxSize={3}
+              />
+              <Text fontSize="xs" fontWeight="semibold" color="gray.800">
+                {toastMessage}
+              </Text>
+            </HStack>
+          </Box>
+        )}
+      </VStack>
+
+      {/* Footer - Compact */}
+      <Box mt={4} pt={3} borderTopWidth="1px" borderColor="gray.100">
+        <Text fontSize="2xs" color="gray.400" textAlign="center" lineHeight="1.4">
+          🔒 Secure & encrypted
+        </Text>
+      </Box>
     </Box>
+  </Box>
+
+  {/* CSS Animations */}
+  <style jsx>{`
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px) scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.2;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-8px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  `}</style>
+</Box>
   );
 }

@@ -293,7 +293,7 @@ export default function PersonalLoan() {
           />
         )}
 
-        <Container maxW="3xl" p={0}>
+        <Container maxW="3xl" py={10} mt={10}>
           {isVerified && (
             <Box
               as="form"

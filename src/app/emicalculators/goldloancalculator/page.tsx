@@ -59,7 +59,7 @@ const formatCurrency = (value: number): string => {
       px={{ base: 4, md: 6 }}
       bgGradient="linear(to-br, gray.50, yellow.50, amber.50)"
     >
-      <Container maxW="4xl" mx="auto" p={0}>
+      <Container maxW="4xl" mx="auto" p={0} mt={20}>
         <Box
           bg="white"
           borderRadius="32px"

@@ -77,12 +77,16 @@ const FooterLink: React.FC<FooterLinkProps> = ({
     >
       <Text
         fontSize="xs"
-        color="gray.200"
+        color="gray.700"
         py={1}
         cursor="pointer"
         transition="all 0.2s ease"
         transform="scale(1)"
         transformOrigin="left center"
+        _hover={{
+          color: "blue.600",
+          transform: "scale(1.03)",
+        }}
       >
         {children}
       </Text>
@@ -104,7 +108,7 @@ const FooterSection: React.FC<FooterSectionProps> = ({ title, children }) => {
         fontWeight="semibold"
         textTransform="uppercase"
         letterSpacing="wide"
-        color="gray.100"
+        color="black"
         mb={1}
         textDecoration="none"
         cursor="pointer"
@@ -123,10 +127,10 @@ const FooterSection: React.FC<FooterSectionProps> = ({ title, children }) => {
 };
 
 function Footer() {
-  const [learnOpen, setLearnOpen] = useState<boolean>(false); // 👈 State for toggle
+  const [learnOpen, setLearnOpen] = useState<boolean>(false);
 
   return (
-    <Box as="footer" borderTop="1px" borderColor="gray.300" bg="#111525">
+    <Box as="footer" borderTop="1px" borderColor="gray.300" bg="gray.100">
       <Container maxW="container.xl" py={6} px={4}>
         {/* Main Footer Content */}
         <Flex
@@ -149,7 +153,7 @@ function Footer() {
             </Link>
             <Text
               fontSize="xs"
-              color="white"         
+              color="gray.800"
               lineHeight="relaxed"
               maxW="xs"
               textAlign="justify"
@@ -160,59 +164,75 @@ function Footer() {
             </Text>
           </Box>
 
-          {/* Footer Links Grid - Shifted Right by 5% on medium+ screens */}
-          <SimpleGrid 
-            columns={{ base: 2, sm: 4 }} 
-            gap={6} 
-            flex="2" 
-            ml={{ base: 0, md: "5%" }}
+          {/* Footer Links Grid */}
+          <SimpleGrid
+            columns={{ base: 2, sm: 4 }}
+            gap={6}
+            flex="2"
+            ml={{ base: 0, md: "15%" }}
           >
             {/* Resources Section */}
             <FooterSection title="Resources">
-              <Button
-                fontSize="xs"
-                justifyContent="flex-start"
-                p={0}
-                h="auto"
-                fontWeight="normal"
-                transition="all 0.2s ease"
-                transform="scale(1)"
-              >
-                Personal Loan
-              </Button>
-              <Button
-                fontSize="xs"
-                justifyContent="flex-start"
-                p={0}
-                h="auto"
-                fontWeight="normal"
-                transition="all 0.2s ease"
-                transform="scale(1)"
-              >
-                Business Loan
-              </Button>
-              <Button
-                fontSize="xs"
-                justifyContent="flex-start"
-                p={0}
-                h="auto"
-                fontWeight="normal"
-                transition="all 0.2s ease"
-                transform="scale(1)"
-              >
-                Gold Loan
-              </Button>
-              <Button
-                fontSize="xs"
-                justifyContent="flex-start"
-                p={0}
-                h="auto"
-                fontWeight="normal"
-                transition="all 0.2s ease"
-                transform="scale(1)"
-              >
-                Short Term Loan
-              </Button>
+              <FooterLink href="/personal-loan">
+                <Button
+                  variant="plain"
+                  fontSize="xs"
+                  justifyContent="flex-start"
+                  p={0}
+                  h="auto"
+                  fontWeight="normal"
+                  color="gray.700"
+                  transition="all 0.2s ease"
+                  transform="scale(1)"
+                  _hover={{ color: "blue.600" }}
+                >
+                  Personal Loan
+                </Button></FooterLink>
+              <FooterLink href="/business-loan">
+                <Button
+                  variant="plain"
+                  fontSize="xs"
+                  justifyContent="flex-start"
+                  p={0}
+                  h="auto"
+                  fontWeight="normal"
+                  color="gray.700"
+                  transition="all 0.2s ease"
+                  transform="scale(1)"
+                  _hover={{ color: "blue.600" }}
+                >
+                  Business Loan
+                </Button></FooterLink>
+              <FooterLink href="/gold-loan">
+                <Button
+                  variant="plain"
+                  fontSize="xs"
+                  justifyContent="flex-start"
+                  p={0}
+                  h="auto"
+                  fontWeight="normal"
+                  color="gray.700"
+                  transition="all 0.2s ease"
+                  transform="scale(1)"
+                  _hover={{ color: "blue.600" }}
+                >
+                  Gold Loan
+                </Button></FooterLink>
+              <FooterLink href="/home-loan">
+                <Button
+                  variant="plain"
+                  fontSize="xs"
+                  justifyContent="flex-start"
+                  p={0}
+                  h="auto"
+                  fontWeight="normal"
+                  color="gray.700"
+                  transition="all 0.2s ease"
+                  transform="scale(1)"
+                  _hover={{ color: "blue.600" }}
+                >
+                  Home Loan
+                </Button></FooterLink>
             </FooterSection>
 
             {/* Social Section */}
@@ -239,21 +259,22 @@ function Footer() {
 
             {/* Legal Section */}
             <FooterSection title="Legal">
-              <FooterLink href="/Privacy">Privacy Policy</FooterLink>
-              <FooterLink href="/datapolicy">Data Policy</FooterLink>
-              <FooterLink href="/Lendercontact">Lender Contacts</FooterLink>
-              <FooterLink href="/grivience">Lender Grievances</FooterLink>
-              <FooterLink href="/delete_my_account">Delete My Account</FooterLink>
-              <FooterLink href="/terms">Terms & Conditions</FooterLink>
+              <FooterLink href="/PrivacyPolicy">Privacy Policy</FooterLink>
+              <FooterLink href="/DataPolicy">Data Policy</FooterLink>
+              <FooterLink href="/Lenderscontact">Lender Contacts</FooterLink>
+              <FooterLink href="/LenderGrievances">Lender Grievances</FooterLink>
+              <FooterLink href="/DeleteAccount">Delete My Account</FooterLink>
+              <FooterLink href="/Grievance-Redressal">Grievance Redressal</FooterLink>
+              <FooterLink href="/TermsConditions">Terms & Conditions</FooterLink>
             </FooterSection>
 
             {/* Other Links Section */}
             <FooterSection title="Other">
-              <FooterLink href="/blog">Our Blogs</FooterLink>
-              <FooterLink href="/Careers">Register as Partner</FooterLink>
+              <FooterLink href="/Ourblogs">Our Blogs</FooterLink>
+              <FooterLink href="/partner">Register as Partner</FooterLink>
               <FooterLink href="/Contact">Contact Us</FooterLink>
-              <FooterLink href="/faq">FAQ</FooterLink>
-              <FooterLink href="/allcalculators">EMI Calculator</FooterLink>
+              <FooterLink href="/FAQ">FAQ</FooterLink>
+              <FooterLink href="/emicalculators">EMI Calculator</FooterLink>
               <FooterLink href="https://sachet.rbi.org.in/" isExternal>
                 RBI Sachet
               </FooterLink>
@@ -266,10 +287,10 @@ function Footer() {
         {/* Bottom Section */}
         <VStack gap={2} align="center">
           {/* Copyright */}
-          <Text fontSize="xs" color="gray.100" textAlign="center">
+          <Text fontSize="xs" color="gray.800" textAlign="center">
             © {new Date().getFullYear()} Keshvacredit Services Private Limited. All Rights Reserved -
             CIN:{" "}
-            <Text as="span" fontWeight="medium">
+            <Text as="span" fontWeight="medium" color="black">
               U70200HR2025PTC129612
             </Text>
           </Text>
@@ -278,15 +299,15 @@ function Footer() {
           <Button
             variant="ghost"
             size="xl"
-            onClick={() => setLearnOpen(!learnOpen)} // 👈 Toggle state on click
-            color="blue.300"
-            _hover={{ color: "teal.600" }}
+            onClick={() => setLearnOpen(!learnOpen)}
+            color="blue.600"
+            _hover={{ color: "blue.800", bg: "gray.200" }}
             fontWeight="bold"
           >
             Click for more loan options
           </Button>
 
-          {/* Expanded State Links - Only show when learnOpen is true */}
+          {/* Expanded State Links */}
           {learnOpen && (
             <Flex
               wrap="wrap"
@@ -303,10 +324,10 @@ function Footer() {
                 >
                   <Text
                     fontSize="2xs"
-                    color="gray.100"
+                    color="gray.700"
                     transition="all 0.2s"
                     _hover={{
-                      color: "teal.600",
+                      color: "blue.600",
                       transform: "scale(1.03)",
                       fontWeight: "medium",
                     }}

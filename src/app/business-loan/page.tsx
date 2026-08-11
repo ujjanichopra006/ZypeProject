@@ -197,7 +197,7 @@ export default function BusinessLoan() {
           />
         )}
 
-        <Container maxW="4xl" p={0}>
+        <Container maxW="4xl" py={10} mt={10}>
           {isVerified && (
             <Form
               onSubmit={handleSubmit}
