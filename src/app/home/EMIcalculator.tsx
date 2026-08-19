@@ -119,17 +119,7 @@ export default function EMICalculator() {
             position="relative"
             overflow="hidden"
           >
-            {/* Decorative Element */}
-            <Box
-              position="absolute"
-              top="-60px"
-              right="-60px"
-              width="150px"
-              height="150px"
-              borderRadius="full"
-              bg="blue.50"
-            />
-
+          
             <Box position="relative" zIndex={1}>
               <Heading
                 as="h2"

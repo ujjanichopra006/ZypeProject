@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
 import {
   Box,
   Container,
@@ -11,17 +10,18 @@ import {
   Text,
   Image,
   Flex,
-  useBreakpointValue,
   VStack,
+  Icon,
 } from "@chakra-ui/react";
+import { CheckCircle } from "lucide-react";
 
 export default function Third() {
   useEffect(() => {
     AOS.init({
-      duration: 1000,
-      once: false,
-      mirror: true,
-      easing: "ease-in-out",
+      duration: 800,
+      once: true,
+      mirror: false,
+      easing: "ease-out-cubic",
     });
 
     setTimeout(() => {
@@ -29,242 +29,204 @@ export default function Third() {
     }, 100);
   }, []);
 
-  // ✅ Responsive values - SMALLER SIZES
-  const headingSize = useBreakpointValue({ base: "xl", md: "3xl" });
-  const subTextSize = useBreakpointValue({ base: "sm", md: "lg" });
-  const cardWidth = useBreakpointValue({ base: "100%", lg: "480px" }); 
-  const imageSize = useBreakpointValue({ base: "120px", md: "80px", lg: "100px" }); 
-  const cardPadding = useBreakpointValue({ base: 3, md: 1 }); 
-
   return (
-    <Box 
-      bg="blue.50" // 🎨 BG Updated to Light Blue
-      color="blue.900" // 🎨 Base Text Color Updated
-      px={{ base: 0, md: 0 }}
-    >
-      <Container maxW="1270px">
+    <Box bg="blue.50" py={{ base: 10, md: 16 }} position="relative" overflow="hidden">
+      {/* Decorative Background Blob */}
+      <Box
+        position="absolute"
+        top="-10%"
+        right="-5%"
+        w="400px"
+        h="400px"
+        bg="blue.200"
+        borderRadius="full"
+        filter="blur(80px)"
+        opacity={0.4}
+        zIndex={0}
+        pointerEvents="none"
+      />
+
+      <Container maxW="1270px" position="relative" zIndex={1}>
+
         {/* ========== HEADING SECTION ========== */}
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          textAlign="center"
-          data-aos="fade-up"
-          data-aos-anchor-placement="top-bottom"
-          mb={1}
-          mt={5}
-        >
+        <VStack gap={3} textAlign="center" mb={{ base: 12, md: 16 }} data-aos="fade-up">
           <Heading
             as="h1"
-            fontSize={headingSize}
-            fontWeight="bold"
-            color="blue.900" // 🎨 Dark Blue Heading
-            py={0}
-            mt={0}
-            data-aos="zoom-in"
-            data-aos-delay="100"
-            data-aos-anchor-placement="top-bottom"
+            fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+            fontWeight="extrabold"
+            color="blue.700"
           >
             Our Certifications
           </Heading>
-
           <Text
-            fontSize={subTextSize}
-            color="blue.800" // 🎨 Dark Blue Subtext
-            lineHeight="relaxed"
-            mt={2}
-            data-aos="fade-up"
-            data-aos-delay="250"
-            data-aos-anchor-placement="top-bottom"
+            fontSize={{ base: "md", md: "lg" }}
+            color="blue.800"
+            maxW="600px"
+            lineHeight="tall"
+            opacity={0.9}
           >
-            Trusted and certified by recognized authorities
+            Trusted and certified by recognized authorities to deliver excellence
           </Text>
-        </Box>
+        </VStack>
 
         {/* ========== CARDS SECTION ========== */}
         <Flex
           direction={{ base: "column", lg: "row" }}
-          gap={{ base: 4, md: 0, lg: 8 }} 
+          gap={{ base: 6, lg: 4 }}
           justifyContent="center"
-          alignItems="center"
-          px={{ base: 0, md: 2 }}
-          mt={2}
+          alignItems="stretch"
+          px={{ base: 1, md: 2}}
         >
-          
-          {/* ========== MSME CARD ========== */}
-          <Box
-            width={cardWidth}
-            minHeight={{ base: "220px", md: "240px" }} 
-            bg="green.50" // 🎨 Softer green for light theme
-            border="1px solid"
-            borderColor="green.200" // 🎨 Subtle green border
-            borderRadius="2xl" 
-            display="flex"
-            flexDirection={{ base: "column", md: "row" }}
-            alignItems="center"
-            px={cardPadding}
-            py={{ base: 3, md: 4 }} 
-            gap={{ base: 3, md: 4 }} 
-            boxShadow="md"
-            transition="all 0.5s ease"
-            _hover={{
-              transform: "scale(1.05)",
-              boxShadow: "2xl",
-              borderColor: "green.300",
-            }}
-            data-aos="fade-right"
-            data-aos-delay="100"
-            data-aos-anchor-placement="top-bottom"
-          >
-            {/* Image Container */}
-            <Box
-              width={imageSize}
-              height={imageSize}
-              bg="white"
-              borderRadius="2xl"
-              boxShadow="sm"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              flexShrink={0}
-              data-aos="zoom-in"
-              data-aos-delay="250"
-              data-aos-anchor-placement="top-bottom"
-            >
-              <Image
-                src="https://5.imimg.com/data5/JK/ND/MY-20716531/msme-logo.png"
-                alt="MSME"
-                width={{ base: "90px", md: "110px", lg: "130px" }} 
-                height={{ base: "90px", md: "110px", lg: "130px" }}
-                objectFit="contain"
-                onError={(e: any) => {
-                  e.target.style.display = "none";
-                }}
-              />
-            </Box>
+          {/* MSME Card */}
+          <CertificationCard
+            title="MSME Registered"
+            description="Officially recognized by the Ministry of Micro, Small & Medium Enterprises, Government of India under the Udyam Registration scheme."
+            logoSrc="https://5.imimg.com/data5/JK/ND/MY-20716531/msme-logo.png"
+            points={["Udyam Registration Number", "Government Verified"]} colorScheme={""}            
+          />
 
-            {/* Content */}
-            <Box flex="1" textAlign={{ base: "center", md: "left" }}>
-              <Heading
-                as="h2"
-                fontSize={{ base: "lg", md: "xl" }} 
-                fontWeight="bold"
-                color="green.900" // 🎨 Dark Green Heading for thematic consistency
-                mb={{ base: 1, md: 2 }}
-              >
-                MSME Registered
-              </Heading>
-
-              <Text
-                fontSize={{ base: "xs", sm: "xs", md: "sm" }} 
-                color="green.800" // 🎨 Dark Green Text
-                lineHeight="relaxed"
-                mb={{ base: 2, md: 3 }}
-              >
-                Officially recognized by the Ministry of Micro, Small & Medium
-                Enterprises, Government of India under the Udyam Registration
-                scheme.
-              </Text>
-
-              <VStack gap={{ base: 0.5, md: 1 }} align={{ base: "center", md: "flex-start" }}>
-                <Text fontSize={{ base: "xs", md: "sm" }} color="green.900" fontWeight="medium">
-                  ✅ Udyam Registration Number
-                </Text>
-                <Text fontSize={{ base: "xs", md: "sm" }} color="green.900" fontWeight="medium">
-                  ✅ Government Verified
-                </Text>
-              </VStack>
-            </Box>
-          </Box>
-
-          {/* ========== ISO CARD ========== */}
-          <Box
-            width={cardWidth}
-            minHeight={{ base: "220px", md: "240px" }} 
-            bg="blue.100" // 🎨 Slightly deeper blue to stand out on blue.50 bg
-            border="1px solid"
-            borderColor="blue.200" // 🎨 Subtle blue border
-            borderRadius="2xl" 
-            display="flex"
-            flexDirection={{ base: "column", md: "row" }}
-            alignItems="center"
-            px={cardPadding}
-            py={{ base: 3, md: 4 }} 
-            gap={{ base: 3, md: 4 }} 
-            boxShadow="md"
-            transition="all 0.5s ease"
-            _hover={{
-              transform: "scale(1.05)",
-              boxShadow: "2xl",
-              borderColor: "blue.300",
-            }}
-            data-aos="fade-left"
-            data-aos-delay="200"
-            data-aos-anchor-placement="top-bottom"
-          >
-            {/* Image Container */}
-            <Box
-              width={imageSize}
-              height={imageSize}
-              bg="white"
-              borderRadius="2xl"
-              boxShadow="sm"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              flexShrink={0}
-              data-aos="zoom-in"
-              data-aos-delay="350"
-              data-aos-anchor-placement="top-bottom"
-            >
-              <Image
-                src="https://www.arenasolutions.com/wp-content/uploads/what-is-iso-9001-compliance.png"
-                alt="ISO"
-                width={{ base: "90px", md: "110px", lg: "130px" }} 
-                height={{ base: "90px", md: "110px", lg: "130px" }}
-                objectFit="contain"
-                onError={(e: any) => {
-                  e.target.style.display = "none";
-                }}
-              />
-            </Box>
-
-            {/* Content */}
-            <Box flex="1" textAlign={{ base: "center", md: "left" }}>
-              <Heading
-                as="h2"
-                fontSize={{ base: "lg", md: "xl" }} 
-                fontWeight="bold"
-                color="blue.900" // 🎨 Dark Blue Heading
-                mb={{ base: 1, md: 2 }}
-              >
-                ISO 270001 Certified
-              </Heading>
-
-              <Text
-                fontSize={{ base: "xs", sm: "xs", md: "sm" }} 
-                color="blue.800" // 🎨 Dark Blue Text
-                lineHeight="relaxed"
-                mb={{ base: 2, md: 3 }}
-              >
-                Internationally recognized quality management system certification
-                ensuring consistent delivery of high-quality products and services.
-              </Text>
-
-              <VStack gap={{ base: 0.5, md: 1 }} align={{ base: "center", md: "flex-start" }}>
-                <Text fontSize={{ base: "xs", md: "sm" }} color="blue.900" fontWeight="medium">
-                  ✅ Quality Management System
-                </Text>
-                <Text fontSize={{ base: "xs", md: "sm" }} color="blue.900" fontWeight="medium">
-                  ✅ International Standards
-                </Text>
-              </VStack>
-            </Box>
-          </Box>
-
+          {/* ISO Card */}
+          <CertificationCard
+            title="ISO 27001 Certified"
+            description="Internationally recognized information security management system certification ensuring consistent delivery of high-quality products and services."
+            logoSrc="https://www.arenasolutions.com/wp-content/uploads/what-is-iso-9001-compliance.png"
+            points={["Quality Management System", "International Standards"]} colorScheme={""}          
+          />
         </Flex>
       </Container>
     </Box>
   );
 }
+
+// Reusable Premium Card Component
+interface CertificationCardProps {
+  title: string;
+  description: string;
+  logoSrc: string;
+  points: string[];
+  colorScheme: string;
+  aosDelay?: number;
+}
+
+const CertificationCard = ({
+  title,
+  description,
+  logoSrc,
+  points,
+  colorScheme,
+  aosDelay,
+}: CertificationCardProps) => {
+  const isGreen = colorScheme === "green";
+  const borderColor = isGreen ? "green.100" : "blue.100";
+  const hoverBorderColor = isGreen ? "green.300" : "blue.300";
+  const headingColor = isGreen ? "green.700" : "blue.700";
+  const iconColor = isGreen ? "green.500" : "blue.500";
+  const hoverShadow = isGreen
+    ? "0 20px 50px -10px rgba(16, 185, 129, 0.25)"
+    : "0 20px 50px -10px rgba(59, 130, 246, 0.25)";
+  const badgeBorder = isGreen ? "#f0fff4" : "#ebf8ff";
+  const dividerGradient = isGreen
+    ? "linear(to-r, green.400, transparent)"
+    : "linear(to-r, blue.400, transparent)";
+
+  return (
+    <Box
+      flex="1"
+      maxW={{ base: "100%", lg: "500px" }}
+      position="relative"
+      bg="rgba(255, 255, 255, 0.95)"
+      backdropFilter="blur(10px)"
+      borderRadius="24px"
+      p={8}
+      pt={14}
+      border="1px solid"
+      borderColor={borderColor}
+      boxShadow="0 10px 40px -10px rgba(0,0,0,0.06)"
+      transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+      _hover={{
+        transform: "translateY(-12px)",
+        boxShadow: hoverShadow,
+        borderColor: hoverBorderColor,
+      }}
+      data-aos="fade-up"
+      data-aos-delay={aosDelay}
+    >
+      {/* Floating Logo Badge */}
+      <Box
+        position="absolute"
+        top="-35px"
+        left="50%"
+        transform="translateX(-50%)"
+        w="90px"
+        h="90px"
+        bg="white"
+        borderRadius="full"
+        boxShadow="0 8px 30px rgba(0,0,0,0.12)"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        border="4px solid"
+        borderColor={badgeBorder}
+        zIndex={2}
+      >
+        <Image
+          src={logoSrc}
+          alt={title}
+          boxSize="60px"
+          objectFit="contain"
+          onError={(e) => {
+            const img = e.currentTarget as HTMLImageElement;
+            img.style.display = "none";
+          }}
+        />
+      </Box>
+
+      {/* Content */}
+      <VStack gap={4} align="center" textAlign="center">
+        <Heading
+          as="h2"
+          fontSize={{ base: "xl", md: "2xl" }}
+          fontWeight="bold"
+          color={headingColor}
+          mt={2}
+        >
+          {title}
+        </Heading>
+
+        <Text
+          fontSize={{ base: "sm", md: "md" }}
+          color="gray.600"
+          lineHeight="relaxed"
+          px={0}
+        >
+          {description}
+        </Text>
+
+        {/* Gradient Divider */}
+        <Box
+          w="50px"
+          h="3px"
+          bgGradient={dividerGradient}
+          borderRadius="full"
+          my={0}
+          mt={-6}
+        />
+
+        {/* Feature Points */}
+        <VStack gap={3} align="center" w="full" pt={1}>
+          {points.map((point: string, idx: number) => (
+            <Flex key={idx} align="center" gap={1} justify="center">
+              <CheckCircle
+                size={20}
+                color={"green"}
+              />
+              <Text fontSize="sm" fontWeight="medium" color="blue.700">
+                {point}
+              </Text>
+            </Flex>
+          ))}
+        </VStack>
+      </VStack>
+    </Box>
+  );
+};

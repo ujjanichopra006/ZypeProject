@@ -39,30 +39,42 @@ export default function Second() {
     {
       src: "https://web.mpokket.in/footer-revamp/fd4778f562d3177f3c72.svg",
       alt: "mpokket",
+      href: "https://www.mpokket.in/",
     },
     {
-      src: "https://salaryontime.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.0.6s.cduoj.x9.png&w=384&q=75",
-      alt: "salaryontime",
-    },
-    {
-      src: "https://www.getzype.com/wp-content/uploads/2024/08/Group-7.png",
+      src: "https://www.getzype.com/wp-content/uploads/2024/09/Zype_svg_black.svg",
       alt: "zype",
-    },
-    {
-      src: "https://www.getzype.com/wp-content/uploads/2024/08/Group-852775727.png",
-      alt: "zype-partner",
+      href: "https://www.getzype.com/",
     },
     {
       src: "https://web.olyv.co.in/images/app/olyv_registered_logo.png",
       alt: "olyv",
+      href: "https://www.olyv.co.in/",
     },
     {
       src: "https://static.trustpaisa.com/logos/full.svg",
       alt: "trustpaisa",
+      href: "https://trustpaisa.com/",
     },
     {
       src: "https://moneyview.in/images/mv-green-logo-v3Compressed.svg",
       alt: "moneyview",
+      href: "https://moneyview.in/",
+    },
+    {
+      src: "https://www.creditsea.com/_next/static/media/credit-sea-blue-h-latest.62519644.svg",
+      alt: "CreditSea",
+      href: "https://www.creditsea.com/",
+    },
+     {
+      src: "https://www.fatakpay.com/_next/image?url=%2Fnavbar-assest%2FLogo.png&w=384&q=75",
+      alt: "fatakpay",
+      href: "https://www.fatakpay.com/",
+    },
+    {
+      src: "https://www.ramfincorp.com/images/logo.png",
+      alt: "ram fincorp",
+      href: "https://www.ramfincorp.com/",
     },
   ];
 
@@ -148,7 +160,7 @@ export default function Second() {
           overflow="hidden"
           borderRadius="28px"
           borderColor="blue.100" // 🎨 Border matched to light theme
-          py={0}
+          py={6}
           boxShadow="0 20px 60px rgba(30, 64, 175, 0.08)" // 🎨 Subtle blue-tinted shadow
         >
           {/* Left Gradient - Matched to blue.50 */}
@@ -181,24 +193,23 @@ export default function Second() {
               const hasError = logoErrors[originalIndex];
 
               return (
-                <Box
-                  key={idx}
-                  mx={4}
-                  minW={{ base: "100px", md: "150px" }}
-                  h={{ base: "80px", md: "90px" }}
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  bg="white"
-                  borderRadius="24px"
-                  border="1px solid"
-                  borderColor="blue.100" // 🎨 Light blue border instead of gray
-                  boxShadow="0 8px 30px rgba(30, 64, 175, 0.06)" // 🎨 Blue-tinted card shadow
-                  transition=".35s"
-                  _hover={{
-                    transform: "translateY(-8px)",
-                    boxShadow: "0 20px 45px rgba(30, 64, 175, 0.15)",
-                    borderColor: "blue.300",
+                <a
+                  href={partner.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    textDecoration: "none",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    margin: "0 16px",
+                    minWidth: "150px",
+                    height: "90px",
+                    background: "white",
+                    borderRadius: "24px",
+                    border: "1px solid #dbeafe",
+                    boxShadow: "0 8px 30px rgba(30, 64, 175, 0.06)",
+                    transition: "all .35s",
                   }}
                 >
                   {hasError ? (
@@ -225,7 +236,7 @@ export default function Second() {
                       }}
                     />
                   )}
-                </Box>
+                </a>
               );
             })}
           </Box>

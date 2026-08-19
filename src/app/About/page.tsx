@@ -30,36 +30,35 @@ export default function About() {
   }, []);
 
   return (
-    <Box w="full" minH="100vh" bg="#0b1220" color="white" overflow="hidden">
+    <Box w="full" minH="70vh" bg="#0b1220" color="blue.50" overflow="hidden">
 
       {/* 🌟 1. HERO SECTION - High Contrast Text */}
       <Box
         position="relative"
         w="full"
-        h={{ base: "70vh", md: "85vh" }}
+        h={{ base: "60vh", md: "80vh" }}
         display="flex"
         alignItems="center"
         justifyContent="center"
         textAlign="center"
-        bgImage="url('/loan marketplace.jpg')"
-        bgSize="cover"
+      
         backgroundPosition="center"
         bgRepeat="no-repeat"
-        mt={20}
+     
       >
         {/* Darker Gradient Overlay for maximum text readability */}
-        <Box position="absolute" inset={0} bgGradient="linear(to-b, rgba(0,0,0,0.85), #0b1220)" />
+        <Box position="absolute" inset={0} bg="blue.50" />
 
         <Box position="relative" zIndex={1} maxW="4xl" px={6} data-aos="fade-up">
           <Text
-            color="yellow.400"
+            color="blue.600"
             fontWeight="bold"
             letterSpacing="widest"
             fontSize="sm"
             textTransform="uppercase"
-            mb={3}
+            mb={0}
           >
-            Welcome to KeshvaCredit
+            India's Elite Loan Ecosystem
           </Text>
 
           <Heading
@@ -67,28 +66,27 @@ export default function About() {
             fontSize={{ base: "3xl", md: "5xl", lg: "6xl" }}
             fontWeight="extrabold"
             lineHeight="1.1"
-            mb={6}
-            color="white" // Pure white heading
+            mb={2}
+            color="black"
             textShadow="0 2px 20px rgba(0,0,0,0.5)" // Subtle shadow for pop
           >
-            India's 1st Loan{" "}
-            <Text as="span" color="orange.400">
-              Marketplace
+           Simplifying Your {" "}
+            <Text as="span" color="blue.800">
+              Financial Journey
             </Text>
-            <br />
-            Simplifying Your Journey
+            {/* <br /> */}
           </Heading>
 
           <Text
             mt={4}
-            color="yellow.400" // Brighter gray for dark bg
+            color="blue.400"
             fontSize={{ base: "md", md: "xl" }}
             maxW="2xl"
             mx="auto"
             lineHeight="1.6"
-            textShadow="0 1px 5px rgba(0,0,0,0.5)"
           >
-            Experience instant approvals, unbeatable interest rates, and trusted lenders for Personal, Business, and Home Loans. Compare India's top lenders in one place.
+            We simplify borrowing by matching your profile with top RBI-regulated lenders. Compare terms, secure competitive rates, and unlock instant approvals—all in one secure place.
+
           </Text>
 
         </Box>

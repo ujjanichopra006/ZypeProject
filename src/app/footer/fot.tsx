@@ -76,7 +76,7 @@ const FooterLink: React.FC<FooterLinkProps> = ({
       style={{ textDecoration: "none", display: "inline-block" }}
     >
       <Text
-        fontSize="xs"
+        fontSize="sm"  // ✅ Changed from "xs" to "sm"
         color="gray.700"
         py={1}
         cursor="pointer"
@@ -104,7 +104,7 @@ const FooterSection: React.FC<FooterSectionProps> = ({ title, children }) => {
     <VStack align="start" gap={2}>
       <Heading
         as="h3"
-        size="xs"
+        size="md"  // ✅ Changed from "xl" to "md" for better balance
         fontWeight="semibold"
         textTransform="uppercase"
         letterSpacing="wide"
@@ -152,7 +152,7 @@ function Footer() {
               />
             </Link>
             <Text
-              fontSize="xs"
+              fontSize="md"  // ✅ Changed from "mx" (typo) to "md"
               color="gray.800"
               lineHeight="relaxed"
               maxW="xs"
@@ -176,7 +176,7 @@ function Footer() {
               <FooterLink href="/personal-loan">
                 <Button
                   variant="plain"
-                  fontSize="xs"
+                  fontSize="sm"  // ✅ Changed from "mx" to "sm"
                   justifyContent="flex-start"
                   p={0}
                   h="auto"
@@ -191,7 +191,7 @@ function Footer() {
               <FooterLink href="/business-loan">
                 <Button
                   variant="plain"
-                  fontSize="xs"
+                  fontSize="sm"  // ✅ Changed from "mx" to "sm"
                   justifyContent="flex-start"
                   p={0}
                   h="auto"
@@ -206,7 +206,7 @@ function Footer() {
               <FooterLink href="/gold-loan">
                 <Button
                   variant="plain"
-                  fontSize="xs"
+                  fontSize="sm"  // ✅ Changed from "mx" to "sm"
                   justifyContent="flex-start"
                   p={0}
                   h="auto"
@@ -221,7 +221,7 @@ function Footer() {
               <FooterLink href="/home-loan">
                 <Button
                   variant="plain"
-                  fontSize="xs"
+                  fontSize="sm"  // ✅ Changed from "mx" to "sm"
                   justifyContent="flex-start"
                   p={0}
                   h="auto"
@@ -237,26 +237,42 @@ function Footer() {
 
             {/* Social Section */}
             <FooterSection title="Follow Us">
-              <FooterLink href="https://www.linkedin.com/company/keshvacredit/" isExternal>
-                LinkedIn
-              </FooterLink>
-              <FooterLink href="https://www.facebook.com/share/1ATVmsgGNK/" isExternal>
-                Facebook
-              </FooterLink>
-              <FooterLink href="https://www.instagram.com/keshva_credit" isExternal>
-                Instagram
-              </FooterLink>
-              <FooterLink href="https://whatsapp.com/channel/0029Vb5j8WU65yD5kbrEth19" isExternal>
-                WhatsApp
-              </FooterLink>
-              <FooterLink href="https://www.youtube.com/@keshvacredit" isExternal>
-                YouTube
-              </FooterLink>
-              <FooterLink href="https://x.com/KeshvaCredit?s=09" isExternal>
-                X (Twitter)
-              </FooterLink>
-            </FooterSection>
+              <Text fontSize="md">
+                <FooterLink href="https://www.linkedin.com/company/keshvacredit/" isExternal>
+                  LinkedIn
+                </FooterLink>
+              </Text>
 
+              <Text fontSize="md">
+                <FooterLink href="https://www.facebook.com/share/1ATVmsgGNK/" isExternal>
+                  Facebook
+                </FooterLink>
+              </Text>
+
+              <Text fontSize="md">
+                <FooterLink href="https://www.instagram.com/keshva_credit" isExternal>
+                  Instagram
+                </FooterLink>
+              </Text>
+
+              <Text fontSize="md">
+                <FooterLink href="https://whatsapp.com/channel/0029Vb5j8WU65yD5kbrEth19" isExternal>
+                  WhatsApp
+                </FooterLink>
+              </Text>
+
+              <Text fontSize="md">
+                <FooterLink href="https://www.youtube.com/@keshvacredit" isExternal>
+                  YouTube
+                </FooterLink>
+              </Text>
+
+              <Text fontSize="md">
+                <FooterLink href="https://x.com/KeshvaCredit?s=09" isExternal>
+                  X (Twitter)
+                </FooterLink>
+              </Text>
+            </FooterSection>
             {/* Legal Section */}
             <FooterSection title="Legal">
               <FooterLink href="/PrivacyPolicy">Privacy Policy</FooterLink>
@@ -287,7 +303,7 @@ function Footer() {
         {/* Bottom Section */}
         <VStack gap={2} align="center">
           {/* Copyright */}
-          <Text fontSize="xs" color="gray.800" textAlign="center">
+          <Text fontSize="sm" color="gray.800" textAlign="center">  {/* ✅ Changed from "xs" to "sm" */}
             © {new Date().getFullYear()} Keshvacredit Services Private Limited. All Rights Reserved -
             CIN:{" "}
             <Text as="span" fontWeight="medium" color="black">
@@ -323,7 +339,7 @@ function Footer() {
                   style={{ textDecoration: "none" }}
                 >
                   <Text
-                    fontSize="2xs"
+                    fontSize="xs"  // ✅ Changed from "2xs" to "xs"
                     color="gray.700"
                     transition="all 0.2s"
                     _hover={{

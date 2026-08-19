@@ -72,62 +72,196 @@ export default function About() {
     router.push(path);
   };
 
+  // Gradient colors for partner cards
+  const gradientColors = [
+    "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+    "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+    "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+    "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+  ];
+
   return (
     <Box>
-      {/* Loan Partners Section */}
-      <Box bg="blue.50" py={{ base: 8, md: 6 }}>
-        <Container maxW="7xl">
+      {/* Loan Partners Section - Enhanced */}
+      <Box
+        bg="linear-gradient(180deg, #f0f4ff 0%, #ffffff 100%)"
+        py={{ base: 4, md: 10 }}
+        position="relative"
+        overflow="hidden"
+      >
+        {/* Decorative Background Elements */}
+        <Box
+          position="absolute"
+          top="-20%"
+          right="-10%"
+          w="300px"
+          h="300px"
+          bg="blue.200"
+          borderRadius="full"
+          filter="blur(100px)"
+          opacity="0.3"
+        />
+     
+
+        <Container maxW="7xl" position="relative" zIndex={1}>
           <VStack gap={4} mb={12}>
+            <Badge
+              bg="blue.600"
+              color="white"
+              px={4}
+              py={1.5}
+              borderRadius="full"
+              fontSize="sm"
+              data-aos="fade-up"
+            >
+              Trusted Partners
+            </Badge>
+
             <Heading
               as="h2"
-              fontSize={{ base: "3xl", md: "4xl" }}
-              fontWeight="bold"
+              fontSize={{ base: "3xl", md: "5xl" }}
+              fontWeight="extrabold"
               color="black"
               textAlign="center"
               data-aos="fade-up"
+              data-aos-delay="100"
+              letterSpacing="tight"
             >
-              Our Loan Partners
+              Our <Box as="span" color="blue.600">Loan Partners</Box>
             </Heading>
 
             <Text
               fontSize={{ base: "md", md: "lg" }}
-              color="gray.800"
+              color="gray.600"
               textAlign="center"
               maxW="2xl"
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              We work with partners who believe in "quality over quantity" and
+              We work with partners who believe in <Box as="span" fontWeight="bold" color="blue.600">"quality over quantity"</Box> and
               strive for excellence.
             </Text>
           </VStack>
 
-          <SimpleGrid columns={{ base: 2, md: 5 }} gap={4}>
-            {partners.map((partner, index) => (
-              <Box
-                key={index}
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                p={4}
-                data-aos="zoom-in"
-                data-aos-delay={partner.delay}
-              >
-                <Image
-                  src={partner.src}
-                  alt={partner.alt}
-                  width={100}
-                  height={70}
-                  className="object-contain"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "/placeholder.png";
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 5 }} gap={10}>
+            {partners.map((partner, index) => {
+              const gradientIndex = index % gradientColors.length;
+              return (
+                <Box
+                  key={index}
+                  position="relative"
+                  data-aos="flip-up"
+                  data-aos-delay={partner.delay || index * 50}
+                  transition="all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+                  _hover={{
+                    transform: "translateY(-8px) scale(1.02)",
+                    zIndex: 10,
                   }}
-                />
-              </Box>
-            ))}
+                  cursor="pointer"
+                >
+                  {/* Glowing border effect */}
+            
+
+                  <Box
+                    bg="white"
+                    borderRadius="2xl"
+                    p={6}
+                    boxShadow="lg"
+                    border="1px solid"
+                    borderColor="gray.100"
+                    transition="all 0.4s ease"
+                    position="relative"
+                    _hover={{
+                      boxShadow: "2xl",
+                      borderColor: "blue.200",
+                    }}
+                    height="100%"
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    minH="120px"
+                  >
+                    {/* Hover shine effect */}
+                    <Box
+                      position="absolute"
+                      top="0"
+                      left="0"
+                      right="0"
+                      bottom="0"
+                      bg="linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)"
+                      opacity="0"
+                      transition="opacity 0.6s ease"
+                      _groupHover={{ opacity: 1 }}
+                      borderRadius="2xl"
+                      pointerEvents="none"
+                    />
+
+                    <Image
+                      src={partner.src}
+                      alt={partner.alt}
+                      width={100}
+                      height={50}
+                      className="object-contain"
+                      style={{
+                        filter: "grayscale(0%)",
+                        transition: "all 0.3s ease",
+                      }}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = "/placeholder.png";
+                      }}
+                    />
+                  </Box>
+                </Box>
+              );
+            })}
           </SimpleGrid>
+
+          {/* Trust indicator */}
+          <Box
+            mt={12}
+            textAlign="center"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <HStack
+              justify="center"
+              gap={6}
+              flexWrap="wrap"
+              bg="white"
+              px={8}
+              py={4}
+              borderRadius="full"
+              boxShadow="sm"
+              maxW="xl"
+              mx="auto"
+            >
+              <HStack gap={1}>
+                <Box as="span" fontSize="lg">⭐</Box>
+                <Text fontSize="sm" color="gray.600">4.8/5 Rating</Text>
+              </HStack>
+              <Box w="1px" h="6" bg="gray.200" />
+              <HStack gap={1}>
+                <Box as="span" fontSize="lg">🏆</Box>
+                <Text fontSize="sm" color="gray.600">15+ Awards</Text>
+              </HStack>
+              <Box w="1px" h="6" bg="gray.200" />
+              <HStack gap={1}>
+                <Box as="span" fontSize="lg">👥</Box>
+                <Text fontSize="sm" color="gray.600">50K+ Customers</Text>
+              </HStack>
+            </HStack>
+          </Box>
         </Container>
+
+        <style jsx>{`
+          @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+          }
+        `}</style>
       </Box>
 
       {/* How It Works Section */}

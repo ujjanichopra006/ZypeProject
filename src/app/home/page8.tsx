@@ -1,14 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import Image from "next/image";
-import {
-  Star,
-  Users,
-  Handshake,
-  Landmark,
-  Clock3,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -17,315 +10,193 @@ import {
   Container,
   Heading,
   Text,
-  SimpleGrid,
   Flex,
   useBreakpointValue,
   VStack,
   HStack,
-  Icon,
+  IconButton,
 } from "@chakra-ui/react";
 
-const steps = [
-  {
-    id: 1,
-    title: "Fill Basic Details",
-    desc: "Provide your personal and financial details to help us find the best loan options.",
-    img: "/fill details.png",
-  },
-  {
-    id: 2,
-    title: "Choose an Offer",
-    desc: "Browse through loan offers and select the one that fits your requirements.",
-    img: "/an offer.png",
-  },
-  {
-    id: 3,
-    title: "Get Instant Approval",
-    desc: "Submit your documents online and receive money directly in your bank account.",
-    img: "/approval.png",
-  },
-];
-
+// Updated testimonials to match the image exactly
 const testimonials = [
+  {
+    name: "Aryan Verma",
+    letter: "A",
+    text: "The process was smooth and quick. Minimal paperwork and clear instructions made it hassle-free.",
+    rating: 5,
+  },
+  {
+    name: "Karan Singh",
+    letter: "K",
+    text: "Reliable and easy-to-use platform! Smooth application, helpful customer support, and flexible repayment plans.",
+    rating: 4,
+  },
+  {
+    name: "Neha Malhotra",
+    letter: "N",
+    text: "Seamless loan process with quick approval. Clear communication and transparent terms made it stress-free.",
+    rating: 5,
+  },
   {
     name: "Simran Kaur",
     letter: "S",
     text: "Instant loan approval and timely disbursement. Transparent process and professional support team.",
+    rating: 5,
   },
   {
     name: "Vikas Jha",
     letter: "V",
     text: "Very happy with their service. The loan process was simple and completely hassle-free from start to finish.",
-  },
-  {
-    name: "Ananya Gupta",
-    letter: "A",
-    text: "Clear instructions, minimal paperwork, and professional guidance. Loan was credited within the same day.",
-  },
-  {
-    name: "Parveen Chouhan",
-    letter: "P",
-    text: "Loan disbursement in less than 24 hours is not what I had expected but this is amazing. Thank you very much, KeshvaCredit team.",
-  },
-  {
-    name: "Pardeep 80B",
-    letter: "P",
-    text: "Highly satisfied with overall loan disbursement experience. Haven't seen any platform giving so many choices to cater to financial needs. Highly recommended!",
-  },
-  {
-    name: "Aryan Verma",
-    letter: "A",
-    text: "The process was smooth and quick. Minimal paperwork and clear instructions made it hassle-free.",
+    rating: 5,
   },
 ];
 
 export default function Eighth() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
     AOS.init({
-      duration: 1000,
-      easing: "ease-in-out",
-      once: false,
-      mirror: true,
-      offset: 80,
+      duration: 800,
+      easing: "ease-out-cubic",
+      once: true,
+      offset: 60,
     });
-
-    AOS.refresh();
   }, []);
 
-  // ✅ Responsive values
-  const headingSize = useBreakpointValue({ base: "xl", md: "2xl" });
-  const subTextSize = useBreakpointValue({ base: "xs", md: "sm" });
-  const stepTitleSize = useBreakpointValue({ base: "sm", md: "base" });
-  const stepDescSize = useBreakpointValue({ base: "2xs", md: "xs" });
-  const testimonialWidth = useBreakpointValue({ base: "200px", md: "220px" });
+  // Responsive values
+  const cardsToShow = useBreakpointValue({ base: 1, md: 2, lg: 3 }) || 1;
+  const headingSize = useBreakpointValue({ base: "xl", md: "2xl", lg: "3xl" });
+  const subTextSize = useBreakpointValue({ base: "sm", md: "md" });
+
+  const maxIndex = Math.max(0, testimonials.length - cardsToShow);
+
+  // Auto-slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [maxIndex]);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
 
   return (
-    <Box bg="blue.50" color="blue.900" py={{ base: 3, md: 2, lg: 3 }} overflow="hidden">
-      <Container maxW="1200px" px={{ base: 3, md: 5, lg: 6 }}>
+    <Box bg="blue.50" py={{ base: 8, md: 12 }} overflow="hidden">
+      <Container maxW="1100px" px={{ base: 4, md: 6 }}>
         
-        {/* ============================================ */}
-        {/* HOW IT WORKS - HEADING */}
-        {/* ============================================ */}
-        <Box textAlign="center" data-aos="fade-up">
-          <Heading
-            as="h2"
-            fontSize={headingSize}
-            fontWeight="bold"
-            color="blue.900"
-          >
-            How It Works
-          </Heading>
-
-          <Text
-            fontSize={subTextSize}
-            color="blue.700"
-            mt={1}
-          >
-            Get your loan in just 3 simple steps.
-          </Text>
-        </Box>
-
-        {/* ============================================ */}
-        {/* TIMELINE - Desktop */}
-        {/* ============================================ */}
-        <Box
-          position="relative"
-          mt={5}
-          display={{ base: "none", lg: "block" }}
-          data-aos="zoom-in"
-          data-aos-delay="100"
-        >
-          <Box
-            position="absolute"
-            top="12px"
-            left={0}
-            width="100%"
-            height="2px"
-            bg="blue.500"
-            borderRadius="full"
-          />
-
-          <Flex justify="space-between" position="relative" zIndex={10}>
-            {[1, 2, 3].map((num) => (
-              <Box
-                key={num}
-                width="32px"
-                height="32px"
-                borderRadius="full"
-                bg="blue.500"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                fontSize="xs"
-                fontWeight="bold"
-                color="white"
-              >
-                {num}
-              </Box>
-            ))}
-          </Flex>
-        </Box>
-
-        {/* ============================================ */}
-        {/* STEP CARDS */}
-        {/* ============================================ */}
-        <SimpleGrid
-          columns={{ base: 1, md: 2, lg: 3 }}
-          gap={3}
-          mt={5}
-        >
-          {steps.map((item, index) => (
-            <Box
-              key={index}
-              bg="white"
-              border="1px solid"
-              borderColor="green.200"
-              borderRadius="lg"
-              p={3}
+        {/* Header Section */}
+        <VStack gap={2} mb={10} data-aos="fade-down">
+          <HStack gap={2}>
+            <Star size={28} fill="#FBBF24" color="#FBBF24" strokeWidth={0} />
+            <Heading
+              as="h2"
+              fontSize={headingSize}
+              fontWeight="bold"
+              color="gray.900"
               textAlign="center"
-              boxShadow="0 10px 30px rgba(30, 64, 175, 0.08)"
-              transition="all 0.3s ease"
-              _hover={{
-                transform: "translateY(-4px)",
-                boxShadow: "0 20px 50px rgba(30, 64, 175, 0.15)",
-                borderColor: "green.400",
-              }}
-              data-aos="fade-up"
-              data-aos-delay={index * 150}
             >
-              <Flex justify="center" mb={4}>
+              Rating & Reviews
+            </Heading>
+          </HStack>
+          <Text fontSize={subTextSize} color="gray.500" textAlign="center" maxW="600px">
+            India's Top Loan Aggregator – Trusted by Thousands Nationwide.
+            <br />
+            See what our happy customers have to say.
+          </Text>
+        </VStack>
+
+        {/* Slider Section */}
+        <Box position="relative" data-aos="fade-up">
+          {/* Cards Container */}
+          <Box overflow="hidden" px={{ base: 0, md: 2 }}>
+            <Flex
+              transition="transform 0.5s ease-in-out"
+              transform={`translateX(-${currentIndex * (100 / cardsToShow)}%)`}
+              gap={6}
+            >
+              {testimonials.map((review, index) => (
                 <Box
-                  width="50px"
-                  height="50px"
-                  position="relative"
+                  key={index}
+                  flex={`0 0 calc(${100 / cardsToShow}% - ${cardsToShow > 1 ? '16px' : '0px'})`}
+                  bg="white"
+                  borderRadius="xl"
+                  p={6}
+                  boxShadow="0 4px 20px rgba(0, 0, 0, 0.04)"
+                  border="1px solid"
+                  borderColor="gray.100"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="space-between"
+                  minH="220px"
                 >
-                  <Image
-                    src={item.img}
-                    alt={item.title}
-                    fill
-                    className="object-contain"
-                  />
+                  {/* Stars */}
+                  <HStack gap={1} mb={4}>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        size={16}
+                        fill={star <= review.rating ? "#FBBF24" : "none"}
+                        color={star <= review.rating ? "#FBBF24" : "#E2E8F0"}
+                        strokeWidth={2}
+                      />
+                    ))}
+                  </HStack>
+
+                  {/* Review Text */}
+                  <Text fontSize="sm" color="gray.600" lineHeight="1.7" mb={6} flex={1}>
+                    {review.text}
+                  </Text>
+
+                  {/* Divider */}
+                  <Box w="full" h="1px" bg="gray.100" mb={4} />
+
+                  {/* User Info */}
+                  <HStack gap={3}>
+                    <Box
+                      w="32px"
+                      h="32px"
+                      borderRadius="full"
+                      bg="teal.500"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      color="white"
+                      fontWeight="bold"
+                      fontSize="sm"
+                    >
+                      {review.letter}
+                    </Box>
+                    <Text fontSize="sm" fontWeight="bold" color="gray.900">
+                      {review.name}
+                    </Text>
+                  </HStack>
                 </Box>
-              </Flex>
+              ))}
+            </Flex>
+          </Box>
 
-              <Heading
-                as="h3"
-                fontSize={stepTitleSize}
-                fontWeight="bold"
-                color="blue.900"
-              >
-                {item.title}
-              </Heading>
-
-              <Text
-                fontSize={stepDescSize}
-                color="blue.700"
-                mt={2}
-                lineHeight="1.6"
-              >
-                {item.desc}
-              </Text>
-            </Box>
-          ))}
-        </SimpleGrid>
-
-        {/* ============================================ */}
-        {/* TESTIMONIALS */}
-        {/* ============================================ */}
-        <Box
-          mt={10}
-          overflow="hidden"
-          data-aos="fade-up"
-          data-aos-delay="150"
-        >
-          <style>{`
-            @keyframes scrollTestimonials {
-              0% { transform: translateX(0); }
-              100% { transform: translateX(-50%); }
-            }
-            
-            .testimonial-track {
-              display: flex;
-              gap: 12px;
-              width: max-content;
-              animation: scrollTestimonials 30s linear infinite;
-            }
-            
-            .testimonial-track:hover {
-              animation-play-state: paused;
-            }
-          `}</style>
-
-          <Box className="testimonial-track">
-            {[...testimonials, ...testimonials].map((item, index) => (
+          {/* Mobile Dots Indicator */}
+          <HStack justify="center" gap={2} mt={6} display={{ base: "flex", md: "none" }}>
+            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
               <Box
                 key={index}
-                width={testimonialWidth}
-                flexShrink={0}
-                border="1px solid"
-                borderColor="blue.200"
-                borderRadius="xl"
-                p={3}
-                bg="white"
+                w={index === currentIndex ? "20px" : "8px"}
+                h="8px"
+                borderRadius="full"
+                bg={index === currentIndex ? "teal.500" : "gray.300"}
+                cursor="pointer"
                 transition="all 0.3s ease"
-                _hover={{
-                  transform: "scale(1.05)",
-                  borderColor: "blue.400",
-                  boxShadow: "0 15px 40px rgba(30, 64, 175, 0.12)",
-                }}
-              >
-                {/* Stars */}
-                <HStack gap={1} mb={3} color="yellow.500">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star
-                      key={star}
-                      size={12}
-                      fill="currentColor"
-                      strokeWidth={0}
-                    />
-                  ))}
-                </HStack>
-
-                <Text
-                  fontSize="sm"
-                  lineHeight="1.6"
-                  color="blue.800"
-                  minHeight="85px"
-                >
-                  {item.text}
-                </Text>
-
-                <Box
-                  borderTop="1px solid"
-                  borderColor="blue.100"
-                  mt={3}
-                  pt={3}
-                  display="flex"
-                  alignItems="center"
-                  gap={2}
-                >
-                  <Box
-                    width="32px"
-                    height="32px"
-                    borderRadius="full"
-                    bg="blue.500"
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    fontSize="xs"
-                    fontWeight="bold"
-                    color="white"
-                  >
-                    {item.letter}
-                  </Box>
-
-                  <Text fontSize="sm" fontWeight="semibold" color="blue.900">
-                    {item.name}
-                  </Text>
-                </Box>
-              </Box>
+                onClick={() => setCurrentIndex(index)}
+              />
             ))}
-          </Box>
+          </HStack>
+
         </Box>
       </Container>
     </Box>

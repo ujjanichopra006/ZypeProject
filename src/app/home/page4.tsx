@@ -66,9 +66,9 @@ export default function Forth() {
       eligibility: [
         "Minimum age: 21 years",
         "Maximum age: 60 years at loan maturity",
-        "Minimum income: ₹15,000/month (salaried), ₹2L p.a. (self-employed)",
+        "Minimum income: ₹15,000/per month (salaried), ₹2L p.a. (self-employed)",
         "Credit score: 650 or above preferred",
-        "Employment: Minimum 1 year with current employer",
+        "Employment: Minimum 1 year with current employer (salaried) or 2 years in business (self-employed) ",
       ],
       documents: [
         "Identity Proof (Aadhaar/PAN)",
@@ -86,9 +86,9 @@ export default function Forth() {
       eligibility: [
         "Minimum age: 21 years",
         "Maximum age: 65 years at loan maturity",
-        "Minimum income: ₹25,000/month (salaried), ₹3L p.a. (self-employed)",
+        "Minimum income: ₹25,000/per month (salaried), ₹3L p.a. (self-employed)",
         "Property value: Minimum ₹20 lakh",
-        "Property should be free from legal disputes",
+        "own contribution: 10-20% of property value",
       ],
       documents: [
         "Identity & Address Proof (Aadhaar/PAN)",
@@ -106,9 +106,9 @@ export default function Forth() {
       eligibility: [
         "Business vintage: Minimum 3 years",
         "Annual turnover: Minimum ₹10 lakh",
-        "Profitability: Profitable for last 2 years",
+        "Profitability: should be profitable for last 2 years",
         "Credit score: 700 or above preferred",
-        "EMI/NMI ratio below 50%",
+        "Existing loans: EMI/NMI ratio below 50%",
       ],
       documents: [
         "Identity & Address Proof (Aadhaar/PAN)",
@@ -125,10 +125,9 @@ export default function Forth() {
       bgGradient: "linear-gradient(135deg, #f59e0b, #d97706)",
       eligibility: [
         "Minimum age: 18 years (21 for premium cards)",
-        "Minimum income: ₹12,000 per month",
+        "Minimum income: ₹12,000 per month (varies by card type)",
         "Credit score: 650 or above",
-        "Stable income source for last 6 months",
-        "No history of default in last 12 months",
+        "Employment: Stable income source for last 6 months",
       ],
       documents: [
         "Identity & Address Proof (Aadhaar/PAN)",
@@ -146,7 +145,8 @@ export default function Forth() {
       duration: 800,
       easing: "ease-out-cubic",
       once: true,
-      offset: 60,
+      mirror:false,
+      offset: 100,
     });
   }, []);
 
@@ -260,37 +260,7 @@ export default function Forth() {
                 flex="1"
                 textAlign={{ base: "center", lg: "left" }}
               >
-                <HStack gap={3} mb={4} justify={{ base: "center", lg: "flex-start" }}>
-                  <Badge
-                    fontSize="xs"
-                    px={4}
-                    py={2}
-                    borderRadius="full"
-                    bg="linear-gradient(135deg, #3b82f6, #8b5cf6)"
-                    color="white"
-                    textTransform="uppercase"
-                    letterSpacing="wider"
-                    animation={`${pulseGlow} 2s infinite`}
-                  >
-                    <HStack gap={2}>
-                      <Sparkles size={14} />
-                      <Text>Limited Time Offer</Text>
-                    </HStack>
-                  </Badge>
-                  <Badge
-                    fontSize="xs"
-                    px={3}
-                    py={2}
-                    borderRadius="full"
-                    bg="rgba(255,255,255,0.1)"
-                    color="white"
-                    backdropFilter="blur(10px)"
-                    border="1px solid rgba(255,255,255,0.2)"
-                  >
-                    ⚡ 5M+ Downloads
-                  </Badge>
-                </HStack>
-
+                
                 <Heading
                   as="h1"
                   fontSize="2xl"
@@ -385,34 +355,6 @@ export default function Forth() {
                       e.target.src = 'https://via.placeholder.com/250x500/1a1a2e/FFFFFF?text=App+Screenshot';
                     }}
                   />
-                  <Box
-                    position="absolute"
-                    bottom="-20px"
-                    left="50%"
-                    transform="translateX(-50%)"
-                    width="80%"
-                    height="30px"
-                    bg="rgba(37, 99, 235, 0.2)"
-                    filter="blur(30px)"
-                    borderRadius="full"
-                  />
-                  {/* Floating Badge on Image */}
-                  <Box
-                    position="absolute"
-                    top={-4}
-                    right={-4}
-                    bg="linear-gradient(135deg, #22c55e, #16a34a)"
-                    px={3}
-                    py={2}
-                    borderRadius="full"
-                    boxShadow="0 10px 30px rgba(34, 197, 94, 0.4)"
-                    animation={`${pulseGlow} 2s infinite`}
-                  >
-                    <HStack gap={1}>
-                      <Zap size={14} color="white" />
-                      <Text fontSize="xs" fontWeight="bold" color="white">Live</Text>
-                    </HStack>
-                  </Box>
                 </Box>
               </Box>
             </Flex>
@@ -426,24 +368,6 @@ export default function Forth() {
           mb={{ base: 8, md: 10 }}
           data-aos="fade-down"
         >
-          <Badge
-            fontSize="xs"
-            px={5}
-            py={2}
-            borderRadius="full"
-            bg="blue.100"
-            color="blue.800"
-            textTransform="uppercase"
-            letterSpacing="wider"
-            border="1px solid"
-            borderColor="blue.200"
-          >
-            <HStack gap={2}>
-              <Shield size={14} />
-              <Text>Trusted by 1M+ Users</Text>
-            </HStack>
-          </Badge>
-
           <Heading
             as="h1"
             fontSize="30"
@@ -452,7 +376,7 @@ export default function Forth() {
             letterSpacing="-0.02em"
             color="blue.900"
           >
-            Eligibility & Document Checker
+           Financial Products Eligibility
           </Heading>
 
           <Text
@@ -502,8 +426,7 @@ export default function Forth() {
                 }}
                 transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                 boxShadow={isActive ? `0 12px 35px rgba(59, 130, 246, 0.3)` : "sm"}
-                data-aos="flip-up"
-                data-aos-delay={index * 80}
+                
               >
                 <Text as="span" mr={1}>{item.emoji}</Text>
                 {item.label}
@@ -599,9 +522,6 @@ export default function Forth() {
                   gap={2.5}
                   width="100%"
                   align="start"
-                  data-aos="fade-up"
-                  data-aos-delay={index * 80}
-                  data-aos-duration="600"
                   bg={hoveredCard === "eligibility" ? "rgba(255,255,255,0.6)" : "transparent"}
                   p={2}
                   borderRadius="lg"
@@ -626,25 +546,6 @@ export default function Forth() {
                 </HStack>
               ))}
             </VStack>
-
-            <Box
-              mt={5}
-              pt={4}
-              borderTop="2px solid"
-              borderColor={`${currentData.color}.200`}
-            >
-              <HStack gap={3}>
-                <Badge colorScheme={currentData.color} fontSize="xs" px={3} py={1.5} borderRadius="full">
-                  <HStack gap={1}>
-                    <Clock size={12} />
-                    <Text>Quick Check</Text>
-                  </HStack>
-                </Badge>
-                <Text fontSize="xs" color={`${currentData.color}.800`}>
-                  ✓ All criteria verified
-                </Text>
-              </HStack>
-            </Box>
           </Box>
 
           {/* Documents Card */}
@@ -721,9 +622,6 @@ export default function Forth() {
                   gap={2.5}
                   width="100%"
                   align="start"
-                  data-aos="fade-up"
-                  data-aos-delay={index * 80}
-                  data-aos-duration="600"
                   bg={hoveredCard === "documents" ? "rgba(255,255,255,0.6)" : "transparent"}
                   p={2}
                   borderRadius="lg"
@@ -747,25 +645,6 @@ export default function Forth() {
                 </HStack>
               ))}
             </VStack>
-
-            <Box
-              mt={5}
-              pt={4}
-              borderTop="2px solid"
-              borderColor={`${currentData.color}.200`}
-            >
-              <HStack gap={3}>
-                <Badge colorScheme={currentData.color} fontSize="xs" px={3} py={1.5} borderRadius="full">
-                  <HStack gap={1}>
-                    <Gift size={12} />
-                    <Text>Required</Text>
-                  </HStack>
-                </Badge>
-                <Text fontSize="xs" color={`${currentData.color}.800`}>
-                  {currentData.documents.length} documents needed
-                </Text>
-              </HStack>
-            </Box>
           </Box>
         </Flex>
 

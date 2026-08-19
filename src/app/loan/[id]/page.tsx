@@ -66,6 +66,7 @@ export default function LoanPage() {
     <Box 
       minH="100vh" 
       bg={bgColor} 
+      mt={20}
       py={12} 
       px={{ base: 4, md: 8, lg: 16 }}
     >

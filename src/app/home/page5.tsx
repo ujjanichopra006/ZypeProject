@@ -40,36 +40,36 @@ export default function Fifth() {
 
   const loanCards = [
     {
-      image: "/personal loan",
-      alt: "Personal Loan",
-      title: "Personal Loan",
+      image: "/digital.png",
+      alt: "Instant digital payout",
+      title: "Instant digital payout",
       icon: FaHandHoldingUsd,
       description:
-        "Get instant personal loans with KeshvaCredit at competitive rates. Minimal docs, quick approval & RBI-regulated partners.",
+        "Skip long lines. Once approved by our partner NBFC, funds arrive in your account swiftly.",
     },
     {
-      image: "/home loan",
-      alt: "Home Loan",
-      title: "Home Loan",
+      image: "/online.png",
+      alt: "100% Online Flow",
+      title: "100% online flow",
       icon: FaHome,
       description:
-        "Affordable home loans at competitive interest rates with quick approval and flexible options.",
+        "No physical visits or signed paper stacks needed. Complete verification from your smartphone.`",
     },
     {
-      image: "/credit loan",
-      alt: "Credit Card",
-      title: "Credit Card",
+      image: "/repayment.png",
+      alt: "Flexible Repayment",
+      title: "Flexible Repayment",
       icon: FaCreditCard,
       description:
-        "Borrow up to your limit for purchases or bills with flexible repayment options.",
+        "Tailored monthly schedules that align with your paycheck or business sales cycles.",
     },
     {
-      image: "/business loan",
-      alt: "Business Loan",
-      title: "Business Loan",
+      image: "/NBFC.png ",
+      alt: "Regulated NBFC Partners",
+      title: "Regulated NBFC Partners",
       icon: FaBuilding,
       description:
-        "Grow your business with easy financing, low interest rates, and quick approvals.",
+        "All loan matches are backed by RBI-regulated lenders keeping you compliant and secure.",
     },
   ];
 
@@ -124,7 +124,7 @@ export default function Fifth() {
                 letterSpacing="2px"
                 mb={2}
               >
-                OUR LOAN SERVICES
+                PREMIUM STANDARDS
               </Text>
 
               <Heading
@@ -134,9 +134,9 @@ export default function Fifth() {
                 lineHeight="1.2"
                 mb={3}
               >
-                Find the Perfect
+                Borrow Wisely, 
                 <Text as="span" color="blue.600">
-                  {" "}Loan for You
+                  {" "}Succeed Fater
                 </Text>
               </Heading>
 
@@ -146,15 +146,13 @@ export default function Fifth() {
                 fontSize={{ base: "sm", md: "md" }}
                 lineHeight="1.8"
               >
-                Explore our wide range of loan solutions with fast approvals,
-                competitive interest rates, minimal documentation, and trusted
-                banking partners across India.
+                Accessing digital cash shouldn't take days. Our platform aligns with your lifestyle.
               </Text>
             </Box>
 
             <SimpleGrid
               columns={{ base: 1, md: 2 }}
-              gap={{ base: 1, md: 1.5 }}
+              gap={{ base: 2, md: 5 }}
             >
               {loanCards.map((card, index) => (
                 <Box

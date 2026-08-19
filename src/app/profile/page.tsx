@@ -22,7 +22,6 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-
 import {
   Box,
   Container,
@@ -159,6 +158,7 @@ export default function Profile() {
       data.person_pan,
       data.person_dob,
       data.person_aadhar,
+      data.person_name_as_per_aadhar,
       data.employment_type,
       data.person_age,
       data.person_location,

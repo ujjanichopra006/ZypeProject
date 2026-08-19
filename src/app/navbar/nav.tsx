@@ -107,38 +107,7 @@ export default function Navbar() {
                   alt="KeshvaCredit Logo"
                   height={{ base: "35px", md: "45px" }}
                   objectFit="contain"
-                  // onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                  //   e.currentTarget.src = "/satyamev-jayte.jpg";
-                  // }}
                 />
-
-                {/* 🇮🇳 Tricolor Circle Icon + Wish Text */}
-                <HStack
-                  gap={1.5}
-                  align="center"
-                  mt="3px"
-                  display="flex"
-                >
-                  {/* <TricolorCircle /> */}
-                   <Image
-                  src="/satyamev-jayte.jpg"
-                  alt="Ashoka Satambh"
-                  height={{ base: "15px", md: "25px" }}
-                  objectFit="contain"
-                  // onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                  //   e.currentTarget.src = "/satyamev-jayte.jpg";
-                  // }}
-                />
-                  <Text
-                    fontSize="13px"
-                    fontWeight="bold"
-                    background="linear-gradient(90deg, #d56f08 0%, #138808 100%)"
-                    backgroundClip="text"
-                    color="transparent"
-                  >
-                    Celebrating 79 Years of Freedom
-                  </Text>
-                </HStack>
               </VStack>
             </Link>
           </Box>

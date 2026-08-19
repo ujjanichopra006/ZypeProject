@@ -81,27 +81,31 @@ export default function HeroSection() {
   const smartIconColor = "blue.600";
 
   const loanProducts = [
-    {
-      title: "Personal Loan",
-      amount: "₹40 LAKHS",
-      icon: "💰",
-    },
-    {
-      title: "Short-Term Loan",
-      amount: "₹5 LAKHS",
-      icon: "⚡",
-    },
-    {
-      title: "Business Loan",
-      amount: "₹75 LAKHS",
-      icon: "🏢",
-    },
-    {
-      title: "Gold Loan",
-      amount: "₹50 LAKHS",
-      icon: "🥇",
-    },
-  ];
+  {
+    title: "Personal Loan",
+    amount: "₹40 LAKHS",
+    icon: "💰",
+    href: "/personal-loan",
+  },
+  {
+    title: "Short Term Loan",
+    amount: "₹5 LAKHS",
+    icon: "⚡",
+    href: "/Downloadpage",
+  },
+  {
+    title: "Business Loan",
+    amount: "₹75 LAKHS",
+    icon: "🏢",
+    href: "/business-loan",
+  },
+  {
+    title: "Gold Loan",
+    amount: "₹50 LAKHS",
+    icon: "🥇",
+    href: "/Downloadpage",
+  },
+];
 
   const smartFeatures = [
     {
@@ -126,7 +130,7 @@ export default function HeroSection() {
       {/* Hero Section */}
       <Box
         w="full"
-        minH="90vh"
+        minH="70vh"
         display="flex"
         alignItems="center"
         bg={bgColor}
@@ -237,95 +241,20 @@ export default function HeroSection() {
                 pt={2}
                 w="full"
               >
-                {[
-                  { icon: CheckCircle, text: "100% Paperless Process" },
-                  { icon: Clock, text: "24-Hour Disbursal" },
-                  { icon: Star, text: "Easy Online Application" },
-                  { icon: Star, text: "RBI Regulated Partners" },
-                ].map((feature, index) => (
-                  <HStack
-                    key={index}
-                    gap={2}
-                    justify={{ base: "center", lg: "flex-start" }}
-                  >
-                    <Icon as={feature.icon} color={featureIconColor} boxSize={4} />
-                    <Text fontSize="sm" color={subTextColor} fontWeight="medium">
-                      {feature.text}
-                    </Text>
-                  </HStack>
-                ))}
               </SimpleGrid>
             </Stack>
-
-            {/* Right Side - Image */}
-            <Box
-              flex="1"
-              maxW={{ base: "100%", lg: "45%" }}
-              w="full"
-              position="relative"
-            >
-              <Box
-                position="relative"
-                borderRadius="3xl"
-                overflow="hidden"
-                boxShadow="2xl"
-                bg="gray.100"
-                aspectRatio={4 / 3}
-                w="full"
-              >
-                <Image
+            <Box flex={1} >
+            <Image
                   src="/loancompare.png"
                   alt="Instant Loans Online"
-                  w="100%"
-                  h="100%"
+                  w="100"
+                  h="70"
                   objectFit="cover"
+                  rounded="xl"
                   onError={(e: any) => {
                     e.target.src = 'https://via.placeholder.com/800x600/4A90E2/FFFFFF?text=Your+Trusted+Loan+Partner';
                   }}
                 />
-              </Box>
-
-              {/* Floating Badge - Top */}
-              <Box
-                position="absolute"
-                top="-20px"
-                right="-20px"
-                bg="blue.500"
-                color="white"
-                px={4}
-                py={2}
-                borderRadius="full"
-                boxShadow="lg"
-                display={{ base: "none", md: "flex" }}
-                alignItems="center"
-                gap={2}
-              >
-                <Icon as={Clock} />
-                <Text fontSize="sm" fontWeight="bold">
-                  Under 24 Hrs
-                </Text>
-              </Box>
-
-              {/* Floating Badge - Bottom */}
-              <Box
-                position="absolute"
-                bottom="-20px"
-                left="-20px"
-                bg="green.500"
-                color="white"
-                px={4}
-                py={2}
-                borderRadius="full"
-                boxShadow="lg"
-                display={{ base: "none", md: "flex" }}
-                alignItems="center"
-                gap={2}
-              >
-                <Icon as={CheckCircle} />
-                <Text fontSize="sm" fontWeight="bold">
-                  No Hidden Charges
-                </Text>
-              </Box>
             </Box>
           </Flex>
         </Container>
@@ -334,13 +263,13 @@ export default function HeroSection() {
       {/* Loan Products Section */}
       <Box
         w="full"
-        py={{ base: 8, md: 5 }}
+        py={{ base: 4, md: 2 }}
         bg={bgColor}
         px={{ base: 4, md: 6, lg: 8 }}
       >
         <Container maxW="7xl">
           {/* Header Section */}
-          <VStack gap={3} align="center" mb={5}>
+          <VStack gap={1} align="center" mb={10}>
             <Heading
               as="h2"
               fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
@@ -351,7 +280,7 @@ export default function HeroSection() {
               Choose Your Loan Product
             </Heading>
             <Text
-              fontSize={{ base: "md", md: "lg" }}
+              fontSize={{ base: "md", md: "lg" }} mt="2"
               color={subTextColor}
               textAlign="center"
               maxW="2xl"
@@ -363,7 +292,7 @@ export default function HeroSection() {
           {/* Loan Products Grid */}
           <SimpleGrid
             columns={{ base: 1, sm: 2, lg: 4 }}
-            gap={{ base: 4, md: 6 }}
+            gap={{ base: 2, md: 3 }}
             w="full"
           >
             {loanProducts.map((product, index) => (
@@ -413,6 +342,7 @@ export default function HeroSection() {
                 </HStack>
 
                 {/* Get Offers Button */}
+                 <Link href={product.href} style={{ width: "100%"}}>
                 <Button
                   bg={loanButtonBg}
                   color={loanButtonColor}
@@ -432,6 +362,7 @@ export default function HeroSection() {
                 >
                   Get Offers →
                 </Button>
+                </Link>
               </Box>
             ))}
           </SimpleGrid>
